@@ -22,7 +22,7 @@ namespace Luftschiff.Code.Game
             return sprite.getLocalBounds();
         }
         // update function : using in ingame Action
-        abstract public void update() { }
+        public void update() { }
 
         // draw sprites 
         public void draw()
