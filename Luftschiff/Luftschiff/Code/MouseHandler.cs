@@ -1,12 +1,12 @@
 ﻿using SFML.Window;
-using spaceShooter.Code;
+using Luftschiff.Code;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace spaceShooter {
+namespace Luftschiff {
     static class MouseHandler {
         public static bool Clicking { get; private set; }
         public static bool UnhandledClick { get; set; }

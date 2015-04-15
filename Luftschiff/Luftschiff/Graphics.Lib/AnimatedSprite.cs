@@ -8,14 +8,15 @@ using System.Timers;
 using SFML;
 using SFML.Graphics;
 using SFML.Window;
+using SFML.System;
 
-namespace SoloGame
+namespace Luftschiff.Graphics.Lib
 {
     class AnimatedSprite: SFML.Graphics.Transformable, SFML.Graphics.Drawable
     {
         private Animation m_animation;
-        TimeSpan m_frameTime;
-        TimeSpan m_currentTime;
+        Time m_frameTime;
+        Time m_currentTime;
         private int m_currentFrame;
         private bool m_isLooped;
         private bool m_isPaused;
@@ -25,7 +26,7 @@ namespace SoloGame
         private Vertex[] m_vertices = new Vertex[4];
         private Transform m_transform;
 
-        public AnimatedSprite(TimeSpan frameTime ,bool paused , bool looped)
+        public AnimatedSprite(Time frameTime ,bool paused , bool looped)
         {
            m_frameTime = frameTime;
            m_currentFrame= 0;
@@ -43,7 +44,7 @@ namespace SoloGame
             setFrame(m_currentFrame, false);
         }
 
-        public void setFrameTime(TimeSpan time)
+        public void setFrameTime(Time time)
         {
             m_frameTime = time;
         }
@@ -110,7 +111,7 @@ namespace SoloGame
             return !m_isPaused;
         }
 
-        public TimeSpan getFrameTime()
+        public Time getFrameTime()
         {
             return m_frameTime;
         }
@@ -138,11 +139,11 @@ namespace SoloGame
 
             if (resetTime)
             {
-                m_currentTime = TimeSpan.Zero;
+                m_currentTime = Time.Zero;
             }
         }
 
-        public void update(TimeSpan deltaTime)
+        public void update(Time deltaTime)
         {
             //unpaused and valid anim
             if (!m_isPaused && m_validAnimation)
@@ -153,7 +154,7 @@ namespace SoloGame
                 // if current time is bigger then the frame time advance one frame
                 if (m_currentTime >= m_frameTime)
                 {
-                    m_currentTime = new TimeSpan(m_currentTime.Ticks % m_frameTime.Ticks);
+                    m_currentTime = new Time(m_currentTime.AsMilliseconds() % m_frameTime.AsMilliseconds());
 
                     //next animation
                     if (m_currentFrame + 1 < m_animation.getSize())

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace spaceShooter.Code {
+namespace Luftschiff.Code {
     /// <summary>
     /// A standard globals class for things like enums or textures that need
     /// to be accessible from everywhere.

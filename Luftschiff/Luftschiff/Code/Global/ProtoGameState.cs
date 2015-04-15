@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace spaceShooter.Code.Global {
+namespace Luftschiff.Code.Global {
     public abstract class ProtoGameState{
         public bool Running { get; private set; }
 

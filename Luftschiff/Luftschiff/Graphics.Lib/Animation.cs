@@ -8,7 +8,7 @@ using SFML;
 using SFML.Window;
 using SFML.Graphics;
 
-namespace SoloGame
+namespace Luftschiff.Graphics.Lib
 {
     class Animation
     {
