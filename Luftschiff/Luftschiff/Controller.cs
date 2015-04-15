@@ -1,7 +1,7 @@
 ﻿using SFML.Graphics;
 using Luftschiff.Code;
 using Luftschiff.Code.Global;
-using Luftschiff.Code.Gamestates;
+using Luftschiff.Code.States;
 
 namespace Luftschiff
 {
