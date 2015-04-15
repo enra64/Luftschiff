@@ -40,16 +40,7 @@ namespace Luftschiff {
         }
 
         private static void initializeAssets() {
-            Globals.startMenuTextures.Add(new Texture("Assets/Menus/StartMenu/start.png"));
-            Globals.startMenuTextures.Add(new Texture("Assets/Menus/StartMenu/end.png"));
-
-            Globals.shipTextures.Add(new Texture("Assets/Sprites/Ships/smallorange.png"));
-
-            Globals.starTexture = new Texture("Assets/Sprites/background/flare.png");
-
-            Globals.bulletTextures.Add(new Texture("Assets/Sprites/Bullets/laser.png"));
-
-            Globals.asteroidTextures.Add(new Texture("Assets/Sprites/Asteroids/asteroid.png"));
+            //Globals.startMenuTextures.Add(new Texture("Assets/Menus/StartMenu/start.png"));
         }
     }
 }

@@ -12,5 +12,15 @@ namespace Luftschiff.Code {
     /// </summary>
     static class Globals {
         //static variables
+        public enum EStateSelection
+        {
+            main,
+            sub
+        }
+
+        public enum EGameStates
+        {
+            game
+        }
     }
 }

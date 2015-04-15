@@ -1,9 +1,4 @@
 ﻿using SFML.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Luftschiff.Code;
 using Luftschiff.Code.Global;
 using Luftschiff.Code.Gamestates;
@@ -23,7 +18,7 @@ namespace Luftschiff
         {
             Initializer.initialize();
 
-            loadState();//Globals.EStateSelection.main, Globals.EGameStates.startscreen);
+            loadState(Globals.EStateSelection.main, Globals.EGameStates.game);
 
             while (Window.IsOpen)
             {
@@ -37,23 +32,14 @@ namespace Luftschiff
             }
         }
 
-        public static void loadState()//Globals.EStateSelection which, Globals.EGameStates targetState)
+        public static void loadState(Globals.EStateSelection which, Globals.EGameStates targetState)
         {
-            main = new Game();
-            //ok ignore this too
-            /*
             if (which == Globals.EStateSelection.main)
             {
                 switch (targetState)
                 {
                     case Globals.EGameStates.game:
                         main = new Game();
-                        break;
-                    case Globals.EGameStates.endscreen:
-                        main = new EndScreen();
-                        break;
-                    case Globals.EGameStates.startscreen:
-                        main = new Startscreen();
                         break;
                 }
             }
@@ -63,7 +49,6 @@ namespace Luftschiff
                 {
                 }
             }
-             * */
         }
     }
 }
