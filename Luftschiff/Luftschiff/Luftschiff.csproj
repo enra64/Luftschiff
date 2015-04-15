@@ -47,12 +47,23 @@
     <Compile Include="Code\MouseHandler.cs" />
     <Compile Include="Code\States\Game.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Graphics.Lib\AnimatedSprite.cs" />
+    <Compile Include="Graphics.Lib\Animation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Graphics.Lib\csfml-audio-2.dll" />
+    <Content Include="Graphics.Lib\csfml-graphics-2.dll" />
+    <Content Include="Graphics.Lib\csfml-network-2.dll" />
+    <Content Include="Graphics.Lib\csfml-system-2.dll" />
+    <Content Include="Graphics.Lib\csfml-window-2.dll" />
+    <Content Include="Graphics.Lib\libsndfile-1.dll" />
+    <Content Include="Graphics.Lib\openal32.dll" />
+    <Content Include="Graphics.Lib\OpenTK.Compatibility.dll" />
+    <Content Include="Graphics.Lib\OpenTK.dll" />
     <Content Include="sfmlnet-audio-2.dll" />
     <Content Include="sfmlnet-graphics-2.dll" />
     <Content Include="sfmlnet-window-2.dll" />
