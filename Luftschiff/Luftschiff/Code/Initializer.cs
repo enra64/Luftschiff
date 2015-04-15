@@ -40,8 +40,7 @@ namespace Luftschiff {
         }
 
         private static void initializeAssets() {
-        
-
+            //Globals.startMenuTextures.Add(new Texture("Assets/Menus/StartMenu/start.png"));
         }
     }
 }

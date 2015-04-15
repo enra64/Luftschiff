@@ -154,8 +154,8 @@ namespace Luftschiff.Graphics.Lib
                 // if current time is bigger then the frame time advance one frame
                 if (m_currentTime >= m_frameTime)
                 {
-                    m_currentTime = new Time(m_currentTime.AsMilliseconds() % m_frameTime.AsMilliseconds());
-
+                    m_currentTime = (m_currentTime % m_frameTime);
+                    
                     //next animation
                     if (m_currentFrame + 1 < m_animation.getSize())
                         m_currentFrame++;
