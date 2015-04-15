@@ -1,11 +1,6 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using SFML;
-using SFML.Window;
 using SFML.Graphics;
 
 namespace Luftschiff.Graphics.Lib
@@ -14,11 +9,6 @@ namespace Luftschiff.Graphics.Lib
     {
         private List<IntRect> m_frames = new List<IntRect>();
         private Texture m_texture;
-
-        public Animation()
-        {
-
-        }
 
         public void addFrame(IntRect rect)
         {
@@ -33,8 +23,7 @@ namespace Luftschiff.Graphics.Lib
         public Texture Spritesheet
         {
             get { return m_texture; }
-            set { m_texture = value; }
-            
+            set { m_texture = value; }  
         }
 
         public int getSize()

@@ -1,20 +1,21 @@
-﻿using SFML.Graphics;
-using SFML.Window;
+﻿
 using Luftschiff.Code.Global;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Luftschiff.Graphics.Lib;
+using SFML.Graphics;
+using SFML.System;
+
 
 namespace Luftschiff.Code.States {
     class Game : ProtoGameState {
-        
+
         /// <summary>
         /// The gamestate constructor. Nothing must be done here, the superclass
         /// constructor is empty anyways
         /// </summary>
-        public Game () {
+        public Game ()
+        {
+
         }
 
         /// <summary>
@@ -36,7 +37,7 @@ namespace Luftschiff.Code.States {
         /// This is the update function that gets called for our Game-Gamestate
         /// </summary>
         internal override void update(){
-            
+
         }
     }
 }
