@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using spaceShooter.Code;
-using spaceShooter.Code.Global;
-using spaceShooter.Code.Gamestates;
+using Luftschiff.Code;
+using Luftschiff.Code.Global;
+using Luftschiff.Code.Gamestates;
 
-namespace spaceShooter
+namespace Luftschiff
 {
     class Controller
     {

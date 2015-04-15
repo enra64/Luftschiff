@@ -1,13 +1,13 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
-using spaceShooter.Code;
+using Luftschiff.Code;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace spaceShooter {
+namespace Luftschiff {
     static class Initializer {
         public static void initialize() {
             initializeWindow();

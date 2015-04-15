@@ -1,15 +1,15 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
-using spaceShooter.Code.GameClasses;
-using spaceShooter.Code.Global;
-using spaceShooter.Code.Menu;
+using Luftschiff.Code.GameClasses;
+using Luftschiff.Code.Global;
+using Luftschiff.Code.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace spaceShooter.Code.Gamestates {
+namespace Luftschiff.Code.Gamestates {
     class Game : ProtoGameState {
         
         /// <summary>
