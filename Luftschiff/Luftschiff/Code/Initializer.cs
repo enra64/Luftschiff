@@ -25,7 +25,7 @@ namespace Luftschiff {
 
         private static void initializeWindow() {
             //initialize window
-            Controller.Window = new RenderWindow(new VideoMode(1366, 768), "Space shooter", Styles.Default);
+            Controller.Window = new RenderWindow(new VideoMode(1366, 768), "Luftschiff", Styles.Default);
             Controller.Window.SetVerticalSyncEnabled(true);
             Controller.Window.SetFramerateLimit(35);
             Controller.Window.Closed += delegate { Controller.Window.Close(); };
