@@ -128,3 +128,5 @@ Backup*/
 UpgradeLog*.XML
 /Luftschiff/Luftschiff/bin
 /Luftschiff/Luftschiff/obj
+/Luftschiff/*.suo
+/Luftschiff/*.suo

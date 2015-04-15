@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Global\Globals.cs" />
     <Compile Include="Code\Global\ProtoGameState.cs" />
     <Compile Include="Code\Initializer.cs" />
@@ -97,7 +98,6 @@
   <ItemGroup>
     <Folder Include="Assets\Audio\" />
     <Folder Include="Assets\Graphics\" />
-    <Folder Include="Code\Game\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
