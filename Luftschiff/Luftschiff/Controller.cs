@@ -15,16 +15,17 @@ namespace spaceShooter
         public static RenderWindow Window { get; set; }
         public static View View { get; set; }
 
-        public static Globals.EGameStates currentState = Globals.EGameStates.fuckedUp;
+        //we begin ignoring all gamestate stuff until i want to use it
+        //public static Globals.EGameStates currentState = Globals.EGameStates.fuckedUp;
         public static ProtoGameState main, sub;
 
         static void Main(string[] args)
         {
             Initializer.initialize();
 
-            loadState(Globals.EStateSelection.main, Globals.EGameStates.startscreen);
+            loadState();//Globals.EStateSelection.main, Globals.EGameStates.startscreen);
 
-            while (Window.IsOpen())
+            while (Window.IsOpen)
             {
                 main.mainUpdate();
                 if (sub != null)
@@ -36,8 +37,11 @@ namespace spaceShooter
             }
         }
 
-        public static void loadState(Globals.EStateSelection which, Globals.EGameStates targetState)
+        public static void loadState()//Globals.EStateSelection which, Globals.EGameStates targetState)
         {
+            main = new Game();
+            //ok ignore this too
+            /*
             if (which == Globals.EStateSelection.main)
             {
                 switch (targetState)
@@ -59,6 +63,7 @@ namespace spaceShooter
                 {
                 }
             }
+             * */
         }
     }
 }
