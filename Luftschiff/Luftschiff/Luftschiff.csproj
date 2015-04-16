@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Game\AreavRooms\Area.cs" />
+    <Compile Include="Code\Game\AreavRooms\Room.cs" />
     <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Global\Globals.cs" />
     <Compile Include="Code\Global\ProtoGameState.cs" />
