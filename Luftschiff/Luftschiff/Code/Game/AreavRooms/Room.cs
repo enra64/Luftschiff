@@ -8,7 +8,9 @@ namespace Luftschiff.Code.Game.AreavRooms
 {
     class Room : Entity
     {
-                //kinds of possible Rooms
+        /// <summary>
+        /// kinds of possible Rooms
+        /// </summary>
         public enum RoomKind
         {
         //adding roomkinds here
