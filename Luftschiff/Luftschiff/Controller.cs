@@ -57,8 +57,8 @@ namespace Luftschiff
 
         /// <summary>
         /// this method name was not chosen because it sounds cool.
+        /// you should not need to call this, just invoke start() on your dialog
         /// </summary>
-        /// <param name="twoButtonDialog"></param>
         public static bool injectDialog(Dialog dialog)
         {
             if (sub == null)
