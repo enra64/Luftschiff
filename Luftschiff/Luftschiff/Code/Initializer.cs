@@ -33,7 +33,7 @@ namespace Luftschiff {
         }
 
         private static void initializeMisc() {
-
+            Globals.DialogFont = new Font("Assets/StandardFontSteamwreck.otf");
         }
 
         private static void initializeAssets() {

@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Dialogs\Button.cs" />
     <Compile Include="Code\Dialogs\TwoButtonDialog.cs" />
     <Compile Include="Code\Game\AreavRooms\Area.cs" />
     <Compile Include="Code\Game\AreavRooms\Room.cs" />
@@ -74,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Assets\StandardFontSteamwreck.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Graphics\rusty_sprites.png">

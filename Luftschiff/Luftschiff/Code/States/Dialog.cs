@@ -28,6 +28,7 @@ namespace Luftschiff.Code.States {
             Position = _pos;
             background = new RectangleShape(Size);
             background.FillColor = Color.White;
+            background.Position = Position;
         }
 
         /// <summary>
@@ -39,5 +40,7 @@ namespace Luftschiff.Code.States {
             float ySize = Controller.Window.Size.Y / 2;
             usualInit(new Vector2f(xSize, ySize), new Vector2f(xSize/2, ySize/2), _tag);
         }
+
+        public abstract void show();
     }
 }

@@ -58,6 +58,7 @@ namespace Luftschiff
         /// <summary>
         /// this method name was not chosen because it sounds cool.
         /// you should not need to call this, just invoke start() on your dialog
+        /// This method returns whether or not the dialog could be created.
         /// </summary>
         public static bool injectDialog(Dialog dialog)
         {
@@ -72,7 +73,7 @@ namespace Luftschiff
             }
         }
 
-        public static void killDialog()
+        public static void killCurrentDialog()
         {
             sub = null;
         }
