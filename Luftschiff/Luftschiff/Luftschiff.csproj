@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Dialogs\TwoButtonDialog.cs" />
     <Compile Include="Code\Game\AreavRooms\Area.cs" />
     <Compile Include="Code\Game\AreavRooms\Room.cs" />
     <Compile Include="Code\Game\Entity.cs" />

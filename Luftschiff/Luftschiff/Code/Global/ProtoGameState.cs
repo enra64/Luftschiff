@@ -45,6 +45,6 @@ namespace Luftschiff.Code.Global {
         /// <summary>
         /// The draw method. it gets called automatically in every gamestate
         /// </summary>
-        internal abstract void update();
+        public abstract void update();
     }
 }

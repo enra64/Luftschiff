@@ -36,7 +36,7 @@ namespace Luftschiff.Code.States {
         /// <summary>
         /// This is the update function that gets called for our Game-Gamestate
         /// </summary>
-        internal override void update(){
+        public override void update(){
 
         }
     }

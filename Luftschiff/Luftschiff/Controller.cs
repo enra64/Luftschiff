@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using Luftschiff.Code;
+using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Global;
 using Luftschiff.Code.States;
 
@@ -22,13 +23,16 @@ namespace Luftschiff
 
             while (Window.IsOpen)
             {
-                main.mainUpdate();
                 if (sub != null)
                     sub.mainUpdate();
-
-                main.draw();
+                else
+                    main.mainUpdate();
+                
+                
                 if (sub != null)
                     sub.draw();
+                else
+                    main.draw();
             }
         }
 
@@ -49,6 +53,28 @@ namespace Luftschiff
                 {
                 }
             }
+        }
+
+        /// <summary>
+        /// this method name was not chosen because it sounds cool.
+        /// </summary>
+        /// <param name="twoButtonDialog"></param>
+        public static bool injectDialog(Dialog dialog)
+        {
+            if (sub == null)
+            {
+                sub = dialog;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static void killDialog()
+        {
+            sub = null;
         }
     }
 }

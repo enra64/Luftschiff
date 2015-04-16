@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luftschiff.Code.Global;
 
 namespace Luftschiff.Code.States {
-    abstract class Dialog {
+    abstract class Dialog : ProtoGameState{
         public Vector2f Size, Position;
         public String Tag { get; set; }
         internal Game gReference;
 
+        /// <summary>
+        /// Places a Dialog where you want
+        /// </summary>
         public Dialog(Vector2f _size, Vector2f _pos, String _tag) {
             Tag = _tag;
             Size = _size;
@@ -28,8 +32,5 @@ namespace Luftschiff.Code.States {
             Size = new Vector2f(xSize, ySize);
             Position = new Vector2f(xSize / 2, ySize / 2);
         }
-
-        public abstract void draw();
-        public abstract void update();
     }
 }
