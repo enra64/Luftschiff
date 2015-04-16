@@ -37,7 +37,7 @@ namespace Luftschiff {
         }
 
         private static void InitializeAssets() {
-            
+            Globals.BackgroundTexture = new Texture("Assets/Graphics/testbg.png");
         }
     }
 }

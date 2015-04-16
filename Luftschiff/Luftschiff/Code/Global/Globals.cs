@@ -28,5 +28,8 @@ namespace Luftschiff.Code {
         public static int FONT_SIZE_SUBTEXT = 15;
 
         public static Time FRAME_TIME;
+
+        //background for now
+        public static Texture BackgroundTexture;
     }
 }
