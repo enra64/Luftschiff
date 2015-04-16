@@ -1,13 +1,16 @@
-﻿using SFML.Graphics;
+﻿using System;
+using SFML.Graphics;
 using Luftschiff.Code;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Global;
 using Luftschiff.Code.States;
+using SFML.System;
 
 namespace Luftschiff
 {
     class Controller
     {
+        private static Clock frameClock;
         public static RenderWindow Window { get; set; }
         public static View View { get; set; }
 
@@ -15,6 +18,7 @@ namespace Luftschiff
 
         static void Main(string[] args)
         {
+            frameClock = new Clock();
             Initializer.initialize();
 
             loadState(Globals.EGameStates.game);
@@ -23,6 +27,8 @@ namespace Luftschiff
             {
                 main.mainUpdate();
                 main.draw();
+                Globals.FRAME_TIME = frameClock.Restart();
+                Console.WriteLine(Globals.FRAME_TIME.AsSeconds());
             }
         }
 
