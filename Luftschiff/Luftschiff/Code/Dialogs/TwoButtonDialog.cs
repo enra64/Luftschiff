@@ -9,119 +9,120 @@ using SFML.System;
 namespace Luftschiff.Code.Dialogs {
     class TwoButtonDialog : Luftschiff.Code.States.Dialog
     {
-        private String yes { get; set; }
-        private String no { get; set; }
-        private String message { get; set; }
-        private String title { get; set; }
+        private Text _messageText, _titleText;
+        private Button _yesButton, _noButton;
 
-        private Text messageText, titleText;
-        private Button yesButton, noButton;
+        private bool _yesClicked, _userInteracted;
 
-        public bool ClickedYes { get; private set; }
-        public bool ClickedNo { get; private set; }
-        private bool userInteracted = false;
-
-        public TwoButtonDialog(string _tag
-            , String yes_, String no_, String message_, String title_)
-            : base(_tag)
-        {
-            commonConstructor(yes_, no_, message_, title_);
+        /// <summary>
+        /// Constructor that lets you configure all dialog strings
+        /// </summary>
+        public TwoButtonDialog(String yes, String no, String message, String title)
+            : base() {
+            CommonConstructor(yes, no, message, title);
         }
 
-        public TwoButtonDialog(Vector2f _size, Vector2f _pos, string _tag
-            , String yes_, String no_, String message_, String title_)
-            : base(_size, _pos, _tag)
+        /// <summary>
+        /// Minimal Dialog Constructor, using "Ja" and "Nein" for the buttons.
+        /// </summary>
+        public TwoButtonDialog(String message, String title)
+            : base() {
+            CommonConstructor("Ja", "Nein", message, title);
+        }
+
+        /// <summary>
+        /// maximum amount of config possible with this one
+        /// </summary>
+        public TwoButtonDialog(Vector2f size, Vector2f pos, String yes, String no, String message, String title)
+            : base(size, pos)
         {
-            commonConstructor(yes_, no_, message_, title_);
+            CommonConstructor(yes, no, message, title);
         }
 
         /// <summary>
         /// create a standard yesnodialog
         /// </summary>
-        private void commonConstructor(String yes_, String no_, String message_, String title_)
+        private void CommonConstructor(String yes, String no, String message, String title)
         {
-            //init strings
-            yes = yes_;
-            no = no_;
-            message = message_;
-            title = title_;
+            //init texts using a object initializer which resharper suggested for some reason
+            _titleText = new Text(title, Globals.DialogFont)
+            {
+                Position = new Vector2f(Position.X, Position.Y),
+                Color = Color.Black
+            };
 
-            //init texts
-            titleText = new Text(title, Globals.DialogFont);
-            titleText.Position = new Vector2f(Position.X, Position.Y);
-            titleText.Color = Color.Black;
+            _messageText = new Text(message, Globals.DialogFont)
+            {
+                Position = new Vector2f(Position.X, Position.Y + 40),
+                Color = Color.Black
+            };
 
-            messageText = new Text(message, Globals.DialogFont);
-            messageText.Position = new Vector2f(Position.X, Position.Y + 40);
-            messageText.Color = Color.Black;
-            
+            //TODO: intelligent word wrapping algorithm...
+
             //init buttons
             var leftButtonPosition = new Vector2f(Position.X,               Position.Y + Size.Y - Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
             var rightButtonPosition = new Vector2f(Position.X + Size.X / 2, Position.Y + Size.Y - Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
 
             var buttonSize = new Vector2f(Size.X / 2, Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
-            yesButton = new Button(yes, leftButtonPosition, buttonSize);
-            noButton = new Button(no, rightButtonPosition, buttonSize);
+            _yesButton = new Button(yes, leftButtonPosition, buttonSize);
+            _noButton = new Button(no, rightButtonPosition, buttonSize);
         }
 
-
-        public override void show()
+        /// <summary>
+        /// <para>When you call this, the dialog will be shown. </para>It blocks everything else,
+        /// and returns true if the user clicked on the 'yes' button and false otherwise.
+        /// </summary>
+        public bool show()
         {
-            while (!userInteracted)
+            while (!_userInteracted)
             {
                 Controller.Window.DispatchEvents();
                 update();
                 draw();
                 Controller.Window.Display();
             }
+            return _yesClicked;
         }
 
+        /// <summary>
+        /// could be useful in the future. do not call this
+        /// </summary>
         public override void kill()
         {
             //rekt
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// You do not need to call this in anything but the dialog class
+        /// </summary>
         public override void draw()
         {
             Controller.Window.Draw(background);
-            Controller.Window.Draw(messageText);
-            Controller.Window.Draw(titleText);
-            noButton.draw();
-            yesButton.draw();
-        }
-
-        public Boolean getResultIsPositive()
-        {
-            if(!userInteracted)
-                throw  new Exception("getResult: Diese Funktion erst nach Dialog.show aufrufen!");
-            return ClickedYes;
+            Controller.Window.Draw(_messageText);
+            Controller.Window.Draw(_titleText);
+            _noButton.draw();
+            _yesButton.draw();
         }
 
         /// <summary>
         /// this updates on the button state. 
-        /// if a button has been clicked, the reference in the
-        /// controller will be deleted, and the ClickedYes
-        /// and ClickedNo will be update accordingly.
+        /// if a button has been clicked, the dialog will be closed and an appropriate value (true/false) will
+        /// be returned
         /// </summary>
         public override void update()
         {
-            userInteracted = false;
-            if (yesButton.update())
+            _userInteracted = false;
+            if (_yesButton.update())
             {
-                ClickedYes = true;
-                ClickedNo = false;
-                userInteracted = true;
+                _yesClicked = true;
+                _userInteracted = true;
             }
-            if (noButton.update())
+            if (_noButton.update())
             {
-                ClickedNo = true;
-                ClickedYes = false;
-                userInteracted = true;
+                _yesClicked = false;
+                _userInteracted = true;
             }
-            //kill the dialog when the user clicked a button
-            if(userInteracted)
-                Controller.killCurrentDialog();
         }
     }
 }

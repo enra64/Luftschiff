@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Dialogs\Button.cs" />
+    <Compile Include="Code\Dialogs\ListDialog.cs" />
     <Compile Include="Code\Dialogs\TwoButtonDialog.cs" />
     <Compile Include="Code\Game\AreavRooms\Area.cs" />
     <Compile Include="Code\Game\AreavRooms\Room.cs" />

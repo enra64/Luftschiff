@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Global;
 
@@ -39,22 +40,22 @@ namespace Luftschiff.Code.States {
         /// This is the update function that gets called for our Game-Gamestate
         /// </summary>
         public override void update(){
-            //Dialog example
+            //Dialog examples
             /*
-            //ok create a new dialog
-            TwoButtonDialog test = new TwoButtonDialog("test Tag", 
-             "yes button string", 
-             "no button string",
-             "messagetest", 
-             "titletest");
+            //ok create a new listdialog
+            List<String> testList= new List<String>();
+            for(int i = 0; i < 10; i++)
+                testList.Add("a"+i);
             
-            //show the dialog. this will block the execution until a return value
-            //can be obtained
-            test.show();
-            
-            //extract the result with getResultIsPositive
-            String console = test.getResultIsPositive() ? "clicked yes" : "clicked no";
-            Console.Write(console);
+            ListDialog test = new ListDialog(testList, "message", "titletest");
+            //return index of button in list
+            Console.WriteLine(test.show());
+            */
+            /*
+            //construct a yes / no dialog; Ja and Nein are also available as a smaller constructor
+            TwoButtonDialog test2 = new TwoButtonDialog("jaKnopf", "neinKnopf", "Nachricht", "Titel");
+            //show it, blocking all other execution until return of true/false
+            Console.WriteLine(test2.show());
             */
         }
     }

@@ -6,57 +6,64 @@ namespace Luftschiff.Code.Dialogs
 {
     class Button
     {
-        private Text buttonText;
-        private RectangleShape buttonShape;
-        private FloatRect buttonRect;
-        private Color normalColor, hoverColor;
+        private Text _buttonText;
+        private RectangleShape _buttonShape;
+        private FloatRect _buttonRect;
+        private Color _normalColor, _hoverColor;
+        public String Tag = null;
 
-        public Button(String text_, Vector2f position, Vector2f size, Color _normalColor, Color _hoverColor)
+        private void commonConstructor(String text, Vector2f position, Vector2f size, String tag)
         {
-            buttonText = new Text(text_, Globals.DialogFont);
-            buttonText.Position = position;
+            _buttonText = new Text(text, Globals.DialogFont);
+            _buttonText.Position = position;
+            _buttonText.Color = Color.Black;
 
-            buttonRect = new FloatRect(position, size);
+            _buttonRect = new FloatRect(position, size);
 
-            buttonShape = new RectangleShape(size);
-            buttonShape.FillColor = _normalColor;
-            buttonShape.Position = position;
+            _buttonShape = new RectangleShape(size);
+            _buttonShape.FillColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
+            _buttonShape.Position = position;
 
-            normalColor = _normalColor;
-            hoverColor = _hoverColor;
+            _normalColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
+            _hoverColor = Globals.DIALOG_BUTTON_COLOR_HOVER;
+            Tag = tag;
         }
 
-        public Button(String text_, Vector2f position, Vector2f size)
+        public Button(String text, Vector2f position, Vector2f size) {
+            commonConstructor(text, position, size, null);
+        }
+
+        public Button(String text, Vector2f position, Vector2f size, String tag) {
+            commonConstructor(text, position, size, tag);
+        }
+
+        /// <summary>
+        /// Call to change this buttons colors. null values are ignored
+        /// </summary>
+        public void setColors(Color normalColor, Color hoverColor)
         {
-            buttonText = new Text(text_, Globals.DialogFont);
-            buttonText.Position = position;
-            buttonText.Color = Color.Black;
-
-            buttonRect = new FloatRect(position, size);
-
-            buttonShape = new RectangleShape(size);
-            buttonShape.FillColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
-            buttonShape.Position = position;
-
-            normalColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
-            hoverColor = Globals.DIALOG_BUTTON_COLOR_HOVER;
+            if (normalColor != null)
+                _normalColor = normalColor;
+            if (hoverColor != null)
+                _hoverColor = hoverColor;
         }
 
         public void draw()
         {
-            Controller.Window.Draw(buttonShape);
-            Controller.Window.Draw(buttonText);
+            Controller.Window.Draw(_buttonShape);
+            Controller.Window.Draw(_buttonText);
         }
 
         /// <summary>
+        /// Returns whether the button was clicked
         /// </summary>
         /// <returns>Whether the button was clicked</returns>
         public Boolean update()
         {
             Vector2f currentMousePosition = MouseHandler.CurrentPosition;
-            buttonShape.FillColor = buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y) 
-                ? hoverColor : normalColor;
-            if (!MouseHandler.UnhandledClick || !buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y)) 
+            _buttonShape.FillColor = _buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y) 
+                ? _hoverColor : _normalColor;
+            if (!MouseHandler.UnhandledClick || !_buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y)) 
                 return false;
             MouseHandler.UnhandledClick = false;
             return true;
