@@ -28,7 +28,7 @@ namespace Luftschiff
                 main.mainUpdate();
                 main.draw();
                 Globals.FRAME_TIME = frameClock.Restart();
-                Console.WriteLine(Globals.FRAME_TIME.AsSeconds());
+                //Console.WriteLine(Globals.FRAME_TIME.AsSeconds());
             }
         }
 
@@ -38,6 +38,9 @@ namespace Luftschiff
             {
                 case Globals.EGameStates.game:
                     main = new Game();
+                    break;
+                case Globals.EGameStates.graphicstest:
+                    main = new GraphicsTest();
                     break;
             }
         }

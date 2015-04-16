@@ -11,7 +11,8 @@ namespace Luftschiff.Code {
         //static variables
         public enum EGameStates
         {
-            game
+            game,
+            graphicstest
         }
 
         public static Font DialogFont;
