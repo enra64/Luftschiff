@@ -2,6 +2,7 @@
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 
 namespace Luftschiff.Code.States
@@ -14,22 +15,22 @@ namespace Luftschiff.Code.States
         private static Animation walkaround;
         private static AnimatedSprite movingSprite;
         private static RenderWindow win;
+        //private static Sprite renTest;
         
         public GraphicsTest()
         {
             win = Controller.Window;
-            
+          
             walkaround = new Animation();
-            movingSprite = new AnimatedSprite(Time.FromSeconds((float)0.2), true,false);
-            
-            walkaround.Spritesheet = new Texture("Assets/Graphics/rusty_sprites.png");
-            walkaround.AddFrame(new IntRect(0,0,100,100));
+            walkaround.SetTexture(new Texture("Assets/Graphics/rusty_sprites.png"));
             walkaround.AddFrame(new IntRect(100,0,100,100));
+            walkaround.AddFrame(new IntRect(200,0,100,100));
+            walkaround.AddFrame(new IntRect(100,100,100,100));
             walkaround.AddFrame(new IntRect(200,100,100,100));
-            walkaround.AddFrame(new IntRect(200,200,100,100));
 
+            movingSprite = new AnimatedSprite(Time.FromSeconds((float)0.2), true, false);
             movingSprite.Position = new Vector2f(win.Size.X / 2, win.Size.Y / 2);
-            movingSprite.Play(walkaround);
+            //renTest = new Sprite(new Texture("Assets/Graphics/rusty_sprites.png"));
             
         }
         /// <summary>
@@ -39,6 +40,7 @@ namespace Luftschiff.Code.States
         {
             win.Clear();
             win.Draw(movingSprite);
+            //win.Draw(renTest);
             win.Display();
         }
 
@@ -58,6 +60,10 @@ namespace Luftschiff.Code.States
         {
             //updates the sprite
             movingSprite.Update(Globals.FRAME_TIME);
+            if(Keyboard.IsKeyPressed(Keyboard.Key.A))
+                movingSprite.Play(walkaround);
+            else
+                movingSprite.Stop();
             Console.WriteLine(movingSprite.IsPlaying());
         }
     }
