@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Luftschiff.Code.Game.Crew {
-    class CrewMember {
+    class CrewMember : Entity{
     }
 }

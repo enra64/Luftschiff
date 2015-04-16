@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Luftschiff.Code.Game.Weapons {
-    class Projectile {
+    class Projectile : Entity{
     }
 }

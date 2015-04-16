@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Luftschiff.Code.Game.Monsters {
-    class Dragon {
+    class Dragon : Entity{
+
     }
 }
