@@ -10,7 +10,7 @@ namespace Luftschiff
 {
     class Controller
     {
-        private static Clock frameClock;
+        private static Clock _frameClock;
         public static RenderWindow Window { get; set; }
         public static View View { get; set; }
 
@@ -18,18 +18,23 @@ namespace Luftschiff
 
         static void Main(string[] args)
         {
-            frameClock = new Clock();
+            _frameClock = new Clock();
             Initializer.Initialize();
 
-            loadState(Globals.EGameStates.game);
+            //loadState(Globals.EGameStates.game);
+            loadState(Globals.EGameStates.graphicstest);
 
             while (Window.IsOpen)
             {
                 main.mainUpdate();
                 main.draw();
-                Globals.FRAME_TIME = frameClock.Restart();
+                
+                //FRAME_TIME always last!!
+                Globals.FRAME_TIME = _frameClock.Restart();
                 //Console.WriteLine(Globals.FRAME_TIME.AsSeconds());
+
             }
+            
         }
 
         public static void loadState(Globals.EGameStates targetState)

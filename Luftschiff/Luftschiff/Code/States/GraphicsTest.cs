@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using Luftschiff.Code.Dialogs;
-using Luftschiff.Code.Global;
-
+﻿using System;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
@@ -11,18 +6,40 @@ using SFML.System;
 
 namespace Luftschiff.Code.States
 {
-    class GraphicsTest : Global.ProtoGameState{
-
+    //TODO
+    //Get it working! 
+    //Rewrite animatedSprite and Animation
+    class GraphicsTest : Global.ProtoGameState
+    {
+        private static Animation walkaround;
+        private static AnimatedSprite movingSprite;
+        private static RenderWindow win;
+        
         public GraphicsTest()
         {
-    
+            win = Controller.Window;
+            
+            walkaround = new Animation();
+            movingSprite = new AnimatedSprite(Time.FromSeconds((float)0.2), true,false);
+            
+            walkaround.Spritesheet = new Texture("Assets/Graphics/rusty_sprites.png");
+            walkaround.AddFrame(new IntRect(0,0,100,100));
+            walkaround.AddFrame(new IntRect(100,0,100,100));
+            walkaround.AddFrame(new IntRect(200,100,100,100));
+            walkaround.AddFrame(new IntRect(200,200,100,100));
+
+            movingSprite.Position = new Vector2f(win.Size.X / 2, win.Size.Y / 2);
+            movingSprite.Play(walkaround);
+            
         }
         /// <summary>
         /// Main draw call for our Game. 
         /// </summary>
         public override void draw()
         {
-
+            win.Clear();
+            win.Draw(movingSprite);
+            win.Display();
         }
 
         /// <summary>
@@ -39,23 +56,9 @@ namespace Luftschiff.Code.States
         /// </summary>
         public override void update()
         {
-            //Dialog examples
-            /*
-            //ok create a new listdialog
-            List<String> testList= new List<String>();
-            for(int i = 0; i < 10; i++)
-                testList.Add("a"+i);
-            
-            ListDialog test = new ListDialog(testList, "message", "titletest");
-            //return index of button in list
-            Console.WriteLine(test.show());
-            */
-            /*
-            //construct a yes / no dialog; Ja and Nein are also available as a smaller constructor
-            TwoButtonDialog test2 = new TwoButtonDialog("jaKnopf", "neinKnopf", "Nachricht", "Titel");
-            //show it, blocking all other execution until return of true/false
-            Console.WriteLine(test2.show());
-            */
+            //updates the sprite
+            movingSprite.Update(Globals.FRAME_TIME);
+            Console.WriteLine(movingSprite.IsPlaying());
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Luftschiff.Code.Game
         // get Rectangle for collision 
         public virtual FloatRect getRect()
         {
-            return sprite.getLocalBounds();
+            return sprite.GetLocalBounds();
         }
 
         // update function : using in ingame Action

@@ -1,5 +1,4 @@
 ﻿using System;
-
 using SFML.Graphics;
 using SFML.System;
 
@@ -7,85 +6,85 @@ namespace Luftschiff.Graphics.Lib
 {
     class AnimatedSprite: SFML.Graphics.Transformable, SFML.Graphics.Drawable
     {
-        private Animation m_animation;
-        Time m_frameTime;
-        Time m_currentTime;
-        private int m_currentFrame;
-        private bool m_isLooped;
-        private bool m_isPaused;
-        private bool m_validAnimation;
-        private bool m_textureLoaded;
-        private Texture m_texture;
-        private Vertex[] m_vertices = new Vertex[4];
-        private Transform m_transform;
+        private Animation _animation;
+        Time _frameTime;
+        Time _currentTime;
+        private int _currentFrame;
+        private bool _isLooped;
+        private bool _isPaused;
+        private bool _validAnimation;
+        private bool _textureLoaded;
+        private Texture _texture;
+        private readonly Vertex[] _vertices = new Vertex[4];
+        private Transform _transform;
 
         public AnimatedSprite(Time frameTime ,bool paused , bool looped)
         {
-           m_frameTime = frameTime;
-           m_currentFrame= 0;
-           m_isPaused = paused;
-           m_isLooped = looped;
+           _frameTime = frameTime;
+           _currentFrame= 0;
+           _isPaused = paused;
+           _isLooped = looped;
         }
 
-        public void setAnimation(Animation animation)
+        public void SetAnimation(Animation animation)
         {
-            m_animation = animation;
-            m_validAnimation = true;
-            m_texture = m_animation.Spritesheet;
-            m_textureLoaded = true;
-            m_currentFrame = 0;
-            setFrame(m_currentFrame, false);
+            _animation = animation;
+            _validAnimation = true;
+            _texture = _animation.Spritesheet;
+            _textureLoaded = true;
+            _currentFrame = 0;
+            SetFrame(_currentFrame, false);
         }
 
-        public void setFrameTime(Time time)
+        public void SetFrameTime(Time time)
         {
-            m_frameTime = time;
+            _frameTime = time;
         }
 
-        public void play()
+        public void Play()
         {
-            m_isPaused = false;
+            _isPaused = false;
         }
 
-        public void play(Animation animation)
+        public void Play(Animation animation)
         {
             if(Animation != animation)
-                setAnimation(animation);
-            play();
+                SetAnimation(animation);
+            Play();
         }
-        public void pause()
+        public void Pause()
         {
-            m_isPaused = true;
-        }
-
-        public void stop()
-        {
-            m_isPaused = true;
-            m_currentFrame = 0;
-            setFrame(m_currentFrame, true);
-        }
-        public bool isLooped
-        {
-            get{return m_isLooped;}
-            set{m_isLooped = value;}
+            _isPaused = true;
         }
 
-        void setColor(Color color)
+        public void Stop()
         {
-            m_vertices[0].Color = color;
-            m_vertices[1].Color = color;
-            m_vertices[2].Color = color;
-            m_vertices[3].Color = color;
+            _isPaused = true;
+            _currentFrame = 0;
+            SetFrame(_currentFrame, true);
+        }
+        public bool IsLooped
+        {
+            get{return _isLooped;}
+            set{_isLooped = value;}
+        }
+
+        void SetColor(Color color)
+        {
+            _vertices[0].Color = color;
+            _vertices[1].Color = color;
+            _vertices[2].Color = color;
+            _vertices[3].Color = color;
         }
 
         public Animation Animation
         {
-            get {return m_animation;}
+            get {return _animation;}
         }
 
-        public FloatRect getLocalBounds()
+        public FloatRect GetLocalBounds()
         {
-            IntRect rect = m_animation.getFrame(m_currentFrame);
+            IntRect rect = _animation.GetFrame(_currentFrame);
 
             float width = (float)Math.Abs(rect.Width);
             float heigth = (float)Math.Abs(rect.Height);
@@ -93,88 +92,88 @@ namespace Luftschiff.Graphics.Lib
             return new FloatRect(0f,0f,width,heigth);
         }
 
-        public FloatRect getGlobalBounds()
+        public FloatRect GetGlobalBounds()
         {
-            return m_transform.TransformRect(getLocalBounds());
+            return _transform.TransformRect(GetLocalBounds());
         }
-        public bool isPlaying()
+        public bool IsPlaying()
         {
-            return !m_isPaused;
-        }
-
-        public Time getFrameTime()
-        {
-            return m_frameTime;
+            return !_isPaused;
         }
 
-        public void setFrame(int newFrame, bool resetTime)
+        public Time GetFrameTime()
         {
-            if (m_validAnimation)
+            return _frameTime;
+        }
+
+        public void SetFrame(int newFrame, bool resetTime)
+        {
+            if (_validAnimation)
             {
-                IntRect rect = m_animation.getFrame(newFrame);
-                m_vertices[0].Position = new Vector2f(0f, 0f);
-                m_vertices[1].Position = new Vector2f(0f, (float)(rect.Height));
-                m_vertices[2].Position = new Vector2f((float)(rect.Width), (float)(rect.Height));
-                m_vertices[3].Position = new Vector2f((float)(rect.Width), 0f);
+                IntRect rect = _animation.GetFrame(newFrame);
+                _vertices[0].Position = new Vector2f(0f, 0f);
+                _vertices[1].Position = new Vector2f(0f, (float)(rect.Height));
+                _vertices[2].Position = new Vector2f((float)(rect.Width), (float)(rect.Height));
+                _vertices[3].Position = new Vector2f((float)(rect.Width), 0f);
 
                 float left = (float)(rect.Left) + 0.0001f;
                 float rigth = left + (float)(rect.Width);
                 float top = (float)(rect.Top);
                 float bottom = top + (float)(rect.Height);
 
-                m_vertices[0].TexCoords = new Vector2f(left, top);
-                m_vertices[0].TexCoords = new Vector2f(left, bottom);
-                m_vertices[0].TexCoords = new Vector2f(rigth, bottom);
-                m_vertices[0].TexCoords = new Vector2f(rigth, top);
+                _vertices[0].TexCoords = new Vector2f(left, top);
+                _vertices[0].TexCoords = new Vector2f(left, bottom);
+                _vertices[0].TexCoords = new Vector2f(rigth, bottom);
+                _vertices[0].TexCoords = new Vector2f(rigth, top);
             }
 
             if (resetTime)
             {
-                m_currentTime = Time.Zero;
+                _currentTime = Time.Zero;
             }
         }
 
-        public void update(Time deltaTime)
+        public void Update(Time deltaTime)
         {
             //unpaused and valid anim
-            if (!m_isPaused && m_validAnimation)
+            if (!_isPaused && _validAnimation)
             {
                 //add deltatime
-                m_currentTime += deltaTime;
+                _currentTime += deltaTime;
 
                 // if current time is bigger then the frame time advance one frame
-                if (m_currentTime >= m_frameTime)
+                if (_currentTime >= _frameTime)
                 {
-                    m_currentTime = m_currentTime % m_frameTime;
+                    _currentTime = _currentTime % _frameTime;
                     
                     //next animation
-                    if (m_currentFrame + 1 < m_animation.getSize())
-                        m_currentFrame++;
+                    if (_currentFrame + 1 < _animation.GetSize())
+                        _currentFrame++;
 
                     else
                     {
                         // animation has ended
-                        m_currentFrame = 0; // reset to start
+                        _currentFrame = 0; // reset to start
 
-                        if (!m_isLooped)
+                        if (!_isLooped)
                         {
-                            m_isPaused = true;
+                            _isPaused = true;
                         }
                     }
 
                     // set the current frame without time reset
-                    setFrame(m_currentFrame, false);
+                    SetFrame(_currentFrame, false);
                 }
             }
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            if (m_validAnimation && m_textureLoaded)
+            if (_validAnimation && _textureLoaded)
             {
                 states.Transform *= states.Transform;
-                states.Texture = m_texture;
-                target.Draw(m_vertices, 0, 4, PrimitiveType.Quads, states);
+                states.Texture = _texture;
+                target.Draw(_vertices, 0, 4, PrimitiveType.Quads, states);
             }
         }
     }

@@ -1,34 +1,33 @@
 ﻿
 using System.Collections.Generic;
-
 using SFML.Graphics;
 
 namespace Luftschiff.Graphics.Lib
 {
     class Animation
     {
-        private List<IntRect> m_frames = new List<IntRect>();
-        private Texture m_texture;
+        private readonly List<IntRect> _frames = new List<IntRect>();
+        private Texture _texture;
 
-        public void addFrame(IntRect rect)
+        public void AddFrame(IntRect rect)
         {
-            m_frames.Add(rect);
+            _frames.Add(rect);
         }
 
-        public IntRect getFrame(int n)
+        public IntRect GetFrame(int n)
         {
-            return m_frames[n];
+            return _frames[n];
         }
 
         public Texture Spritesheet
         {
-            get { return m_texture; }
-            set { m_texture = value; }  
+            get { return _texture; }
+            set { _texture = value; }  
         }
 
-        public int getSize()
+        public int GetSize()
         {
-            return m_frames.Count;
+            return _frames.Count;
         }
     }
 }
