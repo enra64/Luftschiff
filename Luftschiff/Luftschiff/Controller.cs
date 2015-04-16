@@ -19,7 +19,7 @@ namespace Luftschiff
         static void Main(string[] args)
         {
             frameClock = new Clock();
-            Initializer.initialize();
+            Initializer.Initialize();
 
             loadState(Globals.EGameStates.game);
 
