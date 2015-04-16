@@ -8,20 +8,27 @@ namespace Luftschiff.Code.Game.AreavRooms
 {
     class Room : Entity
     {
-        //kinds of possible Rooms
-        public const int EMPTY_ROOM = 0;
-        //kinds to use on the airships
-        public const int AIR_ENGINE_ROOM = 1;
-        public const int AIR_HOSPITAL_WARD = 2;
-        public const int AIR_LUNCH_ROOM = 3;
-        public const int AIR_CANNON_ROOM = 4;
+                //kinds of possible Rooms
+        public enum RoomKind
+        {
         //adding roomkinds here
 
+        EMPTY_ROOM,
+        //kinds to use on the airships
+        AIR_ENGINE_ROOM,
+        AIR_HOSPITAL_WARD ,
+        AIR_LUNCH_ROOM,
+        AIR_CANNON_ROOM,
+
+
         //kinds to use on the ground
-        public const int GROUND_TAVERN = 20;
-        public const int GROUND_AIRSHIP_WORKSHOP = 21;
-        public const int GROUND_BARRACKS = 22;
-        public const int GROUND_MARKETPLACE = 23;
+        GROUND_TAVERN,
+        GROUND_AIRSHIP_WORKSHOP,
+        GROUND_BARRACKS,
+        GROUND_MARKETPLACE,
+
+        }
+
 
         //List to use when Crew-class implemented 
         //List<Crew> crewList = new List<Crew>();
@@ -31,47 +38,47 @@ namespace Luftschiff.Code.Game.AreavRooms
         private int cooldown_ = 0;
         private int life_ = 100;
         //save which kind the room is
-        private int roomkind_;
+        private RoomKind roomkind_;
 
         public Room()
         {
-            roomkind_ = EMPTY_ROOM;
+            roomkind_ = RoomKind.EMPTY_ROOM;
             //set sprites etc.
         }
-        public Room(int kind)
+        public Room(RoomKind kind)
         {
             switch (kind)
             {
-                case (AIR_ENGINE_ROOM):
-                    roomkind_ = AIR_ENGINE_ROOM;
+                case (RoomKind.AIR_ENGINE_ROOM):
+                    roomkind_ = RoomKind.AIR_ENGINE_ROOM;
                     //TODO insert code for engine here
                     break;
-                case (AIR_HOSPITAL_WARD):
-                    roomkind_ = AIR_HOSPITAL_WARD;
+                case (RoomKind.AIR_HOSPITAL_WARD):
+                    roomkind_ = RoomKind.AIR_HOSPITAL_WARD;
                     //TODO insert code for hospital here
                     break;
-                case (AIR_LUNCH_ROOM):
-                    roomkind_ = AIR_LUNCH_ROOM;
+                case (RoomKind.AIR_LUNCH_ROOM):
+                    roomkind_ = RoomKind.AIR_LUNCH_ROOM;
                     //TODO insert lunch room code here
                     break;
-                case (AIR_CANNON_ROOM):
-                    roomkind_ = AIR_CANNON_ROOM;
+                case (RoomKind.AIR_CANNON_ROOM):
+                    roomkind_ = RoomKind.AIR_CANNON_ROOM;
                     //TODO insert cannon code here
                     break;
-                case (GROUND_TAVERN):
-                    roomkind_ = GROUND_TAVERN;
+                case (RoomKind.GROUND_TAVERN):
+                    roomkind_ = RoomKind.GROUND_TAVERN;
                     //TODO insert tavern code here
                     break;
-                case (GROUND_AIRSHIP_WORKSHOP):
-                    roomkind_ = GROUND_AIRSHIP_WORKSHOP;
+                case (RoomKind.GROUND_AIRSHIP_WORKSHOP):
+                    roomkind_ = RoomKind.GROUND_AIRSHIP_WORKSHOP;
                     //TODO insert workshop code here
                     break;
-                case (GROUND_BARRACKS):
-                    roomkind_ = GROUND_BARRACKS;
+                case (RoomKind.GROUND_BARRACKS):
+                    roomkind_ = RoomKind.GROUND_BARRACKS;
                     //TODO insert barracks code here
                     break;
-                case (GROUND_MARKETPLACE):
-                    roomkind_ = GROUND_MARKETPLACE;
+                case (RoomKind.GROUND_MARKETPLACE):
+                    roomkind_ = RoomKind.GROUND_MARKETPLACE;
                     //TODO insert market placecode here
                     break;
                 //TODO  init room sprites, different life states etc.
@@ -87,32 +94,32 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         }
 
-        public void RoomAction(int RoomKind)
+        public void RoomAction(RoomKind RoomKind)
         {
             switch (RoomKind)
             {
-                case(AIR_ENGINE_ROOM):
+                case (RoomKind.AIR_ENGINE_ROOM):
                     //TODO insert code for engine here
                     break;
-                case(AIR_HOSPITAL_WARD):
+                case (RoomKind.AIR_HOSPITAL_WARD):
                     //TODO insert code for hospital here
                     break;
-                case(AIR_LUNCH_ROOM):
+                case (RoomKind.AIR_LUNCH_ROOM):
                     //TODO insert lunch room code here
                     break;
-                case(AIR_CANNON_ROOM):
+                case (RoomKind.AIR_CANNON_ROOM):
                     //TODO insert cannon code here
                     break;
-                case(GROUND_TAVERN):
+                case (RoomKind.GROUND_TAVERN):
                     //TODO insert tavern code here
                     break;
-                case(GROUND_AIRSHIP_WORKSHOP):
+                case (RoomKind.GROUND_AIRSHIP_WORKSHOP):
                     //TODO insert workshop code here
                     break;
-                case(GROUND_BARRACKS):
+                case (RoomKind.GROUND_BARRACKS):
                     //TODO insert barracks code here
                     break;
-                case(GROUND_MARKETPLACE):
+                case (RoomKind.GROUND_MARKETPLACE):
                     //TODO insert market placecode here
                     break;
                 //TODO add useful cooldown after action;
