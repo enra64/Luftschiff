@@ -19,14 +19,10 @@ namespace Luftschiff.Graphics.Lib
             return _frames[n];
         }
 
-        public void SetTexture(Texture tex)
+        public Texture Texture
         {
-            _texture = tex;
-        }
-
-        public Texture GetTexture()
-        {
-            return _texture;
+            set { _texture = value; }
+            get { return _texture;}
         }
 
         public int GetSize()

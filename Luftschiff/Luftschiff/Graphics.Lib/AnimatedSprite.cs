@@ -4,11 +4,11 @@ using SFML.System;
 
 namespace Luftschiff.Graphics.Lib
 {
-    class AnimatedSprite: Transformable, Drawable
+    internal class AnimatedSprite : Transformable, Drawable
     {
         private Animation _animation;
-        Time _frameTime;
-        Time _currentTime;
+        private Time _frameTime;
+        private Time _currentTime;
         private int _currentFrame;
         private bool _isLooped;
         private bool _isPaused;
@@ -18,35 +18,32 @@ namespace Luftschiff.Graphics.Lib
         private readonly Vertex[] _vertices = new Vertex[4];
         private Transform _transform;
 
-        public AnimatedSprite(Time frameTime ,bool paused , bool looped)
+        public AnimatedSprite(Time frameTime, bool paused, bool looped)
         {
-           _frameTime = frameTime;
-           _currentFrame= 0;
-           _isPaused = paused;
-           _isLooped = looped;
-        }
-
-        private void SetAnimation(Animation animation)
-        {
-            _animation = animation;
-            _validAnimation = true;
-            _texture = _animation.GetTexture();
-            _textureLoaded = true;
+            _frameTime = frameTime;
             _currentFrame = 0;
-            SetFrame(_currentFrame, false);
+            _isPaused = paused;
+            _isLooped = looped;
         }
 
-        public void SetFrameTime(Time time)
+        public Time FrameTime
         {
-            _frameTime = time;
+            set { _frameTime = value; }
+            get { return _frameTime; }
         }
 
         public void Play(Animation animation)
         {
-            if(Animation != animation)
-                SetAnimation(animation);
+            if (Animation != animation)
+                Animation = animation;
+            Play();
+        }
+
+        public void Play()
+        {
             _isPaused = false;
         }
+
         public void Pause()
         {
             _isPaused = true;
@@ -58,13 +55,14 @@ namespace Luftschiff.Graphics.Lib
             _currentFrame = 0;
             SetFrame(_currentFrame, true);
         }
-        public bool IsLooped
+
+        public bool Looped
         {
-            get{return _isLooped;}
-            set{_isLooped = value;}
+            get { return _isLooped; }
+            set { _isLooped = value; }
         }
 
-        void SetColor(Color color)
+        private void SetColor(Color color)
         {
             _vertices[0].Color = color;
             _vertices[1].Color = color;
@@ -74,7 +72,16 @@ namespace Luftschiff.Graphics.Lib
 
         public Animation Animation
         {
-            get {return _animation;}
+            set
+            {
+                _animation = value;
+                _validAnimation = true;
+                _texture = _animation.Texture;
+                _textureLoaded = true;
+                _currentFrame = 0;
+                SetFrame(_currentFrame, false);
+            }
+            get { return _animation; }
         }
 
         public FloatRect GetLocalBounds()
@@ -84,21 +91,17 @@ namespace Luftschiff.Graphics.Lib
             float width = Math.Abs(rect.Width);
             float heigth = Math.Abs(rect.Height);
 
-            return new FloatRect(0f,0f,width,heigth);
+            return new FloatRect(0f, 0f, width, heigth);
         }
 
         public FloatRect GetGlobalBounds()
         {
             return _transform.TransformRect(GetLocalBounds());
         }
+
         public bool IsPlaying()
         {
             return !_isPaused;
-        }
-
-        public Time GetFrameTime()
-        {
-            return _frameTime;
         }
 
         public void SetFrame(int newFrame, bool resetTime)
@@ -139,8 +142,8 @@ namespace Luftschiff.Graphics.Lib
                 // if current time is bigger then the frame time advance one frame
                 if (_currentTime >= _frameTime)
                 {
-                    _currentTime = Time.FromMilliseconds((_currentTime.AsMilliseconds() % _frameTime.AsMilliseconds()));
-                    
+                    _currentTime = Time.FromMilliseconds((_currentTime.AsMilliseconds()%_frameTime.AsMilliseconds()));
+
                     //next animation
                     if (_currentFrame + 1 < _animation.GetSize())
                         _currentFrame++;
@@ -162,7 +165,7 @@ namespace Luftschiff.Graphics.Lib
             }
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
+        void Drawable.Draw(RenderTarget target, RenderStates states)
         {
             if (_validAnimation && _textureLoaded)
             {
@@ -170,6 +173,19 @@ namespace Luftschiff.Graphics.Lib
                 states.Texture = _texture;
                 target.Draw(_vertices, 0, 4, PrimitiveType.Quads, states);
             }
+        }
+
+        public void Move(Vector2f offset)
+        {
+
+            {
+                Position = new Vector2f(Position.X + offset.X, Position.Y + offset.Y);
+            }
+        }
+
+        public void Move(float offsetX, float offsetY)
+        {
+            Position = new Vector2f(Position.X + offsetX, Position.Y + offsetY);
         }
     }
 }

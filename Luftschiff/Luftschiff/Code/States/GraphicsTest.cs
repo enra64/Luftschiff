@@ -22,7 +22,7 @@ namespace Luftschiff.Code.States
             win = Controller.Window;
           
             walkaround = new Animation();
-            walkaround.SetTexture(new Texture("Assets/Graphics/rusty_sprites.png"));
+            walkaround.Texture = new Texture("Assets/Graphics/rusty_sprites.png");
             walkaround.AddFrame(new IntRect(100,0,100,100));
             walkaround.AddFrame(new IntRect(200,0,100,100));
             walkaround.AddFrame(new IntRect(100,100,100,100));
@@ -64,7 +64,7 @@ namespace Luftschiff.Code.States
                 movingSprite.Play(walkaround);
             else
                 movingSprite.Stop();
-            Console.WriteLine(movingSprite.IsPlaying());
+            movingSprite.Move(0.2f,0.2f);
         }
     }
 }
