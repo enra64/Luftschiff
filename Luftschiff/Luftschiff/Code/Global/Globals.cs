@@ -1,4 +1,6 @@
 ﻿using SFML.Graphics;
+using SFML.System;
+
 
 namespace Luftschiff.Code {
     /// <summary>
@@ -23,5 +25,7 @@ namespace Luftschiff.Code {
         public static int FONT_SIZE_STANDARD = 20;
         public static int FONT_SIZE_HEADER = 40;
         public static int FONT_SIZE_SUBTEXT = 15;
+
+        public static Time FRAME_TIME;
     }
 }
