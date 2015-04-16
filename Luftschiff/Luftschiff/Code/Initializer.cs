@@ -1,11 +1,8 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+
+using Luftschiff.Graphics.Lib;
 using Luftschiff.Code;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Luftschiff {
     static class Initializer {
@@ -40,7 +37,7 @@ namespace Luftschiff {
         }
 
         private static void initializeAssets() {
-            //Globals.startMenuTextures.Add(new Texture("Assets/Menus/StartMenu/start.png"));
+            
         }
     }
 }

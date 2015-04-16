@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 
-using SFML;
 using SFML.Graphics;
-using SFML.Window;
 using SFML.System;
 
 namespace Luftschiff.Graphics.Lib
@@ -58,7 +51,6 @@ namespace Luftschiff.Graphics.Lib
         {
             if(Animation != animation)
                 setAnimation(animation);
-
             play();
         }
         public void pause()
@@ -89,7 +81,6 @@ namespace Luftschiff.Graphics.Lib
         public Animation Animation
         {
             get {return m_animation;}
-            set {}
         }
 
         public FloatRect getLocalBounds()
@@ -154,7 +145,7 @@ namespace Luftschiff.Graphics.Lib
                 // if current time is bigger then the frame time advance one frame
                 if (m_currentTime >= m_frameTime)
                 {
-                    m_currentTime = (m_currentTime % m_frameTime);
+                    m_currentTime = m_currentTime % m_frameTime;
                     
                     //next animation
                     if (m_currentFrame + 1 < m_animation.getSize())
