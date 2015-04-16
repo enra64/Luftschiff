@@ -15,7 +15,7 @@ namespace Luftschiff
 
         static void Main(string[] args)
         {
-            Initializer.initialize();
+            Initializer.Initialize();
 
             loadState(Globals.EGameStates.game);
 
