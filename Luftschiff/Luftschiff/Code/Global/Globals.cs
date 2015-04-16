@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 
+
 namespace Luftschiff.Code {
     /// <summary>
     /// A standard globals class for things like enums or textures that need
