@@ -62,6 +62,7 @@
     <Compile Include="Code\Global\ProtoGameState.cs" />
     <Compile Include="Code\Initializer.cs" />
     <Compile Include="Code\MouseHandler.cs" />
+    <Compile Include="Code\States\Dialog.cs" />
     <Compile Include="Code\States\Game.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Graphics.Lib\AnimatedSprite.cs" />
