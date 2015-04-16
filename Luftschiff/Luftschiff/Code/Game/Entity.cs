@@ -30,7 +30,9 @@ namespace Luftschiff.Code.Game
             Controller.Window.Draw(sprite);
         }
 
-        //created errors -dan
-        //public virtual String getSave(){}
+        public virtual String getSave()
+        {
+            return "";
+        }
     }
 }

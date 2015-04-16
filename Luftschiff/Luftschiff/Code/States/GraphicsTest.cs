@@ -11,7 +11,7 @@ using SFML.System;
 
 namespace Luftschiff.Code.States
 {
-    class GraphicsTest:Global.ProtoGameState{
+    class GraphicsTest : Global.ProtoGameState{
 
         public GraphicsTest()
         {
