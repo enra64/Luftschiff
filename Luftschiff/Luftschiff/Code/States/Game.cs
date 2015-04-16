@@ -10,22 +10,23 @@ using SFML.System;
 
 
 namespace Luftschiff.Code.States {
-    class Game : ProtoGameState {
-
+    class Game : ProtoGameState
+    {
+        private Sprite _backgroundSprite;
         /// <summary>
         /// The gamestate constructor. Nothing must be done here, the superclass
         /// constructor is empty anyways
         /// </summary>
         public Game ()
         {
-
+            _backgroundSprite = new Sprite(Globals.BackgroundTexture);
         }
 
         /// <summary>
         /// Main draw call for our Game. 
         /// </summary>
         public override void draw() {
-
+            Controller.Window.Draw(_backgroundSprite);
         }
 
         /// <summary>
