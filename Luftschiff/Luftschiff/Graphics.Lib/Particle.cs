@@ -14,7 +14,7 @@ namespace Luftschiff.Graphics.Lib
         {
             _randomizer = new Random();
             LifeTime =
-                Time.FromSeconds(aliveTime.AsSeconds()*(_randomizer.Next(0, 2) + (float) _randomizer.NextDouble()));
+                Time.FromSeconds(aliveTime.AsSeconds()*(_randomizer.Next(0, 3) + (float) _randomizer.NextDouble()));
             _circle = new CircleShape(radius);
             LifeClock = new Clock();
             Color = color;
