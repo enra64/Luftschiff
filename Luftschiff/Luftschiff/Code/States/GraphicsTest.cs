@@ -15,7 +15,7 @@ namespace Luftschiff.Code.States
         private static Animation walkaround;
         private static AnimatedSprite movingSprite;
         private static RenderWindow win;
-        //private static Sprite renTest;
+        private static Sprite renTest;
         
         public GraphicsTest()
         {
@@ -23,12 +23,12 @@ namespace Luftschiff.Code.States
           
             walkaround = new Animation();
             walkaround.Texture = new Texture("Assets/Graphics/rusty_sprites.png");
-            walkaround.AddFrame(new IntRect(100,0,100,100));
-            walkaround.AddFrame(new IntRect(200,0,100,100));
+            walkaround.AddFrame(new IntRect(0,0,100,100));
+            walkaround.AddFrame(new IntRect(0,100,100,100));
             walkaround.AddFrame(new IntRect(100,100,100,100));
-            walkaround.AddFrame(new IntRect(200,100,100,100));
+            walkaround.AddFrame(new IntRect(100,0,100,100));
 
-            movingSprite = new AnimatedSprite(Time.FromSeconds((float)0.2), true, false);
+            movingSprite = new AnimatedSprite(Time.FromSeconds(0.2f), true, false);
             movingSprite.Position = new Vector2f(win.Size.X / 2, win.Size.Y / 2);
             //renTest = new Sprite(new Texture("Assets/Graphics/rusty_sprites.png"));
             
@@ -60,12 +60,11 @@ namespace Luftschiff.Code.States
         {
             //updates the sprite
             movingSprite.Update(Globals.FRAME_TIME);
-            if(Keyboard.IsKeyPressed(Keyboard.Key.A))
+            //if(Keyboard.IsKeyPressed(Keyboard.Key.A))
                 movingSprite.Play(walkaround);
-            else
-                movingSprite.Stop();
+            //else
+                //movingSprite.Stop();
             movingSprite.Move(0.2f,0.2f);
-            Console.WriteLine(walkaround.GetFrame(1).ToString());
         }
     }
 }
