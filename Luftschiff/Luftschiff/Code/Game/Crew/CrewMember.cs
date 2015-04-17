@@ -34,5 +34,11 @@ namespace Luftschiff.Code.Game.Crew {
         {
             throw new System.NotImplementedException();
         }
+
+        //move to that room NAOW
+        public void moveToRoom(Room targetRoom)
+        {
+            
+        }
     }
 }
