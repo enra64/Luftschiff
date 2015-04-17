@@ -108,7 +108,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics.Lib\libsndfile-1.dll" />
-    <Content Include="Graphics.Lib\openal32.dll" />
+    <Content Include="openal32.dll" />
     <Content Include="Graphics.Lib\OpenTK.Compatibility.dll" />
     <Content Include="Graphics.Lib\OpenTK.dll" />
     <Content Include="sfmlnet-audio-2.dll" />
