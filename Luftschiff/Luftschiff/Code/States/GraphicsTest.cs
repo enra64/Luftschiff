@@ -17,15 +17,13 @@ namespace Luftschiff.Code.States
         {
             _win = Controller.Window;
           
-            _walkaround = new Animation();
-            _walkaround.Texture = new Texture("Assets/Graphics/rusty_sprites.png");
+            _walkaround = new Animation(new Texture("Assets/Graphics/rusty_sprites.png"));
             _walkaround.AddFrame(new IntRect(0,0,100,100));
             _walkaround.AddFrame(new IntRect(0,100,100,100));
             _walkaround.AddFrame(new IntRect(100,100,100,100));
             _walkaround.AddFrame(new IntRect(100,0,100,100));
 
-            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), true, true);
-            _movingSprite.Position = new Vector2f(0f,0f);
+            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), true, true,new Vector2f(0f,0f));
             
         }
         /// <summary>

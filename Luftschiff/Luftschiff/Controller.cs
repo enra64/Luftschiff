@@ -22,7 +22,7 @@ namespace Luftschiff
             Initializer.Initialize();
 
             //loadState(Globals.EStates.game);
-            loadState(Globals.EStates.game);
+            LoadState(Globals.EStates.game);
 
             while (Window.IsOpen)
             {

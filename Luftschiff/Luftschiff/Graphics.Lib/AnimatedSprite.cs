@@ -17,7 +17,7 @@ namespace Luftschiff.Graphics.Lib
         private Texture _texture;
         private Vertex[] _vertices;
 
-        public AnimatedSprite(Time frameTime, bool paused, bool looped)
+        public AnimatedSprite(Time frameTime, bool paused, bool looped, Vector2f position)
         {
             _animation = null;
             _frameTime = frameTime;
@@ -26,6 +26,7 @@ namespace Luftschiff.Graphics.Lib
             Looped = looped;
             _texture = null;
             _vertices = new Vertex[4];
+            Position = position;
             SetColor(new Color(255, 255, 255, 255));
         }
 
