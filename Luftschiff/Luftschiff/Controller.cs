@@ -26,6 +26,9 @@ namespace Luftschiff
 
             while (Window.IsOpen)
             {
+                Window.SetFramerateLimit(100);
+                Window.SetVerticalSyncEnabled(true);
+
                 main.mainUpdate();
                 main.draw();
                 
