@@ -30,7 +30,6 @@ namespace Luftschiff.Graphics.Lib
             _vertices = new Vertex[4];
             Position = position;
             SetColor(new Color(255, 255, 255, 255));
-            _deltaTime = Globals.FRAME_TIME;
         }
 
         public Time FrameTime
@@ -111,6 +110,7 @@ namespace Luftschiff.Graphics.Lib
 
         public void SetFrame(int newFrame, bool resetTime)
         {
+            _deltaTime = Globals.FRAME_TIME;
             if (_validAnimation)
             {
                 IntRect rect = _animation.GetFrame(newFrame);
