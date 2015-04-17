@@ -2,6 +2,7 @@
 using Luftschiff.Code.Game.AreavRooms;
 using SFML.System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Threading;
 using SFML.Graphics;
 
@@ -29,6 +30,11 @@ namespace Luftschiff.Code.Game.Crew {
         public override void draw()
         {
             Controller.Window.Draw(useAnAnimatedSprite);
+        }
+
+        public override FloatRect getRect()
+        {
+            return useAnAnimatedSprite.GetGlobalBounds();
         }
 
         /// <summary>

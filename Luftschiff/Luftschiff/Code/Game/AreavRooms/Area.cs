@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Luftschiff.Code.Game.Crew;
 using SFML.System;
@@ -42,18 +43,19 @@ namespace Luftschiff.Code.Game.AreavRooms
                 //first, just detect what was clicked
                 Room clickedRoom = null;
                 CrewMember clickedCrew = null;
-
-                //check rooms for clicks first, may be needed to be switched around
-                //check rooms for click
-                foreach (Room r in rooms_)
-                    if (r.CheckClick(lastClickPosition))
-                        clickedRoom = r;
-
+                
                 //check crew for click
-                if(clickedRoom == null)
-                    foreach (CrewMember c in crew_)
-                        if (c.CheckClick(lastClickPosition))
-                            clickedCrew = c;
+                foreach (CrewMember c in crew_)
+                    if (c.CheckClick(lastClickPosition))
+                        clickedCrew = c;
+
+                //check rooms for click
+                if (clickedCrew == null)
+                    foreach (Room r in rooms_)
+                        if (r.CheckClick(lastClickPosition))
+                            clickedRoom = r;
+
+
 
                 //any clicked rooms or crewmember have been detected by now
 
@@ -63,17 +65,29 @@ namespace Luftschiff.Code.Game.AreavRooms
                 {
                     //a room was clicked, set into mousehandler
                     if (clickedRoom != null)
+                    {
                         MouseHandler.selectedRoom = clickedRoom;
+                        Console.WriteLine("selected room");
+                        MouseHandler.UnhandledClick = false;
+                    }
+                        
 
                     //a crewmember was clicked -> mousehandler
                     if (clickedCrew != null)
+                    {
+                        Console.WriteLine("selected crewmember");
                         MouseHandler.selectedCrew = clickedCrew;
+                        MouseHandler.UnhandledClick = false;
+                    }
+                        
   
                     //nothing was clicked, remove the selection
                     if (clickedRoom == null && clickedCrew == null)
                     {
+                        Console.WriteLine("removed selection");
                         MouseHandler.selectedCrew = null;
                         MouseHandler.selectedRoom = null;
+                        //MouseHandler.UnhandledClick = false;
                     }
                 }
                 //right click
@@ -82,9 +96,12 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //a room was rightclicked, and a crew has been selected previously
                     if (clickedRoom != null && MouseHandler.selectedCrew != null)
                     {
-                        clickedCrew.setTarget(clickedRoom);
+                        Console.WriteLine("crewmember will move or not");
+                        MouseHandler.selectedCrew.setTarget(clickedRoom);
+                        MouseHandler.UnhandledClick = false;
                     }
                 }
+                
             }
             #endregion
             
