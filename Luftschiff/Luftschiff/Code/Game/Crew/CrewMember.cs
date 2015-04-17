@@ -3,9 +3,13 @@ using Luftschiff.Code.Game.AreavRooms;
 using SFML.System;
 using System.Collections.Generic;
 using System.Threading;
+using SFML.Graphics;
 
 namespace Luftschiff.Code.Game.Crew {
-    class CrewMember : Entity{
+    class CrewMember : Entity
+    {
+        private Sprite useAnAnimatedSprite;
+
         //possible abilities
         //TODO add or remove abilities
         private int _health = 100;
@@ -13,11 +17,14 @@ namespace Luftschiff.Code.Game.Crew {
         private int _repairSpeed = 1;
         private int _slackFireSpeed = 1;
         private int _weaponSkills = 1;
-        private int _targetRoom =0;
+        private int _targetRoom = 0;
         public bool HasJob = false;
 
 
-        public CrewMember() { }
+        public CrewMember()
+        {
+            useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
+        }
 
         /// <summary>
         /// returns the amount of room heal by this crewmember
@@ -54,6 +61,7 @@ namespace Luftschiff.Code.Game.Crew {
             //TODO add calculation to determine, which room is clicke
             //targetRoom_= xyz;
         }
+
         public int getTarget()
         {
             return _targetRoom;
