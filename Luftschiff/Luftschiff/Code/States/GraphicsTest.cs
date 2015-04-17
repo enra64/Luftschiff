@@ -24,7 +24,7 @@ namespace Luftschiff.Code.States
             _walkaround.AddFrame(new IntRect(100,100,100,100));
             _walkaround.AddFrame(new IntRect(100,0,100,100));
 
-            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.001f), true, true);
+            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), true, true);
             _movingSprite.Position = new Vector2f(0f,0f);
             
         }

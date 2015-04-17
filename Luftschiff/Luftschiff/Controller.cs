@@ -26,17 +26,19 @@ namespace Luftschiff
 
             while (Window.IsOpen)
             {
+                Window.SetFramerateLimit(100);
+                Window.SetVerticalSyncEnabled(true);
+
                 main.mainUpdate();
                 main.draw();
                 
                 //FRAME_TIME always last!!
                 Globals.FRAME_TIME = _frameClock.Restart();
-                //Console.WriteLine(Globals.FRAME_TIME.AsSeconds());
             }
             
         }
 
-        public static void loadState(Globals.EStates targetState)
+        public static void LoadState(Globals.EStates targetState)
         {
             switch (targetState)
             {
