@@ -9,6 +9,7 @@ namespace Luftschiff.Code.States
     class GraphicsTest : Global.ProtoGameState
     {
         private static Animation _walkaround;
+        private static Animation _turnaround;
         private static AnimatedSprite _movingSprite;
         private static RenderWindow _win;
 
@@ -16,17 +17,20 @@ namespace Luftschiff.Code.States
         public GraphicsTest()
         {
             _win = Controller.Window;
-          
-            _walkaround = new Animation();
-            _walkaround.Texture = new Texture("Assets/Graphics/rusty_sprites.png");
+
+            _walkaround = new Animation(new Texture("Assets/Graphics/rusty_sprites.png"));
             _walkaround.AddFrame(new IntRect(0,0,100,100));
             _walkaround.AddFrame(new IntRect(0,100,100,100));
             _walkaround.AddFrame(new IntRect(100,100,100,100));
             _walkaround.AddFrame(new IntRect(100,0,100,100));
 
-            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), true, true);
-            _movingSprite.Position = new Vector2f(0f,0f);
-            
+            _turnaround = new Animation(new Texture("Assets/Graphics/rusty_sprites.png"));
+            _turnaround.AddFrame(new IntRect(100, 0, 100, 100));
+            _turnaround.AddFrame(new IntRect(100, 100, 100, 100));
+            _turnaround.AddFrame(new IntRect(0, 100, 100, 100));
+            _turnaround.AddFrame(new IntRect(0, 0, 100, 100));
+
+            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), true, true, new Vector2f(0f,0f));            
         }
         /// <summary>
         /// Main draw call for our Game. 
@@ -53,9 +57,11 @@ namespace Luftschiff.Code.States
         public override void update()
         {
             //updates the sprite
-            _movingSprite.Update(Globals.FRAME_TIME);
+            _movingSprite.Update();
             if(Keyboard.IsKeyPressed(Keyboard.Key.A))
                 _movingSprite.Play(_walkaround);
+            if(Keyboard.IsKeyPressed(Keyboard.Key.D))
+                _movingSprite.Play(_turnaround);
         }
     }
 }

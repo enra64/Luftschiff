@@ -1,4 +1,5 @@
 ﻿using System;
+using Luftschiff.Code;
 using SFML.Graphics;
 using SFML.System;
 
@@ -9,6 +10,7 @@ namespace Luftschiff.Graphics.Lib
         private Animation _animation;
         private Time _frameTime;
         private Time _currentTime;
+        private Time _deltaTime;
         private int _currentFrame;
         private bool _isLooped;
         private bool _isPaused;
@@ -17,7 +19,7 @@ namespace Luftschiff.Graphics.Lib
         private Texture _texture;
         private Vertex[] _vertices;
 
-        public AnimatedSprite(Time frameTime, bool paused, bool looped)
+        public AnimatedSprite(Time frameTime, bool paused, bool looped, Vector2f position)
         {
             _animation = null;
             _frameTime = frameTime;
@@ -26,6 +28,7 @@ namespace Luftschiff.Graphics.Lib
             Looped = looped;
             _texture = null;
             _vertices = new Vertex[4];
+            Position = position;
             SetColor(new Color(255, 255, 255, 255));
         }
 
@@ -107,6 +110,7 @@ namespace Luftschiff.Graphics.Lib
 
         public void SetFrame(int newFrame, bool resetTime)
         {
+            _deltaTime = Globals.FRAME_TIME;
             if (_validAnimation)
             {
                 IntRect rect = _animation.GetFrame(newFrame);
@@ -132,13 +136,13 @@ namespace Luftschiff.Graphics.Lib
             }
         }
 
-        public void Update(Time deltaTime)
+        public void Update()
         {
             //unpaused and valid anim
             if (!_isPaused && _validAnimation)
             {
                 //add deltatime
-                _currentTime += deltaTime;
+                _currentTime += _deltaTime;
 
                 // if current time is bigger then the frame time advance one frame
                 if (_currentTime >= _frameTime)

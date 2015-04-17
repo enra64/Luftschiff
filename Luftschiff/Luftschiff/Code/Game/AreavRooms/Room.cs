@@ -8,12 +8,6 @@ namespace Luftschiff.Code.Game.AreavRooms
 {
     abstract class Room : Entity
     {
-        /// <summary>
-        /// kinds of possible Rooms
-        /// </summary>
-
-
-
         //List to use when Crew-class implemented 
         List<CrewMember> crewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
@@ -48,10 +42,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// the monster has detected that this room has been selected
         /// and used to fire upon it
         /// </summary>
-        public void inflictDamage(Monster monster, bool hits)
-        {
-            monster.getTurnDamage(0, hits);
-        }
+        public abstract void inflictDamage(Monster monster, bool hits);
 
         /// <summary>
         /// the array is filled with a standart of numbers for the tilemap

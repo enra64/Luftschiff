@@ -9,6 +9,11 @@ namespace Luftschiff.Graphics.Lib
         private List<IntRect> _frames = new List<IntRect>();
         private Texture _texture;
 
+        public Animation(Texture texture)
+        {
+            Texture = texture;
+        }
+
         public void AddFrame(IntRect rect)
         {
             _frames.Add(rect);
