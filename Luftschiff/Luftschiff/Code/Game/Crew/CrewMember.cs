@@ -16,7 +16,7 @@ namespace Luftschiff.Code.Game.Crew {
 
         public CrewMember() { }
 
-        public virtual void update(){
+        public override void update(){
         }
 
         public void setTarget(List<Room> targets ,Vector2f clickposition){
@@ -28,10 +28,11 @@ namespace Luftschiff.Code.Game.Crew {
             return targetRoom_;
         }
 
-
-
-
-
-
+        //just created this because it was easy, if this is not usable change the
+        //call in area in the mouse click handler
+        public void setTarget(Room clickedRoom)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

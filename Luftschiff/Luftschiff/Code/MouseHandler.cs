@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luftschiff.Code.Game.AreavRooms;
+using Luftschiff.Code.Game.Crew;
 using SFML.System;
 
 namespace Luftschiff {
@@ -16,6 +18,9 @@ namespace Luftschiff {
         public static float ScrollingDelta { get; private set; }
         public static Vector2f CurrentPosition { get; private set; }
         public static Vector2f LastClickPosition { get; private set; }
+        public static Room selectedRoom { get; set; }
+        public static CrewMember selectedCrew { get; set; }
+
 
         internal static void click(object sender, MouseButtonEventArgs e) {
             Clicking = true;

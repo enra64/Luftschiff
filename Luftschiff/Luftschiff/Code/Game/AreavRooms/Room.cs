@@ -1,6 +1,7 @@
 ﻿using System;
 using Luftschiff.Code.Game.Crew;
 using System.Collections.Generic;
+using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
 {
@@ -126,11 +127,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                 //TODO add useful cooldown after action;
             }
         }
-        public Boolean checkClick()
-        {
-            //TODO insert code to check clicks
-            return false;
-        }
+
 
         public void receiveDamage(int damage)
         {
