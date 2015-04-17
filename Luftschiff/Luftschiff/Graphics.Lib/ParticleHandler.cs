@@ -16,7 +16,7 @@ namespace Luftschiff.Graphics.Lib
             _particleKeeper = new List<Particle>(number);
             for (var i = 1; i <= number; i++)
             {
-                var par = new Particle(Time.FromSeconds(3), 10f, Color.Red);
+                var par = new Particle(Time.FromSeconds(3f), 10f, Color.Red);
                 Add(par);
             }
             
@@ -42,7 +42,8 @@ namespace Luftschiff.Graphics.Lib
             }
             if (MouseHandler.UnhandledClick)
             {
-                var par = new Particle(Time.FromSeconds(0.1f), 10f, Color.Magenta);
+                var par = new Particle(Time.FromSeconds(3f), 10f, Color.Magenta);
+                MouseHandler.UnhandledClick = false;
                 Add(par);
             }
             Remove();
