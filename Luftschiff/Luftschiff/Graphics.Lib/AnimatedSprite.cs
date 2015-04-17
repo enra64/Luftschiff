@@ -108,13 +108,12 @@ namespace Luftschiff.Graphics.Lib
 
         public void SetFrame(int newFrame, bool resetTime)
         {
-            Console.WriteLine("Valid Animation: " + _validAnimation + "  " +"TextureLoad: "+ _textureLoaded);
             if(_vertices[1].Color == new Color(0,0,0,0))
-                Console.WriteLine("LOL das spiel mal die Vertexes schwarz :^)");
-            Console.WriteLine(_vertices[1].ToString());
+                throw new Exception("Color not configured!");
             if (_validAnimation)
             {
                 IntRect rect = _animation.GetFrame(newFrame);
+                SetColor(new Color(255,255,255,255));
                 _vertices[0].Position = new Vector2f(0f, 0f);
                 _vertices[1].Position = new Vector2f(0f, rect.Height);
                 _vertices[2].Position = new Vector2f(rect.Width, rect.Height);
