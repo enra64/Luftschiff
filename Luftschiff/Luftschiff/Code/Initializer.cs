@@ -36,12 +36,10 @@ namespace Luftschiff {
             Globals.DialogFont = new Font("Assets/StandardFontSteamwreck.otf");
         }
 
-        private static void InitializeAssets() {
+        private static void InitializeAssets()
+        {
             //compat settings for jan-ole
-            if(Texture.MaximumSize > 1024)
-                Globals.BackgroundTexture = new Texture("Assets/Graphics/testbg_big.png");
-            else
-                Globals.BackgroundTexture = new Texture("Assets/Graphics/testbg.png");
+            Globals.BackgroundTexture = Texture.MaximumSize > 1024 ? new Texture("Assets/Graphics/testbg_big.png") : new Texture("Assets/Graphics/testbg.png");
         }
     }
 }
