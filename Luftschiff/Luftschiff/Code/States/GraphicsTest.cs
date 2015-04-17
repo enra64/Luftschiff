@@ -12,25 +12,24 @@ namespace Luftschiff.Code.States
     //Rewrite animatedSprite and Animation
     class GraphicsTest : Global.ProtoGameState
     {
-        private static Animation walkaround;
-        private static AnimatedSprite movingSprite;
-        private static RenderWindow win;
-        private static Sprite renTest;
+        private static Animation _walkaround;
+        private static AnimatedSprite _movingSprite;
+        private static RenderWindow _win;
+
         
         public GraphicsTest()
         {
-            win = Controller.Window;
+            _win = Controller.Window;
           
-            walkaround = new Animation();
-            walkaround.Texture = new Texture("Assets/Graphics/rusty_sprites.png");
-            walkaround.AddFrame(new IntRect(0,0,100,100));
-            walkaround.AddFrame(new IntRect(0,100,100,100));
-            walkaround.AddFrame(new IntRect(100,100,100,100));
-            walkaround.AddFrame(new IntRect(100,0,100,100));
+            _walkaround = new Animation();
+            _walkaround.Texture = new Texture("Assets/Graphics/rusty_sprites.png");
+            _walkaround.AddFrame(new IntRect(0,0,100,100));
+            _walkaround.AddFrame(new IntRect(0,100,100,100));
+            _walkaround.AddFrame(new IntRect(100,100,100,100));
+            _walkaround.AddFrame(new IntRect(100,0,100,100));
 
-            movingSprite = new AnimatedSprite(Time.FromSeconds(0.2f), true, false);
-            movingSprite.Position = new Vector2f(win.Size.X / 2, win.Size.Y / 2);
-            //renTest = new Sprite(new Texture("Assets/Graphics/rusty_sprites.png"));
+            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.2f), true, false);
+            _movingSprite.Position = new Vector2f(_win.Size.X / 2, _win.Size.Y / 2);
             
         }
         /// <summary>
@@ -38,10 +37,9 @@ namespace Luftschiff.Code.States
         /// </summary>
         public override void draw()
         {
-            win.Clear();
-            win.Draw(movingSprite);
-            //win.Draw(renTest);
-            win.Display();
+            _win.Clear();
+            _win.Draw(_movingSprite);
+            _win.Display();
         }
 
         /// <summary>
@@ -59,12 +57,12 @@ namespace Luftschiff.Code.States
         public override void update()
         {
             //updates the sprite
-            movingSprite.Update(Globals.FRAME_TIME);
-            //if(Keyboard.IsKeyPressed(Keyboard.Key.A))
-                movingSprite.Play(walkaround);
-            //else
-                //movingSprite.Stop();
-            movingSprite.Move(0.2f,0.2f);
+            _movingSprite.Update(Globals.FRAME_TIME);
+            if(Keyboard.IsKeyPressed(Keyboard.Key.A))
+                _movingSprite.Play(_walkaround);
+            else
+                _movingSprite.Stop();
+            _movingSprite.Move(0.2f,0.2f);
         }
     }
 }

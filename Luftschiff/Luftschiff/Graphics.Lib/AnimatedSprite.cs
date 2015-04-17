@@ -64,7 +64,7 @@ namespace Luftschiff.Graphics.Lib
             set { _isLooped = value; }
         }
 
-        private void SetColor(Color color)
+        public void SetColor(Color color)
         {
             _vertices[0].Color = color;
             _vertices[1].Color = color;
