@@ -1,4 +1,6 @@
 ﻿using System;
+using Luftschiff.Code.Game.Crew;
+using System.Collections.Generic;
 
 namespace Luftschiff.Code.Game.AreavRooms
 {
@@ -29,12 +31,13 @@ namespace Luftschiff.Code.Game.AreavRooms
 
 
         //List to use when Crew-class implemented 
-        //List<Crew> crewList = new List<Crew>();
+        List<CrewMember> crewList = new List<CrewMember>();
 
         //useful variables
         private int fireCounter_ = 0;
         private int cooldown_ = 0;
         private int life_ = 100;
+        private bool walkAble = true;
         //save which kind the room is
         private RoomKind roomkind_;
 
