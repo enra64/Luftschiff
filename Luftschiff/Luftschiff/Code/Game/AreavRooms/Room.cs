@@ -148,7 +148,6 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// the monster has detected that this room has been selected
         /// and used to fire upon it
         /// </summary>
-        /// <param name="monster"></param>
         public void inflictDamage(Monster monster)
         {
             throw new NotImplementedException();
