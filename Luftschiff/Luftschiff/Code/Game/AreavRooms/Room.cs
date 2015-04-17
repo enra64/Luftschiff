@@ -24,7 +24,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         private bool _walkAble = true;
         //save which kind the room is
 
-        public virtual void RoomAction(){ }
+        public abstract void RoomAction();
 
         public void ReceiveDamage(int damage)
         {
