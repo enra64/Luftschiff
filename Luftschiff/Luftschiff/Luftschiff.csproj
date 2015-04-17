@@ -62,11 +62,13 @@
     <Compile Include="Code\Dialogs\TwoButtonDialog.cs" />
     <Compile Include="Code\Game\AreavRooms\Area.cs" />
     <Compile Include="Code\Game\AreavRooms\Room.cs" />
+    <Compile Include="Code\Game\Turnhandler\CrewTarget.cs" />
     <Compile Include="Code\Game\Crew\CrewMember.cs" />
     <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Game\Monsters\Dragon.cs" />
     <Compile Include="Code\Game\Monsters\Monster.cs" />
-    <Compile Include="Code\Game\TurnHandler.cs" />
+    <Compile Include="Code\Game\Turnhandler\TurnHandler.cs" />
+    <Compile Include="Code\Game\Turnhandler\WeaponTarget.cs" />
     <Compile Include="Code\Game\Weapons\Projectile.cs" />
     <Compile Include="Code\Global\Globals.cs" />
     <Compile Include="Code\Global\ProtoGameState.cs" />
