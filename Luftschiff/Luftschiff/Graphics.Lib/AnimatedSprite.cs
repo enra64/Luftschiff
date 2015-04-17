@@ -1,4 +1,5 @@
 ﻿using System;
+using Luftschiff.Code;
 using SFML.Graphics;
 using SFML.System;
 
@@ -9,6 +10,7 @@ namespace Luftschiff.Graphics.Lib
         private Animation _animation;
         private Time _frameTime;
         private Time _currentTime;
+        private Time _deltaTime;
         private int _currentFrame;
         private bool _isLooped;
         private bool _isPaused;
@@ -28,6 +30,7 @@ namespace Luftschiff.Graphics.Lib
             _vertices = new Vertex[4];
             Position = position;
             SetColor(new Color(255, 255, 255, 255));
+            _deltaTime = Globals.FRAME_TIME;
         }
 
         public Time FrameTime
@@ -133,13 +136,13 @@ namespace Luftschiff.Graphics.Lib
             }
         }
 
-        public void Update(Time deltaTime)
+        public void Update()
         {
             //unpaused and valid anim
             if (!_isPaused && _validAnimation)
             {
                 //add deltatime
-                _currentTime += deltaTime;
+                _currentTime += _deltaTime;
 
                 // if current time is bigger then the frame time advance one frame
                 if (_currentTime >= _frameTime)

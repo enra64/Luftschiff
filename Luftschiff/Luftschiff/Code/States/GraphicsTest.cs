@@ -57,7 +57,7 @@ namespace Luftschiff.Code.States
         public override void update()
         {
             //updates the sprite
-            _movingSprite.Update(Globals.FRAME_TIME);
+            _movingSprite.Update();
             if(Keyboard.IsKeyPressed(Keyboard.Key.A))
                 _movingSprite.Play(_walkaround);
             if(Keyboard.IsKeyPressed(Keyboard.Key.D))
