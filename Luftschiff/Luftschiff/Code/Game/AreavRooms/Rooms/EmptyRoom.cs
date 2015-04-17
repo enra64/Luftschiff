@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
+using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     class EmptyRoom : Room
     {
-        public EmptyRoom()
+        public EmptyRoom(Vector2f position)
+            : base(position)
         {
             loadStandartTilekinds(tilekind, 1);
             initializeTilemap();

@@ -26,8 +26,8 @@ namespace Luftschiff.Code.Game.Monsters {
                     Globals.TurnHandler.addRoomTarget(MouseHandler.selectedRoom, this);
                 }
             }
-            sprite.Update(Globals.FRAME_TIME);
-            sprite.Play(flying);
+            Sprite.Update(Globals.FRAME_TIME);
+            Sprite.Play(flying);
         }
 
         public Dragon(Texture t)
@@ -38,7 +38,7 @@ namespace Luftschiff.Code.Game.Monsters {
             flying.AddFrame(new IntRect(200, 0, 300, 674));
             flying.AddFrame(new IntRect(300, 0, 389, 674));
 
-            sprite = new AnimatedSprite(Time.FromSeconds(0.4f), true, true,new Vector2f(Controller.Window.Size.X / 1.5f, 0f));
+            Sprite = new AnimatedSprite(Time.FromSeconds(0.4f), true, true,new Vector2f(Controller.Window.Size.X / 1.5f, 0f));
         }
     }
 }

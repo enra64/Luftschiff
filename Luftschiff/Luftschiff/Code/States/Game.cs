@@ -30,15 +30,11 @@ namespace Luftschiff.Code.States {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
             test = Globals.AreaReference;
-            test.AddRoom(new AirCannonRoom());
-            test.AddRoom(new AirEngineRoom());
-            test.AddRoom(new AirHospitalWard());
-            test.AddRoom(new AirLunchRoom());
-            test.AddRoom(new EmptyRoom());
-            for (int i = 0; i < test.getRooms().Count; i++)
-            {
-                test.getRooms().ElementAt(i).position = new Vector2f(10 + 100*i, 10);
-            }
+            test.AddRoom(new AirCannonRoom(new Vector2f(0, 0)));
+            test.AddRoom(new AirEngineRoom(new Vector2f(150, 0)));
+            test.AddRoom(new AirHospitalWard(new Vector2f(300, 0)));
+            test.AddRoom(new AirLunchRoom(new Vector2f(0, 150)));
+            test.AddRoom(new EmptyRoom(new Vector2f(0, 300)));
         }
 
         /// <summary>

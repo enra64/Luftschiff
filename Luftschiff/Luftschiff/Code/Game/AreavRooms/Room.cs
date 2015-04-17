@@ -45,6 +45,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             //TODO special damage for Crewdamage
         }
+
         public void SetOnFire(int roundsRoomIsBurning)
         {
             this._fireLife = roundsRoomIsBurning;
@@ -93,13 +94,18 @@ namespace Luftschiff.Code.Game.AreavRooms
             //TODO add door number to tileMap numbers
         }
 
+        public Room(Vector2f position)
+        {
+            Position = position;
+        }
+
         public void initializeTilemap()
         {
             for (int i = 0; i < 4; i++)
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.position.X+32*i ,position.Y+32*k)); //TODO add for new vector2f Vector of roomposition 
+                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.Position.X+32*i ,Position.Y+32*k)); //TODO add for new vector2f Vector of roomposition 
                 }
             }
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
+using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
@@ -17,6 +18,10 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void inflictDamage(Monster monster, bool hits)
         {
             throw new NotImplementedException();
+        }
+
+        public GroundAirshipWorkshop(Vector2f position) : base(position)
+        {
         }
     }
 }
