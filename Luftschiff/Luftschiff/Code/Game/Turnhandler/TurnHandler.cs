@@ -25,7 +25,7 @@ namespace Luftschiff.Code.Game
 
         public void addCrewTarget(CrewMember crewMember, Room targetRoom)
         {
-            //TODO: jan-ole: add crew pathfinding algorithm    
+            //TODO: jan-ole: add crew pathfinding algorithm
             //do by adding a target to the crewTargetsList
             //crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
         }
@@ -57,7 +57,7 @@ namespace Luftschiff.Code.Game
             foreach (CrewTarget c in _crewTargets)
             {
                 if(c.NeededActions == 0)
-                    c.Crew.setTarget(c.Target);
+                    c.Crew.moveToRoom(c.Target);
                 c.NeededActions--;
             }
         }
