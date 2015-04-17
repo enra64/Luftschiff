@@ -18,7 +18,10 @@ namespace Luftschiff.Code.Game.AreavRooms
         private bool _walkAble = true;
         //save which kind the room is
 
-        public abstract void RoomAction();
+        /// <summary>
+        /// this is called when a crewmember arrives in this room, and has no further rooms to go to
+        /// </summary>
+        public abstract void OnCrewArrive(CrewMember traveler);
 
         public void ReceiveDamage(int damage)
         {
@@ -35,8 +38,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// the monster has detected that this room has been selected
-        /// and used to fire upon it
+        /// Called by the turnhandler to get the damage dealt by that room
         /// </summary>
         public abstract void inflictDamage(Monster monster, bool hits);
 
