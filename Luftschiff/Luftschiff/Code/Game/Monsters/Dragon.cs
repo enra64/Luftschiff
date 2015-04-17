@@ -6,7 +6,7 @@ using SFML.System;
 namespace Luftschiff.Code.Game.Monsters {
     class Dragon : Monster
     {
-        private Animation a;
+        private Animation flying;
         public override int makeTurnDamage()
         {
             throw new System.NotImplementedException();
@@ -27,16 +27,16 @@ namespace Luftschiff.Code.Game.Monsters {
                 }
             }
             sprite.Update(Globals.FRAME_TIME);
-            sprite.Play(a);
+            sprite.Play(flying);
         }
 
         public Dragon(Texture t)
         {
-            a = new Animation(new Texture("Assets/Graphics/dragon.png"));
-            a.AddFrame(new IntRect(0, 0, 100, 674));
-            a.AddFrame(new IntRect(100, 0, 200, 674));
-            a.AddFrame(new IntRect(200, 0, 300, 674));
-            a.AddFrame(new IntRect(300, 0, 389, 674));
+            flying = new Animation(new Texture("Assets/Graphics/dragon.png"));
+            flying.AddFrame(new IntRect(0, 0, 100, 674));
+            flying.AddFrame(new IntRect(100, 0, 200, 674));
+            flying.AddFrame(new IntRect(200, 0, 300, 674));
+            flying.AddFrame(new IntRect(300, 0, 389, 674));
 
             sprite = new AnimatedSprite(Time.FromSeconds(0.4f), true, true,new Vector2f(Controller.Window.Size.X / 1.5f, 0f));
         }
