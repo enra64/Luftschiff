@@ -9,18 +9,37 @@ namespace Luftschiff.Code {
     /// </summary>
     static class Globals {
         //static variables
-        public enum EGameStates
+        /// <summary>
+        /// Contains possible gamestates
+        /// </summary>
+        public enum EStates
         {
             game,
             graphicstest
         }
 
+
+        /// <summary>
+        /// current standard font for use in dialogs
+        /// </summary>
         public static Font DialogFont;
 
-        //colors and height for any dialog buttons
+        /// <summary>
+        /// The standard height for every dialog button
+        /// </summary>
         public static int TWO_BUTTON_DIALOG_BUTTON_HEIGHT = 40;
+
+        /// <summary>
+        /// the standard color a dialog button uses when not hovered over
+        /// </summary>
         public static Color DIALOG_BUTTON_COLOR_NORMAL = Color.White;
+
+        /// <summary>
+        /// standard color for hover
+        /// </summary>
         public static Color DIALOG_BUTTON_COLOR_HOVER = Color.Yellow;
+
+
 
         //globally used font sizes for text
         public static int FONT_SIZE_STANDARD = 20;

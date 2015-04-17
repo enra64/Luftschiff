@@ -65,6 +65,7 @@
     <Compile Include="Code\Game\Crew\CrewMember.cs" />
     <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Game\Monsters\Dragon.cs" />
+    <Compile Include="Code\Game\Monsters\Monster.cs" />
     <Compile Include="Code\Game\Weapons\Projectile.cs" />
     <Compile Include="Code\Global\Globals.cs" />
     <Compile Include="Code\Global\ProtoGameState.cs" />

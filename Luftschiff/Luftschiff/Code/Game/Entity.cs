@@ -19,10 +19,8 @@ namespace Luftschiff.Code.Game
         }
 
         // update function : using in ingame Action
-        public virtual void update()
-        {
-            Console.WriteLine("update not implemented");
-        }
+        //changed to "abstract" to force implementation
+        public abstract void update();
 
         // draw sprites 
         public virtual void draw()
