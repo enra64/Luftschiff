@@ -33,6 +33,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                     break;
 
             }
+            s.Position = position;
         }
         public override void update()
         {}
