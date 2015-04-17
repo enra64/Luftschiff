@@ -38,9 +38,9 @@ namespace Luftschiff.Code.Game
         /// <summary>
         /// Calls the inflictDamage in shootyPointy on monster on this rounds end
         /// </summary>
-        public void addRoomTarget(Room shootyPointy, Monster monter)
+        public void addRoomTarget(Room shootyPointy, Monster monster)
         {
-            _weaponTargets.Add(new WeaponTarget(shootyPointy, monter, 0));
+            _weaponTargets.Add(new WeaponTarget(shootyPointy, monster, 0));
         }
 
         /// <summary>
