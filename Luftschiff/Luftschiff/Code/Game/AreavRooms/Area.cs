@@ -21,6 +21,11 @@ namespace Luftschiff.Code.Game.AreavRooms
             return rooms_;
         }
 
+        public void AddRoom(Room a)
+        {
+            rooms_.Add(a);
+        }
+
         public override void update()
         {
             #region Check Rooms and Crew for Clicks

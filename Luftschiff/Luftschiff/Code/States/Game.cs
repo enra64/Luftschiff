@@ -1,7 +1,10 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Luftschiff.Code.Dialogs;
+using Luftschiff.Code.Game.AreavRooms;
+using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Global;
 
@@ -23,6 +26,16 @@ namespace Luftschiff.Code.States {
         {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
+            Area test = new Area();
+            test.AddRoom(new AirCannonRoom());
+            test.AddRoom(new AirEngineRoom());
+            test.AddRoom(new AirHospitalWard());
+            test.AddRoom(new AirLunchRoom());
+            test.AddRoom(new EmptyRoom());
+            for (int i = 0; i < test.getRooms().Count; i++)
+            {
+                test.getRooms().ElementAt(i).position = new Vector2f(10 + 100*i, 10);
+            }
         }
 
         /// <summary>
