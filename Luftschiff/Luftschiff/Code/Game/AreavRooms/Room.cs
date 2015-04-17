@@ -2,6 +2,7 @@
 using Luftschiff.Code.Game.Crew;
 using System.Collections.Generic;
 using Luftschiff.Code.Game.Monsters;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
@@ -85,8 +86,14 @@ namespace Luftschiff.Code.Game.AreavRooms
                     break;
 
             }
+        }
 
-
+        public override FloatRect getRect()
+        {
+            FloatRect tileSize = _tilemap[0, 0].getRect();
+            tileSize.Width *= 4;
+            tileSize.Height *= 4;
+            return tileSize;
         }
 
         public void addDoorsToTileArray(int[,] array, Vector2f position)

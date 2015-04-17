@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
@@ -23,7 +24,11 @@ namespace Luftschiff.Code.Game.Monsters {
             {
                 if (MouseHandler.selectedRoom != null)
                 {
-                    Globals.TurnHandler.addRoomTarget(MouseHandler.selectedRoom, this);
+                    if (getRect().Contains(MouseHandler.LastClickPosition.X, MouseHandler.LastClickPosition.Y))
+                    {
+                        MouseHandler.UnhandledClick = false;
+                        Globals.TurnHandler.addRoomTarget(MouseHandler.selectedRoom, this);    
+                    }
                 }
             }
             Sprite.Update(Globals.FRAME_TIME);

@@ -61,6 +61,7 @@ namespace Luftschiff.Code.States {
         public override void update()
         {
             CurrentMonster.update();
+            test.update();
             //Dialog examples
             /*
             //ok create a new listdialog
