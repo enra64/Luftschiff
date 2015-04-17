@@ -44,9 +44,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// the monster has detected that this room has been selected
         /// and used to fire upon it
         /// </summary>
-        public void inflictDamage(Monster monster)
+        public void inflictDamage(Monster monster, bool hits)
         {
-            throw new NotImplementedException();
+            monster.getTurnDamage(0, hits);
         }
 
     }

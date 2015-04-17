@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Game.Turnhandler;
 
 namespace Luftschiff.Code.Game
 {
@@ -11,11 +13,14 @@ namespace Luftschiff.Code.Game
     class TurnHandler
     {
         private Area _areaReference;
-        private List<CrewTarget> crewTargets; 
+        private List<CrewTarget> _crewTargets;
+        private List<WeaponTarget> _weaponTargets; 
 
         public TurnHandler(Area areaReference)
         {
             _areaReference = areaReference;
+            _crewTargets = new List<CrewTarget>();
+            _weaponTargets = new List<WeaponTarget>();
         }
 
         public void addCrewTarget(CrewMember crewMember, Room targetRoom)
@@ -30,14 +35,32 @@ namespace Luftschiff.Code.Game
             
         }
 
+        /// <summary>
+        /// Calls the inflictDamage in shootyPointy on monster on this rounds end
+        /// </summary>
         public void addRoomTarget(Room shootyPointy, Monster monter)
         {
-            
+            _weaponTargets.Add(new WeaponTarget(shootyPointy, monter, 0));
         }
 
+        /// <summary>
+        /// execute all actions for this turn
+        /// </summary>
         public void executeTurn()
         {
             //kk now execute all the actions
+            foreach (WeaponTarget c in _weaponTargets) {
+                if (c.NeededActions == 0)
+                    c.FiringRoom.inflictDamage(c.Target, true);
+                c.NeededActions--;
+            }
+
+            foreach (CrewTarget c in _crewTargets)
+            {
+                if(c.NeededActions == 0)
+                    c.Crew.setTarget(c.Target);
+                c.NeededActions--;
+            }
         }
     }
 }

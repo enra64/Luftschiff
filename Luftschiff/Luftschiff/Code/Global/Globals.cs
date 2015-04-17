@@ -1,4 +1,6 @@
-﻿using SFML.Graphics;
+﻿using Luftschiff.Code.Game;
+using Luftschiff.Code.Game.AreavRooms;
+using SFML.Graphics;
 using SFML.System;
 
 
@@ -48,7 +50,13 @@ namespace Luftschiff.Code {
 
         public static Time FRAME_TIME;
 
-        //background for now
+        /// <summary>
+        /// Texture for the background
+        /// </summary>
         public static Texture BackgroundTexture;
+        public static Texture DragonTexture;
+
+        public static TurnHandler TurnHandler;
+        public static Area AreaReference;
     }
 }

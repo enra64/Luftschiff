@@ -8,9 +8,9 @@ namespace Luftschiff.Code.Game
     abstract class Entity
     {
 
-        Vector2f position;
-        Vector2f scale; // lets see if it is not senseless 
-        AnimatedSprite sprite;
+        public Vector2f position;
+        public Vector2f scale; // lets see if it is not senseless 
+        public AnimatedSprite sprite;
 
         /// <summary>
         /// get rectangle for collision

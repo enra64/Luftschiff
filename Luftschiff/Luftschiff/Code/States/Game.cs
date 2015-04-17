@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Luftschiff.Code.Dialogs;
+using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Global;
 
 using Luftschiff.Graphics.Lib;
@@ -13,6 +14,7 @@ namespace Luftschiff.Code.States {
     class Game : ProtoGameState
     {
         private Sprite _backgroundSprite;
+        public Monster CurrentMonster;
         /// <summary>
         /// The gamestate constructor. Nothing must be done here, the superclass
         /// constructor is empty anyways
@@ -20,6 +22,7 @@ namespace Luftschiff.Code.States {
         public Game ()
         {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
+            CurrentMonster = new Dragon(Globals.DragonTexture);
         }
 
         /// <summary>
@@ -27,6 +30,7 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
+            CurrentMonster.draw();
         }
 
         /// <summary>
@@ -40,7 +44,9 @@ namespace Luftschiff.Code.States {
         /// <summary>
         /// This is the update function that gets called for our Game-Gamestate
         /// </summary>
-        public override void update(){
+        public override void update()
+        {
+            CurrentMonster.update();
             //Dialog examples
             /*
             //ok create a new listdialog

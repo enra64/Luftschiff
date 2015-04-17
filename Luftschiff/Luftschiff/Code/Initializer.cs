@@ -3,6 +3,8 @@ using SFML.Window;
 
 using Luftschiff.Graphics.Lib;
 using Luftschiff.Code;
+using Luftschiff.Code.Game;
+using Luftschiff.Code.Game.AreavRooms;
 
 namespace Luftschiff {
     static class Initializer {
@@ -34,12 +36,17 @@ namespace Luftschiff {
 
         private static void InitializeMisc() {
             Globals.DialogFont = new Font("Assets/StandardFontSteamwreck.otf");
+
+            //all the more or less static classses
+            Globals.AreaReference = new Area();
+            Globals.TurnHandler = new TurnHandler(Globals.AreaReference);
         }
 
         private static void InitializeAssets()
         {
             //compat settings for jan-ole
             Globals.BackgroundTexture = Texture.MaximumSize > 1024 ? new Texture("Assets/Graphics/testbg_big.png") : new Texture("Assets/Graphics/testbg.png");
+            Globals.DragonTexture = new Texture("Assets/Graphics/dragon.png");
         }
     }
 }
