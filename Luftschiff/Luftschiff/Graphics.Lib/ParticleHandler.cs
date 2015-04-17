@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
 using SFML.Graphics;
 using SFML.System;
@@ -13,9 +14,9 @@ namespace Luftschiff.Graphics.Lib
         public ParticleHandler(int number)
         {
             _particleKeeper = new List<Particle>(number);
-            for (var i = 0; i <= number; i++)
+            for (var i = 1; i <= number; i++)
             {
-                var par = new Particle(Time.FromSeconds(10), 10f, Color.Magenta);
+                var par = new Particle(Time.FromSeconds(3f), 10f, Color.Red);
                 Add(par);
             }
             
@@ -29,21 +30,24 @@ namespace Luftschiff.Graphics.Lib
 
         private static void Remove()
         {
-            _particleKeeper.RemoveAll(par => par.LifeTime == par.LifeClock.ElapsedTime);
+            _particleKeeper.RemoveAll(par => par.LifeTime <= par.LifeClock.ElapsedTime);
         }
 
         public void Update()
         {
+            Console.WriteLine("Current Particles: "+ _particleKeeper.Count);
             foreach (var listedParticle in _particleKeeper)
             {
                 listedParticle.Update();
             }
             if (MouseHandler.UnhandledClick)
             {
-                var par = new Particle(Time.FromSeconds(10), 10f, Color.Magenta);
+                var par = new Particle(Time.FromSeconds(3f), 10f, Color.Magenta);
+                MouseHandler.UnhandledClick = false;
                 Add(par);
             }
             Remove();
+            
         }
 
         public void Draw()
