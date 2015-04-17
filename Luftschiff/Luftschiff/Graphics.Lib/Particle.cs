@@ -4,12 +4,11 @@ using SFML.System;
 
 namespace Luftschiff.Graphics.Lib
 {
-    internal class Particle : Sprite, Drawable
+    internal class Particle : Drawable
     {
         private static Random _randomizer;
         private static Clock _lifeClock;
         private readonly Shape _circle;
-        private readonly Vector2f _position;
 
         public Particle(Time aliveTime, float radius, Color color)
         {
@@ -19,7 +18,7 @@ namespace Luftschiff.Graphics.Lib
             _circle = new CircleShape(radius);
             LifeClock = new Clock();
             Color = color;
-            _position = new Vector2f(100, 100);
+            _circle.Position = new Vector2f(100, 100);
         }
 
         public Time LifeTime { get; set; }
@@ -40,7 +39,7 @@ namespace Luftschiff.Graphics.Lib
 
         public void Update()
         {
-            Position = _position;
+            _circle.Position = new Vector2f(_circle.Position.X +5f * _randomizer.Next(0,3), _circle.Position.Y + 5f* _randomizer.Next(0,3));
         }
     }
 }
