@@ -37,7 +37,11 @@ namespace Luftschiff {
         }
 
         private static void InitializeAssets() {
-            Globals.BackgroundTexture = new Texture("Assets/Graphics/testbg.png");
+            //compat settings for jan-ole
+            if(Texture.MaximumSize > 1024)
+                Globals.BackgroundTexture = new Texture("Assets/Graphics/testbg_big.png");
+            else
+                Globals.BackgroundTexture = new Texture("Assets/Graphics/testbg.png");
         }
     }
 }
