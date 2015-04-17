@@ -10,6 +10,10 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     class AirCannonRoom : Room
     {
+        public AirCannonRoom()
+        {
+            loadStandartTilekinds(tilekind,1);
+        }
         public override void update()
         {
             throw new NotImplementedException();

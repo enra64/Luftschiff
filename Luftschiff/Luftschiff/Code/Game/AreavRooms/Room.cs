@@ -99,11 +99,21 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f()); //TODO add for new vector2f Vector of roomposition 
+                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.position.X+32*i ,position.Y+32*k)); //TODO add for new vector2f Vector of roomposition 
                 }
             }
         }
 
-
+        public override void draw()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    _tilemap[i, k].draw();
+                }
+            }
+            
+        }
     }
 }
