@@ -27,7 +27,7 @@ namespace Luftschiff.Code.Game
         {
             //TODO: jan-ole: add crew pathfinding algorithm
             //do by adding a target to the crewTargetsList
-            //crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
+            _crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
         }
 
         public void addCrewPath(CrewMember crewMember, List<Room> path)
