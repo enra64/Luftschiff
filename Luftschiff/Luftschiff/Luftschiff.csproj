@@ -62,6 +62,15 @@
     <Compile Include="Code\Dialogs\TwoButtonDialog.cs" />
     <Compile Include="Code\Game\AreavRooms\Area.cs" />
     <Compile Include="Code\Game\AreavRooms\Room.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\AirCannonRoom.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\AirEngineRoom.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\AirHospitalWard.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\AirLunchRoom.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\EmptyRoom.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\GroundAirshipWorkshop.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\GroundBarracks.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\GroundMarketplace.cs" />
+    <Compile Include="Code\Game\AreavRooms\Rooms\GroundTavern.cs" />
     <Compile Include="Code\Game\Crew\CrewMember.cs" />
     <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Game\Monsters\Dragon.cs" />
