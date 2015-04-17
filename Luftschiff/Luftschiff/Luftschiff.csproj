@@ -90,7 +90,6 @@
     <Compile Include="Controller.cs" />
     <Compile Include="Graphics.Lib\AnimatedSprite.cs" />
     <Compile Include="Graphics.Lib\Animation.cs" />
-    <Compile Include="Graphics.Lib\Particle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
