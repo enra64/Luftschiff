@@ -1,6 +1,8 @@
 ﻿using System;
 using Luftschiff.Code.Game.Crew;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using Luftschiff.Code.Game.Monsters;
 using SFML.Graphics;
 using SFML.System;
@@ -10,7 +12,7 @@ namespace Luftschiff.Code.Game.AreavRooms
     abstract class Room : Entity
     {
         //List to use when Crew-class implemented 
-        List<CrewMember> crewList = new List<CrewMember>();
+        protected List<CrewMember> crewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
         protected List<Room> _nearRooms = new List<Room>();
 
@@ -95,6 +97,38 @@ namespace Luftschiff.Code.Game.AreavRooms
             tileSize.Height *= 4;
             return tileSize;
         }
+        /// <summary>
+        /// sets crew in room. gives bool back true -> succes , false -> there are too many crewmembers in that room;
+        /// </summary>
+        public bool setCrewInRoom(CrewMember a)
+        {
+            if (crewList.Count < 4)
+            {
+                crewList.Add(a);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        /// <summary>
+        /// Crewmember will be removed from crew roomlist and given back as value for future use
+        /// </summary>
+        public CrewMember RemoveCrewMember(CrewMember a)
+        {
+            for (int i = 0; i < crewList.Count; i++)
+            {
+                if (crewList.ElementAt(i).Equals(a))
+                {
+                    CrewMember res = crewList.ElementAt(i);
+                    crewList.RemoveAt(i);
+                    return res;
+                }
+            }
+            return null;
+        }
 
         public void addDoorsToTileArray(int[,] array, Vector2f position)
         {
@@ -127,6 +161,11 @@ namespace Luftschiff.Code.Game.AreavRooms
                 {
                     _tilemap[i, k].draw();
                 }
+            }
+            // draw der crew
+            for (int k = 0; k < crewList.Count; k++)
+            {
+                crewList.ElementAt(k).draw();
             }
             
         }
