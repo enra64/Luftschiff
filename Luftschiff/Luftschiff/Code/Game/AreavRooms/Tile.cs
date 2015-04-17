@@ -14,12 +14,16 @@ namespace Luftschiff.Code.Game.AreavRooms
             switch (kind)
             {
                 case(0):
+                    //TODO add graphics for emptynes
                     break;
                 case(1):
+                    //TODO add graphics for walls
                     break;
                 case(2):
+                    //TODO no idead which graphics
                     break;
                 case(3):
+                    //TODO stuff in the middle graphics
                     break;
 
             }
