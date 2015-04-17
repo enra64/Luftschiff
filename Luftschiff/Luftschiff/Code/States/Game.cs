@@ -37,7 +37,7 @@ namespace Luftschiff.Code.States {
             test.AddRoom(new AirHospitalWard(new Vector2f(300, 0)));
             test.AddRoom(new AirLunchRoom(new Vector2f(0, 150)));
             test.AddRoom(new EmptyRoom(new Vector2f(0, 300)));
-            test.getRooms().ElementAt(1).setCrewInRoom(new CrewMember());
+            test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember());
         }
 
         /// <summary>

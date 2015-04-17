@@ -33,6 +33,14 @@ namespace Luftschiff.Code.Game.AreavRooms
             rooms_.Add(a);
         }
 
+        public void AddCrewToRoom(Room r, CrewMember c) {
+            r.setCrewInRoom(c);
+        }
+
+        public void RemoveCrewFromRoom(Room r, CrewMember c) {
+            r.RemoveCrewMember(c);
+        }
+
         public override void update()
         {
             #region Check Rooms and Crew for Clicks
