@@ -24,8 +24,8 @@ namespace Luftschiff.Code.States
             _walkaround.AddFrame(new IntRect(100,100,100,100));
             _walkaround.AddFrame(new IntRect(100,0,100,100));
 
-            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.2f), true, false);
-            _movingSprite.Position = new Vector2f(_win.Size.X / 2, _win.Size.Y / 2);
+            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.001f), true, true);
+            _movingSprite.Position = new Vector2f(0f,0f);
             
         }
         /// <summary>
@@ -56,9 +56,6 @@ namespace Luftschiff.Code.States
             _movingSprite.Update(Globals.FRAME_TIME);
             if(Keyboard.IsKeyPressed(Keyboard.Key.A))
                 _movingSprite.Play(_walkaround);
-            else
-                _movingSprite.Stop();
-            _movingSprite.Move(0.2f,0.2f);
         }
     }
 }
