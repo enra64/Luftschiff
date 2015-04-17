@@ -65,6 +65,7 @@ namespace Luftschiff.Code.States
             else
                 movingSprite.Stop();
             movingSprite.Move(0.2f,0.2f);
+            Console.WriteLine(walkaround.GetFrame(1).ToString());
         }
     }
 }

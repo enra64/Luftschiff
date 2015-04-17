@@ -16,7 +16,7 @@ namespace Luftschiff.Code.Game.Crew {
 
         public CrewMember() { }
 
-        public virtual void update(){
+        public override void update(){
         }
 
         public void setTarget(List<Room> targets ,Vector2f clickposition){
