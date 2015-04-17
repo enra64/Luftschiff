@@ -47,6 +47,12 @@ namespace Luftschiff {
             //compat settings for jan-ole
             Globals.BackgroundTexture = Texture.MaximumSize > 1024 ? new Texture("Assets/Graphics/testbg_big.png") : new Texture("Assets/Graphics/testbg.png");
             Globals.DragonTexture = new Texture("Assets/Graphics/dragon.png");
+
+            Globals.TileTextures = new Texture[4];
+            Globals.TileTextures[0] = new Texture("Assets/Graphics/groundtile.png");
+            Globals.TileTextures[1] = new Texture("Assets/Graphics/groundtile.png");
+            Globals.TileTextures[2] = new Texture("Assets/Graphics/special_tile.png");
+            Globals.TileTextures[3] = new Texture("Assets/Graphics/walltile.png");
         }
     }
 }
