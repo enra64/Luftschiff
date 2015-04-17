@@ -12,10 +12,22 @@ namespace Luftschiff.Code.Game
         Vector2f scale; // lets see if it is not senseless 
         AnimatedSprite sprite;
 
-        // get Rectangle for collision 
+        /// <summary>
+        /// get rectangle for collision
+        /// is inherited by the rectangle of the sprite
+        /// </summary>
+        /// <returns></returns>
         public virtual FloatRect getRect()
         {
-            return sprite.GetLocalBounds();
+            return sprite.GetGlobalBounds();
+        }
+
+        /// <summary>
+        /// this checks whether the sprite rectangle contains the click position
+        /// </summary>
+        public virtual Boolean CheckClick(Vector2f clickPosition)
+        {
+            return getRect().Contains(clickPosition.X, clickPosition.Y);
         }
 
         // update function : using in ingame Action
