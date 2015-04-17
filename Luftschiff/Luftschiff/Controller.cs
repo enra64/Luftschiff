@@ -21,8 +21,8 @@ namespace Luftschiff
             _frameClock = new Clock();
             Initializer.Initialize();
 
-            //loadState(Globals.EGameStates.game);
-            loadState(Globals.EGameStates.graphicstest);
+            //loadState(Globals.EStates.game);
+            loadState(Globals.EStates.graphicstest);
 
             while (Window.IsOpen)
             {
@@ -32,19 +32,18 @@ namespace Luftschiff
                 //FRAME_TIME always last!!
                 Globals.FRAME_TIME = _frameClock.Restart();
                 //Console.WriteLine(Globals.FRAME_TIME.AsSeconds());
-
             }
             
         }
 
-        public static void loadState(Globals.EGameStates targetState)
+        public static void loadState(Globals.EStates targetState)
         {
             switch (targetState)
             {
-                case Globals.EGameStates.game:
+                case Globals.EStates.game:
                     main = new Game();
                     break;
-                case Globals.EGameStates.graphicstest:
+                case Globals.EStates.graphicstest:
                     main = new GraphicsTest();
                     break;
             }

@@ -6,5 +6,9 @@ using System.Threading.Tasks;
 
 namespace Luftschiff.Code.Game.Weapons {
     class Projectile : Entity{
+        public override void update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
