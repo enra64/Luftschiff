@@ -105,6 +105,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             if (crewList.Count < 4)
             {
                 crewList.Add(a);
+                a.setPosition(this.Position);
                 return true;
             }
             else

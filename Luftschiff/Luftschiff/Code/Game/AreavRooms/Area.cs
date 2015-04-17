@@ -35,10 +35,12 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         public void AddCrewToRoom(Room r, CrewMember c) {
             r.setCrewInRoom(c);
+            crew_.Add(c);
         }
 
         public void RemoveCrewFromRoom(Room r, CrewMember c) {
             r.RemoveCrewMember(c);
+            crew_.Remove(c);
         }
 
         public override void update()
@@ -92,7 +94,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //nothing was clicked, remove the selection
                     if (clickedRoom == null && clickedCrew == null)
                     {
-                        Console.WriteLine("removed selection");
+                        //Console.WriteLine("removed selection");
                         MouseHandler.selectedCrew = null;
                         MouseHandler.selectedRoom = null;
                         //MouseHandler.UnhandledClick = false;
@@ -105,11 +107,11 @@ namespace Luftschiff.Code.Game.AreavRooms
                     if (clickedRoom != null && MouseHandler.selectedCrew != null)
                     {
                         Console.WriteLine("crewmember will move or not");
-                        MouseHandler.selectedCrew.setTarget(clickedRoom);
+                        //TODO: change to setTarget when that has been written...
+                        MouseHandler.selectedCrew.moveToRoom(clickedRoom);
                         MouseHandler.UnhandledClick = false;
                     }
                 }
-                
             }
             #endregion
             
