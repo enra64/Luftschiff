@@ -34,7 +34,6 @@ namespace Luftschiff
                 
                 //FRAME_TIME always last!!
                 Globals.FRAME_TIME = _frameClock.Restart();
-                //Console.WriteLine(Globals.FRAME_TIME.AsSeconds());
             }
             
         }
