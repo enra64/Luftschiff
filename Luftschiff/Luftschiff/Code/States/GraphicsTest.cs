@@ -1,5 +1,4 @@
-﻿using System;
-using Luftschiff.Graphics.Lib;
+﻿using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -7,9 +6,6 @@ using SFML.Window;
 
 namespace Luftschiff.Code.States
 {
-    //TODO
-    //Get it working! 
-    //Rewrite animatedSprite and Animation
     class GraphicsTest : Global.ProtoGameState
     {
         private static Animation _walkaround;
