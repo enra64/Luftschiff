@@ -14,7 +14,7 @@ namespace Luftschiff.Code.Game
     {
         private Area _areaReference;
         private List<CrewTarget> _crewTargets;
-        private List<WeaponTarget> _weaponTargets;
+        private List<WeaponTarget> _weaponTargets; 
 
         public TurnHandler(Area areaReference)
         {
@@ -25,9 +25,10 @@ namespace Luftschiff.Code.Game
 
         public void addCrewTarget(CrewMember crewMember, Room targetRoom)
         {
+            //List<Room> a = _areaReference.getRooms();
             //TODO: jan-ole: add crew pathfinding algorithm
             //do by adding a target to the crewTargetsList
-            _crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
+            //_crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
         }
 
         public void addCrewPath(CrewMember crewMember, List<Room> path)

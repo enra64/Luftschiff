@@ -71,6 +71,7 @@
     <Compile Include="Code\Game\AreavRooms\Rooms\GroundBarracks.cs" />
     <Compile Include="Code\Game\AreavRooms\Rooms\GroundMarketplace.cs" />
     <Compile Include="Code\Game\AreavRooms\Rooms\GroundTavern.cs" />
+    <Compile Include="Code\Game\AreavRooms\Tile.cs" />
     <Compile Include="Code\Game\Crew\CrewMember.cs" />
     <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Game\Monsters\Dragon.cs" />

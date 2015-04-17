@@ -1,7 +1,9 @@
 ﻿using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
+using System;
+using System.Collections.Generic;
+using Luftschiff.Code.Dialogs;
 
 
 namespace Luftschiff.Code.States
@@ -56,12 +58,24 @@ namespace Luftschiff.Code.States
         /// </summary>
         public override void update()
         {
-            //updates the sprite
             _movingSprite.Update(Globals.FRAME_TIME);
-            //if(Keyboard.IsKeyPressed(Keyboard.Key.A))
             _movingSprite.Play(_walkaround);
-            //if(Keyboard.IsKeyPressed(Keyboard.Key.D))
-            //    _movingSprite.Play(_turnaround);
+
+            //ok create a new listdialog
+            List<String> testList= new List<String>();
+            for(int i = 0; i < 10; i++)
+                testList.Add("Daniel mag Kekse!"+i);
+            
+            ListDialog test = new ListDialog(testList, "message", "titletest");
+            //return index of button in list
+            Console.WriteLine(test.show());
+
+            
+            //construct a yes / no dialog; Ja and Nein are also available as a smaller constructor
+            TwoButtonDialog test2 = new TwoButtonDialog("Ja", "Nochmehr Ja", "Kekse lassen die Welt krümmelig werden!", "Kekse");
+            //show it, blocking all other execution until return of true/false
+            Console.WriteLine(test2.show());
+
         }
     }
 }
