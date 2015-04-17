@@ -46,8 +46,7 @@ namespace Luftschiff.Code.Game
         /// <summary>
         /// execute all actions for this turn
         /// </summary>
-        public void executeTurn()
-        {
+        public void executeTurn(){
             //kk now execute all the actions
             foreach (WeaponTarget c in _weaponTargets) {
                 if (c.NeededActions == 0)
