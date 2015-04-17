@@ -26,6 +26,11 @@ namespace Luftschiff.Code.Game.Crew {
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
         }
 
+        public override void draw()
+        {
+            Controller.Window.Draw(useAnAnimatedSprite);
+        }
+
         /// <summary>
         /// returns the amount of room heal by this crewmember
         /// </summary>
