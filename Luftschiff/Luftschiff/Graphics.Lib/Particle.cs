@@ -7,19 +7,19 @@ namespace Luftschiff.Graphics.Lib
 {
     internal class Particle
     {
-        private Clock _clock; // Used to scale particle motion
+        private Clock _clock; 
         private Color _color;
         private char _dissolutionRate;
-        private bool _dissolve; // Dissolution enabled?
-        private Vector2f _gravity; // Affects particle velocities
-        private Image _image; // See render() and remove()
+        private bool _dissolve;
+        private Vector2f _gravity; 
+        private Image _image;
         private List<Particle> _particleList;
-        private float _particleSpeed; // Pixels per second (at most)
-        private Vector2f _position; // Particle origin (pixel co-ordinates)
-        private Random _randomizer; // Randomizes particle velocities
+        private float _particleSpeed;
+        private Vector2f _position; 
+        private Random _randomizer; 
         private char _shape;
-        private Sprite _sprite; // Connected to m_image
-        private Color _transparent; // sf::Color( 0, 0, 0, 0 )
+        private Sprite _sprite;
+        private Color _transparent; 
         private Vector2f _velocity;
     }
 }
