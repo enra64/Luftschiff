@@ -23,7 +23,7 @@ namespace Luftschiff.Graphics.Lib
             _frameTime = frameTime;
             _currentFrame = 0;
             _isPaused = paused;
-            _isLooped = looped;
+            Looped = looped;
             _texture = null;
             _vertices = new Vertex[4];
             SetColor(new Color(255, 255, 255, 255));
@@ -90,10 +90,8 @@ namespace Luftschiff.Graphics.Lib
         public FloatRect GetLocalBounds()
         {
             IntRect rect = _animation.GetFrame(_currentFrame);
-
             float width = Math.Abs(rect.Width);
             float heigth = Math.Abs(rect.Height);
-
             return new FloatRect(0f, 0f, width, heigth);
         }
 
