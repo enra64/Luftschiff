@@ -19,7 +19,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected int _roomLife = 100;
         protected bool _walkAble = true;
         protected int[,] tilekind = new int[4, 4];
-        protected Tile[,] _tilemap;
+        protected Tile[,] _tilemap= new Tile[4,4];
 
         //save which kind the room is
 
@@ -99,7 +99,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.position.X+32*i ,position.Y+32*k)); //TODO add for new vector2f Vector of roomposition 
+                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.position.X+50*i ,position.Y+50*k)); //TODO add for new vector2f Vector of roomposition 
                 }
             }
         }

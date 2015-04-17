@@ -14,6 +14,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             {
                 loadStandartTilekinds(tilekind, 1);
+                initializeTilemap();
             }
         }
         public override void update()
