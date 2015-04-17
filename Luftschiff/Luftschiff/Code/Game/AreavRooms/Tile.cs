@@ -44,5 +44,10 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             Controller.Window.Draw(s);
         }
+
+        public override FloatRect getRect()
+        {
+            return s.GetGlobalBounds();
+        }
     }
 }

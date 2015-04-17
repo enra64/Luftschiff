@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Luftschiff.Code.Game.Monsters;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
@@ -87,8 +88,14 @@ namespace Luftschiff.Code.Game.AreavRooms
                     break;
 
             }
+        }
 
-
+        public override FloatRect getRect()
+        {
+            FloatRect tileSize = _tilemap[0, 0].getRect();
+            tileSize.Width *= 4;
+            tileSize.Height *= 4;
+            return tileSize;
         }
         /// <summary>
         /// sets crew in room. gives bool back true -> succes , false -> there are too many crewmembers in that room;
