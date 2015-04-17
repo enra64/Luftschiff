@@ -23,6 +23,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         public override void update()
         {
+            #region Check Rooms and Crew for Clicks
             if (MouseHandler.UnhandledClick)
             {
                 Vector2f lastClickPosition = MouseHandler.LastClickPosition;
@@ -73,8 +74,9 @@ namespace Luftschiff.Code.Game.AreavRooms
                         clickedCrew.setTarget(clickedRoom);
                     }
                 }
-                
             }
+            #endregion
+            
             for (int i = 0; i < crew_.Count; i++)
             {
                 //TODO CrewTarget update and function to dertermine way
