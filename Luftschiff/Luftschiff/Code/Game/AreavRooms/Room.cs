@@ -99,7 +99,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.position.X+50*i ,position.Y+50*k)); //TODO add for new vector2f Vector of roomposition 
+                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.position.X+32*i ,position.Y+32*k)); //TODO add for new vector2f Vector of roomposition 
                 }
             }
         }
