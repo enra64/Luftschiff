@@ -10,11 +10,16 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     class AirLunchRoom : Room
     {
+        public AirLunchRoom()
+        {
+            {
+                loadStandartTilekinds(tilekind, 1);
+            }
+        }
         public override void update()
         {
             throw new NotImplementedException();
         }
-        public override void OnCrewArrive(CrewMember traveler) { }
         public override void inflictDamage(Monster monster, bool hits)
         {
             throw new NotImplementedException();
