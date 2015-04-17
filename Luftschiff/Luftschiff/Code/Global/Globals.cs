@@ -56,6 +56,8 @@ namespace Luftschiff.Code {
         public static Texture BackgroundTexture;
         public static Texture DragonTexture;
 
+        public static Texture[] TileTextures;
+
         public static TurnHandler TurnHandler;
         public static Area AreaReference;
     }
