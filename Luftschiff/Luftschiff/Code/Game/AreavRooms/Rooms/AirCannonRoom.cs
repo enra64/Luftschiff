@@ -21,7 +21,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public override void inflictDamage(Monster monster, bool hits)
         {
-            throw new NotImplementedException();
+            monster.getTurnDamage(0, true);
         }
     }
 }
