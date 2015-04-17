@@ -5,6 +5,7 @@ using System.Linq;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.AreavRooms.Rooms;
+using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Global;
 
@@ -18,24 +19,25 @@ namespace Luftschiff.Code.States {
     {
         private Sprite _backgroundSprite;
         public Monster CurrentMonster;
+
+        //test
+        private Area test;
         /// <summary>
         /// The gamestate constructor. Nothing must be done here, the superclass
         /// constructor is empty anyways
         /// </summary>
         public Game ()
         {
+            //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
-            Area test = new Area();
-            test.AddRoom(new AirCannonRoom());
-            test.AddRoom(new AirEngineRoom());
-            test.AddRoom(new AirHospitalWard());
-            test.AddRoom(new AirLunchRoom());
-            test.AddRoom(new EmptyRoom());
-            for (int i = 0; i < test.getRooms().Count; i++)
-            {
-                test.getRooms().ElementAt(i).position = new Vector2f(10 + 100*i, 10);
-            }
+            test = Globals.AreaReference;
+            test.AddRoom(new AirCannonRoom(new Vector2f(0, 0)));
+            test.AddRoom(new AirEngineRoom(new Vector2f(150, 0)));
+            test.AddRoom(new AirHospitalWard(new Vector2f(300, 0)));
+            test.AddRoom(new AirLunchRoom(new Vector2f(0, 150)));
+            test.AddRoom(new EmptyRoom(new Vector2f(0, 300)));
+            test.getRooms().ElementAt(1).setCrewInRoom(new CrewMember());
         }
 
         /// <summary>
@@ -43,7 +45,10 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
-            CurrentMonster.draw();
+            //CurrentMonster.draw(); 
+            // test draw 
+            test.draw();
+            
         }
 
         /// <summary>
@@ -60,6 +65,7 @@ namespace Luftschiff.Code.States {
         public override void update()
         {
             CurrentMonster.update();
+            test.update();
             //Dialog examples
             /*
             //ok create a new listdialog

@@ -8,9 +8,9 @@ namespace Luftschiff.Code.Game
     abstract class Entity
     {
 
-        public Vector2f position;
-        public Vector2f scale; // lets see if it is not senseless 
-        public AnimatedSprite sprite;
+        public Vector2f Position;
+        public Vector2f Scale; // lets see if it is not senseless 
+        public AnimatedSprite Sprite;
 
         /// <summary>
         /// get rectangle for collision
@@ -19,7 +19,7 @@ namespace Luftschiff.Code.Game
         /// <returns></returns>
         public virtual FloatRect getRect()
         {
-            return sprite.GetGlobalBounds();
+            return Sprite.GetGlobalBounds();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Luftschiff.Code.Game
         // draw sprites 
         public virtual void draw()
         {
-            Controller.Window.Draw(sprite);
+            Controller.Window.Draw(Sprite);
         }
 
         public virtual String getSave()

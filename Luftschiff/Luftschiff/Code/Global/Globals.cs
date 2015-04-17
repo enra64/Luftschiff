@@ -60,5 +60,6 @@ namespace Luftschiff.Code {
 
         public static TurnHandler TurnHandler;
         public static Area AreaReference;
+        public static Texture CrewTexture;
     }
 }

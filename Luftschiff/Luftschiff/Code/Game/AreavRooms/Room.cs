@@ -1,7 +1,10 @@
 ﻿using System;
 using Luftschiff.Code.Game.Crew;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using Luftschiff.Code.Game.Monsters;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
@@ -9,7 +12,7 @@ namespace Luftschiff.Code.Game.AreavRooms
     abstract class Room : Entity
     {
         //List to use when Crew-class implemented 
-        List<CrewMember> crewList = new List<CrewMember>();
+        protected List<CrewMember> crewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
         protected List<Room> _nearRooms = new List<Room>();
 
@@ -19,7 +22,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected int _roomLife = 100;
         protected bool _walkAble = true;
         protected int[,] tilekind = new int[4, 4];
-        protected Tile[,] _tilemap;
+        protected Tile[,] _tilemap= new Tile[4,4];
 
         //save which kind the room is
 
@@ -45,6 +48,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             //TODO special damage for Crewdamage
         }
+
         public void SetOnFire(int roundsRoomIsBurning)
         {
             this._fireLife = roundsRoomIsBurning;
@@ -84,22 +88,67 @@ namespace Luftschiff.Code.Game.AreavRooms
                     break;
 
             }
+        }
 
+        public override FloatRect getRect()
+        {
+            FloatRect tileSize = _tilemap[0, 0].getRect();
+            tileSize.Width *= 4;
+            tileSize.Height *= 4;
+            return tileSize;
+        }
+        /// <summary>
+        /// sets crew in room. gives bool back true -> succes , false -> there are too many crewmembers in that room;
+        /// </summary>
+        public bool setCrewInRoom(CrewMember a)
+        {
+            if (crewList.Count < 4)
+            {
+                crewList.Add(a);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
+        }
+        /// <summary>
+        /// Crewmember will be removed from crew roomlist and given back as value for future use
+        /// </summary>
+        public CrewMember RemoveCrewMember(CrewMember a)
+        {
+            for (int i = 0; i < crewList.Count; i++)
+            {
+                if (crewList.ElementAt(i).Equals(a))
+                {
+                    CrewMember res = crewList.ElementAt(i);
+                    crewList.RemoveAt(i);
+                    return res;
+                }
+            }
+            return null;
         }
 
         public void addDoorsToTileArray(int[,] array, Vector2f position)
         {
-            //TODO add door number to tileMap numbers
+            //TODO add door number to tileMap numbers , needed Roomconnection list
         }
 
+        public Room(Vector2f position)
+        {
+            Position = position;
+        }
+        /// <summary>
+        /// Initilizes tilemap in dependence of int[,] tilekind
+        /// </summary>
         public void initializeTilemap()
         {
             for (int i = 0; i < 4; i++)
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.position.X+32*i ,position.Y+32*k)); //TODO add for new vector2f Vector of roomposition 
+                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.Position.X+32*i ,Position.Y+32*k)); //TODO let the vector fit to every file
                 }
             }
         }
@@ -112,6 +161,11 @@ namespace Luftschiff.Code.Game.AreavRooms
                 {
                     _tilemap[i, k].draw();
                 }
+            }
+            // draw der crew
+            for (int k = 0; k < crewList.Count; k++)
+            {
+                crewList.ElementAt(k).draw();
             }
             
         }

@@ -144,7 +144,7 @@ namespace Luftschiff.Graphics.Lib
         public void Update(Time delta)
         {
             _deltaTime = delta;
-            Console.WriteLine(_validAnimation + " " + _textureLoaded + " " + _isPaused + " " + Looped);
+            //Console.WriteLine(_validAnimation + " " + _textureLoaded + " " + _isPaused + " " + Looped);
             //unpaused and valid anim
             if (!_isPaused && _validAnimation)
             {
