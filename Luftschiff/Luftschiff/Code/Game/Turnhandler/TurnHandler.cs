@@ -14,7 +14,7 @@ namespace Luftschiff.Code.Game
     {
         private Area _areaReference;
         private List<CrewTarget> _crewTargets;
-        private List<WeaponTarget> _weaponTargets; 
+        private List<WeaponTarget> _weaponTargets;
 
         public TurnHandler(Area areaReference)
         {
