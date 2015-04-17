@@ -17,11 +17,16 @@ namespace Luftschiff.Code.Game.AreavRooms
             rooms_ = new List<Room>();
             crew_ = new List<CrewMember>();
         }
+        /// <summary>
+        /// get list of all rooms inserte in the area
+        /// </summary>
         public List<Room> getRooms()
         {
             return rooms_;
         }
-
+        /// <summary>
+        /// add new room in an area
+        /// </summary>
         public void AddRoom(Room a)
         {
             rooms_.Add(a);
@@ -83,12 +88,10 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             #endregion
             
-            for (int i = 0; i < crew_.Count; i++)
-            {
-                //TODO CrewTarget update and function to dertermine way
-            }
         }
-
+        /// <summary>
+        /// draws every room added to the area
+        /// </summary>
         public override void draw()
         {
             for (int i = 0; i < rooms_.Count; i++)

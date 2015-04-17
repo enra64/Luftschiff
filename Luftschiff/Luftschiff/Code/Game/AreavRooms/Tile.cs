@@ -31,7 +31,9 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //TODO stuff in the middle graphics
                     s = new Sprite(Globals.TileTextures[2]);
                     break;
-
+                case(4):
+                    //TODO add graphics for a door
+                    break;
             }
             s.Position = position;
         }
