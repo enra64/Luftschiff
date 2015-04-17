@@ -4,7 +4,7 @@ using SFML.System;
 
 namespace Luftschiff.Graphics.Lib
 {
-    internal class AnimatedSprite : Sprite, Drawable 
+    internal class AnimatedSprite : Transformable , Drawable 
     {
         private Animation _animation;
         private Time _frameTime;
