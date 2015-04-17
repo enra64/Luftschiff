@@ -13,7 +13,13 @@ namespace Luftschiff.Code.Game.Monsters {
 
         public override void update()
         {
-            throw new System.NotImplementedException();
+            if (MouseHandler.UnhandledClick)
+            {
+                if (MouseHandler.selectedRoom != null)
+                {
+                    MouseHandler.selectedRoom.inflictDamage((Monster) this);
+                }
+            }
         }
     }
 }
