@@ -14,9 +14,9 @@ namespace Luftschiff.Graphics.Lib
         public ParticleHandler(int number)
         {
             _particleKeeper = new List<Particle>(number);
-            for (var i = 0; i <= number; i++)
+            for (var i = 1; i <= number; i++)
             {
-                var par = new Particle(Time.FromSeconds(3), 10f, Color.Magenta);
+                var par = new Particle(Time.FromSeconds(3), 10f, Color.Red);
                 Add(par);
             }
             

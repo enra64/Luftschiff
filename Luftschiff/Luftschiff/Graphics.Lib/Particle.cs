@@ -13,8 +13,7 @@ namespace Luftschiff.Graphics.Lib
         public Particle(Time aliveTime, float radius, Color color)
         {
             _randomizer = new Random();
-            LifeTime =
-                Time.FromSeconds(aliveTime.AsSeconds()*(_randomizer.Next(0, 3) + (float) _randomizer.NextDouble()));
+            LifeTime = Time.FromSeconds(aliveTime.AsSeconds()*((_randomizer.Next(0,3) + (float) _randomizer.NextDouble())));
             _circle = new CircleShape(radius);
             LifeClock = new Clock();
             Color = color;
