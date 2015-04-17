@@ -27,6 +27,7 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public Game ()
         {
+            //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
             test = Globals.AreaReference;
@@ -42,7 +43,8 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
-            CurrentMonster.draw();
+            //CurrentMonster.draw(); 
+            // test draw 
             test.draw();
             
         }

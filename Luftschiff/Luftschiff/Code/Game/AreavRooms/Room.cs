@@ -98,21 +98,23 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         public void addDoorsToTileArray(int[,] array, Vector2f position)
         {
-            //TODO add door number to tileMap numbers
+            //TODO add door number to tileMap numbers , needed Roomconnection list
         }
 
         public Room(Vector2f position)
         {
             Position = position;
         }
-
+        /// <summary>
+        /// Initilizes tilemap in dependence of int[,] tilekind
+        /// </summary>
         public void initializeTilemap()
         {
             for (int i = 0; i < 4; i++)
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.Position.X+32*i ,Position.Y+32*k)); //TODO add for new vector2f Vector of roomposition 
+                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.Position.X+32*i ,Position.Y+32*k)); //TODO let the vector fit to every file
                 }
             }
         }
