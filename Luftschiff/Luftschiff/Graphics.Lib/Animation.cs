@@ -6,7 +6,7 @@ namespace Luftschiff.Graphics.Lib
 {
     class Animation
     {
-        private readonly List<IntRect> _frames = new List<IntRect>();
+        private List<IntRect> _frames = new List<IntRect>();
         private Texture _texture;
 
         public void AddFrame(IntRect rect)

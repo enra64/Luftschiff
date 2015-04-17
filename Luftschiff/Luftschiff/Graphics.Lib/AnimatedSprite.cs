@@ -4,7 +4,7 @@ using SFML.System;
 
 namespace Luftschiff.Graphics.Lib
 {
-    internal class AnimatedSprite : Transformable, Drawable
+    internal class AnimatedSprite : Sprite, Drawable 
     {
         private Animation _animation;
         private Time _frameTime;
@@ -15,7 +15,7 @@ namespace Luftschiff.Graphics.Lib
         private bool _validAnimation;
         private bool _textureLoaded;
         private Texture _texture;
-        private readonly Vertex[] _vertices = new Vertex[4];
+        private Vertex[] _vertices;
 
         public AnimatedSprite(Time frameTime, bool paused, bool looped)
         {
@@ -25,6 +25,7 @@ namespace Luftschiff.Graphics.Lib
             _isPaused = paused;
             _isLooped = looped;
             _texture = null;
+            _vertices = new Vertex[4];
         }
 
         public Time FrameTime
@@ -107,6 +108,10 @@ namespace Luftschiff.Graphics.Lib
 
         public void SetFrame(int newFrame, bool resetTime)
         {
+            Console.WriteLine("Valid Animation: " + _validAnimation + "  " +"TextureLoad: "+ _textureLoaded);
+            if(_vertices[1].Color == new Color(0,0,0,0))
+                Console.WriteLine("LOL das spiel mal die Vertexes schwarz :^)");
+            Console.WriteLine(_vertices[1].ToString());
             if (_validAnimation)
             {
                 IntRect rect = _animation.GetFrame(newFrame);
@@ -172,7 +177,7 @@ namespace Luftschiff.Graphics.Lib
             {
                 states.Transform = Transform;
                 states.Texture = _texture;
-                target.Draw(_vertices, 0, 4, PrimitiveType.Quads, states);
+                target.Draw(_vertices,0,4, PrimitiveType.Quads, states);
             }
         }
 
