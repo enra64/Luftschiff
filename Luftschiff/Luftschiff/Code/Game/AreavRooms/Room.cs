@@ -19,10 +19,14 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected int _life = 100;
         protected bool _walkAble = true;
         protected int[,] tilekind = new int[4, 4];
+        protected Tile[,] _tilemap;
 
         //save which kind the room is
 
-        public abstract void RoomAction();
+        /// <summary>
+        /// this is called when a crewmember arrives in this room, and has no further rooms to go to
+        /// </summary>
+        public abstract void OnCrewArrive(CrewMember traveler);
 
         public void ReceiveDamage(int damage)
         {
@@ -39,8 +43,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// the monster has detected that this room has been selected
-        /// and used to fire upon it
+        /// Called by the turnhandler to get the damage dealt by that room
         /// </summary>
         public abstract void inflictDamage(Monster monster, bool hits);
 
@@ -80,6 +83,17 @@ namespace Luftschiff.Code.Game.AreavRooms
         public void addDoorsToTileArray(int[,] array, Vector2f position)
         {
             //TODO add door number to tileMap numbers
+        }
+
+        public void initializeTilemap()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f()); //TODO add for new vector2f Vector of roomposition 
+                }
+            }
         }
 
 
