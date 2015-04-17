@@ -90,7 +90,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
 
 
-        public virtual void update()
+        public override void update()
         {
 
         }

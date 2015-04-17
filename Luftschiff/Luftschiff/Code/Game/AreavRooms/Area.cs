@@ -7,15 +7,20 @@ namespace Luftschiff.Code.Game.AreavRooms
     {
         //list to fill with rooms;
         //rooms have the number of their position in list
-        private List<Room> rooms_ = new List<Room>();
-        private List<CrewMember> crew_ = new List<CrewMember>();
+        private List<Room> rooms_;
+        private static List<CrewMember> crew_ ;
 
+        public Area()
+        {
+            rooms_ = new List<Room>();
+            crew_ = new List<CrewMember>();
+        }
         public List<Room> getRooms()
         {
             return rooms_;
         }
 
-        public virtual void update()
+        public override void update()
         {
             for (int i = 0; i < crew_.Count; i++)
             {
