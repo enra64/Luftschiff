@@ -82,6 +82,7 @@
     <Compile Include="Code\Game\Weapons\Projectile.cs" />
     <Compile Include="Code\Global\Globals.cs" />
     <Compile Include="Code\Global\ProtoGameState.cs" />
+    <Compile Include="Code\Global\Util.cs" />
     <Compile Include="Code\Initializer.cs" />
     <Compile Include="Code\MouseHandler.cs" />
     <Compile Include="Code\Dialogs\Dialog.cs" />
@@ -111,6 +112,9 @@
     </Content>
     <Content Include="Assets\Graphics\testbg_big.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Texts\a.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="csfml-audio-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
