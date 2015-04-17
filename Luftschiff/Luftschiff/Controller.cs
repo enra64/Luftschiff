@@ -21,8 +21,8 @@ namespace Luftschiff
             _frameClock = new Clock();
             Initializer.Initialize();
 
-            loadState(Globals.EGameStates.game);
-            //loadState(Globals.EGameStates.graphicstest);
+            //loadState(Globals.EGameStates.game);
+            loadState(Globals.EGameStates.graphicstest);
 
             while (Window.IsOpen)
             {

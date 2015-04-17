@@ -16,7 +16,6 @@ namespace Luftschiff.Graphics.Lib
         private bool _textureLoaded;
         private Texture _texture;
         private readonly Vertex[] _vertices = new Vertex[4];
-        private Transform _transform;
 
         public AnimatedSprite(Time frameTime, bool paused, bool looped)
         {
@@ -96,7 +95,7 @@ namespace Luftschiff.Graphics.Lib
 
         public FloatRect GetGlobalBounds()
         {
-            return _transform.TransformRect(GetLocalBounds());
+            return Transform.TransformRect(GetLocalBounds());
         }
 
         public bool IsPlaying()
@@ -169,9 +168,9 @@ namespace Luftschiff.Graphics.Lib
         {
             if (_validAnimation && _textureLoaded)
             {
-                states.Transform *= states.Transform;
+                states.Transform *= Transform;
                 states.Texture = _texture;
-                target.Draw(_vertices, 0, 4, PrimitiveType.Quads, states);
+                target.Draw(_vertices, PrimitiveType.Quads, states);
             }
         }
 
