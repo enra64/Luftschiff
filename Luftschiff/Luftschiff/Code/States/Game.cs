@@ -18,6 +18,9 @@ namespace Luftschiff.Code.States {
     {
         private Sprite _backgroundSprite;
         public Monster CurrentMonster;
+
+        //test
+        private Area test;
         /// <summary>
         /// The gamestate constructor. Nothing must be done here, the superclass
         /// constructor is empty anyways
@@ -26,7 +29,7 @@ namespace Luftschiff.Code.States {
         {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
-            Area test = new Area();
+            test = new Area();
             test.AddRoom(new AirCannonRoom());
             test.AddRoom(new AirEngineRoom());
             test.AddRoom(new AirHospitalWard());
@@ -44,6 +47,8 @@ namespace Luftschiff.Code.States {
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
             CurrentMonster.draw();
+            test.draw();
+            
         }
 
         /// <summary>

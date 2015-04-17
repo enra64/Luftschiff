@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Luftschiff.Code.Game.Crew;
 using SFML.System;
 
@@ -88,6 +89,12 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
         }
 
-
+        public override void draw()
+        {
+            for (int i = 0; i < rooms_.Count; i++)
+            {
+                rooms_.ElementAt(i).draw();
+            }
+        }
     }
 }
