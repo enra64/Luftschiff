@@ -19,10 +19,12 @@ namespace Luftschiff.Graphics.Lib
 
         public AnimatedSprite(Time frameTime, bool paused, bool looped)
         {
+            _animation = null;
             _frameTime = frameTime;
             _currentFrame = 0;
             _isPaused = paused;
             _isLooped = looped;
+            _texture = null;
         }
 
         public Time FrameTime
@@ -114,7 +116,7 @@ namespace Luftschiff.Graphics.Lib
                 _vertices[3].Position = new Vector2f(rect.Width, 0f);
 
                 float left = rect.Left + 0.0001f;
-                float rigth = rect.Width;
+                float rigth = left + rect.Width;
                 float top = rect.Top;
                 float bottom = top + rect.Height;
 
@@ -168,9 +170,9 @@ namespace Luftschiff.Graphics.Lib
         {
             if (_validAnimation && _textureLoaded)
             {
-                states.Transform *= Transform;
+                states.Transform = Transform;
                 states.Texture = _texture;
-                target.Draw(_vertices, PrimitiveType.Quads, states);
+                target.Draw(_vertices, 0, 4, PrimitiveType.Quads, states);
             }
         }
 
