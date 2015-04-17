@@ -30,7 +30,7 @@ namespace Luftschiff.Code.States
             _turnaround.AddFrame(new IntRect(0, 100, 100, 100));
             _turnaround.AddFrame(new IntRect(0, 0, 100, 100));
 
-            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), true, true, new Vector2f(0f,0f));            
+            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), false, true, new Vector2f(0f,0f));            
         }
         /// <summary>
         /// Main draw call for our Game. 
@@ -57,11 +57,11 @@ namespace Luftschiff.Code.States
         public override void update()
         {
             //updates the sprite
-            _movingSprite.Update();
-            if(Keyboard.IsKeyPressed(Keyboard.Key.A))
-                _movingSprite.Play(_walkaround);
-            if(Keyboard.IsKeyPressed(Keyboard.Key.D))
-                _movingSprite.Play(_turnaround);
+            _movingSprite.Update(Globals.FRAME_TIME);
+            //if(Keyboard.IsKeyPressed(Keyboard.Key.A))
+            _movingSprite.Play(_walkaround);
+            //if(Keyboard.IsKeyPressed(Keyboard.Key.D))
+            //    _movingSprite.Play(_turnaround);
         }
     }
 }

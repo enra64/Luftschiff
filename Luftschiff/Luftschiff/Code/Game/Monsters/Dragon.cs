@@ -26,7 +26,7 @@ namespace Luftschiff.Code.Game.Monsters {
                     Globals.TurnHandler.addRoomTarget(MouseHandler.selectedRoom, this);
                 }
             }
-            sprite.Update();
+            sprite.Update(Globals.FRAME_TIME);
             sprite.Play(flying);
         }
 
