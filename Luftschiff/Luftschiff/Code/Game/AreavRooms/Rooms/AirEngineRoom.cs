@@ -14,7 +14,6 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             throw new NotImplementedException();
         }
-        public override void OnCrewArrive(CrewMember traveler) { }
         public override void inflictDamage(Monster monster, bool hits)
         {
             throw new NotImplementedException();

@@ -14,9 +14,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected List<Room> _nearRooms = new List<Room>();
 
         //useful variables
-        protected int _fireCounter = 0;
+        protected int _fireLife = 0;
         protected int _cooldown = 0;
-        protected int _life = 100;
+        protected int _roomLife = 100;
         protected bool _walkAble = true;
         protected int[,] tilekind = new int[4, 4];
 
@@ -25,20 +25,28 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         /// this is called when a crewmember arrives in this room, and has no further rooms to go to
         /// </summary>
-        public abstract void OnCrewArrive(CrewMember traveler);
+        public virtual void OnCrewArrive(CrewMember traveler)
+        {
+            if(_fireLife > 0)
+                traveler.SlackFire();
+            else if (_roomLife < 100)
+                traveler.RepairRoom();
+            else
+                traveler.WorkRoom();
+        }
 
         public void ReceiveDamage(int damage)
         {
-            _life = _life - damage;
-            if (_fireCounter > 0)
+            _roomLife = _roomLife - damage;
+            if (_fireLife > 0)
             {
-                _life = _life - 10;  //template int for fire damage 
+                _roomLife = _roomLife - 10;  //template int for fire damage 
             }
             //TODO special damage for Crewdamage
         }
         public void SetOnFire(int roundsRoomIsBurning)
         {
-            this._fireCounter = roundsRoomIsBurning;
+            this._fireLife = roundsRoomIsBurning;
         }
 
         /// <summary>
