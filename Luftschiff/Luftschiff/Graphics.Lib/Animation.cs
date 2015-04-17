@@ -1,18 +1,18 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SFML.Graphics;
 
 namespace Luftschiff.Graphics.Lib
 {
-    class Animation
+    internal class Animation
     {
-        private List<IntRect> _frames = new List<IntRect>();
-        private Texture _texture;
+        private readonly List<IntRect> _frames = new List<IntRect>();
 
         public Animation(Texture texture)
         {
             Texture = texture;
         }
+
+        public Texture Texture { set; get; }
 
         public void AddFrame(IntRect rect)
         {
@@ -22,12 +22,6 @@ namespace Luftschiff.Graphics.Lib
         public IntRect GetFrame(int n)
         {
             return _frames[n];
-        }
-
-        public Texture Texture
-        {
-            set { _texture = value; }
-            get { return _texture;}
         }
 
         public int GetSize()
