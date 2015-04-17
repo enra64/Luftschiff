@@ -29,7 +29,7 @@ namespace Luftschiff.Code.States {
         {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
-            test = new Area();
+            test = Globals.AreaReference;
             test.AddRoom(new AirCannonRoom());
             test.AddRoom(new AirEngineRoom());
             test.AddRoom(new AirHospitalWard());
