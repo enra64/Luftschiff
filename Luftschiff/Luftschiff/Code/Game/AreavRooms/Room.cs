@@ -14,7 +14,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         //List to use when Crew-class implemented 
         protected List<CrewMember> crewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
-        protected List<Room> _nearRooms = new List<Room>();
+        //protected List<Room> _nearRooms = new List<Room>();
+        public List<Room> _nearRooms { get; set; }
 
         //useful variables
         protected int _fireLife = 0;
@@ -186,6 +187,11 @@ namespace Luftschiff.Code.Game.AreavRooms
                 crewList.ElementAt(k).draw();
             }
             
+        }
+
+        public void addNearRooms(Room a)
+        {
+            _nearRooms.Add(a);
         }
     }
 }

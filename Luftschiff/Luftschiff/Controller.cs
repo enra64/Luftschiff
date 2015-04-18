@@ -5,6 +5,7 @@ using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Global;
 using Luftschiff.Code.States;
 using SFML.System;
+using SFML.Window;
 
 namespace Luftschiff
 {
@@ -28,6 +29,9 @@ namespace Luftschiff
                 Window.SetFramerateLimit(100);
                 Window.SetVerticalSyncEnabled(true);
 
+                if(Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+                    LoadState(Globals.EStates.menu);
+                
                 main.mainUpdate();
                 main.draw();
                 

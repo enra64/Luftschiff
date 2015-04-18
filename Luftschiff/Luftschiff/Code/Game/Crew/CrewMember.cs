@@ -11,6 +11,7 @@ namespace Luftschiff.Code.Game.Crew {
     {
         private Sprite useAnAnimatedSprite;
         private Room currentRoom = null;
+        public Room CurrentRoom{ get; set; }
 
         //possible abilities
         //TODO add or remove abilities
