@@ -59,7 +59,7 @@ namespace Luftschiff.Graphics.Lib
         {
             lock (syncLock)
             {
-                _circle.Position = new Vector2f(_circle.Position.X + 5f * _randomizer.Next(0, 3), _circle.Position.Y + 5f * _randomizer.Next(0, 3));
+                _circle.Position = new Vector2f(_circle.Position.X + 0.25f * _randomizer.Next(0, 16), _circle.Position.Y + 0.25f * _randomizer.Next(0, 16));
             }
         }
     }
