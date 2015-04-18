@@ -28,7 +28,7 @@ namespace Luftschiff.Code.Global
                 foreach (var w in _weaponList)
                 {
                     if (w.Position.Y - 10f >= m.Position.Y) 
-                        w.Interact();
+                        w.OnImpact();
                 }
             }
         }

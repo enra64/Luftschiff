@@ -62,7 +62,7 @@ namespace Luftschiff.Code.Game.Weapons {
 
         public  Animation Explosion { set; get; }
 
-        public override void Interact()
+        public override void OnImpact()
         {
             _explodingSprite.Play(Explosion);
         }

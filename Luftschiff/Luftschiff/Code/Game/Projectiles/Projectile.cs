@@ -14,7 +14,7 @@ namespace Luftschiff.Code.Game.Projectiles
         {
         }
 
-        public abstract void Interact();
+        public abstract void OnImpact();
 
     }
 }
