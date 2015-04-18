@@ -64,10 +64,12 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// 0 -> empty map( everything 0)
         /// 1 -> border = 1 mid = 3 (roomspecific Item)
         /// </summary>
-        public void loadStandartTilekinds(int[,] array, int kind)
+        public int[,] loadStandardTilekinds(int kind)
         {
+            int[,] array;
             switch (kind)
             {
+                default:
                 case(0):
                     array = new int[4, 4] {{0,0,0,0},
                                           {0,0,0,0},
@@ -88,6 +90,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                     break;
 
             }
+            return array;
         }
 
         public override FloatRect getRect()
