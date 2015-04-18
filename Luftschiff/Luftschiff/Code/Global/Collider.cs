@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Game.Weapons;
+using SFML.Audio;
 
 namespace Luftschiff.Code.Global
 {
@@ -14,6 +15,7 @@ namespace Luftschiff.Code.Global
     {
         private static List<Monster> _monsterList = new List<Monster>();
         private static List<Projectile> _projectileList = new List<Projectile>();
+        private static Sound _boomSound = new Sound(Globals.Boom);
 
         public static void Update()
         {
@@ -21,8 +23,11 @@ namespace Luftschiff.Code.Global
             {
                 foreach (var w in _projectileList)
                 {
-                    if (w.Position.X - 5f >= m.Position.X) 
+                    if (w.Position.X - 5f >= m.Position.X)
+                    {
                         w.OnImpact();
+                        _boomSound.Play();
+                    }
                 }
             }
         }

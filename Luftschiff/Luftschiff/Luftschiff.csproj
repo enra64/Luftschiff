@@ -111,6 +111,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Audio\cannon_boom.wav" />
     <Content Include="Assets\Audio\GunShot.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
