@@ -88,6 +88,7 @@
     <Compile Include="Code\Dialogs\Dialog.cs" />
     <Compile Include="Code\States\Game.cs" />
     <Compile Include="Code\States\GraphicsTest.cs" />
+    <Compile Include="Code\States\Menu.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Graphics.Lib\AnimatedSprite.cs" />
     <Compile Include="Graphics.Lib\Animation.cs" />

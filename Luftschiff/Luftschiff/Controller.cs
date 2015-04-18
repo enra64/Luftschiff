@@ -21,8 +21,7 @@ namespace Luftschiff
             _frameClock = new Clock();
             Initializer.Initialize();
 
-            //LoadState(Globals.EStates.graphicstest);
-            LoadState(Globals.EStates.game);
+            LoadState(Globals.EStates.menu);
 
             while (Window.IsOpen)
             {
@@ -47,6 +46,9 @@ namespace Luftschiff
                     break;
                 case Globals.EStates.graphicstest:
                     main = new GraphicsTest();
+                    break;
+                case Globals.EStates.menu:
+                    main = new Menu();
                     break;
             }
         }
