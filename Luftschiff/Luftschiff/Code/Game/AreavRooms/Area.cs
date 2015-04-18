@@ -8,6 +8,19 @@ namespace Luftschiff.Code.Game.AreavRooms
 {
     class Area : Entity
     {
+        public enum RoomTypes
+        {
+            AirCannon,
+            AirEngine,
+            AirHospital,
+            AirLunch,
+            Empty,
+            GroundAirshipWorkshop,
+            GroundBarracks,
+            GroundMarketplace,
+            GroundTavern
+        }
+
         //list to fill with rooms;
         //rooms have the number of their position in list
         private List<Room> rooms_;

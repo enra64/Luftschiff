@@ -11,7 +11,7 @@ namespace Luftschiff.Code.Game.AreavRooms
     class Tile : Entity
     {
         private Sprite s;
-        public Tile(int kind, Vector2f position)
+        public Tile(int kind, Vector2f position, Area.RoomTypes room)
         {
             switch (kind)
             {
@@ -30,6 +30,29 @@ namespace Luftschiff.Code.Game.AreavRooms
                 case(3):
                     //TODO stuff in the middle graphics
                     s = new Sprite(Globals.TileTextures[2]);
+                    switch (room)
+                    {
+                        case Area.RoomTypes.AirCannon:
+                            break;
+                        case Area.RoomTypes.AirEngine:
+                            break;
+                        case Area.RoomTypes.AirHospital:
+                            break;
+                        case Area.RoomTypes.AirLunch:
+                            break;
+                        case Area.RoomTypes.Empty:
+                            break;
+                        case Area.RoomTypes.GroundAirshipWorkshop:
+                            break;
+                        case Area.RoomTypes.GroundBarracks:
+                            break;
+                        case Area.RoomTypes.GroundMarketplace:
+                            break;
+                        case Area.RoomTypes.GroundTavern:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException("room", room, null);
+                    }
                     break;
                 case(4):
                     //TODO add graphics for a door
@@ -37,6 +60,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             s.Position = position;
         }
+
         public override void update()
         {}
 
