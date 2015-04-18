@@ -51,7 +51,10 @@ namespace Luftschiff.Code.Game.Monsters {
             flying.AddFrame(new IntRect(1743, 0, 300, 300));
             flying.AddFrame(new IntRect(2023, 0, 300, 300));
 
-            Sprite = new AnimatedSprite(Time.FromSeconds(0.15f), true, true,new Vector2f(Controller.Window.Size.X / 1.5f, 0f));
+            Vector2f pos = new Vector2f(Controller.Window.Size.X/1.5f, 0f);
+
+            Sprite = new AnimatedSprite(Time.FromSeconds(0.15f), true, true, pos);
+            Position = Sprite.Position;
         }
     }
 }
