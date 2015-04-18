@@ -21,7 +21,21 @@ namespace Luftschiff.Graphics.Lib
             _circle = new CircleShape(radius);
             LifeClock = new Clock();
             Color = color;
-            _circle.Position = new Vector2f(100, 100);
+            _circle.Position = Position;
+        }
+
+        public Particle(Time aliveTime, float radius, Color color, Vector2f position)
+        {
+            lock (syncLock)
+            {
+                LifeTime =
+                    Time.FromSeconds(aliveTime.AsSeconds() * ((_randomizer.Next(0, 3) + (float)_randomizer.NextDouble())));
+            }
+            _circle = new CircleShape(radius);
+            LifeClock = new Clock();
+            Color = color;
+            Position = position;
+            _circle.Position = Position;
         }
 
         public Time LifeTime { get; set; }
@@ -39,12 +53,13 @@ namespace Luftschiff.Graphics.Lib
             _circle.FillColor = Color;
             _circle.Draw(target, states);
         }
+        public Vector2f Position { get; set; }
 
         public void Update()
         {
             lock (syncLock)
             {
-                _circle.Position = new Vector2f(_circle.Position.X + 5f * _randomizer.Next(0, 3), _circle.Position.Y + 5f * _randomizer.Next(0, 3));
+                _circle.Position = new Vector2f(_circle.Position.X + 0.25f * _randomizer.Next(0, 16), _circle.Position.Y + 0.25f * _randomizer.Next(0, 16));
             }
         }
     }
