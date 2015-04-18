@@ -20,7 +20,7 @@ namespace Luftschiff.Code.Game.Weapons {
             s = new Sprite(Globals.CannonBallTexture);
 
             //Wall of Sprite :/
-            _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.01f),false,false,Position);
+            _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.06f),false,false,Position);
             Explosion = new Animation(Globals.Cannon_Explosion);
             Explosion.AddFrame(new IntRect(0,0,97,96));
             Explosion.AddFrame(new IntRect(97,0,97,96));
