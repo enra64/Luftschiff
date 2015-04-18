@@ -17,6 +17,11 @@ namespace Luftschiff.Code.Game.AreavRooms
         //protected List<Room> _nearRooms = new List<Room>();
         public List<Room> _nearRooms { get; set; }
 
+        /// <summary>
+        /// detect whether the room can fire, so the cursor changes appropriately
+        /// </summary>
+        public virtual bool IsAbleToTarget { get { return false; } }
+
         //useful variables
         protected int _fireLife = 0;
         protected int _cooldown = 0;
@@ -165,6 +170,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             //TODO Just a  test remove code till next command as fast as possible
             _nearRooms = new List<Room>();
+            //TODO: end reomve this code
             //--------------
             for (int i = 0; i < 4; i++)
             {
@@ -174,6 +180,11 @@ namespace Luftschiff.Code.Game.AreavRooms
                 }
             }
         }
+
+        /// <summary>
+        /// use this to get drawed after other rooms eg cannonballs
+        /// </summary>
+        public virtual void priorityDraw(){}
 
         public override void draw()
         {

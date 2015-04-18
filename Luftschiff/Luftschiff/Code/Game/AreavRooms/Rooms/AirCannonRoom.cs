@@ -13,6 +13,12 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
     class AirCannonRoom : Room
     {
         private Projectile cannonball;
+
+        public override bool IsAbleToTarget
+        {
+            get { return true; }
+        }
+
         public AirCannonRoom(Vector2f position) : base(position)
         {
             loadStandardTilekinds(1);
@@ -21,21 +27,19 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void update()
         {
             if(cannonball != null)
-            cannonball.update();
+                cannonball.update();
         }
 
-        public override void draw()
+        public override void priorityDraw()
         {
-            base.draw();
             if(cannonball != null)
                 cannonball.draw();
         }
 
-        public override void inflictDamage(Monster monster, bool hits)
-        {
+        public override void inflictDamage(Monster monster, bool hits){
             monster.getTurnDamage(0, true);
-            cannonball = new Projectile(monster.Center, this.Center);
-            Console.WriteLine("cannon inflicts damage");
+            cannonball = new Projectile(monster.Center, Center);
+            //Console.WriteLine("cannon inflicts damage");
         }
     }
 }

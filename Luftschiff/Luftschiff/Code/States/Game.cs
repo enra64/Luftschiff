@@ -34,11 +34,11 @@ namespace Luftschiff.Code.States {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
             test = Globals.AreaReference;
-            test.AddRoom(new AirCannonRoom(new Vector2f(0, 0)));
-            test.AddRoom(new AirEngineRoom(new Vector2f(150, 0)));
-            test.AddRoom(new AirHospitalWard(new Vector2f(300, 0)));
-            test.AddRoom(new AirLunchRoom(new Vector2f(0, 150)));
-            test.AddRoom(new EmptyRoom(new Vector2f(0, 300)));
+            test.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
+            test.AddRoom(new AirEngineRoom(new Vector2f(75, 350)));
+            test.AddRoom(new AirHospitalWard(new Vector2f(75, 500)));
+            test.AddRoom(new AirLunchRoom(new Vector2f(225, 275)));
+            test.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
             test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember(test.getRooms().ElementAt(0)));
 
             turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
@@ -50,7 +50,7 @@ namespace Luftschiff.Code.States {
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
             CurrentMonster.draw(); 
-            // test draw 
+            //test draw 
             test.draw();
             turnButton.draw();
         }
@@ -70,10 +70,17 @@ namespace Luftschiff.Code.States {
         {
             CurrentMonster.update();
             test.update();
-            if (turnButton.update())
-            {
+
+            //execute the turn when the user clicks the turn button
+            if (turnButton.update()){
                 Globals.TurnHandler.executeTurn();
             }
+
+            //make the button another color to notify the user
+            if(Globals.TurnHandler.HasStackedActions)
+                turnButton.ForceAttention(true);
+            else
+                turnButton.ForceAttention(false);
         }
     }
 }

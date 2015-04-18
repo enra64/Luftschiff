@@ -104,7 +104,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                     {
                         MouseHandler.SelectedRoom = clickedRoom;
                         //Console.WriteLine("selected room");
-                        Cursor.CursorMode(Cursor.Mode.aim);
+                        if(clickedRoom.IsAbleToTarget)
+                            Cursor.CursorMode(Cursor.Mode.aim);
                         MouseHandler.UnhandledClick = false;
                     }
                         
@@ -152,6 +153,8 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 rooms_.ElementAt(i).draw();
             }
+            foreach (var room in rooms_)
+                room.priorityDraw();
         }
     }
 }

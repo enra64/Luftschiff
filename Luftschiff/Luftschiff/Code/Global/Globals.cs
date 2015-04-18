@@ -42,6 +42,11 @@ namespace Luftschiff.Code {
         /// </summary>
         public static Color DIALOG_BUTTON_COLOR_HOVER = Color.Yellow;
 
+        /// <summary>
+        /// when the button needs attention - originally for turn button
+        /// </summary>
+        public static Color DIALOG_BUTTON_COLOR_ATTENTIONSEEKER = Color.Red;
+
 
 
         //globally used font sizes for text

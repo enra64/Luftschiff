@@ -27,6 +27,15 @@ namespace Luftschiff.Code.Game
             _crewTargets = new List<CrewTarget>();
             _weaponTargets = new List<WeaponTarget>();
         }
+
+        /// <summary>
+        /// check whether there are any actions to be executed
+        /// </summary>
+        public bool HasStackedActions
+        {
+            get { return _crewTargets.Count > 0 || _weaponTargets.Count > 0; }
+        }
+
         // nearest room int in list
 
 
@@ -219,6 +228,7 @@ Iterator = Iterator._nearRooms.ElementAt(k);
 
             //remove targets with invalid neededactions count to collect garbage
             _crewTargets.RemoveAll(s => s.NeededActions < 0);
+            _weaponTargets.RemoveAll(s => s.NeededActions < 0);
         }
     }
 }

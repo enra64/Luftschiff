@@ -9,20 +9,20 @@ using SFML.System;
 namespace Luftschiff.Code.Game.Weapons {
     class Projectile : Entity
     {
-        private Vector2f _Direction;
-        private Sprite s;
+        private readonly Vector2f _direction;
+        private readonly Sprite s;
 
         public Projectile(Vector2f target, Vector2f startposition)
         {
             Console.WriteLine("target position: " + target);
-            _Direction = (target - startposition) / 100;
+            _direction = (target - startposition) / 70;
             Position = startposition;
             s = new Sprite(Globals.CannonBallTexture);
         }
 
         public override void update()
         {
-            Position += _Direction;
+            Position += _direction;
             s.Position = Position;
         }
 
