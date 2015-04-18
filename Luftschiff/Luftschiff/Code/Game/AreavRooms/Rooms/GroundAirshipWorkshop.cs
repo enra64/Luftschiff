@@ -15,9 +15,6 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             throw new NotImplementedException();
         }
-        public override void inflictDamage(Monster monster, bool hits)
-        {
-        }
 
         public GroundAirshipWorkshop(Vector2f position) : base(position)
         {
