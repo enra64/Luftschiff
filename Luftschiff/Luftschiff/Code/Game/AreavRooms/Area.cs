@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Luftschiff.Code.Game.Crew;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
@@ -43,6 +44,18 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public void AddRoom(Room a)
         {
+            //look for near rooms and save them in list
+            FloatRect work = new FloatRect();
+            for (int i = 0; i < rooms_.Count; i++)
+            {
+                work = rooms_.ElementAt(i).getRect();
+                work.Height = work.Height + 10; // pixel differenz
+                work.Width = work.Width + 10;
+                if (work.Intersects(a.getRect()))
+                {
+                    a.addNearRooms(rooms_.ElementAt(i));
+                }
+            }
             rooms_.Add(a);
         }
 
@@ -121,13 +134,15 @@ namespace Luftschiff.Code.Game.AreavRooms
                     {
                         Console.WriteLine("crewmember will move or not");
                         //TODO: change to setTarget when that has been written...
-                        MouseHandler.selectedCrew.moveToRoom(clickedRoom);
+                        MouseHandler.selectedCrew.setTarget(clickedRoom);
                         MouseHandler.UnhandledClick = false;
                     }
                 }
             }
             #endregion
             
+            foreach(Room r in rooms_)
+                r.update();
         }
         /// <summary>
         /// draws every room added to the area

@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Game.Weapons;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     class AirCannonRoom : Room
     {
+        private Projectile cannonball;
         public AirCannonRoom(Vector2f position) : base(position)
         {
             loadStandardTilekinds(1);
@@ -18,12 +20,22 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         }
         public override void update()
         {
-            throw new NotImplementedException();
+            if(cannonball != null)
+            cannonball.update();
+        }
+
+        public override void draw()
+        {
+            base.draw();
+            if(cannonball != null)
+            cannonball.draw();
         }
 
         public override void inflictDamage(Monster monster, bool hits)
         {
             monster.getTurnDamage(0, true);
+            cannonball = new Projectile(new Vector2f(10, 0), Position);
+            Console.WriteLine("cannon inflicts damage");
         }
     }
 }

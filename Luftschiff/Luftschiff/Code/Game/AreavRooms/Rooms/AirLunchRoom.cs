@@ -21,11 +21,10 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         }
         public override void update()
         {
-            throw new NotImplementedException();
         }
         public override void inflictDamage(Monster monster, bool hits)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("airlunchroom inflicts damage");
         }
     }
 }

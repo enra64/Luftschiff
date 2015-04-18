@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Specialized;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
@@ -15,7 +16,10 @@ namespace Luftschiff.Code.Game.Monsters {
 
         public override void getTurnDamage(int type, bool hits)
         {
-            throw new System.NotImplementedException("The monster overrides the getdamage, but has no idea what to do!");
+            if(hits)
+                Life -= 10;
+            Console.WriteLine("the dragon has been shot at. it does not give a shit.");
+            //throw new System.NotImplementedException("The monster overrides the getdamage, but has no idea what to do!");
         }
 
         public override void update()
