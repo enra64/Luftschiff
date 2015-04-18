@@ -39,7 +39,7 @@ namespace Luftschiff.Code.Game
         // nearest room int in list
 
 
-        //TODO jan-ole : seltsamen shit irgendwie sinnvol zusammenbasteln
+        //TODO jan-ole : seltsamen shit irgendwie sinnvol zusammenbasteln please :**(
         private Room nearestRoom(Room current , Room target)
         {
             Room res = current;

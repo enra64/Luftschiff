@@ -7,6 +7,7 @@ using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Game.Weapons;
 using Luftschiff.Code.Global;
 
 using Luftschiff.Graphics.Lib;
@@ -20,6 +21,9 @@ namespace Luftschiff.Code.States {
         private Sprite _backgroundSprite;
         public Monster CurrentMonster;
         private Button turnButton;
+        private Collider _collider;
+        private static List<Monster> _monsterList;
+        private static List<Weapons> _weaponsList;
 
         //test
         private Area test;
@@ -42,6 +46,9 @@ namespace Luftschiff.Code.States {
             test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember(test.getRooms().ElementAt(0)));
 
             turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
+            _monsterList.Add(CurrentMonster);
+            _collider = new Collider(_monsterList,);
+
         }
 
         /// <summary>
