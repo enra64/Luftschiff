@@ -105,7 +105,21 @@ namespace Luftschiff.Code.Game.AreavRooms
             if (crewList.Count < 4)
             {
                 crewList.Add(a);
-                a.setPosition(this.Position);
+                switch (crewList.Count)
+                {
+                    case 1:
+                        a.setPosition(this.Position);
+                        break;
+                    case 2:
+                        a.setPosition(this.Position + new Vector2f(64, 0));
+                        break;
+                    case 3:
+                        a.setPosition(this.Position + new Vector2f(0, 64));
+                        break;
+                    case 4:
+                        a.setPosition(this.Position + new Vector2f(64, 64));
+                        break;
+                }
                 return true;
             }
             else
