@@ -35,7 +35,7 @@ namespace Luftschiff.Code.States
 
             _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), false, true, new Vector2f(0f,0f));         
    
-            _amazing = new ParticleHandler(50);
+            _amazing = new ParticleHandler(2000);
         }
         /// <summary>
         /// Main draw call for our Game. 
