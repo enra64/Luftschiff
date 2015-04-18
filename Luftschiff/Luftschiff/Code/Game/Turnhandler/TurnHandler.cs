@@ -29,10 +29,7 @@ namespace Luftschiff.Code.Game
         private void _addCrewTarget(CrewMember _cre, Room target, Room currentRoom)
         {
 
-                if (nearestRoomOnWay(target, currentRoom, 1, 0,euclidianDistance(target.Position, currentRoom._nearRooms.ElementAt(0).Position)).Equals(target))
-                {
-                    _crewTargets.Add(new CrewTarget(_cre, target, 0, true));
-                }
+
 
 
         }
