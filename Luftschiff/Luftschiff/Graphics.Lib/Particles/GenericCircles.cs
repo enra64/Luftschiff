@@ -8,7 +8,7 @@ using SFML.System;
 
 namespace Luftschiff.Graphics.Lib.Particles
 {
-    internal class GenericCircles : Particle
+    internal class GenericCircles : ShapeParticle
     {
         private static readonly Random _randomizer = new Random();
         private static readonly object syncLock = new object();
