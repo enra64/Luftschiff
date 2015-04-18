@@ -62,6 +62,7 @@ namespace Luftschiff.Code {
         /// </summary>
         public static Texture BackgroundTexture;
         public static Texture DragonTexture;
+        public static Texture GunTexture;
 
         public static Texture[] TileTextures;
 

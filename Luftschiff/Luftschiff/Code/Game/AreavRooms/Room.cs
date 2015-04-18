@@ -63,7 +63,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         /// Called by the turnhandler to get the damage dealt by that room
         /// </summary>
-        public abstract void inflictDamage(Monster monster, bool hits);
+        public virtual void inflictDamage(Monster monster, bool hits) { }
 
         /// <summary>
         /// the array is filled with a standart of numbers for the tilemap
@@ -170,7 +170,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             //TODO Just a  test remove code till next command as fast as possible
             _nearRooms = new List<Room>();
-            //TODO: end reomve this code
+            //TODO: end remove code
             //--------------
             for (int i = 0; i < 4; i++)
             {

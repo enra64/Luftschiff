@@ -31,7 +31,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                     switch (room)
                     {
                         case Area.RoomTypes.AirCannon:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            s = new Sprite(Globals.GunTexture);
                             break;
                         case Area.RoomTypes.AirEngine:
                             s = new Sprite(Globals.TileTextures[2]);
