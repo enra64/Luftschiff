@@ -4,65 +4,17 @@ using SFML.System;
 
 namespace Luftschiff.Graphics.Lib
 {
-    internal class Particle : Drawable
+    internal abstract class Particle : Drawable
     {
-        private static readonly Random _randomizer = new Random();
-        private static readonly object syncLock = new object();
-        private static Clock _lifeClock;
-        private readonly Shape _circle;
+        public abstract Shape Shape { get; set; }
 
-        public Particle(Time aliveTime, float radius, Color color)
-        {
-            lock (syncLock)
-            {
-                LifeTime =
-                    Time.FromSeconds(aliveTime.AsSeconds()*((_randomizer.Next(0, 3) + (float) _randomizer.NextDouble())));
-            }
-            _circle = new CircleShape(radius);
-            LifeClock = new Clock();
-            Color = color;
-            _circle.Position = Position;
-        }
+        public abstract Color Color { get; set; }
+        public abstract Clock LifeClock { get; set; }
+        public abstract Time LifeTime { get; set; }
+        public abstract Vector2f Position { get; set; }
 
-        public Particle(Time aliveTime, float radius, Color color, Vector2f position)
-        {
-            lock (syncLock)
-            {
-                LifeTime =
-                    Time.FromSeconds(aliveTime.AsSeconds() * ((_randomizer.Next(0, 3) + (float)_randomizer.NextDouble())));
-            }
-            _circle = new CircleShape(radius);
-            LifeClock = new Clock();
-            Color = color;
-            Position = position;
-            _circle.Position = Position;
-        }
+        public abstract void Update();
 
-        public Time LifeTime { get; set; }
-
-        public Clock LifeClock
-        {
-            get { return _lifeClock; }
-            set { _lifeClock = value; }
-        }
-
-        public Color Color { get; set; }
-
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            _circle.FillColor = Color;
-            _circle.OutlineColor = new Color(150,150,150,255);
-            _circle.OutlineThickness = 5f;
-            _circle.Draw(target, states);
-        }
-        public Vector2f Position { get; set; }
-
-        public void Update()
-        {
-            lock (syncLock)
-            {
-                _circle.Position = new Vector2f(_circle.Position.X + 0.25f * _randomizer.Next(0, 16), _circle.Position.Y + 0.25f * _randomizer.Next(0, 16));
-            }
-        }
+        public abstract void Draw(RenderTarget target, RenderStates states);
     }
 }

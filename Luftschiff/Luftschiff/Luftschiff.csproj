@@ -94,6 +94,7 @@
     <Compile Include="Graphics.Lib\Animation.cs" />
     <Compile Include="Graphics.Lib\Particle.cs" />
     <Compile Include="Graphics.Lib\ParticleHandler.cs" />
+    <Compile Include="Graphics.Lib\Particles\GenericCircles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
