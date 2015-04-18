@@ -8,6 +8,7 @@ namespace Luftschiff.Graphics.Lib
 {
     internal class ParticleHandler
     {
+        public static Random _randomizer = new Random();
         private static RenderWindow _win;
         private static List<Particle> _particleKeeper;
 

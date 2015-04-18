@@ -6,14 +6,14 @@ namespace Luftschiff.Graphics.Lib
 {
     internal class Particle : Drawable
     {
-        private static Random _randomizer;
+
         private static Clock _lifeClock;
         private readonly Shape _circle;
 
         public Particle(Time aliveTime, float radius, Color color)
         {
-            _randomizer = new Random();
-            LifeTime = Time.FromSeconds(aliveTime.AsSeconds()*((_randomizer.Next(0,3) + (float) _randomizer.NextDouble())));
+            ParticleHandler._randomizer = new Random();
+            LifeTime = Time.FromSeconds(aliveTime.AsSeconds()*((ParticleHandler._randomizer.Next(0,3) + (float) ParticleHandler._randomizer.NextDouble())));
             _circle = new CircleShape(radius);
             LifeClock = new Clock();
             Color = color;
@@ -38,7 +38,7 @@ namespace Luftschiff.Graphics.Lib
 
         public void Update()
         {
-            _circle.Position = new Vector2f(_circle.Position.X +5f * _randomizer.Next(0,3), _circle.Position.Y + 5f* _randomizer.Next(0,3));
+            _circle.Position = new Vector2f(_circle.Position.X +5f * ParticleHandler._randomizer.Next(0,3), _circle.Position.Y + 5f* ParticleHandler._randomizer.Next(0,3));
         }
     }
 }
