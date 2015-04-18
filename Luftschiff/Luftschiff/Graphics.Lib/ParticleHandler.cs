@@ -23,9 +23,9 @@ namespace Luftschiff.Graphics.Lib
             _win = Controller.Window;
         }
 
-        private static void Add(ShapeParticle particle)
+        private static void Add(ShapeParticle shapeParticle)
         {
-            _particleKeeper.Add(particle);
+            _particleKeeper.Add(shapeParticle);
         }
 
         private static void Remove()
