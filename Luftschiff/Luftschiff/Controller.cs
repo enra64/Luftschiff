@@ -34,6 +34,7 @@ namespace Luftschiff
                 
                 main.mainUpdate();
                 main.draw();
+                Collider.Update();
 
                 //FRAME_TIME always last!!
                 Globals.FRAME_TIME = _frameClock.Restart();
