@@ -49,8 +49,8 @@ namespace Luftschiff.Code.Game.AreavRooms
             for (int i = 0; i < rooms_.Count; i++)
             {
                 work = rooms_.ElementAt(i).getRect();
-                work.Height = work.Height + 10; // pixel differenz
-                work.Width = work.Width + 10;
+                work.Height = work.Height + 50; // pixel differenz
+                work.Width = work.Width + 50;
                 if (work.Intersects(a.getRect()))
                 {
                     a.addNearRooms(rooms_.ElementAt(i));

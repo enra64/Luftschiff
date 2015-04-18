@@ -24,66 +24,97 @@ namespace Luftschiff.Code.Game
             _weaponTargets = new List<WeaponTarget>();
         }
 
+        private void _addCrewTarget(CrewMember _cre, Room target, Room currentRoom)
+        {
+            _crewTargets.Add(new CrewTarget(_cre,target,0,true));
+        }
+
         public void addCrewTarget(CrewMember crewMember, Room targetRoom)
         {
-            //track job
-            crewMember.HasJob = true;
-            List<Room> a = _areaReference.getRooms();
-            // start calculate possible length of way
-            int roomsOnXWay = (int) ((crewMember.CurrentRoom.Position.X - targetRoom.Position.X)/crewMember.CurrentRoom.getRect().Width);
-            int roomsOnYWay = (int) ((crewMember.CurrentRoom.Position.Y - targetRoom.Position.Y)/crewMember.CurrentRoom.getRect().Height);
-            int emergeout = 0;
-            Room Iterator = crewMember.CurrentRoom;
-            while (roomsOnXWay != 0 && roomsOnYWay != 0 && emergeout != 3)
+            if (targetRoom != crewMember.CurrentRoom)
             {
-                bool check = true;
-                // check if room is nearby
-                for (int i = 0; i < Iterator._nearRooms.Count && check; i++)
-                {
-                    if (Iterator._nearRooms.ElementAt(i) == targetRoom)
-                    {
-                        _crewTargets.Add(new CrewTarget(crewMember, targetRoom, 1, true));
-                        check = false;
-                        emergeout = 3;
-                    }  
-                }
-
-                //try to figure out in whoch position is one possible direction to get to the target room 
-                int k;
-                for ( k = 0; k < Iterator._nearRooms.Count && check; k++)
-                {
-                    if (roomsOnYWay < 0 && Iterator.Position.Y - Iterator._nearRooms.ElementAt(k).Position.Y > 0)
-                    {
-                        _crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
-                        check = false;
-                        roomsOnYWay++;
-                    }
-                    if (roomsOnYWay > 0 && -1 * (Iterator.Position.Y - Iterator._nearRooms.ElementAt(k).Position.Y) > 0)
-                    {
-                        _crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
-                        check = false;
-                        roomsOnYWay--;
-                    }
-                    if (roomsOnXWay < 0 && Iterator.Position.X - Iterator._nearRooms.ElementAt(k).Position.X > 0)
-                    {
-                        _crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
-                        check = false;
-                        roomsOnXWay++;
-                    }
-                    if (roomsOnXWay > 0 && -1 * (Iterator.Position.X - Iterator._nearRooms.ElementAt(k).Position.X) > 0)
-                    {
-                        _crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
-                        check = false;
-                        roomsOnXWay--;
-                    }
-                }
-                if (check)
-                {
-                    emergeout ++;
-                }
-                Iterator = Iterator._nearRooms.ElementAt(k);
-
+                _addCrewTarget(crewMember, targetRoom, crewMember.CurrentRoom); 
             }
+
+
+
+            /*
+            
+//track job
+crewMember.HasJob = true;
+List<Room> a = _areaReference.getRooms();
+// start calculate possible length of way
+int roomsOnXWay = (int) ((crewMember.CurrentRoom.Position.X - targetRoom.Position.X)/crewMember.CurrentRoom.getRect().Width);
+int roomsOnYWay = (int) ((crewMember.CurrentRoom.Position.Y - targetRoom.Position.Y)/crewMember.CurrentRoom.getRect().Height);
+int emergeout = 0;
+Room Iterator = crewMember.CurrentRoom;
+
+for (int i = 0; i < Iterator._nearRooms.Count ; i++)
+{
+    if (Iterator._nearRooms.ElementAt(i) == targetRoom)
+    {
+        Console.WriteLine();
+        _crewTargets.Add(new CrewTarget(crewMember, targetRoom, 1, true));
+        emergeout = 3;
+    }
+}
+
+while ((roomsOnXWay != 0 || roomsOnYWay != 0 )&& emergeout != 3)
+{
+    bool check = true;
+    // check if room is nearby
+    for (int i = 0; i < Iterator._nearRooms.Count && check; i++)
+    {
+        if (Iterator._nearRooms.ElementAt(i) == targetRoom)
+        {
+            _crewTargets.Add(new CrewTarget(crewMember, targetRoom, 1, true));
+            check = false;
+            emergeout = 3;
+        }  
+    }
+
+    //try to figure out in whoch position is one possible direction to get to the target room 
+    int k;
+    for ( k = 0; k < Iterator._nearRooms.Count && check; k++)
+    {
+        if (roomsOnYWay < 0 && Iterator.Position.Y - Iterator._nearRooms.ElementAt(k).Position.Y > 0)
+        {
+            _crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
+            check = false;
+            roomsOnYWay++;
+        }
+        if (roomsOnYWay > 0 && -1 * (Iterator.Position.Y - Iterator._nearRooms.ElementAt(k).Position.Y) > 0)
+        {
+            _crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
+            check = false;
+            roomsOnYWay--;
+        }
+        if (roomsOnXWay < 0 && Iterator.Position.X - Iterator._nearRooms.ElementAt(k).Position.X > 0)
+        {
+            _crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
+            check = false;
+            roomsOnXWay++;
+        }
+        if (roomsOnXWay > 0 && -1 * (Iterator.Position.X - Iterator._nearRooms.ElementAt(k).Position.X) > 0)
+        {
+            _crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
+            check = false;
+            roomsOnXWay--;
+        }
+    }
+    if (check)
+    {
+        emergeout ++;
+    }
+    else
+    {
+    Console.WriteLine("raum geaddet");
+      Iterator = Iterator._nearRooms.ElementAt(k); 
+    }
+
+
+}
+ */
 
 
             //TODO: jan-ole: improve pathfinding algorithm
@@ -137,7 +168,7 @@ namespace Luftschiff.Code.Game
             }
 
             //remove targets with invalid neededactions count to collect garbage
-            _crewTargets.RemoveAll(s => s.NeededActions == -42);
+            _crewTargets.RemoveAll(s => s.NeededActions < 0);
         }
     }
 }
