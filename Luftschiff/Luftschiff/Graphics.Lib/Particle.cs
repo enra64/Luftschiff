@@ -51,6 +51,8 @@ namespace Luftschiff.Graphics.Lib
         public void Draw(RenderTarget target, RenderStates states)
         {
             _circle.FillColor = Color;
+            _circle.OutlineColor = new Color(150,150,150,255);
+            _circle.OutlineThickness = 5f;
             _circle.Draw(target, states);
         }
         public Vector2f Position { get; set; }
