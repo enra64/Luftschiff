@@ -34,7 +34,18 @@ namespace Luftschiff.Code.Game
             int roomsOnYWay = (int) ((crewMember.CurrentRoom.Position.Y - targetRoom.Position.Y)/crewMember.CurrentRoom.getRect().Height);
             int emergeout = 0;
             Room Iterator = crewMember.CurrentRoom;
-            while (roomsOnXWay != 0 && roomsOnYWay != 0 && emergeout != 3)
+
+            for (int i = 0; i < Iterator._nearRooms.Count ; i++)
+            {
+                if (Iterator._nearRooms.ElementAt(i) == targetRoom)
+                {
+                    Console.WriteLine();
+                    _crewTargets.Add(new CrewTarget(crewMember, targetRoom, 1, true));
+                    emergeout = 3;
+                }
+            }
+            /*
+            while ((roomsOnXWay != 0 || roomsOnYWay != 0 )&& emergeout != 3)
             {
                 bool check = true;
                 // check if room is nearby
@@ -81,9 +92,15 @@ namespace Luftschiff.Code.Game
                 {
                     emergeout ++;
                 }
-                Iterator = Iterator._nearRooms.ElementAt(k);
+                else
+                {
+                Console.WriteLine("raum geaddet");
+                  Iterator = Iterator._nearRooms.ElementAt(k); 
+                }
+
 
             }
+             * */
 
 
             //TODO: jan-ole: improve pathfinding algorithm
