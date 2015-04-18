@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Luftschiff.Graphics.Lib;
 
-namespace Luftschiff.Code.Game.Weapons
+namespace Luftschiff.Code.Game.Projectiles
 {
-    abstract class Weapons : Entity
+    abstract class Projectile : Entity
     {
         //Empty class for Collidermanagment
         public override void update()

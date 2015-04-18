@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Game.Weapons;
 
 namespace Luftschiff.Code.Global
@@ -12,9 +13,9 @@ namespace Luftschiff.Code.Global
     class Collider
     {
         private List<Monster> _monsterList;
-        private List<Weapons> _weaponList;
+        private List<Projectile> _weaponList;
 
-        public Collider(List<Monster> monster, List<Weapons> weapons)
+        public Collider(List<Monster> monster, List<Projectile> weapons)
         {
             _monsterList = monster;
             _weaponList = weapons;

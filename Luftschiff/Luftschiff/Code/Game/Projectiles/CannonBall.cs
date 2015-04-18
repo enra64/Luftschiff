@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.Weapons {
-    class Projectile : Weapons
+    class CannonBall : Projectile
     {
         private readonly Vector2f _direction;
         private readonly Sprite s;
         private AnimatedSprite _explodingSprite;
 
-        public Projectile(Vector2f target, Vector2f startposition)
+        public CannonBall(Vector2f target, Vector2f startposition)
         {
             Console.WriteLine("target position: " + target);
             _direction = (target - startposition) / 70;

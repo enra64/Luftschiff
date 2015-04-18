@@ -7,6 +7,7 @@ using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Game.Weapons;
 using Luftschiff.Code.Global;
 
@@ -23,7 +24,7 @@ namespace Luftschiff.Code.States {
         private Button turnButton;
         private Collider _collider;
         private static List<Monster> _monsterList;
-        private static List<Weapons> _weaponsList;
+        private static List<Projectile> _weaponsList;
 
         //test
         private Area test;
