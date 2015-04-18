@@ -4,6 +4,7 @@ using SFML.System;
 using System;
 using System.Collections.Generic;
 using Luftschiff.Code.Dialogs;
+using SFML.Window;
 
 
 namespace Luftschiff.Code.States
@@ -33,9 +34,8 @@ namespace Luftschiff.Code.States
             _turnaround.AddFrame(new IntRect(0, 100, 100, 100));
             _turnaround.AddFrame(new IntRect(0, 0, 100, 100));
 
-            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), false, true, new Vector2f(0f,0f));         
-   
-            _amazing = new ParticleHandler(2000);
+            _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), false, true, new Vector2f(0f,0f));    
+            _amazing = new ParticleHandler(0,Color.Transparent);
         }
         /// <summary>
         /// Main draw call for our Game. 
@@ -66,21 +66,26 @@ namespace Luftschiff.Code.States
             _movingSprite.Play(_walkaround);
             _amazing.Update();
 
-            ////ok create a new listdialog
-            //List<String> testList= new List<String>();
-            //for(int i = 0; i < 10; i++)
-            //    testList.Add("Daniel mag Kekse!"+i);
-            
-            //ListDialog test = new ListDialog(testList, "message", "titletest");
-            ////return index of button in list
-            //Console.WriteLine(test.show());
-
-            
-            ////construct a yes / no dialog; Ja and Nein are also available as a smaller constructor
-            //TwoButtonDialog test2 = new TwoButtonDialog("Ja", "Nochmehr Ja", "Kekse lassen die Welt krümmelig werden!", "Kekse");
-            ////show it, blocking all other execution until return of true/false
-            //Console.WriteLine(test2.show());
-
+            List<String> stringList= new List<String>();
+            stringList.Add("Blaue Particle!");
+            stringList.Add("Rote Particle!");
+            stringList.Add("Grüne Particle!");
+            ListDialog particleList = new ListDialog(stringList, "Choose your particleflavor!", "Particles");
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            {
+                if (particleList.show() == 0)
+                {
+                    _amazing = new ParticleHandler(500, new Color(Color.Blue));
+                }
+                if (particleList.show() == 1)
+                {
+                    _amazing = new ParticleHandler(500, new Color(Color.Red));
+                }
+                if (particleList.show() == 2)
+                {
+                    _amazing = new ParticleHandler(500, new Color(Color.Green));
+                }
+            }
         }
     }
 }

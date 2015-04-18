@@ -11,12 +11,12 @@ namespace Luftschiff.Graphics.Lib
         private static RenderWindow _win;
         private static List<Particle> _particleKeeper;
 
-        public ParticleHandler(int number)
+        public ParticleHandler(int number, Color color)
         {
             _particleKeeper = new List<Particle>(number);
             for (var i = 1; i <= number; i++)
             {
-                var par = new Particle(Time.FromSeconds(3f), 10f, Color.Red);
+                var par = new Particle(Time.FromSeconds(3f), 10f, color);
                 Add(par);
             }
             
