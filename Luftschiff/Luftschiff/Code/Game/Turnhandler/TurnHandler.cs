@@ -5,6 +5,7 @@ using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Turnhandler;
+using SFML.System;
 
 namespace Luftschiff.Code.Game
 {
@@ -23,10 +24,17 @@ namespace Luftschiff.Code.Game
             _crewTargets = new List<CrewTarget>();
             _weaponTargets = new List<WeaponTarget>();
         }
+        // nearest room int in list
 
         private void _addCrewTarget(CrewMember _cre, Room target, Room currentRoom)
         {
-            _crewTargets.Add(new CrewTarget(_cre,target,0,true));
+
+                if (nearestRoomOnWay(target, currentRoom, 1, 0,euclidianDistance(target.Position, currentRoom._nearRooms.ElementAt(0).Position)).Equals(target))
+                {
+                    _crewTargets.Add(new CrewTarget(_cre, target, 0, true));
+                }
+
+
         }
 
         public void addCrewTarget(CrewMember crewMember, Room targetRoom)
