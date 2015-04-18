@@ -5,6 +5,7 @@ using Luftschiff.Graphics.Lib;
 using Luftschiff.Code;
 using Luftschiff.Code.Game;
 using Luftschiff.Code.Game.AreavRooms;
+using SFML.Audio;
 
 namespace Luftschiff {
     static class Initializer {
@@ -58,6 +59,9 @@ namespace Luftschiff {
             Globals.TileTextures[1] = new Texture("Assets/Graphics/groundtile.png");
             Globals.TileTextures[2] = new Texture("Assets/Graphics/special_tile.png");
             Globals.TileTextures[3] = new Texture("Assets/Graphics/walltile.png");
+
+            //audio
+            Globals.CannonSound = new SoundBuffer("Assets/Audio/GunShot.wav");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Luftschiff.Code.Game;
 using Luftschiff.Code.Game.AreavRooms;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
@@ -68,5 +69,6 @@ namespace Luftschiff.Code {
         public static Area AreaReference;
         public static Texture CrewTexture;
         public static Texture CannonBallTexture;
+        public static SoundBuffer CannonSound;
     }
 }

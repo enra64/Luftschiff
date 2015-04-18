@@ -106,6 +106,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Audio\GunShot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Graphics\aimCursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -168,9 +171,7 @@
     <Content Include="sfmlnet-system-2.dll" />
     <Content Include="sfmlnet-window-2.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Audio\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
