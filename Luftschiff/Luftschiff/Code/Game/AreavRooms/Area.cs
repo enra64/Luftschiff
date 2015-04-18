@@ -128,6 +128,8 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             #endregion
             
+            foreach(Room r in rooms_)
+                r.update();
         }
         /// <summary>
         /// draws every room added to the area

@@ -14,15 +14,15 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public AirHospitalWard(Vector2f position) : base(position)
         {
             loadStandardTilekinds(2);
-            initializeTilemap(Area.RoomTypes.AirCannon);
+            initializeTilemap(Area.RoomTypes.AirHospital);
         }
         public override void update()
         {
-            throw new NotImplementedException();
+            
         }
         public override void inflictDamage(Monster monster, bool hits)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

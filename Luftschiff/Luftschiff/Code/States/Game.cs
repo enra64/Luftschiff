@@ -19,6 +19,7 @@ namespace Luftschiff.Code.States {
     {
         private Sprite _backgroundSprite;
         public Monster CurrentMonster;
+        private Button turnButton;
 
         //test
         private Area test;
@@ -38,6 +39,8 @@ namespace Luftschiff.Code.States {
             test.AddRoom(new AirLunchRoom(new Vector2f(0, 150)));
             test.AddRoom(new EmptyRoom(new Vector2f(0, 300)));
             test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember(test.getRooms().ElementAt(0)));
+
+            turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
         }
 
         /// <summary>
@@ -48,7 +51,7 @@ namespace Luftschiff.Code.States {
             //CurrentMonster.draw(); 
             // test draw 
             test.draw();
-            
+            turnButton.draw();
         }
 
         /// <summary>
@@ -66,7 +69,10 @@ namespace Luftschiff.Code.States {
         {
             CurrentMonster.update();
             test.update();
-            
+            if (turnButton.update())
+            {
+                Globals.TurnHandler.executeTurn();
+            }
         }
     }
 }
