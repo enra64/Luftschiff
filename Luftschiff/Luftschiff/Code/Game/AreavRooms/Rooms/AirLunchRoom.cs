@@ -15,16 +15,12 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             : base(position)
         {
             {
-                tilekind = loadStandardTilekinds(1);
-                initializeTilemap(Area.RoomTypes.AirCannon);
+                tilekind = loadStandardTilekinds(2);
+                initializeTilemap(Area.RoomTypes.AirLunch);
             }
         }
         public override void update()
         {
-        }
-        public override void inflictDamage(Monster monster, bool hits)
-        {
-            Console.WriteLine("airlunchroom inflicts damage");
         }
     }
 }

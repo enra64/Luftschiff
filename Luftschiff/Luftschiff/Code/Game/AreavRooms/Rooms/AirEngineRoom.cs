@@ -11,18 +11,13 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     class AirEngineRoom : Room
     {
-        public AirEngineRoom(Vector2f position)
-            : base(position)
+        public AirEngineRoom(Vector2f position): base(position)
         {
-            loadStandardTilekinds(1);
-            initializeTilemap(Area.RoomTypes.AirCannon);
+            tilekind = loadStandardTilekinds(2);
+            initializeTilemap(Area.RoomTypes.AirEngine);
         }
         public override void update()
         {
-        }
-        public override void inflictDamage(Monster monster, bool hits)
-        {
-            Console.WriteLine("engine inflicts damage");
         }
     }
 }
