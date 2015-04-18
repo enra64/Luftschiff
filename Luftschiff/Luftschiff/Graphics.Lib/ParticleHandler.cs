@@ -42,7 +42,7 @@ namespace Luftschiff.Graphics.Lib
             }
             if (MouseHandler.UnhandledClick)
             {
-                var par = new Particle(Time.FromSeconds(3f), 10f, Color.Magenta, MouseHandler.LastClickPosition);
+                var par = new Particle(Time.FromSeconds(3f), 10f, Color.Yellow, MouseHandler.LastClickPosition);
                 MouseHandler.UnhandledClick = false;
                 Add(par);
             }
