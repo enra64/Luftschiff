@@ -44,10 +44,13 @@ namespace Luftschiff.Code.Game.Weapons {
             if(!_interact)
                 Position += _direction;
             s.Position = Position;
-            _explodingSprite.Position = Position;
-            _explodingSprite.FrameTime = Globals.FRAME_TIME;
-            if(_interact)
+
+            if (_interact)
+            {
+                _explodingSprite.Position = Position;
+                _explodingSprite.Update(Globals.FRAME_TIME);
                 _explodingSprite.Play(Explosion);
+            }
         }
 
         public override FloatRect getRect()
