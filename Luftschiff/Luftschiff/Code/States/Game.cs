@@ -81,10 +81,17 @@ namespace Luftschiff.Code.States {
             }
 
             //make the button another color to notify the user
-            if(Globals.TurnHandler.HasStackedActions)
-                turnButton.ForceAttention(true);
+            if (Globals.TurnHandler.HasStackedActions)
+            {
+                turnButton.ForceAttention = true;
+                turnButton.ClickSound = true;
+            }
             else
-                turnButton.ForceAttention(false);
+            {
+                turnButton.ClickSound = false;
+                turnButton.ForceAttention = false;
+            }
+                
         }
     }
 }
