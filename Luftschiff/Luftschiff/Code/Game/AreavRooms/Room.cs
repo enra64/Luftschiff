@@ -157,13 +157,13 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         /// Initilizes tilemap in dependence of int[,] tilekind
         /// </summary>
-        public void initializeTilemap()
+        public void initializeTilemap(Area.RoomTypes roomType)
         {
             for (int i = 0; i < 4; i++)
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k] =new Tile(tilekind[i,k],new Vector2f(this.Position.X+32*i ,Position.Y+32*k)); //TODO let the vector fit to every file
+                    _tilemap[i, k] = new Tile(tilekind[i, k], new Vector2f(this.Position.X + 32 * i, Position.Y + 32 * k), roomType); //TODO let the vector fit to every file
                 }
             }
         }
