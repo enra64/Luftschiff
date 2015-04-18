@@ -41,13 +41,20 @@ namespace Luftschiff.Code.Game.Monsters {
 
         public Dragon(Texture t)
         {
-            flying = new Animation(new Texture("Assets/Graphics/dragon.png"));
-            flying.AddFrame(new IntRect(0, 0, 100, 674));
-            flying.AddFrame(new IntRect(100, 0, 200, 674));
-            flying.AddFrame(new IntRect(200, 0, 300, 674));
-            flying.AddFrame(new IntRect(300, 0, 389, 674));
+            flying = new Animation(new Texture("Assets/Graphics/dragon2.png"));
+            flying.AddFrame(new IntRect(0, 0, 300, 300));
+            flying.AddFrame(new IntRect(270, 0, 300, 300));
+            flying.AddFrame(new IntRect(550, 0, 300, 300));
+            flying.AddFrame(new IntRect(850, 0, 300, 300));
+            flying.AddFrame(new IntRect(1140, 0, 300, 300));
+            flying.AddFrame(new IntRect(1420, 0, 300, 300));
+            flying.AddFrame(new IntRect(1743, 0, 300, 300));
+            flying.AddFrame(new IntRect(2023, 0, 300, 300));
 
-            Sprite = new AnimatedSprite(Time.FromSeconds(0.4f), true, true,new Vector2f(Controller.Window.Size.X / 1.5f, 0f));
+            Vector2f pos = new Vector2f(Controller.Window.Size.X/1.5f, 0f);
+
+            Sprite = new AnimatedSprite(Time.FromSeconds(0.15f), true, true, pos);
+            Position = Sprite.Position;
         }
     }
 }
