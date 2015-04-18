@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
@@ -14,6 +10,7 @@ namespace Luftschiff.Code.Game.Weapons {
         private readonly Vector2f _direction;
         private readonly Sprite s;
         private AnimatedSprite _explodingSprite;
+        private bool _interact = false;
 
         public CannonBall(Vector2f target, Vector2f startposition)
         {
@@ -23,7 +20,7 @@ namespace Luftschiff.Code.Game.Weapons {
             s = new Sprite(Globals.CannonBallTexture);
 
             //Wall of Sprite :/
-            _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.5f),false,false,Position);
+            _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.01f),false,false,Position);
             Explosion = new Animation(Globals.Cannon_Explosion);
             Explosion.AddFrame(new IntRect(0,0,97,96));
             Explosion.AddFrame(new IntRect(97,0,97,96));
@@ -44,9 +41,13 @@ namespace Luftschiff.Code.Game.Weapons {
 
         public override void update()
         {
-            Position += _direction;
+            if(!_interact)
+                Position += _direction;
             s.Position = Position;
             _explodingSprite.Position = Position;
+            _explodingSprite.FrameTime = Globals.FRAME_TIME;
+            if(_interact)
+                _explodingSprite.Play(Explosion);
         }
 
         public override FloatRect getRect()
@@ -56,15 +57,17 @@ namespace Luftschiff.Code.Game.Weapons {
 
         public override void draw()
         {
-            Controller.Window.Draw(s);
-            Controller.Window.Draw(_explodingSprite);
+            if(!_interact)
+                Controller.Window.Draw(s);
+            if(_interact)
+                Controller.Window.Draw(_explodingSprite);
         }
 
         public  Animation Explosion { set; get; }
 
         public override void OnImpact()
         {
-            _explodingSprite.Play(Explosion);
+            _interact = true;
         }
     }
 }

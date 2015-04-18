@@ -21,7 +21,7 @@ namespace Luftschiff.Code.Global
             {
                 foreach (var w in _projectileList)
                 {
-                    if (w.Position.X - 10f >= m.Position.X) 
+                    if (w.Position.X - 5f >= m.Position.X) 
                         w.OnImpact();
                 }
             }
