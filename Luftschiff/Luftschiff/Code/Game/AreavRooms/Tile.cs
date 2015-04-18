@@ -28,27 +28,34 @@ namespace Luftschiff.Code.Game.AreavRooms
                     s = new Sprite(Globals.TileTextures[1]);
                     break;
                 case(3):
-                    //TODO stuff in the middle graphics
-                    s = new Sprite(Globals.TileTextures[2]);
                     switch (room)
                     {
                         case Area.RoomTypes.AirCannon:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.AirEngine:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.AirHospital:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.AirLunch:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.Empty:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.GroundAirshipWorkshop:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.GroundBarracks:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.GroundMarketplace:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.GroundTavern:
+                            s = new Sprite(Globals.TileTextures[2]);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException("room", room, null);

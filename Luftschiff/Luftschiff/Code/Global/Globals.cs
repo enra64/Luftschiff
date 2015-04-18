@@ -16,6 +16,7 @@ namespace Luftschiff.Code {
         /// </summary>
         public enum EStates
         {
+            menu,
             game,
             graphicstest
         }

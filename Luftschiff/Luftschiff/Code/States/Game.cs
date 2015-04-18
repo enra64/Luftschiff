@@ -66,23 +66,7 @@ namespace Luftschiff.Code.States {
         {
             CurrentMonster.update();
             test.update();
-            //Dialog examples
-            /*
-            //ok create a new listdialog
-            List<String> testList= new List<String>();
-            for(int i = 0; i < 10; i++)
-                testList.Add("a"+i);
             
-            ListDialog test = new ListDialog(testList, "message", "titletest");
-            //return index of button in list
-            Console.WriteLine(test.show());
-            */
-            /*
-            //construct a yes / no dialog; Ja and Nein are also available as a smaller constructor
-            TwoButtonDialog test2 = new TwoButtonDialog("jaKnopf", "neinKnopf", "Nachricht", "Titel");
-            //show it, blocking all other execution until return of true/false
-            Console.WriteLine(test2.show());
-            */
         }
     }
 }

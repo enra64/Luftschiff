@@ -13,7 +13,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
     {
         public AirCannonRoom(Vector2f position) : base(position)
         {
-            loadStandartTilekinds(tilekind,1);
+            loadStandardTilekinds(1);
             initializeTilemap(Area.RoomTypes.AirCannon);
         }
         public override void update()

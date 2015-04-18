@@ -5,6 +5,7 @@ using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Global;
 using Luftschiff.Code.States;
 using SFML.System;
+using SFML.Window;
 
 namespace Luftschiff
 {
@@ -21,14 +22,16 @@ namespace Luftschiff
             _frameClock = new Clock();
             Initializer.Initialize();
 
-            LoadState(Globals.EStates.graphicstest);
-            //LoadState(Globals.EStates.game);
+            LoadState(Globals.EStates.menu);
 
             while (Window.IsOpen)
             {
                 Window.SetFramerateLimit(100);
                 Window.SetVerticalSyncEnabled(true);
 
+                if(Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+                    LoadState(Globals.EStates.menu);
+                
                 main.mainUpdate();
                 main.draw();
                 
@@ -47,6 +50,9 @@ namespace Luftschiff
                     break;
                 case Globals.EStates.graphicstest:
                     main = new GraphicsTest();
+                    break;
+                case Globals.EStates.menu:
+                    main = new Menu();
                     break;
             }
         }
