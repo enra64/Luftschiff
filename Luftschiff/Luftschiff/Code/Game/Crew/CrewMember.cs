@@ -10,7 +10,6 @@ namespace Luftschiff.Code.Game.Crew {
     class CrewMember : Entity
     {
         private Sprite useAnAnimatedSprite;
-        private Room currentRoom = null;
         public Room CurrentRoom{ get; set; }
 
         //possible abilities
@@ -26,7 +25,7 @@ namespace Luftschiff.Code.Game.Crew {
 
         public CrewMember(Room firstRoom)
         {
-            currentRoom = firstRoom;
+            CurrentRoom = firstRoom;
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
         }
 
@@ -96,8 +95,8 @@ namespace Luftschiff.Code.Game.Crew {
         //move to that room NAOW
         public void moveToRoom(Room targetRoom)
         {
-            Globals.AreaReference.RemoveCrewFromRoom(currentRoom, this);
-            currentRoom = targetRoom;
+            Globals.AreaReference.RemoveCrewFromRoom(CurrentRoom, this);
+            CurrentRoom = targetRoom;
             Globals.AreaReference.AddCrewToRoom(targetRoom, this);
         }
     }
