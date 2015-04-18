@@ -1,6 +1,7 @@
 ﻿using System;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Graphics.Lib;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
@@ -11,6 +12,7 @@ namespace Luftschiff.Code.Game.Weapons {
         private readonly Sprite s;
         private AnimatedSprite _explodingSprite;
         private bool _interact = false;
+        private bool _playBool = true;
 
         public CannonBall(Vector2f target, Vector2f startposition)
         {
@@ -50,6 +52,11 @@ namespace Luftschiff.Code.Game.Weapons {
                 _explodingSprite.Position = Position;
                 _explodingSprite.Update(Globals.FRAME_TIME);
                 _explodingSprite.Play(Explosion);
+                if (_playBool)
+                {
+                    new Sound(Globals.Boom).Play();
+                    _playBool = false;
+                }
             }
         }
 
