@@ -28,7 +28,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             base.draw();
             if(cannonball != null)
-            cannonball.draw();
+                cannonball.draw();
         }
 
         public override void inflictDamage(Monster monster, bool hits)

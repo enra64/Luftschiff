@@ -105,6 +105,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Graphics\cannonball.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Graphics\dragon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
