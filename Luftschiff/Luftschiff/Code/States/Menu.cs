@@ -16,7 +16,6 @@ namespace Luftschiff.Code.States
 
         public override void draw()
         {
-            throw new NotImplementedException();
         }
 
         public override void update()
