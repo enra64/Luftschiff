@@ -48,7 +48,7 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
-            //CurrentMonster.draw(); 
+            CurrentMonster.draw(); 
             // test draw 
             test.draw();
             turnButton.draw();
