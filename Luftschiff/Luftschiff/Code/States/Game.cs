@@ -29,6 +29,7 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public Game ()
         {
+            Controller.Window.SetMouseCursorVisible(false);
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
@@ -59,7 +60,7 @@ namespace Luftschiff.Code.States {
         /// to notify it of the event. Could be useful for saving the game
         /// </summary>
         public override void kill() {
-            
+            Controller.Window.SetMouseCursorVisible(true);
         }
 
         /// <summary>

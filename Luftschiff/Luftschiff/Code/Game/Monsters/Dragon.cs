@@ -31,7 +31,8 @@ namespace Luftschiff.Code.Game.Monsters {
                     if (getRect().Contains(MouseHandler.LastClickPosition.X, MouseHandler.LastClickPosition.Y))
                     {
                         MouseHandler.UnhandledClick = false;
-                        Globals.TurnHandler.addRoomTarget(MouseHandler.selectedRoom, this);    
+                        Globals.TurnHandler.addRoomTarget(MouseHandler.selectedRoom, this);
+                        Cursor.setCursorMode(Cursor.Mode.standard);
                     }
                 }
             }
@@ -51,10 +52,9 @@ namespace Luftschiff.Code.Game.Monsters {
             flying.AddFrame(new IntRect(1743, 0, 300, 300));
             flying.AddFrame(new IntRect(2023, 0, 300, 300));
 
-            Vector2f pos = new Vector2f(Controller.Window.Size.X/1.5f, 0f);
+            Vector2f pos = new Vector2f(Controller.Window.Size.X/1.5f, 200f);
 
             Sprite = new AnimatedSprite(Time.FromSeconds(0.15f), true, true, pos);
-            Position = Sprite.Position;
         }
     }
 }

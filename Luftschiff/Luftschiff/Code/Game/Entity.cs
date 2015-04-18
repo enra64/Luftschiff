@@ -7,8 +7,24 @@ namespace Luftschiff.Code.Game
 {
     abstract class Entity
     {
-
-        public Vector2f Position;
+        private Vector2f _position;
+        /// <summary>
+        /// if the standard entity sprite is used, this will return its position;
+        /// else, a distinct position variable is used
+        /// </summary>
+        public virtual Vector2f Position
+        {
+            get {
+                return Sprite != null ? Sprite.Position : _position;
+            }
+            set
+            {
+                if (Sprite != null)
+                    Sprite.Position = value;
+                else
+                    _position = value;
+            }
+        }
         public Vector2f Scale; // lets see if it is not senseless 
         public AnimatedSprite Sprite;
 

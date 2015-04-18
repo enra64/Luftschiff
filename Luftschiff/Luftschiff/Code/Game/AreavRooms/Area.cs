@@ -103,7 +103,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                     if (clickedRoom != null)
                     {
                         MouseHandler.selectedRoom = clickedRoom;
-                        Console.WriteLine("selected room");
+                        //Console.WriteLine("selected room");
+                        Cursor.setCursorMode(Cursor.Mode.aim);
                         MouseHandler.UnhandledClick = false;
                     }
                         
@@ -111,19 +112,18 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //a crewmember was clicked -> mousehandler
                     if (clickedCrew != null)
                     {
-                        Console.WriteLine("selected crewmember");
                         MouseHandler.selectedCrew = clickedCrew;
+                        Cursor.setCursorMode(Cursor.Mode.move);
                         MouseHandler.UnhandledClick = false;
                     }
-                        
+                    
   
                     //nothing was clicked, remove the selection
                     if (clickedRoom == null && clickedCrew == null)
                     {
-                        //Console.WriteLine("removed selection");
+                        Cursor.setCursorMode(Cursor.Mode.standard);
                         MouseHandler.selectedCrew = null;
                         MouseHandler.selectedRoom = null;
-                        //MouseHandler.UnhandledClick = false;
                     }
                 }
                 //right click
@@ -133,7 +133,6 @@ namespace Luftschiff.Code.Game.AreavRooms
                     if (clickedRoom != null && MouseHandler.selectedCrew != null)
                     {
                         Console.WriteLine("crewmember will move or not");
-                        //TODO: change to setTarget when that has been written...
                         MouseHandler.selectedCrew.setTarget(clickedRoom);
                         MouseHandler.UnhandledClick = false;
                     }

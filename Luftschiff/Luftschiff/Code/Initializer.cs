@@ -40,6 +40,8 @@ namespace Luftschiff {
             //all the more or less static classses
             Globals.AreaReference = new Area();
             Globals.TurnHandler = new TurnHandler(Globals.AreaReference);
+
+            Cursor.Initialize();
         }
 
         private static void InitializeAssets()

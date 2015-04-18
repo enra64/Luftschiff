@@ -22,8 +22,10 @@ namespace Luftschiff.Code.Global {
         public void mainUpdate() {
             Controller.Window.Clear(Color.Black);
             Controller.Window.DispatchEvents();
+            Cursor.Update();
             update();
             draw();
+            Cursor.Draw();
             Controller.Window.Display();
         }
 

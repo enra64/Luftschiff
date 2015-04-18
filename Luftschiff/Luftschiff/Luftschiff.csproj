@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Cursor.cs" />
     <Compile Include="Code\Dialogs\Button.cs" />
     <Compile Include="Code\Dialogs\ListDialog.cs" />
     <Compile Include="Code\Dialogs\TwoButtonDialog.cs" />
@@ -105,6 +106,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Graphics\aimCursor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Graphics\cannonball.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -117,10 +121,16 @@
     <Content Include="Assets\Graphics\groundtile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Graphics\moveCursor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Graphics\rusty_sprites.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\special_tile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Graphics\standardCursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\testbg.png">

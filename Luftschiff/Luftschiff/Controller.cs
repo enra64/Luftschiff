@@ -34,7 +34,7 @@ namespace Luftschiff
                 
                 main.mainUpdate();
                 main.draw();
-                
+
                 //FRAME_TIME always last!!
                 Globals.FRAME_TIME = _frameClock.Restart();
             }
