@@ -134,7 +134,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                     {
                         Console.WriteLine("crewmember will move or not");
                         //TODO: change to setTarget when that has been written...
-                        MouseHandler.selectedCrew.moveToRoom(clickedRoom);
+                        MouseHandler.selectedCrew.setTarget(clickedRoom);
                         MouseHandler.UnhandledClick = false;
                     }
                 }
