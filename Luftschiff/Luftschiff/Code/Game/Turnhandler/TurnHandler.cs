@@ -137,7 +137,7 @@ namespace Luftschiff.Code.Game
             }
 
             //remove targets with invalid neededactions count to collect garbage
-            _crewTargets.RemoveAll(s => s.NeededActions == -42);
+            _crewTargets.RemoveAll(s => s.NeededActions < 0);
         }
     }
 }
