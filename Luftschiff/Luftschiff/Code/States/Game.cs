@@ -22,9 +22,6 @@ namespace Luftschiff.Code.States {
         private Sprite _backgroundSprite;
         public Monster CurrentMonster;
         private Button turnButton;
-        private Collider _collider;
-        private static List<Monster> _monsterList;
-        private static List<Projectile> _weaponsList;
 
         //test
         private Area test;
@@ -45,10 +42,9 @@ namespace Luftschiff.Code.States {
             test.AddRoom(new AirLunchRoom(new Vector2f(225, 275)));
             test.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
             test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember(test.getRooms().ElementAt(0)));
+            Collider.AddMonster(CurrentMonster);
 
             turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
-            //_monsterList.Add(CurrentMonster);
-            //_collider = new Collider(_monsterList,);
 
         }
 

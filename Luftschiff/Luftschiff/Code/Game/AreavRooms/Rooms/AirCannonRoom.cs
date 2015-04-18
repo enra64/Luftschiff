@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Weapons;
+using Luftschiff.Code.Global;
 using SFML.Audio;
 using SFML.System;
 
@@ -45,6 +46,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             monster.getTurnDamage(0, true);
             //add sfx
             cannonball = new CannonBall(monster.Center, Center);
+            Collider.AddProjectile(cannonball);
             new Sound(Globals.CannonSound).Play();
             //Console.WriteLine("cannon inflicts damage");
         }

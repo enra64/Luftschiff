@@ -10,27 +10,31 @@ using Luftschiff.Code.Game.Weapons;
 
 namespace Luftschiff.Code.Global
 {
-    class Collider
+    static class Collider
     {
-        private List<Monster> _monsterList;
-        private List<Projectile> _weaponList;
+        private static List<Monster> _monsterList = new List<Monster>();
+        private static List<Projectile> _projectileList = new List<Projectile>();
 
-        public Collider(List<Monster> monster, List<Projectile> weapons)
-        {
-            _monsterList = monster;
-            _weaponList = weapons;
-        }
-
-        public void Update()
+        public static void Update()
         {
             foreach (var m in _monsterList)
             {
-                foreach (var w in _weaponList)
+                foreach (var w in _projectileList)
                 {
-                    if (w.Position.Y - 10f >= m.Position.Y) 
+                    if (w.Position.X - 10f >= m.Position.X) 
                         w.OnImpact();
                 }
             }
+        }
+
+        public static void AddMonster(Monster monster)
+        {
+            _monsterList.Add(monster);
+        }
+
+        public static void AddProjectile(Projectile projectile)
+        {
+            _projectileList.Add(projectile);
         }
 
     }
