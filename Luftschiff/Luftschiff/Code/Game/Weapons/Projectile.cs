@@ -56,6 +56,7 @@ namespace Luftschiff.Code.Game.Weapons {
         public override void draw()
         {
             Controller.Window.Draw(s);
+            Controller.Window.Draw(_explodingSprite);
         }
 
         public  Animation Explosion { set; get; }
