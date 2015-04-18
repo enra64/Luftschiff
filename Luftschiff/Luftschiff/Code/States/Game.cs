@@ -47,8 +47,8 @@ namespace Luftschiff.Code.States {
             test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember(test.getRooms().ElementAt(0)));
 
             turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
-            _monsterList.Add(CurrentMonster);
-            _collider = new Collider(_monsterList,);
+            //_monsterList.Add(CurrentMonster);
+            //_collider = new Collider(_monsterList,);
 
         }
 
@@ -85,10 +85,17 @@ namespace Luftschiff.Code.States {
             }
 
             //make the button another color to notify the user
-            if(Globals.TurnHandler.HasStackedActions)
-                turnButton.ForceAttention(true);
+            if (Globals.TurnHandler.HasStackedActions)
+            {
+                turnButton.ForceAttention = true;
+                turnButton.ClickSound = true;
+            }
             else
-                turnButton.ForceAttention(false);
+            {
+                turnButton.ClickSound = false;
+                turnButton.ForceAttention = false;
+            }
+                
         }
     }
 }
