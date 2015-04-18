@@ -12,6 +12,8 @@ namespace Luftschiff.Code.Game
         public Vector2f Scale; // lets see if it is not senseless 
         public AnimatedSprite Sprite;
 
+        public Vector2f Center{get{return new Vector2f(Position.X + getRect().Width / 2, Position.Y + getRect().Height / 2);}}
+
         /// <summary>
         /// get rectangle for collision
         /// is inherited by the rectangle of the sprite

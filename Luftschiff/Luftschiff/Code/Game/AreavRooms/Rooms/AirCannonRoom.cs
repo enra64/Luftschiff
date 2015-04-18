@@ -34,7 +34,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void inflictDamage(Monster monster, bool hits)
         {
             monster.getTurnDamage(0, true);
-            cannonball = new Projectile(new Vector2f(10, 0), Position);
+            cannonball = new Projectile(monster.Center, this.Center);
             Console.WriteLine("cannon inflicts damage");
         }
     }
