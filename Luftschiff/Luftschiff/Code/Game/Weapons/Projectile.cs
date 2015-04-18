@@ -12,9 +12,10 @@ namespace Luftschiff.Code.Game.Weapons {
         private Vector2f _Direction;
         private Sprite s;
 
-        public Projectile(Vector2f direction, Vector2f startposition)
+        public Projectile(Vector2f target, Vector2f startposition)
         {
-            _Direction = direction;
+            Console.WriteLine("target position: " + target);
+            _Direction = (target - startposition) / 100;
             Position = startposition;
             s = new Sprite(Globals.CannonBallTexture);
         }
