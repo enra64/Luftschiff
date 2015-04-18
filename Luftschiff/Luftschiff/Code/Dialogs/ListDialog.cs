@@ -79,6 +79,7 @@ namespace Luftschiff.Code.Dialogs {
                 update();
                 draw();
                 Controller.Window.Display();
+                Controller.Window.Clear(Color.Black);
             }
             return _answer;
         }
