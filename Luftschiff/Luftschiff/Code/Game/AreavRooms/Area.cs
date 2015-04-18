@@ -102,9 +102,9 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //a room was clicked, set into mousehandler
                     if (clickedRoom != null)
                     {
-                        MouseHandler.selectedRoom = clickedRoom;
+                        MouseHandler.SelectedRoom = clickedRoom;
                         //Console.WriteLine("selected room");
-                        Cursor.setCursorMode(Cursor.Mode.aim);
+                        Cursor.CursorMode(Cursor.Mode.aim);
                         MouseHandler.UnhandledClick = false;
                     }
                         
@@ -112,8 +112,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //a crewmember was clicked -> mousehandler
                     if (clickedCrew != null)
                     {
-                        MouseHandler.selectedCrew = clickedCrew;
-                        Cursor.setCursorMode(Cursor.Mode.move);
+                        MouseHandler.SelectedCrew = clickedCrew;
+                        Cursor.CursorMode(Cursor.Mode.move);
                         MouseHandler.UnhandledClick = false;
                     }
                     
@@ -121,19 +121,19 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //nothing was clicked, remove the selection
                     if (clickedRoom == null && clickedCrew == null)
                     {
-                        Cursor.setCursorMode(Cursor.Mode.standard);
-                        MouseHandler.selectedCrew = null;
-                        MouseHandler.selectedRoom = null;
+                        Cursor.CursorMode(Cursor.Mode.standard);
+                        MouseHandler.SelectedCrew = null;
+                        MouseHandler.SelectedRoom = null;
                     }
                 }
                 //right click
                 else
                 {
                     //a room was rightclicked, and a crew has been selected previously
-                    if (clickedRoom != null && MouseHandler.selectedCrew != null)
+                    if (clickedRoom != null && MouseHandler.SelectedCrew != null)
                     {
                         Console.WriteLine("crewmember will move or not");
-                        MouseHandler.selectedCrew.setTarget(clickedRoom);
+                        MouseHandler.SelectedCrew.setTarget(clickedRoom);
                         MouseHandler.UnhandledClick = false;
                     }
                 }

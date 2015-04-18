@@ -36,7 +36,7 @@ namespace Luftschiff.Code {
             _Sprite = new Sprite(_StandardTexture);
         }
 
-        public static void setCursorMode(Mode cursorType)
+        public static void CursorMode(Mode cursorType)
         {
             switch (cursorType) {
                 case Mode.standard:

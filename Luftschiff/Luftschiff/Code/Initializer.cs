@@ -16,10 +16,10 @@ namespace Luftschiff {
         }
 
         private static void InitializeMouse() {
-            Controller.Window.MouseButtonPressed += MouseHandler.click;
-            Controller.Window.MouseWheelMoved += MouseHandler.scroll;
-            Controller.Window.MouseButtonReleased += MouseHandler.release;
-            Controller.Window.MouseMoved += MouseHandler.move;
+            Controller.Window.MouseButtonPressed += MouseHandler.Click;
+            Controller.Window.MouseWheelMoved += MouseHandler.Scroll;
+            Controller.Window.MouseButtonReleased += MouseHandler.Release;
+            Controller.Window.MouseMoved += MouseHandler.Move;
         }
 
         private static void InitializeWindow() {

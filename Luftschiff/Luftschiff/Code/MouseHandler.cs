@@ -18,11 +18,11 @@ namespace Luftschiff {
         public static float ScrollingDelta { get; private set; }
         public static Vector2f CurrentPosition { get; private set; }
         public static Vector2f LastClickPosition { get; private set; }
-        public static Room selectedRoom { get; set; }
-        public static CrewMember selectedCrew { get; set; }
+        public static Room SelectedRoom { get; set; }
+        public static CrewMember SelectedCrew { get; set; }
 
 
-        internal static void click(object sender, MouseButtonEventArgs e) {
+        internal static void Click(object sender, MouseButtonEventArgs e) {
             Clicking = true;
             UnhandledClick = true;
             LastClickPosition = new Vector2f(e.X, e.Y);
@@ -37,15 +37,15 @@ namespace Luftschiff {
             }
         }
 
-        internal static void scroll(object sender, MouseWheelEventArgs e) {
+        internal static void Scroll(object sender, MouseWheelEventArgs e) {
             ScrollingDelta = e.Delta;
         }
 
-        internal static void release(object sender, MouseButtonEventArgs e) {
+        internal static void Release(object sender, MouseButtonEventArgs e) {
             Clicking = false;
         }
 
-        internal static void move(object sender, MouseMoveEventArgs e) {
+        internal static void Move(object sender, MouseMoveEventArgs e) {
             CurrentPosition = new Vector2f(e.X, e.Y);
         }
     }

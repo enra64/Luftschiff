@@ -8,7 +8,7 @@ using SFML.System;
 namespace Luftschiff.Code.Game.Monsters {
     class Dragon : Monster
     {
-        private Animation flying;
+        private Animation _flying;
         public override int makeTurnDamage()
         {
             throw new System.NotImplementedException();
@@ -26,31 +26,31 @@ namespace Luftschiff.Code.Game.Monsters {
         {
             if (MouseHandler.UnhandledClick)
             {
-                if (MouseHandler.selectedRoom != null)
+                if (MouseHandler.SelectedRoom != null)
                 {
                     if (getRect().Contains(MouseHandler.LastClickPosition.X, MouseHandler.LastClickPosition.Y))
                     {
                         MouseHandler.UnhandledClick = false;
-                        Globals.TurnHandler.addRoomTarget(MouseHandler.selectedRoom, this);
-                        Cursor.setCursorMode(Cursor.Mode.standard);
+                        Globals.TurnHandler.addRoomTarget(MouseHandler.SelectedRoom, this);
+                        Cursor.CursorMode(Cursor.Mode.standard);
                     }
                 }
             }
             Sprite.Update(Globals.FRAME_TIME);
-            Sprite.Play(flying);
+            Sprite.Play(_flying);
         }
 
         public Dragon(Texture t)
         {
-            flying = new Animation(new Texture("Assets/Graphics/dragon2.png"));
-            flying.AddFrame(new IntRect(0, 0, 300, 300));
-            flying.AddFrame(new IntRect(270, 0, 300, 300));
-            flying.AddFrame(new IntRect(550, 0, 300, 300));
-            flying.AddFrame(new IntRect(850, 0, 300, 300));
-            flying.AddFrame(new IntRect(1140, 0, 300, 300));
-            flying.AddFrame(new IntRect(1420, 0, 300, 300));
-            flying.AddFrame(new IntRect(1743, 0, 300, 300));
-            flying.AddFrame(new IntRect(2023, 0, 300, 300));
+            _flying = new Animation(new Texture("Assets/Graphics/dragon2.png"));
+            _flying.AddFrame(new IntRect(0, 0, 300, 300));
+            _flying.AddFrame(new IntRect(270, 0, 300, 300));
+            _flying.AddFrame(new IntRect(550, 0, 300, 300));
+            _flying.AddFrame(new IntRect(850, 0, 300, 300));
+            _flying.AddFrame(new IntRect(1140, 0, 300, 300));
+            _flying.AddFrame(new IntRect(1420, 0, 300, 300));
+            _flying.AddFrame(new IntRect(1743, 0, 300, 300));
+            _flying.AddFrame(new IntRect(2023, 0, 300, 300));
 
             Vector2f pos = new Vector2f(Controller.Window.Size.X/1.5f, 200f);
 
