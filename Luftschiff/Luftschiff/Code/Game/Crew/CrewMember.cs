@@ -85,6 +85,7 @@ namespace Luftschiff.Code.Game.Crew {
         //call in area in the mouse click handler
         public void setTarget(Room clickedRoom)
         {
+            Globals.TurnHandler.addCrewTarget(this, clickedRoom);
         }
 
         public void setPosition(Vector2f newPosition)
