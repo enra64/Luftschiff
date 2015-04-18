@@ -23,6 +23,8 @@ namespace Luftschiff.Code.Dialogs
             _buttonShape = new RectangleShape(size);
             _buttonShape.FillColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
             _buttonShape.Position = position;
+            _buttonShape.OutlineColor = Color.Black;
+            _buttonShape.OutlineThickness = 2f;
 
             _normalColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
             _hoverColor = Globals.DIALOG_BUTTON_COLOR_HOVER;

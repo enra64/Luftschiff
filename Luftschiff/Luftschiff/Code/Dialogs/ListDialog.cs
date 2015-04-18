@@ -56,7 +56,7 @@ namespace Luftschiff.Code.Dialogs {
             _buttonList = new List<Button>();
 
             //init buttons
-            var firstButtonPosition = new Vector2f(Position.X + Size.X / 4, Position.Y + 60);
+            var firstButtonPosition = new Vector2f(Position.X + Size.X / 4 + 200, Position.Y + 60);
             var buttonSize = new Vector2f(Size.X / 2, Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
             int buttonPosition = 0;
             foreach(String s in answers)
