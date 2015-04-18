@@ -14,6 +14,7 @@ namespace Luftschiff.Code.Game.Weapons {
 
         public Projectile(Vector2f target, Vector2f startposition)
         {
+            Console.WriteLine("target position: " + target);
             _Direction = (target - startposition) / 100;
             Position = startposition;
             s = new Sprite(Globals.CannonBallTexture);
