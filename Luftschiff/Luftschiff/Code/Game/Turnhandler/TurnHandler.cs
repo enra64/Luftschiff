@@ -36,204 +36,85 @@ namespace Luftschiff.Code.Game
             get { return _crewTargets.Count > 0 || _weaponTargets.Count > 0; }
         }
 
-
+        /// <summary>
+        /// finds the hopefully shortest possible way to the chosen target room
+        /// </summary>
+        /// <param name="crewMember"></param>
+        /// <param name="targetRoom"></param>
         public void addCrewTarget(CrewMember crewMember, Room targetRoom)
         {
+            //intialize variables
             Room work = crewMember.CurrentRoom;
             List<Room> way = new List<Room>();
             Room merk;
             way.Add(work);
             int whilebreaker = 0;
             float mindistance;
+            //loop till target is found or whilebreaker says target is noct reachable
             while (!way.Contains(targetRoom)&& whilebreaker < 10)
             {
+                // pseudo min distance to get it work 
                 mindistance = 10000000;
                 merk = work;
+                // look after the attributes of all near rooms
                 for (int i = 0; i < work._nearRooms.Count; i++)
                 {
-                    if (work._nearRooms.ElementAt(i).iswalkable())
+                    // break loop with target on last place
+                    if (work._nearRooms.ElementAt(i) == targetRoom || merk == targetRoom)
+                    {
+                        merk = targetRoom;
+                       // Console.WriteLine("found target");
+                    }
+                        // checks every not used room nearby if it is the closest to the target
+                    else if (work._nearRooms.ElementAt(i).iswalkable()&&!way.Contains(work._nearRooms.ElementAt(i)))
                     {
                         Room possiblenext = work._nearRooms.ElementAt(i);
                         float distanceToTarget = (float)Global.Util.GetDistancebeweenVector2f(possiblenext.Position,targetRoom.Position);
+                        //distance to target compare
                         if (distanceToTarget < mindistance)
                         {
+                            mindistance = distanceToTarget;
                             merk = possiblenext;
-                            Console.WriteLine("Raum gemerkt");
+                            //Console.WriteLine("Raum gemerkt");
                         }
 
                     }
                 }
+                //break for the loop if there is no possible way to go 
                 if (merk == work)
                 {
                     whilebreaker = 10;
-                    Console.WriteLine("needed whilbreaker");
+                    //Console.WriteLine("needed whilbreaker");
                 }
+                    // add best possiblitiy to reach target 
                 else
                 {
                     way.Add(merk);
                     work = merk;
-                    Console.WriteLine("schleife zum weg hinzugefugt");
+                   // Console.WriteLine("schleife zum weg hinzugefugt");
                 } 
                 whilebreaker++;
             }
+            // sets the needed CrewTarget going through the list
+            way.RemoveAt(0);
             for (int k = way.Count - 1; k >= 0 && whilebreaker != 10; k--)
             {
                 if (k == way.Count - 1)
                 {
-                    _crewTargets.Add(new CrewTarget(crewMember, targetRoom, 1, true));
+                    Console.WriteLine(way.Count-k);
+                    //Console.WriteLine("target");
+                    _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k),k, true));
                 }
                 else
                 {
-                    _crewTargets.Add(new CrewTarget(crewMember,way.ElementAt(k),way.Count-1-k,false));
+                    Console.WriteLine(way.Count - k);
+                    //Console.WriteLine("waypoint");
+                    _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k),k, false));
                 }
             }
         }
+            //TODO: jan-ole: improve pathfinding algorithm for later problems
 
-        // nearest room int in list
-
-            /*
-
-        //TODO jan-ole : seltsamen shit irgendwie sinnvol zusammenbasteln please :**(
-        private Room nearestRoom(Room current , Room target)
-        {
-            Room res = current;
-            float mindistance=10000000;
-
-            for (int i = 1; i < current._nearRooms.Count; i++)
-            {
-                if (i == 1)
-                {
-                    res = current._nearRooms.ElementAt(0);
-                    mindistance = (float)Global.Util.GetDistancebeweenVector2f(current._nearRooms.ElementAt(0).Position, target.Position);
-                }
-                Room work = current._nearRooms.ElementAt(i);
-                float distance =
-                    (float) Global.Util.GetDistancebeweenVector2f(current._nearRooms.ElementAt(i).Position, target.Position);
-                if (distance < mindistance)
-                {
-                    res = current._nearRooms.ElementAt(i);
-                    mindistance = distance;
-                }
-            }
-            return res;
-        }
-
-        private void _addCrewTarget(CrewMember _cre, Room target, Room currentRoom,int n)
-        {
-            if (n == 0)
-            {
-                _crewTargets.Add(new CrewTarget(_cre, currentRoom, 1, true));
-                _addCrewTarget(_cre, target, nearestRoom(currentRoom, target), n + 1);
-            }
-            else
-            {
-                if (nearestRoom(currentRoom, target) == target)
-                {
-                    _crewTargets.Add(new CrewTarget(_cre, currentRoom, n, false));
-                }
-                else
-                {
-                    _crewTargets.Add(new CrewTarget(_cre,currentRoom,n,false));
-                    _addCrewTarget(_cre,target,currentRoom,n+1);
-                }
-            }
-  
-
-        }
-
-        public void addCrewTarget(CrewMember crewMember, Room targetRoom)
-        {
-            Room Iter = crewMember.CurrentRoom;
-
-
-if (targetRoom != crewMember.CurrentRoom)
-{
-    _addCrewTarget(crewMember, crewMember.CurrentRoom, targetRoom,0); 
-}
-
-
-
-
-            
-//track job
-crewMember.HasMoveCommand = true;
-List<Room> a = _areaReference.getRooms();
-// start calculate possible length of way
-int roomsOnXWay = (int) ((crewMember.CurrentRoom.Position.X - targetRoom.Position.X)/crewMember.CurrentRoom.getRect().Width);
-int roomsOnYWay = (int) ((crewMember.CurrentRoom.Position.Y - targetRoom.Position.Y)/crewMember.CurrentRoom.getRect().Height);
-int emergeout = 0;
-Room Iterator = crewMember.CurrentRoom;
-
-for (int i = 0; i < Iterator._nearRooms.Count ; i++)
-{
-if (Iterator._nearRooms.ElementAt(i) == targetRoom)
-{
-Console.WriteLine();
-_crewTargets.Add(new CrewTarget(crewMember, targetRoom, 1, true));
-emergeout = 3;
-}
-}
-
-while ((roomsOnXWay != 0 || roomsOnYWay != 0 )&& emergeout != 3)
-{
-bool check = true;
-// check if room is nearby
-for (int i = 0; i < Iterator._nearRooms.Count && check; i++)
-{
-if (Iterator._nearRooms.ElementAt(i) == targetRoom)
-{
-_crewTargets.Add(new CrewTarget(crewMember, targetRoom, 1, true));
-check = false;
-emergeout = 3;
-}  
-}
-
-//try to figure out in whoch position is one possible direction to get to the target room 
-int k;
-for ( k = 0; k < Iterator._nearRooms.Count && check; k++)
-{
-if (roomsOnYWay < 0 && Iterator.Position.Y - Iterator._nearRooms.ElementAt(k).Position.Y > 0)
-{
-_crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
-check = false;
-roomsOnYWay++;
-}
-if (roomsOnYWay > 0 && -1 * (Iterator.Position.Y - Iterator._nearRooms.ElementAt(k).Position.Y) > 0)
-{
-_crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
-check = false;
-roomsOnYWay--;
-}
-if (roomsOnXWay < 0 && Iterator.Position.X - Iterator._nearRooms.ElementAt(k).Position.X > 0)
-{
-_crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
-check = false;
-roomsOnXWay++;
-}
-if (roomsOnXWay > 0 && -1 * (Iterator.Position.X - Iterator._nearRooms.ElementAt(k).Position.X) > 0)
-{
-_crewTargets.Add(new CrewTarget(crewMember, Iterator._nearRooms.ElementAt(k), (int)Math.Abs(roomsOnXWay) + (int)Math.Abs(roomsOnYWay), false));
-check = false;
-roomsOnXWay--;
-}
-}
-if (check)
-{
-emergeout ++;
-}
-else
-{
-Console.WriteLine("raum geaddet");
-Iterator = Iterator._nearRooms.ElementAt(k); 
-}
-}
-*/
-
-
-            //TODO: jan-ole: improve pathfinding algorithm
-            //do by adding a target to the crewTargetsList
-            //_crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
-        //}
 
         public void addCrewPath(CrewMember crewMember, List<Room> path)
         {
@@ -268,7 +149,7 @@ Iterator = Iterator._nearRooms.ElementAt(k);
                 if (c.NeededActions == 0){
                     //execute the crew action
                     c.Crew.moveToRoom(c.Target);
-                    //make the crew do the appropriate action at its target
+                        //make the crew do the appropriate action at its target
                     if (c.IsLastAction){
                         c.Target.OnCrewArrive(c.Crew);
                         c.Crew.HasMoveCommand = false;

@@ -35,8 +35,11 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         /// <param name="position"></param>
         public AirCannonRoom(Vector2f position) : base(position)
         {
-            tilekind = loadStandardTilekinds(2);
-            initializeTilemap(Area.RoomTypes.AirCannon);
+            {
+                tilekind = loadStandardTilekinds(2);
+                initializeTilemap(Area.RoomTypes.AirCannon);
+                _nearRooms = new List<Room>();
+            }
         }
 
         /// <summary>

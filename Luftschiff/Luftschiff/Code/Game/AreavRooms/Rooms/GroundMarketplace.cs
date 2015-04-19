@@ -11,8 +11,10 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     class GroundMarketplace : Room
     {
+
         public GroundMarketplace(Vector2f position) : base(position)
         {
+            _nearRooms = new List<Room>();
         }
 
         public override void update()

@@ -49,11 +49,14 @@ namespace Luftschiff.Code.Game.AreavRooms
             for (int i = 0; i < rooms_.Count; i++)
             {
                 work = rooms_.ElementAt(i).getRect();
-                work.Height = work.Height + 50; // pixel differenz
-                work.Width = work.Width + 50;
+                work.Height = work.Height + 125; // pixel differenz
+                work.Width = work.Width + 125;
+                work.Left = work.Left - 75;
+                work.Top = work.Top - 75;
                 if (work.Intersects(a.getRect()))
                 {
                     a.addNearRooms(rooms_.ElementAt(i));
+                    rooms_.ElementAt(i).addNearRooms(a);
                 }
             }
             rooms_.Add(a);
