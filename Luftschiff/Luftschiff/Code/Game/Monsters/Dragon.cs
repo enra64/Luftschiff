@@ -8,6 +8,10 @@ namespace Luftschiff.Code.Game.Monsters {
     class Dragon : Monster
     {
         private Animation _flying;
+        
+        /// <summary>
+        /// makes damage to a room when the turn ends
+        /// </summary>
         public override int makeTurnDamage()
         {
             throw new System.NotImplementedException();
@@ -16,28 +20,26 @@ namespace Luftschiff.Code.Game.Monsters {
         public override void getTurnDamage(int type, bool hits)
         {
             if(hits)
-                Life -= 10;
-            Console.WriteLine("the dragon has been shot at. it does not give a shit.");
+                Life -= 100;
+            if(Life <= 0)
+                Console.WriteLine("dragon dead. much good.");
+            Console.WriteLine("the dragon has been shot at. it does give 1/10 of a shit.");
             //throw new System.NotImplementedException("The monster overrides the getdamage, but has no idea what to do!");
         }
 
         public override void update()
         {
-            if (MouseHandler.UnhandledClick)
-            {
-                if (MouseHandler.SelectedRoom != null)
-                {
-                    if (getRect().Contains(MouseHandler.LastClickPosition.X, MouseHandler.LastClickPosition.Y))
-                    {
-                        if (MouseHandler.SelectedRoom.IsAbleToTarget)
-                        {
-                            MouseHandler.UnhandledClick = false;
-                            Globals.TurnHandler.addRoomTarget(MouseHandler.SelectedRoom, this);
-                            Cursor.CursorMode(Cursor.Mode.standard);    
-                        }
+            //if an unhandled click is available and a room is selected, check whether the dragon is right clicked
+            if (MouseHandler.UnhandledClick && MouseHandler.SelectedRoom != null)
+                if (getRect().Contains(MouseHandler.LastClickPosition.X, MouseHandler.LastClickPosition.Y))
+                    if (MouseHandler.Right && MouseHandler.SelectedRoom.IsAbleToTarget){
+                        //consume click event and inform turnhandler of new room target
+                        MouseHandler.UnhandledClick = false;
+                        Globals.TurnHandler.addRoomTarget(MouseHandler.SelectedRoom, this);
+                        //change cursor back to normal
+                        Cursor.CursorMode(Cursor.Mode.standard);
                     }
-                }
-            }
+            //play dragon sprite animation
             Sprite.Update(Globals.FRAME_TIME);
             Sprite.Play(_flying);
         }
