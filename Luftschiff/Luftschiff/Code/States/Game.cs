@@ -36,11 +36,18 @@ namespace Luftschiff.Code.States {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
             test = Globals.AreaReference;
+            /*
             test.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
             test.AddRoom(new AirEngineRoom(new Vector2f(75, 350)));
             test.AddRoom(new AirHospitalWard(new Vector2f(75, 500)));
             test.AddRoom(new AirLunchRoom(new Vector2f(225, 275)));
             test.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
+            */
+            test.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
+            test.AddRoom(new AirCannonRoom(new Vector2f(75, 350)));
+            test.AddRoom(new AirCannonRoom(new Vector2f(75, 500)));
+            test.AddRoom(new AirCannonRoom(new Vector2f(225, 275)));
+            test.AddRoom(new AirCannonRoom(new Vector2f(225, 450)));
             test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember(test.getRooms().ElementAt(0)));
             Collider.AddMonster(CurrentMonster);
 
@@ -73,7 +80,7 @@ namespace Luftschiff.Code.States {
         public override void update()
         {
             CurrentMonster.update();
-            test.update();
+            
 
             //execute the turn when the user clicks the turn button
             if (turnButton.update()){
@@ -91,7 +98,8 @@ namespace Luftschiff.Code.States {
                 turnButton.ClickSound = false;
                 turnButton.ForceAttention = false;
             }
-                
+            //has to be updated last as it consumes all click events that hit nothing
+            test.update();
         }
     }
 }
