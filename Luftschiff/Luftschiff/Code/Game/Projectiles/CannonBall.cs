@@ -12,7 +12,11 @@ namespace Luftschiff.Code.Game.Weapons {
         private readonly Vector2f _direction;
         private readonly Sprite s;
         private AnimatedSprite _explodingSprite;
-        private bool _interact = false, _playBool = true, _hasMadeDamage = false;
+        /// <summary>
+        /// Set to true on Impact, used to handle sprite "deletion" and damage
+        /// </summary>
+        public bool HasMadeDamage { get; private set; }
+        private bool _interact = false, _playBool = true;
 
         private Monster _targetMonster;
 
@@ -23,6 +27,7 @@ namespace Luftschiff.Code.Game.Weapons {
             Position = startposition;
             s = new Sprite(Globals.CannonBallTexture);
             _targetMonster = targetMonster;
+            HasMadeDamage = false;
 
             //Wall of Sprite :/
             _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.1f),false,false,Position);
@@ -62,8 +67,10 @@ namespace Luftschiff.Code.Game.Weapons {
 
         public override void draw()
         {
-            if(!_interact)
+            //only draw when not interacting and if no damage has been made yet
+            if(!_interact && !HasMadeDamage)
                 Controller.Window.Draw(s);
+            //draw the explosion sprite on impact
             if(_interact)
                 Controller.Window.Draw(_explodingSprite);
         }
@@ -77,11 +84,11 @@ namespace Luftschiff.Code.Game.Weapons {
         {
             _interact = true;
             //make damage
-            if (!_hasMadeDamage)
+            if (!HasMadeDamage)
             {
                 //execute damage no monster, have to decide that better in the future (turnhandler maybe)
                 _targetMonster.getTurnDamage(0, true);
-                _hasMadeDamage = true;
+                HasMadeDamage = true;
             }
         }
 
