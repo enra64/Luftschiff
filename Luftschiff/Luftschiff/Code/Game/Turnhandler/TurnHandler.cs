@@ -43,6 +43,7 @@ namespace Luftschiff.Code.Game
         /// <param name="targetRoom"></param>
         public void addCrewTarget(CrewMember crewMember, Room targetRoom)
         {
+            //ERRORSOURCE  weird crew movements 
             //intialize variables
             Room work = crewMember.CurrentRoom;
             List<Room> way = new List<Room>();
@@ -80,6 +81,7 @@ namespace Luftschiff.Code.Game
 
                     }
                 }
+           
                 //break for the loop if there is no possible way to go 
                 if (merk == work)
                 {
@@ -149,7 +151,7 @@ namespace Luftschiff.Code.Game
                 //invalid for finished actions to be able to clean it up
                 if (c.NeededActions == 0)
                 {
-                    //if the crewmember has arrived at its target, 
+                    //if the crewmember has arrived at its target
                     if (c.IsLastAction)
                     {
                         //make the crew do the appropriate action at its target
