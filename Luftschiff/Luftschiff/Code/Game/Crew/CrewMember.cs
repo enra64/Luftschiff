@@ -20,7 +20,7 @@ namespace Luftschiff.Code.Game.Crew {
         private int _slackFireSpeed = 1;
         private int _weaponSkills = 1;
         private int _targetRoom = 0;
-        public bool HasJob = false;
+        public bool HasMoveCommand = false;
 
 
         public CrewMember(Room firstRoom)

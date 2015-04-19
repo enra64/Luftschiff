@@ -10,52 +10,55 @@ namespace Luftschiff.Code.Game.AreavRooms
 {
     class Tile : Entity
     {
-        private Sprite s;
+        private Sprite _tileSprite;
+
+        /// <summary>
+        /// <para>constructor for the tile; decides what sprite will be used</para>
+        /// 0:empty; 1:walls; 2:
+        /// </summary>
         public Tile(int kind, Vector2f position, Area.RoomTypes room)
         {
+            //TODO: better sprites
             switch (kind)
             {
-                case(0):
-                    //TODO add graphics for emptyness
-                    s = new Sprite(Globals.TileTextures[0]);
+                case(0)://empty
+                    _tileSprite = new Sprite(Globals.TileTextures[0]);
                     break;
-                case(1):
-                    //TODO add graphics for walls
-                    s = new Sprite(Globals.TileTextures[3]);
+                case(1)://wall
+                    _tileSprite = new Sprite(Globals.TileTextures[1]);
                     break;
-                case(2):
-                    //TODO no idead which graphics
-                    s = new Sprite(Globals.TileTextures[1]);
+                case(2)://ground
+                    _tileSprite = new Sprite(Globals.TileTextures[2]);
                     break;
-                case(3):
+                case(3)://special
                     switch (room)
                     {
                         case Area.RoomTypes.AirCannon:
-                            s = new Sprite(Globals.GunTexture);
+                            _tileSprite = new Sprite(Globals.GunTexture);
                             break;
                         case Area.RoomTypes.AirEngine:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            _tileSprite = new Sprite(Globals.TileTextures[3]);
                             break;
                         case Area.RoomTypes.AirHospital:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            _tileSprite = new Sprite(Globals.TileTextures[3]);
                             break;
                         case Area.RoomTypes.AirLunch:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            _tileSprite = new Sprite(Globals.TileTextures[3]);
                             break;
                         case Area.RoomTypes.Empty:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            _tileSprite = new Sprite(Globals.TileTextures[2]);
                             break;
                         case Area.RoomTypes.GroundAirshipWorkshop:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            _tileSprite = new Sprite(Globals.TileTextures[3]);
                             break;
                         case Area.RoomTypes.GroundBarracks:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            _tileSprite = new Sprite(Globals.TileTextures[3]);
                             break;
                         case Area.RoomTypes.GroundMarketplace:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            _tileSprite = new Sprite(Globals.TileTextures[3]);
                             break;
                         case Area.RoomTypes.GroundTavern:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            _tileSprite = new Sprite(Globals.TileTextures[3]);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException("room", room, null);
@@ -65,20 +68,30 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //TODO add graphics for a door
                     break;
             }
-            s.Position = position;
+            _tileSprite.Position = position;
         }
 
+        /// <summary>
+        /// does nothing yet
+        /// </summary>
         public override void update()
         {}
 
+        /// <summary>
+        /// draws the tile
+        /// </summary>
         public override void draw()
         {
-            Controller.Window.Draw(s);
+            Controller.Window.Draw(_tileSprite);
         }
 
+        /// <summary>
+        /// overridden in tile to return the static sprite bounds
+        /// </summary>
+        /// <returns></returns>
         public override FloatRect getRect()
         {
-            return s.GetGlobalBounds();
+            return _tileSprite.GetGlobalBounds();
         }
     }
 }

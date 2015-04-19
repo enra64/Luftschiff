@@ -57,10 +57,11 @@ namespace Luftschiff {
             Globals.GunTexture = new Texture("Assets/Graphics/gunTile.png");
 
             Globals.TileTextures = new Texture[4];
-            Globals.TileTextures[0] = new Texture("Assets/Graphics/groundtile.png");
-            Globals.TileTextures[1] = new Texture("Assets/Graphics/groundtile.png");
-            Globals.TileTextures[2] = new Texture("Assets/Graphics/special_tile.png");
-            Globals.TileTextures[3] = new Texture("Assets/Graphics/walltile.png");
+            Globals.TileTextures[0] = new Texture("Assets/Graphics/groundtile.png");//emtpy
+            Globals.TileTextures[2] = new Texture("Assets/Graphics/groundtile.png");//ground
+            Globals.TileTextures[3] = new Texture("Assets/Graphics/special_tile.png");//special
+            Globals.TileTextures[1] = new Texture("Assets/Graphics/walltile.png");//wall
+
 
             //audio
             Globals.CannonSound = new SoundBuffer("Assets/Audio/GunShot.wav");

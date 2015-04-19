@@ -15,7 +15,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             : base(position)
         {
             tilekind = loadStandardTilekinds(1);
-            initializeTilemap(Area.RoomTypes.AirCannon);
+            initializeTilemap(Area.RoomTypes.Empty);
         }
         public override void update()
         {

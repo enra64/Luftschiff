@@ -156,7 +156,7 @@ if (targetRoom != crewMember.CurrentRoom)
 
             
 //track job
-crewMember.HasJob = true;
+crewMember.HasMoveCommand = true;
 List<Room> a = _areaReference.getRooms();
 // start calculate possible length of way
 int roomsOnXWay = (int) ((crewMember.CurrentRoom.Position.X - targetRoom.Position.X)/crewMember.CurrentRoom.getRect().Width);
@@ -241,7 +241,7 @@ Iterator = Iterator._nearRooms.ElementAt(k);
         }
 
         /// <summary>
-        /// Calls the inflictDamage in shootyPointy on monster on this rounds end
+        /// Calls the inflictDamage in shootyPointy (ther given room) on the given monster on this rounds end
         /// </summary>
         public void addRoomTarget(Room shootyPointy, Monster monster)
         {
@@ -249,10 +249,10 @@ Iterator = Iterator._nearRooms.ElementAt(k);
         }
 
         /// <summary>
-        /// execute all actions for this turn
+        /// Find all actinos due this turn and execute them; move the others towards execution
         /// </summary>
         public void executeTurn(){
-            //kk now execute all the actions
+            //find all set targets for the ships weapons
             foreach (var c in _weaponTargets) {
                 if (c.NeededActions == 0)
                     c.FiringRoom.inflictDamage(c.Target, true);
@@ -261,26 +261,26 @@ Iterator = Iterator._nearRooms.ElementAt(k);
 
             foreach (var c in _crewTargets)
             {
-                if(c.NeededActions == 0)
-                    c.Crew.moveToRoom(c.Target);
+                //throw exception, for development, should not occur anymore
                 if(c.NeededActions < 0)
                     throw new IndexOutOfRangeException("action not removed!");
-                //invalid for finished actions to be able to clean it up
-                if (c.NeededActions == 0)
-                {
-                    //if the crewmember has arrived at its target, 
-                    if (c.IsLastAction)
-                    {
-                        //make the crew do the appropriate action at its target
+                //an action is to be executed when the neededactions count equals zero
+                if (c.NeededActions == 0){
+                    //execute the crew action
+                    c.Crew.moveToRoom(c.Target);
+                    //make the crew do the appropriate action at its target
+                    if (c.IsLastAction){
                         c.Target.OnCrewArrive(c.Crew);
-                        c.Crew.HasJob = false;
+                        c.Crew.HasMoveCommand = false;
                     }
+                    //set the action counter to negative to force remove it from the list
                     c.NeededActions = -42;
                 }
+                //if the action did not need to be executed, it will move towards being executed
                 c.NeededActions--;
             }
 
-            //remove targets with invalid neededactions count to collect garbage
+            //remove targets with invalid neededactions (eg the action has been executed) count to collect garbage
             _crewTargets.RemoveAll(s => s.NeededActions < 0);
             _weaponTargets.RemoveAll(s => s.NeededActions < 0);
         }
