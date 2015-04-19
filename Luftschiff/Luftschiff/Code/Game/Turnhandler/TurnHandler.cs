@@ -36,30 +36,41 @@ namespace Luftschiff.Code.Game
             get { return _crewTargets.Count > 0 || _weaponTargets.Count > 0; }
         }
 
-
+        /// <summary>
+        /// finds the hopefully shortest possible way to the chosen target room
+        /// </summary>
+        /// <param name="crewMember"></param>
+        /// <param name="targetRoom"></param>
         public void addCrewTarget(CrewMember crewMember, Room targetRoom)
         {
+            //intialize variables
             Room work = crewMember.CurrentRoom;
             List<Room> way = new List<Room>();
             Room merk;
             way.Add(work);
             int whilebreaker = 0;
             float mindistance;
+            //loop till target is found or whilebreaker says target is noct reachable
             while (!way.Contains(targetRoom)&& whilebreaker < 10)
             {
+                // pseudo min distance to get it work 
                 mindistance = 10000000;
                 merk = work;
+                // look after the attributes of all near rooms
                 for (int i = 0; i < work._nearRooms.Count; i++)
                 {
+                    // break loop with target on last place
                     if (work._nearRooms.ElementAt(i) == targetRoom || merk == targetRoom)
                     {
                         merk = targetRoom;
                        // Console.WriteLine("found target");
                     }
+                        // checks every not used room nearby if it is the closest to the target
                     else if (work._nearRooms.ElementAt(i).iswalkable()&&!way.Contains(work._nearRooms.ElementAt(i)))
                     {
                         Room possiblenext = work._nearRooms.ElementAt(i);
                         float distanceToTarget = (float)Global.Util.GetDistancebeweenVector2f(possiblenext.Position,targetRoom.Position);
+                        //distance to target compare
                         if (distanceToTarget < mindistance)
                         {
                             mindistance = distanceToTarget;
@@ -69,11 +80,13 @@ namespace Luftschiff.Code.Game
 
                     }
                 }
+                //break for the loop if there is no possible way to go 
                 if (merk == work)
                 {
                     whilebreaker = 10;
                     //Console.WriteLine("needed whilbreaker");
                 }
+                    // add best possiblitiy to reach target 
                 else
                 {
                     way.Add(merk);
@@ -82,6 +95,7 @@ namespace Luftschiff.Code.Game
                 } 
                 whilebreaker++;
             }
+            // sets the needed CrewTarget going through the list
             way.RemoveAt(0);
             for (int k = way.Count - 1; k >= 0 && whilebreaker != 10; k--)
             {
@@ -99,10 +113,8 @@ namespace Luftschiff.Code.Game
                 }
             }
         }
-
             //TODO: jan-ole: improve pathfinding algorithm for later problems
-            //do by adding a target to the crewTargetsList
-            //_crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
+
 
         public void addCrewPath(CrewMember crewMember, List<Room> path)
         {

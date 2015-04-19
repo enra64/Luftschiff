@@ -11,6 +11,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     class GroundAirshipWorkshop : Room
     {
+
         public override void update()
         {
             throw new NotImplementedException();
@@ -18,6 +19,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public GroundAirshipWorkshop(Vector2f position) : base(position)
         {
+            _nearRooms = new List<Room>();
         }
     }
 }
