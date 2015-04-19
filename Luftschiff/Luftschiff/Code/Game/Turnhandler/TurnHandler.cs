@@ -233,7 +233,7 @@ Iterator = Iterator._nearRooms.ElementAt(k);
             //TODO: jan-ole: improve pathfinding algorithm
             //do by adding a target to the crewTargetsList
             //_crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
-        }
+        //}
 
         public void addCrewPath(CrewMember crewMember, List<Room> path)
         {
