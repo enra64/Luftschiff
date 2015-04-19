@@ -117,7 +117,7 @@ namespace Luftschiff.Code.Game
         }
             //TODO: jan-ole: improve pathfinding algorithm for later problems
 
-
+        //TODO: funktion aussortieren, da nun addCrewTarget benutzt wird und das hier quasi keinen sinn mehr hat
         public void addCrewPath(CrewMember crewMember, List<Room> path)
         {
             

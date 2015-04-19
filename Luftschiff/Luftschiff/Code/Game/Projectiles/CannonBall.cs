@@ -1,4 +1,5 @@
 ﻿using System;
+using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Graphics.Lib;
 using SFML.Audio;
@@ -11,15 +12,17 @@ namespace Luftschiff.Code.Game.Weapons {
         private readonly Vector2f _direction;
         private readonly Sprite s;
         private AnimatedSprite _explodingSprite;
-        private bool _interact = false;
-        private bool _playBool = true;
+        private bool _interact = false, _playBool = true, _hasMadeDamage = false;
 
-        public CannonBall(Vector2f target, Vector2f startposition)
+        private Monster _targetMonster;
+
+        public CannonBall(Vector2f target, Vector2f startposition, Monster targetMonster)
         {
             Console.WriteLine("target position: " + target);
             _direction = (target - startposition) / 70;
             Position = startposition;
             s = new Sprite(Globals.CannonBallTexture);
+            _targetMonster = targetMonster;
 
             //Wall of Sprite :/
             _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.1f),false,false,Position);
@@ -67,9 +70,19 @@ namespace Luftschiff.Code.Game.Weapons {
 
         public  Animation Explosion { set; get; }
 
+        /// <summary>
+        /// execute on impact
+        /// </summary>
         public override void OnImpact()
         {
             _interact = true;
+            //make damage
+            if (!_hasMadeDamage)
+            {
+                //execute damage no monster, have to decide that better in the future (turnhandler maybe)
+                _targetMonster.getTurnDamage(0, true);
+                _hasMadeDamage = true;
+            }
         }
 
         public void SpritePlay()
