@@ -103,7 +103,7 @@ namespace Luftschiff.Code.Game
             //TODO: jan-ole: improve pathfinding algorithm for later problems
             //do by adding a target to the crewTargetsList
             //_crewTargets.Add(new CrewTarget(crewMember, targetRoom, 2));
-       
+
         public void addCrewPath(CrewMember crewMember, List<Room> path)
         {
             
