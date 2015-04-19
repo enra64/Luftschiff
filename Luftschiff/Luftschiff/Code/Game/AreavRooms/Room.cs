@@ -207,5 +207,10 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             _nearRooms.Add(a);
         }
+
+        public bool iswalkable()
+        {
+            return _walkAble;
+        }
     }
 }

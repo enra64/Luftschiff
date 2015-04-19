@@ -36,8 +36,62 @@ namespace Luftschiff.Code.Game
             get { return _crewTargets.Count > 0 || _weaponTargets.Count > 0; }
         }
 
+
+        public void addCrewTarget(CrewMember crewMember, Room targetRoom)
+        {
+            Room work = crewMember.CurrentRoom;
+            List<Room> way = new List<Room>();
+            Room merk;
+            way.Add(work);
+            int whilebreaker = 0;
+            float mindistance;
+            while (!way.Contains(targetRoom)&& whilebreaker < 10)
+            {
+                mindistance = 10000000;
+                merk = work;
+                for (int i = 0; i < work._nearRooms.Count; i++)
+                {
+                    if (work._nearRooms.ElementAt(i).iswalkable())
+                    {
+                        Room possiblenext = work._nearRooms.ElementAt(i);
+                        float distanceToTarget = (float)Global.Util.GetDistancebeweenVector2f(possiblenext.Position,targetRoom.Position);
+                        if (distanceToTarget < mindistance)
+                        {
+                            merk = possiblenext;
+                            Console.WriteLine("Raum gemerkt");
+                        }
+
+                    }
+                }
+                if (merk == work)
+                {
+                    whilebreaker = 10;
+                    Console.WriteLine("needed whilbreaker");
+                }
+                else
+                {
+                    way.Add(merk);
+                    work = merk;
+                    Console.WriteLine("schleife zum weg hinzugefugt");
+                } 
+                whilebreaker++;
+            }
+            for (int k = way.Count - 1; k >= 0 && whilebreaker != 10; k--)
+            {
+                if (k == way.Count - 1)
+                {
+                    _crewTargets.Add(new CrewTarget(crewMember, targetRoom, 1, true));
+                }
+                else
+                {
+                    _crewTargets.Add(new CrewTarget(crewMember,way.ElementAt(k),way.Count-1-k,false));
+                }
+            }
+        }
+
         // nearest room int in list
 
+            /*
 
         //TODO jan-ole : seltsamen shit irgendwie sinnvol zusammenbasteln
         private Room nearestRoom(Room current , Room target)
@@ -91,7 +145,7 @@ namespace Luftschiff.Code.Game
         {
             Room Iter = crewMember.CurrentRoom;
 
-            /*
+
 if (targetRoom != crewMember.CurrentRoom)
 {
     _addCrewTarget(crewMember, crewMember.CurrentRoom, targetRoom,0); 
