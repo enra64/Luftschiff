@@ -54,7 +54,7 @@ namespace Luftschiff.Code.Game
                     if (work._nearRooms.ElementAt(i) == targetRoom || merk == targetRoom)
                     {
                         merk = targetRoom;
-                        Console.WriteLine("found target");
+                       // Console.WriteLine("found target");
                     }
                     else if (work._nearRooms.ElementAt(i).iswalkable()&&!way.Contains(work._nearRooms.ElementAt(i)))
                     {
@@ -64,7 +64,7 @@ namespace Luftschiff.Code.Game
                         {
                             mindistance = distanceToTarget;
                             merk = possiblenext;
-                            Console.WriteLine("Raum gemerkt");
+                            //Console.WriteLine("Raum gemerkt");
                         }
 
                     }
@@ -72,13 +72,13 @@ namespace Luftschiff.Code.Game
                 if (merk == work)
                 {
                     whilebreaker = 10;
-                    Console.WriteLine("needed whilbreaker");
+                    //Console.WriteLine("needed whilbreaker");
                 }
                 else
                 {
                     way.Add(merk);
                     work = merk;
-                    Console.WriteLine("schleife zum weg hinzugefugt");
+                   // Console.WriteLine("schleife zum weg hinzugefugt");
                 } 
                 whilebreaker++;
             }
@@ -88,13 +88,13 @@ namespace Luftschiff.Code.Game
                 if (k == way.Count - 1)
                 {
                     Console.WriteLine(way.Count-k);
-                    Console.WriteLine("target");
+                    //Console.WriteLine("target");
                     _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k),k, true));
                 }
                 else
                 {
                     Console.WriteLine(way.Count - k);
-                    Console.WriteLine("waypoint");
+                    //Console.WriteLine("waypoint");
                     _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k),k, false));
                 }
             }
