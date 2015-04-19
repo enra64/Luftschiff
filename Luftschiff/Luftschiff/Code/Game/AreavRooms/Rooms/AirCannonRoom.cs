@@ -24,11 +24,9 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public AirCannonRoom(Vector2f position) : base(position)
         {
-            {
                 tilekind = loadStandardTilekinds(2);
                 initializeTilemap(Area.RoomTypes.AirCannon);
                 _nearRooms = new List<Room>();
-            }
         }
 
         public override void update()
@@ -44,7 +42,10 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                 cannonball.draw();
         }
 
-
+        /// <summary>
+        /// Called to inflict damage upon the monster; gives the cannonball to the monster,
+        /// because that is the easiest way to include damage on hit
+        /// </summary>
         public override void inflictDamage(Monster monster, bool hits){
             
             //add sfx

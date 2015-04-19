@@ -16,7 +16,7 @@ namespace Luftschiff.Code.Game.Weapons {
         /// Set to true on Impact, used to handle sprite "deletion" and damage
         /// </summary>
         public bool HasMadeDamage { get; private set; }
-        private bool _interact = false, _playBool = true;
+        private bool _impactHappened = false, _playBool = true;
 
         private Monster _targetMonster;
 
@@ -51,11 +51,11 @@ namespace Luftschiff.Code.Game.Weapons {
 
         public override void update()
         {
-            if(!_interact)
+            if(!_impactHappened)
                 Position += _direction;
             s.Position = Position;
 
-            if (_interact)
+            if (_impactHappened)
                 SpritePlay();
                 
         }
@@ -68,10 +68,10 @@ namespace Luftschiff.Code.Game.Weapons {
         public override void draw()
         {
             //only draw when not interacting and if no damage has been made yet
-            if(!_interact && !HasMadeDamage)
+            if(!_impactHappened && !HasMadeDamage)
                 Controller.Window.Draw(s);
             //draw the explosion sprite on impact
-            if(_interact)
+            if(_impactHappened)
                 Controller.Window.Draw(_explodingSprite);
         }
 
@@ -82,16 +82,19 @@ namespace Luftschiff.Code.Game.Weapons {
         /// </summary>
         public override void OnImpact()
         {
-            _interact = true;
+            _impactHappened = true;
             //make damage
-            if (!HasMadeDamage)
-            {
+            if (!HasMadeDamage){
                 //execute damage no monster, have to decide that better in the future (turnhandler maybe)
                 _targetMonster.getTurnDamage(0, true);
                 HasMadeDamage = true;
             }
         }
 
+        /// <summary>
+        /// TODO: daniel what does this do?
+        /// Probably plays the sprite once on impact
+        /// </summary>
         public void SpritePlay()
         {
                 _explodingSprite.Position = Position;
@@ -99,11 +102,8 @@ namespace Luftschiff.Code.Game.Weapons {
                 if(_explodingSprite.TimesPlayed*2 <= Explosion.GetSize())
                     _explodingSprite.Play(Explosion);
                 else
-                {
-                    _interact = false;
-                }
-                if (_playBool)
-                {
+                    _impactHappened = false;
+                if (_playBool){
                     new Sound(Globals.Boom).Play();
                     _playBool = false;
                 }
