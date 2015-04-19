@@ -7,6 +7,8 @@ using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Game.Projectiles;
+using Luftschiff.Code.Game.Weapons;
 using Luftschiff.Code.Global;
 
 using Luftschiff.Graphics.Lib;
@@ -40,8 +42,10 @@ namespace Luftschiff.Code.States {
             test.AddRoom(new AirLunchRoom(new Vector2f(225, 275)));
             test.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
             test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember(test.getRooms().ElementAt(0)));
+            Collider.AddMonster(CurrentMonster);
 
             turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
+
         }
 
         /// <summary>
@@ -77,10 +81,17 @@ namespace Luftschiff.Code.States {
             }
 
             //make the button another color to notify the user
-            if(Globals.TurnHandler.HasStackedActions)
-                turnButton.ForceAttention(true);
+            if (Globals.TurnHandler.HasStackedActions)
+            {
+                turnButton.ForceAttention = true;
+                turnButton.ClickSound = true;
+            }
             else
-                turnButton.ForceAttention(false);
+            {
+                turnButton.ClickSound = false;
+                turnButton.ForceAttention = false;
+            }
+                
         }
     }
 }

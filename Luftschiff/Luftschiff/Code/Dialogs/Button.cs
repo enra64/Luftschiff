@@ -1,4 +1,5 @@
 ﻿using System;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
@@ -10,8 +11,17 @@ namespace Luftschiff.Code.Dialogs
         private RectangleShape _buttonShape;
         private FloatRect _buttonRect;
         private Color _normalColor, _hoverColor, _attentionColor;
-        private bool _forceAttention = false;
         public String Tag = null;
+        
+        /// <summary>
+        /// set whether a click sound is played when the user clicks that button
+        /// </summary>
+        public bool ClickSound { get; set; }
+
+        /// <summary>
+        /// use to change color on attention needed
+        /// </summary>
+        public bool ForceAttention { get; set; }
 
         private void commonConstructor(String text, Vector2f position, Vector2f size, String tag)
         {
@@ -30,7 +40,9 @@ namespace Luftschiff.Code.Dialogs
             _normalColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
             _hoverColor = Globals.DIALOG_BUTTON_COLOR_HOVER;
             _attentionColor = Globals.DIALOG_BUTTON_COLOR_ATTENTIONSEEKER;
+            
             Tag = tag;
+            ClickSound = true;
         }
 
         public Button(String text, Vector2f position, Vector2f size) {
@@ -58,13 +70,7 @@ namespace Luftschiff.Code.Dialogs
             Controller.Window.Draw(_buttonText);
         }
 
-        /// <summary>
-        /// use to change color on attention needed
-        /// </summary>
-        public void ForceAttention(bool needsAttention)
-        {
-            _forceAttention = needsAttention;
-        }
+        
 
         /// <summary>
         /// Returns whether the button was clicked
@@ -78,12 +84,20 @@ namespace Luftschiff.Code.Dialogs
             _buttonShape.FillColor = _buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y) 
                 ? _hoverColor : _normalColor;
             //force attention to the button on special occasions
-            if (_forceAttention)
+            if (ForceAttention)
                 _buttonShape.FillColor = _attentionColor;
             
             //check if click is available and in the button area
             if (!MouseHandler.UnhandledClick || !_buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y)) 
                 return false;
+
+            //play click sound
+            if (ClickSound)
+            {
+                Sound clickSound = new Sound(Globals.ClickSound);
+                clickSound.Volume = 80;
+                clickSound.Play();    
+            }
 
             //click handled
             MouseHandler.UnhandledClick = false;

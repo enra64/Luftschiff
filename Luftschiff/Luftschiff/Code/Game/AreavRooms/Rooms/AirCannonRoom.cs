@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Weapons;
+using Luftschiff.Code.Global;
 using SFML.Audio;
 using SFML.System;
 
@@ -13,7 +14,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     class AirCannonRoom : Room
     {
-        private Projectile cannonball;
+        private CannonBall cannonball;
 
         //override this to signify that this room gets the aim cursor
         public override bool IsAbleToTarget
@@ -23,7 +24,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public AirCannonRoom(Vector2f position) : base(position)
         {
-            loadStandardTilekinds(1);
+            tilekind = loadStandardTilekinds(2);
             initializeTilemap(Area.RoomTypes.AirCannon);
         }
 
@@ -44,7 +45,8 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void inflictDamage(Monster monster, bool hits){
             monster.getTurnDamage(0, true);
             //add sfx
-            cannonball = new Projectile(monster.Center, Center);
+            cannonball = new CannonBall(monster.Center, Center);
+            Collider.AddProjectile(cannonball);
             new Sound(Globals.CannonSound).Play();
             //Console.WriteLine("cannon inflicts damage");
         }

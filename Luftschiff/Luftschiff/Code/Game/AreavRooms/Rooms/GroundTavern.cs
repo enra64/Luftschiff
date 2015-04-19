@@ -18,8 +18,5 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void update()
         {
         }
-        public override void inflictDamage(Monster monster, bool hits)
-        {
-        }
     }
 }

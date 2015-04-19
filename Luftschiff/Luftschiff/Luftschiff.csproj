@@ -80,7 +80,9 @@
     <Compile Include="Code\Game\Turnhandler\CrewTarget.cs" />
     <Compile Include="Code\Game\Turnhandler\TurnHandler.cs" />
     <Compile Include="Code\Game\Turnhandler\WeaponTarget.cs" />
-    <Compile Include="Code\Game\Weapons\Projectile.cs" />
+    <Compile Include="Code\Game\Projectiles\CannonBall.cs" />
+    <Compile Include="Code\Game\Projectiles\Projectile.cs" />
+    <Compile Include="Code\Global\Collider.cs" />
     <Compile Include="Code\Global\Globals.cs" />
     <Compile Include="Code\Global\ProtoGameState.cs" />
     <Compile Include="Code\Global\Util.cs" />
@@ -101,11 +103,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Assets\Audio\buttonclick.flac">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Assets\StandardFontSteamwreck.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Audio\cannon_boom.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Audio\GunShot.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -121,7 +129,13 @@
     <Content Include="Assets\Graphics\dragon2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Graphics\explosion-sprite.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Graphics\groundtile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Graphics\gunTile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\moveCursor.png">

@@ -62,6 +62,7 @@ namespace Luftschiff.Code {
         /// </summary>
         public static Texture BackgroundTexture;
         public static Texture DragonTexture;
+        public static Texture GunTexture;
 
         public static Texture[] TileTextures;
 
@@ -70,5 +71,8 @@ namespace Luftschiff.Code {
         public static Texture CrewTexture;
         public static Texture CannonBallTexture;
         public static SoundBuffer CannonSound;
+        public static Texture Cannon_Explosion;
+        public static SoundBuffer ClickSound;
+        public static SoundBuffer Boom;
     }
 }

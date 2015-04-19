@@ -51,8 +51,10 @@ namespace Luftschiff {
             Globals.BackgroundTexture = Texture.MaximumSize > 1024 ? new Texture("Assets/Graphics/testbg_big.png") : new Texture("Assets/Graphics/testbg.png");
             Globals.DragonTexture = new Texture("Assets/Graphics/dragon.png");
             Globals.CrewTexture = new Texture("Assets/Graphics/crew.png");
+            Globals.Cannon_Explosion = new Texture("Assets/Graphics/explosion-sprite.png");
 
             Globals.CannonBallTexture = new Texture("Assets/Graphics/cannonball.png");
+            Globals.GunTexture = new Texture("Assets/Graphics/gunTile.png");
 
             Globals.TileTextures = new Texture[4];
             Globals.TileTextures[0] = new Texture("Assets/Graphics/groundtile.png");
@@ -62,6 +64,8 @@ namespace Luftschiff {
 
             //audio
             Globals.CannonSound = new SoundBuffer("Assets/Audio/GunShot.wav");
+            Globals.ClickSound = new SoundBuffer("Assets/Audio/buttonclick.flac");
+            Globals.Boom = new SoundBuffer("Assets/Audio/cannon_boom.wav");
         }
     }
 }

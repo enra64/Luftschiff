@@ -29,9 +29,12 @@ namespace Luftschiff.Code.Game.Monsters {
                 {
                     if (getRect().Contains(MouseHandler.LastClickPosition.X, MouseHandler.LastClickPosition.Y))
                     {
-                        MouseHandler.UnhandledClick = false;
-                        Globals.TurnHandler.addRoomTarget(MouseHandler.SelectedRoom, this);
-                        Cursor.CursorMode(Cursor.Mode.standard);
+                        if (MouseHandler.SelectedRoom.IsAbleToTarget)
+                        {
+                            MouseHandler.UnhandledClick = false;
+                            Globals.TurnHandler.addRoomTarget(MouseHandler.SelectedRoom, this);
+                            Cursor.CursorMode(Cursor.Mode.standard);    
+                        }
                     }
                 }
             }
