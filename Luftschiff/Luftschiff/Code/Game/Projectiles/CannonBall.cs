@@ -22,23 +22,23 @@ namespace Luftschiff.Code.Game.Weapons {
             s = new Sprite(Globals.CannonBallTexture);
 
             //Wall of Sprite :/
-            _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.06f),false,false,Position);
+            _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.1f),false,false,Position);
             Explosion = new Animation(Globals.Cannon_Explosion);
-            Explosion.AddFrame(new IntRect(0,0,97,96));
-            Explosion.AddFrame(new IntRect(97,0,97,96));
-            Explosion.AddFrame(new IntRect(194,0,97,96));
-            Explosion.AddFrame(new IntRect(291,0,97,96));
-            Explosion.AddFrame(new IntRect(388,0,97,96));
-            Explosion.AddFrame(new IntRect(0,96,97,96));
-            Explosion.AddFrame(new IntRect(97,96,97,96));
-            Explosion.AddFrame(new IntRect(194,96,97,96));
-            Explosion.AddFrame(new IntRect(291,96,97,96));
-            Explosion.AddFrame(new IntRect(388,96,97,96));
-            Explosion.AddFrame(new IntRect(0,192,97,96));
-            Explosion.AddFrame(new IntRect(97,192,97,96));
-            Explosion.AddFrame(new IntRect(194,192,97,96));
-            Explosion.AddFrame(new IntRect(291,192,97,96)); 
-            Explosion.AddFrame(new IntRect(388,192,97,96));
+            Explosion.AddFrame(new IntRect(0,0,96,97));
+            Explosion.AddFrame(new IntRect(97,0,96,97));
+            Explosion.AddFrame(new IntRect(194,0,96,97));
+            Explosion.AddFrame(new IntRect(291,0,96,97));
+            Explosion.AddFrame(new IntRect(388,0,96,97));
+            Explosion.AddFrame(new IntRect(0,96,96,97));
+            Explosion.AddFrame(new IntRect(97,96,96,97));
+            Explosion.AddFrame(new IntRect(194,96,96,97));
+            Explosion.AddFrame(new IntRect(291,96,96,97));
+            Explosion.AddFrame(new IntRect(388,96,96,97));
+            Explosion.AddFrame(new IntRect(0,192,96,97));
+            Explosion.AddFrame(new IntRect(97,192,96,97));
+            Explosion.AddFrame(new IntRect(194,192,96,97));
+            Explosion.AddFrame(new IntRect(291,192,96,97)); 
+            Explosion.AddFrame(new IntRect(388,192,96,97));
         }
 
         public override void update()
@@ -48,16 +48,8 @@ namespace Luftschiff.Code.Game.Weapons {
             s.Position = Position;
 
             if (_interact)
-            {
-                _explodingSprite.Position = Position;
-                _explodingSprite.Update(Globals.FRAME_TIME);
-                _explodingSprite.Play(Explosion);
-                if (_playBool)
-                {
-                    new Sound(Globals.Boom).Play();
-                    _playBool = false;
-                }
-            }
+                SpritePlay();
+                
         }
 
         public override FloatRect getRect()
@@ -79,5 +71,23 @@ namespace Luftschiff.Code.Game.Weapons {
         {
             _interact = true;
         }
+
+        public void SpritePlay()
+        {
+                _explodingSprite.Position = Position;
+                _explodingSprite.Update(Globals.FRAME_TIME);
+                if(_explodingSprite.TimesPlayed*2 <= Explosion.GetSize())
+                    _explodingSprite.Play(Explosion);
+                else
+                {
+                    _interact = false;
+                }
+                if (_playBool)
+                {
+                    new Sound(Globals.Boom).Play();
+                    _playBool = false;
+                }
+            }
+        }
     }
-}
+
