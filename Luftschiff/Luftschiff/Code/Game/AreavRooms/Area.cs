@@ -128,6 +128,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                         Cursor.CursorMode(Cursor.Mode.standard);
                         MouseHandler.SelectedCrew = null;
                         MouseHandler.SelectedRoom = null;
+                        //ERRORSOURCE: consumes click events that hit nothing, area must be updated last
+                        MouseHandler.UnhandledClick = false;
                     }
                 }
                 //right click
