@@ -9,6 +9,8 @@ namespace Luftschiff.Code.Game.AreavRooms
 {
     class Area : Entity
     {
+        public int Life { get; set; }
+        private int _maxLife = 1000;
         public enum RoomTypes
         {
             AirCannon,
@@ -31,7 +33,16 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             rooms_ = new List<Room>();
             crew_ = new List<CrewMember>();
+            Life = 1000;
         }
+
+        /// <summary>
+        /// return the left life of the ship, probably needs to be moved
+        /// </summary>
+        public float HealthPercent {
+            get { return ((float)Life / (float)_maxLife) * 100; }
+        }
+
         /// <summary>
         /// get list of all rooms inserte in the area
         /// </summary>

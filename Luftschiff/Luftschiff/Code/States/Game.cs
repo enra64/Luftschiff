@@ -22,6 +22,7 @@ namespace Luftschiff.Code.States {
         private Sprite _backgroundSprite;
         public Monster CurrentMonster;
         private Button turnButton;
+        private HealthBar _monsterBar, _shipBar;
 
         //test
         private Area test;
@@ -52,7 +53,8 @@ namespace Luftschiff.Code.States {
             Collider.AddMonster(CurrentMonster);
 
             turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
-
+            _monsterBar = new HealthBar(new Vector2f(Controller.Window.Size.X / 2 + 20, 20), new Vector2f(Controller.Window.Size.X / 2 - 40, 40));
+            _shipBar = new HealthBar(new Vector2f(20, 20), new Vector2f(Controller.Window.Size.X / 2 - 40, 40));
         }
 
         /// <summary>
@@ -61,9 +63,15 @@ namespace Luftschiff.Code.States {
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
             CurrentMonster.draw(); 
-            //test draw 
+            //test area draw 
             test.draw();
+            
+            //draw the turn button
             turnButton.draw();
+
+            //health bars
+            _monsterBar.Draw();
+            _shipBar.Draw();
         }
 
         /// <summary>
@@ -81,11 +89,13 @@ namespace Luftschiff.Code.States {
         {
             CurrentMonster.update();
             
-
             //execute the turn when the user clicks the turn button
             if (turnButton.update()){
                 Globals.TurnHandler.executeTurn();
             }
+
+            _shipBar.Update(Globals.AreaReference.HealthPercent);
+            _monsterBar.Update(CurrentMonster.HealthPercent);
 
             //make the button another color to notify the user
             if (Globals.TurnHandler.HasStackedActions)

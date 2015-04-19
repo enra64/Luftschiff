@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Luftschiff.Code.Game.Monsters {
     abstract class Monster : Entity
     {
+        private int _maxLife = 1000;
         public int Life = 1000;
 
         public Monster(){}
@@ -14,6 +15,14 @@ namespace Luftschiff.Code.Game.Monsters {
         public Monster(int life)
         {
             Life = life;
+        }
+
+        /// <summary>
+        /// returns the life left
+        /// </summary>
+        public float HealthPercent
+        {
+            get { return (float)Life/(float)_maxLife * 100; }
         }
 
         /// <summary>

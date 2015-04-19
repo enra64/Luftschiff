@@ -14,7 +14,8 @@ namespace Luftschiff.Code.Game.Monsters {
         /// </summary>
         public override int makeTurnDamage()
         {
-            throw new System.NotImplementedException();
+            Globals.AreaReference.Life -= 100;
+            return 100;
         }
 
         public override void getTurnDamage(int type, bool hits)

@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Cursor.cs" />
+    <Compile Include="Code\Dialogs\HealthBar.cs" />
     <Compile Include="Code\Dialogs\Button.cs" />
     <Compile Include="Code\Dialogs\ListDialog.cs" />
     <Compile Include="Code\Dialogs\TwoButtonDialog.cs" />
