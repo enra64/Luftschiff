@@ -158,8 +158,10 @@ namespace Luftschiff.Graphics.Lib
 
                     //next animation
                     if (_currentFrame + 1 < _animation.GetSize())
+                    {
                         _currentFrame++;
-
+                        TimesPlayed++;
+                    }
                     else
                     {
                         // animation has ended
@@ -189,5 +191,7 @@ namespace Luftschiff.Graphics.Lib
         {
             Position = new Vector2f(Position.X + offsetX, Position.Y + offsetY);
         }
+
+        public int TimesPlayed { get; set; }
     }
 }
