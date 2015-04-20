@@ -68,14 +68,23 @@ namespace Luftschiff.Code.Game.AreavRooms
             s.Position = position;
         }
 
-        public override void update()
-        {}
+
+        public override void update(){}
 
         public override void draw()
         {
             Controller.Window.Draw(s);
         }
 
+        //overriding position because somehow the entity position does not accept that
+        //no animated sprite is used here
+        public override Vector2f Position
+        {
+            get { return s.Position; }
+            set { s.Position = value; }
+        }
+
+        //overriding getrect because we use a non-animated sprite, and the entity is not made to deal with that
         public override FloatRect getRect()
         {
             return s.GetGlobalBounds();

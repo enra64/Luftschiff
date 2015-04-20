@@ -118,7 +118,10 @@
     <Content Include="Assets\Audio\GunShot.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Graphics\aimCursor.png">
+    <Content Include="Assets\Graphics\CannonRoom\cannon2_hq.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Graphics\Cursors\aimCursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\cannonball.png">
@@ -139,7 +142,7 @@
     <Content Include="Assets\Graphics\gunTile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Graphics\moveCursor.png">
+    <Content Include="Assets\Graphics\Cursors\moveCursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\rusty_sprites.png">
@@ -148,7 +151,7 @@
     <Content Include="Assets\Graphics\special_tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Graphics\standardCursor.png">
+    <Content Include="Assets\Graphics\Cursors\standardCursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\testbg.png">

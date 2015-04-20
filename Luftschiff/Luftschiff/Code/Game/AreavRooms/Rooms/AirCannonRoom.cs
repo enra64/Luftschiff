@@ -29,10 +29,16 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             initializeTilemap(Area.RoomTypes.AirCannon);
             _nearRooms = new List<Room>();
 
-            //add addiitonal sprite: weapon
+            //add additonal sprite: weapon
             Sprite gunSprite = new Sprite(Globals.GunTexture);
-            gunSprite.Position = new Vector2f(_tilemap[1, 1].getRect().Left, _tilemap[1, 1].getRect().Top);
-            gunSprite.Scale = new Vector2f(2, 2);
+            
+            //guess position by using the position of the tiles
+            gunSprite.Position = _tilemap[1, 1].Position;
+            
+            //make it look okey
+            gunSprite.Scale = new Vector2f(.6f, .6f);
+
+            //add to sprite list so it gets drawn automatically
             _additionalRoomSprites.Add(gunSprite);
         }
 
@@ -54,12 +60,10 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         /// because that is the easiest way to include damage on hit
         /// </summary>
         public override void inflictDamage(Monster monster, bool hits){
-            
             //add sfx
             cannonball = new CannonBall(monster.Center, Center, monster);
             Collider.AddProjectile(cannonball);
             new Sound(Globals.CannonSound).Play();
-            //Console.WriteLine("cannon inflicts damage");
         }
     }
 }

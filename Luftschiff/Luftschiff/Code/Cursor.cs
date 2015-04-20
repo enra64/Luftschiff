@@ -29,9 +29,9 @@ namespace Luftschiff.Code {
 
         public static void Initialize()
         {
-            _StandardTexture = new Texture("Assets/Graphics/standardCursor.png");
-            _AimTexture = new Texture("Assets/Graphics/aimCursor.png");
-            _MoveTexture = new Texture("Assets/Graphics/moveCursor.png");
+            _StandardTexture = new Texture("Assets/Graphics/Cursors/standardCursor.png");
+            _AimTexture = new Texture("Assets/Graphics/Cursors/aimCursor.png");
+            _MoveTexture = new Texture("Assets/Graphics/Cursors/moveCursor.png");
 
             _Sprite = new Sprite(_StandardTexture);
         }

@@ -25,6 +25,7 @@ namespace Luftschiff.Code.Game
                     _position = value;
             }
         }
+        
         public Vector2f Scale; // lets see if it is not senseless 
         public AnimatedSprite Sprite;
 
@@ -34,7 +35,6 @@ namespace Luftschiff.Code.Game
         /// get rectangle for collision
         /// is inherited by the rectangle of the sprite
         /// </summary>
-        /// <returns></returns>
         public virtual FloatRect getRect()
         {
             return Sprite.GetGlobalBounds();
