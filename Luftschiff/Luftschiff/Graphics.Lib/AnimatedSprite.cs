@@ -221,7 +221,7 @@ namespace Luftschiff.Graphics.Lib
             Position = new Vector2f(Position.X + offsetX, Position.Y + offsetY);
         }
 
-        //ERRORSOURCE
+        //ERRORSOURCE: code mathmatics
         /// <summary>
         /// magic int us code magic and you might get the timeplayed value back
         /// </summary>
