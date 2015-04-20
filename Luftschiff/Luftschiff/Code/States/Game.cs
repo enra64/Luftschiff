@@ -32,6 +32,7 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public Game ()
         {
+            Globals.GameReference = this;
             Controller.Window.SetMouseCursorVisible(false);
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
@@ -110,6 +111,15 @@ namespace Luftschiff.Code.States {
             }
             //has to be updated last as it consumes all click events that hit nothing
             test.update();
+        }
+
+        /// <summary>
+        /// gets called by the turnhandler via globals, and should execute the monsters damage on the areas
+        /// rooms
+        /// </summary>
+        public void ExecuteMonsterAttack()
+        {
+            //todo: write monster attacks
         }
     }
 }

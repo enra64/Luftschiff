@@ -74,5 +74,6 @@ namespace Luftschiff.Code {
         public static Texture Cannon_Explosion;
         public static SoundBuffer ClickSound;
         public static SoundBuffer Boom;
+        public static States.Game GameReference;
     }
 }
