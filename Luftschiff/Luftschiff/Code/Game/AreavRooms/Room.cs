@@ -29,6 +29,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected bool _walkAble = true;
         protected int[,] tilekind = new int[4, 4];
         protected Tile[,] _tilemap= new Tile[4,4];
+        protected List<Sprite> _additionalRoomSprites = new List<Sprite>(); 
 
         //save which kind the room is
 
@@ -84,8 +85,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                     break;
                 case(1):
                     array = new int[4,4] {{1,1,1,1},
-                                          {1,3,3,1},
-                                          {1,3,3,1},
+                                          {1,1,1,1},
+                                          {1,1,1,1},
                                           {1,1,1,1}};
                     break;
                 case(2):  // i don't care that this case has no use atm
@@ -106,6 +107,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             tileSize.Height *= 4;
             return tileSize;
         }
+
         /// <summary>
         /// sets crew in room. gives bool back true -> succes , false -> there are too many crewmembers in that room;
         /// </summary>
@@ -137,6 +139,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
 
         }
+        
         /// <summary>
         /// Crewmember will be removed from crew roomlist and given back as value for future use
         /// </summary>
@@ -163,12 +166,12 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             Position = position;
         }
+
         /// <summary>
         /// Initilizes tilemap in dependence of int[,] tilekind
         /// </summary>
         public void initializeTilemap(Area.RoomTypes roomType)
         {
-
             for (int i = 0; i < 4; i++)
             {
                 for (int k = 0; k < 4; k++)
@@ -192,12 +195,15 @@ namespace Luftschiff.Code.Game.AreavRooms
                     _tilemap[i, k].draw();
                 }
             }
+            //draw additional sprites like large weapons etc
+            foreach(Sprite s in _additionalRoomSprites)
+                Controller.Window.Draw(s);
+
             // draw der crew
             for (int k = 0; k < crewList.Count; k++)
             {
                 crewList.ElementAt(k).draw();
             }
-            
         }
 
         public void addNearRooms(Room a)

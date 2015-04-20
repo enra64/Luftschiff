@@ -8,6 +8,7 @@ using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Weapons;
 using Luftschiff.Code.Global;
 using SFML.Audio;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms.Rooms
@@ -24,9 +25,15 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public AirCannonRoom(Vector2f position) : base(position)
         {
-                tilekind = loadStandardTilekinds(2);
-                initializeTilemap(Area.RoomTypes.AirCannon);
-                _nearRooms = new List<Room>();
+            tilekind = loadStandardTilekinds(1);
+            initializeTilemap(Area.RoomTypes.AirCannon);
+            _nearRooms = new List<Room>();
+
+            //add addiitonal sprite: weapon
+            Sprite gunSprite = new Sprite(Globals.GunTexture);
+            gunSprite.Position = new Vector2f(_tilemap[1, 1].getRect().Left, _tilemap[1, 1].getRect().Top);
+            gunSprite.Scale = new Vector2f(2, 2);
+            _additionalRoomSprites.Add(gunSprite);
         }
 
         public override void update()
