@@ -226,5 +226,6 @@ namespace Luftschiff.Graphics.Lib
         /// magic int us code magic and you might get the timeplayed value back
         /// </summary>
         public int TimesPlayed { get; set; }
+
     }
 }
