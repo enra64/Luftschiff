@@ -7,14 +7,19 @@ using Luftschiff.Graphics.Lib;
 
 namespace Luftschiff.Code.Game.Projectiles
 {
-    abstract class Projectile : Entity
+    /// <summary>
+    /// Empty class for Collidermanagment
+    /// </summary>
+    abstract class Projectile : Object
     {
-        //Empty class for Collidermanagment
-        public override void update()
-        {
-        }
+        /// <summary>
+        /// Force Projectiles to have an update - Update function...
+        /// </summary>
+        public abstract void Update();
 
+        /// <summary>
+        /// Executed on impact of the Projectile
+        /// </summary>
         public abstract void OnImpact();
-
     }
 }

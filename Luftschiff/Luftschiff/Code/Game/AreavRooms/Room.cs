@@ -76,6 +76,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             int[,] array;
             switch (kind)
             {
+                    //0: floor, 1 empty, 2 wall, 3 special
                 default:
                 case(0):
                     array = new int[4, 4] {{0,0,0,0},
@@ -84,10 +85,10 @@ namespace Luftschiff.Code.Game.AreavRooms
                                           {0,0,0,0}};
                     break;
                 case(1):
-                    array = new int[4,4] {{1,1,1,1},
-                                          {1,1,1,1},
-                                          {1,1,1,1},
-                                          {1,1,1,1}};
+                    array = new int[4, 4] {{2,2,2,2},
+                                          {2,3,3,2},
+                                          {2,3,3,2},
+                                          {2,2,2,2}};
                     break;
                 case(2):  // i don't care that this case has no use atm
                     array = new int[4, 4] {{1,1,1,1},
@@ -102,7 +103,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         public override FloatRect getRect()
         {
-            FloatRect tileSize = _tilemap[0, 0].getRect();
+            FloatRect tileSize = _tilemap[0, 0].Rect;
             tileSize.Width *= 4;
             tileSize.Height *= 4;
             return tileSize;
@@ -192,7 +193,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k].draw();
+                    _tilemap[i, k].Draw();
                 }
             }
             //draw additional sprites like large weapons etc

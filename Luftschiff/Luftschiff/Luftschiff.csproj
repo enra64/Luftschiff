@@ -78,6 +78,7 @@
     <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Game\Monsters\Dragon.cs" />
     <Compile Include="Code\Game\Monsters\Monster.cs" />
+    <Compile Include="Code\Game\Object.cs" />
     <Compile Include="Code\Game\Turnhandler\CrewTarget.cs" />
     <Compile Include="Code\Game\Turnhandler\TurnHandler.cs" />
     <Compile Include="Code\Game\Turnhandler\WeaponTarget.cs" />

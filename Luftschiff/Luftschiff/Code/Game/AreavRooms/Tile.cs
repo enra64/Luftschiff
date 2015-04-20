@@ -1,93 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
 {
-    class Tile : Entity
+    internal class Tile : Object
     {
-        private Sprite s;
         public Tile(int kind, Vector2f position, Area.RoomTypes room)
         {
             switch (kind)
             {
-                case(0):
-                    //TODO add graphics for emptyness
-                    s = new Sprite(Globals.TileTextures[0]);
+                case (0): //floor
+                case (1): //TODO: emptyness
+                    Sprite = new Sprite(Globals.TileFloor);
                     break;
-                case(1):
+                case (2): //walls
                     //TODO add graphics for walls
-                    s = new Sprite(Globals.TileTextures[3]);
+                    Sprite = new Sprite(Globals.TileWall);
                     break;
-                case(2):
-                    //TODO no idead which graphics
-                    s = new Sprite(Globals.TileTextures[1]);
-                    break;
-                case(3):
+                
+                case (3):
                     switch (room)
                     {
+                        //removed every case that is not handled different
                         case Area.RoomTypes.AirCannon:
-                            s = new Sprite(Globals.GunTexture);
-                            break;
-                        case Area.RoomTypes.AirEngine:
-                            s = new Sprite(Globals.TileTextures[2]);
-                            break;
-                        case Area.RoomTypes.AirHospital:
-                            s = new Sprite(Globals.TileTextures[2]);
-                            break;
-                        case Area.RoomTypes.AirLunch:
-                            s = new Sprite(Globals.TileTextures[2]);
-                            break;
-                        case Area.RoomTypes.Empty:
-                            s = new Sprite(Globals.TileTextures[2]);
-                            break;
-                        case Area.RoomTypes.GroundAirshipWorkshop:
-                            s = new Sprite(Globals.TileTextures[2]);
-                            break;
-                        case Area.RoomTypes.GroundBarracks:
-                            s = new Sprite(Globals.TileTextures[2]);
-                            break;
-                        case Area.RoomTypes.GroundMarketplace:
-                            s = new Sprite(Globals.TileTextures[2]);
-                            break;
-                        case Area.RoomTypes.GroundTavern:
-                            s = new Sprite(Globals.TileTextures[2]);
+                            //cannon room has advanced sprite, use normal ground for that
+                            Sprite = new Sprite(Globals.TileFloor);
                             break;
                         default:
-                            throw new ArgumentOutOfRangeException("room", room, null);
+                            Sprite = new Sprite(Globals.TileSpecial);
+                            break;
                     }
                     break;
-                case(4):
+                case (4):
                     //TODO add graphics for a door
                     break;
             }
-            s.Position = position;
-        }
-
-
-        public override void update(){}
-
-        public override void draw()
-        {
-            Controller.Window.Draw(s);
-        }
-
-        //overriding position because somehow the entity position does not accept that
-        //no animated sprite is used here
-        public override Vector2f Position
-        {
-            get { return s.Position; }
-            set { s.Position = value; }
-        }
-
-        //overriding getrect because we use a non-animated sprite, and the entity is not made to deal with that
-        public override FloatRect getRect()
-        {
-            return s.GetGlobalBounds();
+            Sprite.Position = position;
         }
     }
 }

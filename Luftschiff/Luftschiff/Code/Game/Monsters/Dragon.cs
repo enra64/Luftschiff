@@ -25,7 +25,6 @@ namespace Luftschiff.Code.Game.Monsters {
             if(Life <= 0)
                 Console.WriteLine("dragon dead. much good.");
             Console.WriteLine("the dragon has been shot at. it does give 1/10 of a shit.");
-            //throw new System.NotImplementedException("The monster overrides the getdamage, but has no idea what to do!");
         }
 
         public override void update()

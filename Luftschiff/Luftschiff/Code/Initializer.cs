@@ -56,11 +56,9 @@ namespace Luftschiff {
             Globals.CannonBallTexture = new Texture("Assets/Graphics/cannonball.png");
             Globals.GunTexture = new Texture("Assets/Graphics/CannonRoom/cannon2_hq.png");
 
-            Globals.TileTextures = new Texture[4];
-            Globals.TileTextures[0] = new Texture("Assets/Graphics/groundtile.png");
-            Globals.TileTextures[1] = new Texture("Assets/Graphics/groundtile.png");
-            Globals.TileTextures[2] = new Texture("Assets/Graphics/special_tile.png");
-            Globals.TileTextures[3] = new Texture("Assets/Graphics/walltile.png");
+            Globals.TileFloor = new Texture("Assets/Graphics/groundtile.png");
+            Globals.TileSpecial = new Texture("Assets/Graphics/special_tile.png");
+            Globals.TileWall = new Texture("Assets/Graphics/walltile.png");
 
             //audio
             Globals.CannonSound = new SoundBuffer("Assets/Audio/GunShot.wav");
