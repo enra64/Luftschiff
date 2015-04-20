@@ -35,7 +35,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             //guess position by using the position of the tiles
             gunSprite.Position = _tilemap[1, 1].Position;
             
-            //make it look okey
+            //make it look okay
             gunSprite.Scale = new Vector2f(.6f, .6f);
 
             //add to sprite list so it gets drawn automatically

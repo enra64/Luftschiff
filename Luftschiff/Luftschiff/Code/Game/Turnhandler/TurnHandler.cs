@@ -166,6 +166,9 @@ namespace Luftschiff.Code.Game
             //remove targets with invalid neededactions count to collect garbage
             _crewTargets.RemoveAll(s => s.NeededActions < 0);
             _weaponTargets.RemoveAll(s => s.NeededActions < 0);
+
+            //start dragon attack
+            Globals.GameReference.ExecuteMonsterAttack();
         }
     }
 }
