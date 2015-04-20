@@ -92,8 +92,7 @@ namespace Luftschiff.Code.Game.Weapons {
         }
 
         /// <summary>
-        /// TODO: daniel what does this do?
-        /// Probably plays the sprite once on impact
+        /// Plays Sprite once on Impact
         /// </summary>
         public void SpritePlay()
         {

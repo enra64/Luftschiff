@@ -18,6 +18,13 @@ namespace Luftschiff.Graphics.Lib
         private bool _textureLoaded;
         private bool _validAnimation;
 
+        /// <summary>
+        /// New animatedsprite 
+        /// Time: how long should anmation play?
+        /// bool: paused animation?
+        /// bool looped animation?
+        /// position of animation
+        /// </summary>
         public AnimatedSprite(Time frameTime, bool paused, bool looped, Vector2f position)
         {
             _animation = null;
@@ -63,6 +70,9 @@ namespace Luftschiff.Graphics.Lib
             }
         }
 
+        /// <summary>
+        /// Plays a specific animation and loads this animation
+        /// </summary>
         public void Play(Animation animation)
         {
             if (Animation != animation)
@@ -95,6 +105,9 @@ namespace Luftschiff.Graphics.Lib
             _vertices[3].Color = color;
         }
 
+        /// <summary>
+        /// Gives you the current frame size back
+        /// </summary>
         public FloatRect GetLocalBounds()
         {
             var rect = _animation.GetFrame(_currentFrame);
@@ -103,6 +116,9 @@ namespace Luftschiff.Graphics.Lib
             return new FloatRect(0f, 0f, width, heigth);
         }
 
+        /// <summary>
+        /// Gives you the global size back
+        /// </summary>
         public FloatRect GetGlobalBounds()
         {
             return Transform.TransformRect(GetLocalBounds());
@@ -113,6 +129,9 @@ namespace Luftschiff.Graphics.Lib
             return !_isPaused;
         }
 
+        /// <summary>
+        /// Never use this please, plays a specific frame
+        /// </summary>
         public void SetFrame(int newFrame, bool resetTime)
         {
             _deltaTime = Globals.FRAME_TIME;
@@ -141,6 +160,10 @@ namespace Luftschiff.Graphics.Lib
             }
         }
 
+        /// <summary>
+        /// needs global.frame_time updates sprite through code magic
+        /// </summary>
+        /// <param name="delta"></param>
         public void Update(Time delta)
         {
             _deltaTime = delta;
@@ -179,6 +202,9 @@ namespace Luftschiff.Graphics.Lib
             }
         }
 
+        /// <summary>
+        /// Moves sprite on vector
+        /// </summary>
         public void Move(Vector2f offset)
         {
 
@@ -186,12 +212,19 @@ namespace Luftschiff.Graphics.Lib
                 Position = new Vector2f(Position.X + offset.X, Position.Y + offset.Y);
             }
         }
-
+        
+        /// <summary>
+        /// Mves sprite with offset coords
+        /// </summary>
         public void Move(float offsetX, float offsetY)
         {
             Position = new Vector2f(Position.X + offsetX, Position.Y + offsetY);
         }
 
+        //ERRORSOURCE
+        /// <summary>
+        /// magic int us code magic and you might get the timeplayed value back
+        /// </summary>
         public int TimesPlayed { get; set; }
     }
 }

@@ -14,6 +14,9 @@ namespace Luftschiff.Graphics.Lib
 
         public Texture Texture { set; get; }
 
+        /// <summary>
+        /// Adds a frame as intrect
+        /// </summary>
         public void AddFrame(IntRect rect)
         {
             _frames.Add(rect);
