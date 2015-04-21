@@ -9,7 +9,7 @@ namespace Luftschiff.Code.Game.Monsters
     {
         private readonly Animation _flying;
 
-        public Dragon(Texture t)
+        public Dragon(Texture t, int life) : base(life)
         {
             _flying = new Animation(t);
             _flying.AddFrame(new IntRect(0, 0, 300, 300));
@@ -27,15 +27,22 @@ namespace Luftschiff.Code.Game.Monsters
         }
 
         /// <summary>
+        /// Overloaded Constructor using global dragon texture and 1000 life
+        /// </summary>
+        public Dragon() : this(Globals.DragonTexture, 1000){}
+
+
+
+        /// <summary>
         ///     makes damage to a room when the turn ends
         /// </summary>
-        public override int makeTurnDamage()
+        public override int AttackShip()
         {
             Globals.AreaReference.Life -= 100;
             return 100;
         }
 
-        public override void getTurnDamage(int type, bool hits)
+        public override void ReceiveDamageByShip(int type, bool hits)
         {
             if (hits)
                 Life -= 100;
@@ -64,7 +71,7 @@ namespace Luftschiff.Code.Game.Monsters
 
         public override void draw()
         {
-            if (Life >= 0)
+            if (Life > 0)
             {
                 base.draw();
             }

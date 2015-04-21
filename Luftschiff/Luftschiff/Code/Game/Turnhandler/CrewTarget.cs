@@ -24,7 +24,7 @@ namespace Luftschiff.Code.Game
         /// <para>the amount of base rounds the crew will take until this room,</para>
         /// so without buffs etc. as the turnhandler will take care of that
         /// </summary>
-        public int NeededActions;
+        public int WaitingTurns;
 
         /// <summary>
         /// Contains whether this is the last room the crewmember has to go to
@@ -36,14 +36,14 @@ namespace Luftschiff.Code.Game
         /// </summary>
         /// <param name="c">reference to the crew that will be moved</param>
         /// <param name="target">reference to the room that the crewmember will be moved to</param>
-        /// <param name="neededActions"><para>the amount of base rounds the crew will take until this room,</para>
+        /// <param name="waitingTurns"><para>the amount of base rounds the crew will take until this room,</para>
         /// so without buffs etc. as the turnhandler will take care of that</param>
         /// <param name="isLastAction">whether the crewmember is at its target in this room</param>
-        public CrewTarget(CrewMember c, Room target, int neededActions, bool isLastAction)
+        public CrewTarget(CrewMember c, Room target, int waitingTurns, bool isLastAction)
         {
             Crew = c;
             Target = target;
-            NeededActions = neededActions;
+            WaitingTurns = waitingTurns;
             IsLastAction = isLastAction;
         }
     }

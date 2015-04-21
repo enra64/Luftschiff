@@ -66,10 +66,10 @@ namespace Luftschiff.Code.Dialogs {
 
             var buttonSize = new Vector2f(Size.X / 2, Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
             _yesButton = new Button(yes, leftButtonPosition, buttonSize);
-            _yesButton.ActivationKey = Keyboard.Key.Num0;
+            _yesButton.ActivationKey = Keyboard.Key.Num1;
 
             _noButton = new Button(no, rightButtonPosition, buttonSize);
-            _noButton.ActivationKey = Keyboard.Key.Num1;
+            _noButton.ActivationKey = Keyboard.Key.Num2;
         }
 
         /// <summary>

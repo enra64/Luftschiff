@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -7,7 +9,7 @@ namespace Luftschiff.Code.Dialogs
 {
     class HealthBar{
         private RectangleShape _barShape;
-        private int _maxSize;
+        private readonly float _maxSize;
 
         //Colors
         public Color NormalColor { get; set; }
@@ -18,36 +20,19 @@ namespace Luftschiff.Code.Dialogs
         /// </summary>
         public bool ForceAttention { get; set; }
 
-        private void CommonConstructor(Vector2f position, Vector2f size)
-        {
+        public HealthBar(Vector2f position, Vector2f size, Color standardColor) {
+            NormalColor = standardColor;
+            AttentionColor = Globals.HEALTH_BAR_COLOR_ATTENTION;
+
             _barShape = new RectangleShape(size);
-            _barShape.FillColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
+            _barShape.FillColor = NormalColor;
             _barShape.Position = position;
-            _barShape.OutlineColor = Color.Black;
-            _barShape.OutlineThickness = 2f;
 
-            _maxSize = (int) size.X;
-
-            NormalColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
-            AttentionColor = Globals.DIALOG_BUTTON_COLOR_ATTENTIONSEEKER;
-        }
-
-        public HealthBar(Vector2f position, Vector2f size) {
-            CommonConstructor(position, size);
+            _maxSize = size.X;
         }
 
         public void Draw(){
             Controller.Window.Draw(_barShape);
-        }
-
-        /// <summary>
-        /// Changes the color to the attentioncolor for a short time
-        /// </summary>
-        public void AttentionBlink()
-        {
-            ForceAttention = true;
-            //blink the attention color
-            new System.Threading.Timer(obj => { ForceAttention = false; }, null, 500, System.Threading.Timeout.Infinite);
         }
 
         public void Update(float healthPercent)
@@ -55,8 +40,11 @@ namespace Luftschiff.Code.Dialogs
             //force attention to the button on special occasions
             if (ForceAttention)
                 _barShape.FillColor = AttentionColor;
+            else
+                _barShape.FillColor = NormalColor;
 
-            Vector2f barSize = _barShape.Size;
+            var barSize = _barShape.Size;
+            var oldSize = barSize.X;
 
             //change the size according to the remaining health
             barSize.X = (healthPercent/100) * _maxSize;
@@ -65,11 +53,24 @@ namespace Luftschiff.Code.Dialogs
             if (barSize.X < 0)
                 barSize.X = 0;
 
+            //do attention blink on health reduction
+            if (oldSize > barSize.X)
+            {
+                //blink the attention color
+                ForceAttention = true;
+                StopAttention(400);
+            }
+
             _barShape.Size = barSize;
         }
 
-        public void Update(){
-            throw new Exception("Call the Update with life percentage above!");
+        /// <summary>
+        /// Waits timeoutInMilliseconds ms until setting ForceAttention to false
+        /// </summary>
+        /// <param name="timeoutInMilliseconds">ms of delay</param>
+        private async void StopAttention(int timeoutInMilliseconds) {
+            await Task.Delay(timeoutInMilliseconds);
+            ForceAttention = false;
         }
     }
 }

@@ -24,20 +24,20 @@ namespace Luftschiff.Code.Game.Turnhandler
         /// <summary>
         /// amount of actions the room will take until firing
         /// </summary>
-        public int NeededActions;
+        public int WaitingTurns;
 
         /// <summary>
         /// Target standard constructor.
         /// </summary>
         /// <param name="firingRoom">Firing Room reference</param>
         /// <param name="target">reference to the room that the crewmember will be moved to</param>
-        /// <param name="neededActions"><para>the amount of base rounds the crew will take until this room,</para>
+        /// <param name="waitingTurns"><para>the amount of base rounds the crew will take until this room,</para>
         /// so without buffs etc. as the turnhandler will take care of that</param>
-        public WeaponTarget(Room firingRoom, Monster target, int neededActions)
+        public WeaponTarget(Room firingRoom, Monster target, int waitingTurns)
         {
             FiringRoom = firingRoom;
             Target = target;
-            NeededActions = neededActions;
+            WaitingTurns = waitingTurns;
         }
     }
 }

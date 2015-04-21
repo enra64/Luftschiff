@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 namespace Luftschiff.Code.Game.Monsters {
     abstract class Monster : Entity
     {
-        private int _maxLife = 1000;
-        public int Life = 1000;
+        private float _maxLife;
+        internal float Life;
 
-        public Monster(){}
-
-        public Monster(int life)
+        /// <summary>
+        /// Init Life and maxLife
+        /// </summary>
+        /// <param name="life"></param>
+        protected Monster(int life)
         {
             Life = life;
+            _maxLife = life;
         }
 
         /// <summary>
@@ -22,7 +25,7 @@ namespace Luftschiff.Code.Game.Monsters {
         /// </summary>
         public float HealthPercent
         {
-            get { return (float)Life/(float)_maxLife * 100; }
+            get { return (Life/_maxLife) * 100; }
         }
 
         /// <summary>
@@ -30,11 +33,11 @@ namespace Luftschiff.Code.Game.Monsters {
         /// inflict the damage on the enemy ship and return the type of damage
         /// inflicted
         /// </summary>
-        public abstract int makeTurnDamage();
+        public abstract int AttackShip();
 
         /// <summary>
         /// This gets called when the ship fires upon the dragon
         /// </summary>
-        public abstract void getTurnDamage(int type, bool hits);
+        public abstract void ReceiveDamageByShip(int type, bool hits);
     }
 }

@@ -16,33 +16,33 @@ namespace Luftschiff.Code.Game
     {
         //references to other important classes via the global for convenience
         private readonly Area _areaReference = Globals.AreaReference;
-        private readonly States.Game _gameReference = Globals.GameReference;
         //action lists
-        private readonly List<CrewTarget> _crewTargets;
-        private readonly List<WeaponTarget> _weaponTargets;
+        private readonly List<CrewTarget> _crewActions = new List<CrewTarget>();
+        private readonly States.Game _gameReference = Globals.GameReference;
+        private readonly List<WeaponTarget> _weaponActions = new List<WeaponTarget>();
 
-        public TurnHandler()
-        {
-            _crewTargets = new List<CrewTarget>();
-            _weaponTargets = new List<WeaponTarget>();
-        }
+        //currently no constructor, because we do not do anything there anyway
 
         /// <summary>
         ///     check whether there are any actions to be executed
         /// </summary>
         public bool HasStackedActions
         {
-            get { return _crewTargets.Count > 0 || _weaponTargets.Count > 0; }
+            get { return _crewActions.Count > 0 || _weaponActions.Count > 0; }
         }
 
         /// <summary>
         ///     finds the hopefully shortest possible way to the chosen target room
+        ///     Code-Magic courtesy of Jan-Ole
         /// </summary>
         /// <param name="crewMember">The crewmember to move</param>
         /// <param name="targetRoom">The room to send the crewmember to</param>
         //TODO: jan-ole: improve pathfinding algorithm for later problems
         public void AddCrewTarget(CrewMember crewMember, Room targetRoom)
         {
+            //check the crew action list for existing entries for this crew, and clear if found
+            _crewActions.RemoveAll(s => s.Crew == crewMember);
+
             //ERRORSOURCE  weird crew movements 
             //intialize variables
             var work = crewMember.CurrentRoom;
@@ -105,23 +105,24 @@ namespace Luftschiff.Code.Game
                 {
                     Console.WriteLine(way.Count - k);
                     //Console.WriteLine("target");
-                    _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k), k, true));
+                    _crewActions.Add(new CrewTarget(crewMember, way.ElementAt(k), k, true));
                 }
                 else
                 {
                     Console.WriteLine(way.Count - k);
                     //Console.WriteLine("waypoint");
-                    _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k), k, false));
+                    _crewActions.Add(new CrewTarget(crewMember, way.ElementAt(k), k, false));
                 }
             }
         }
 
         /// <summary>
-        ///     Adds a target for the room, so the turnhandler initializes an attack in ending this turn
+        ///     Add a target for the room with 0 wait turns to execute immediately on turn end.
+        ///     TODO: Arne: Accepting proposals for the room parameter name.
         /// </summary>
         public void AddWeaponTarget(Room shootyPointy, Monster monster)
         {
-            _weaponTargets.Add(new WeaponTarget(shootyPointy, monster, 0));
+            _weaponActions.Add(new WeaponTarget(shootyPointy, monster, 0));
         }
 
         /// <summary>
@@ -129,24 +130,23 @@ namespace Luftschiff.Code.Game
         /// </summary>
         public void ExecuteTurn()
         {
-            //kk now execute all the actions
-            foreach (var c in _weaponTargets)
-            {
-                if (c.NeededActions == 0)
+            //check all weapon targets, and shoot those with 0 waiting turns
+            foreach (var c in _weaponActions){
+                if (c.WaitingTurns == 0)
                     c.FiringRoom.inflictDamage(c.Target, true);
-                c.NeededActions--;
+                //reduce waiting turns of all so that everything will be fired eventually,
+                //and negative waiting turns can be nulled
+                c.WaitingTurns--;
             }
 
-            foreach (var c in _crewTargets)
+            //check all crew targets
+            foreach (var c in _crewActions)
             {
-                if (c.NeededActions == 0)
-                {
+                //0 waiting turns on action -> execute action
+                if (c.WaitingTurns == 0)
                     _areaReference.RepositionCrew(c.Crew, c.Target);
-                }
-                if (c.NeededActions < 0)
-                    throw new IndexOutOfRangeException("action not removed!");
                 //invalid for finished actions to be able to clean it up
-                if (c.NeededActions == 0)
+                if (c.WaitingTurns == 0)
                 {
                     //if the crewmember has arrived at its target
                     if (c.IsLastAction)
@@ -155,14 +155,14 @@ namespace Luftschiff.Code.Game
                         c.Target.OnCrewArrive(c.Crew);
                         c.Crew.HasJob = false;
                     }
-                    c.NeededActions = -42;
                 }
-                c.NeededActions--;
+                //reduce wait turns for executed actions and actions to be executed
+                c.WaitingTurns--;
             }
 
             //remove targets with invalid neededactions count to collect garbage
-            _crewTargets.RemoveAll(s => s.NeededActions < 0);
-            _weaponTargets.RemoveAll(s => s.NeededActions < 0);
+            _crewActions.RemoveAll(s => s.WaitingTurns < 0);
+            _weaponActions.RemoveAll(s => s.WaitingTurns < 0);
 
             //start dragon attack
             ExecuteMonsterAttack();
@@ -170,7 +170,7 @@ namespace Luftschiff.Code.Game
 
         private void ExecuteMonsterAttack()
         {
-            _gameReference.CurrentMonster.makeTurnDamage();
+            _gameReference.CurrentMonster.AttackShip();
         }
     }
 }

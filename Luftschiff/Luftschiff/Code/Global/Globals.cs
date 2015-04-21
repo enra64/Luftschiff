@@ -48,7 +48,17 @@ namespace Luftschiff.Code {
         /// </summary>
         public static Color DIALOG_BUTTON_COLOR_ATTENTIONSEEKER = Color.Red;
 
+        /// <summary>
+        ///     standard color for the ship healthbar
+        /// </summary>
+        public static Color HEALTH_BAR_COLOR_SHIP = Color.Green;
+        
+        /// <summary>
+        ///     standard color for the monster healthbar
+        /// </summary>
+        public static Color HEALTH_BAR_COLOR_MONSTER = Color.Blue;
 
+        public static Color HEALTH_BAR_COLOR_ATTENTION = Color.Red;
 
         //globally used font sizes for text
         public static int FONT_SIZE_STANDARD = 20;

@@ -86,7 +86,7 @@ namespace Luftschiff.Code.Game.Weapons
             if (!HasMadeDamage)
             {
                 //execute damage to monster, have to decide that better in the future (turnhandler maybe)
-                _targetMonster.getTurnDamage(0, true);
+                _targetMonster.ReceiveDamageByShip(0, true);
                 HasMadeDamage = true;
             }
         }

@@ -190,7 +190,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// would need to get a reference to the area
         /// </summary>
         /// <param name="crew">Crew to be moved</param>
-        /// <param name="target">Room the crew should be moved to</param>
+        /// <param name="targetRoom">Room the crew should be moved to</param>
         public void RepositionCrew(CrewMember crew, Room targetRoom)
         {
             RemoveCrewFromRoom(crew.CurrentRoom, crew);

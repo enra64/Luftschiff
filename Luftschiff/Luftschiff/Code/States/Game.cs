@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game;
 using Luftschiff.Code.Game.AreavRooms;
@@ -45,7 +46,7 @@ namespace Luftschiff.Code.States {
 
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
-            CurrentMonster = new Dragon(Globals.DragonTexture);
+            CurrentMonster = new Dragon();
             
             _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
             _currentArea.AddRoom(new AirEngineRoom(new Vector2f(75, 350)));
@@ -60,8 +61,9 @@ namespace Luftschiff.Code.States {
             _turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
             _turnButton.ActivationKey = Keyboard.Key.Space;
 
-            _monsterBar = new HealthBar(new Vector2f(Controller.Window.Size.X / 2 + 20, 20), new Vector2f(Controller.Window.Size.X / 2 - 40, 40));
-            _shipBar = new HealthBar(new Vector2f(20, 20), new Vector2f(Controller.Window.Size.X / 2 - 40, 40));
+            var healthBarSize = new Vector2f(Controller.Window.Size.X/2 - 40, 25);
+            _monsterBar = new HealthBar(new Vector2f(Controller.Window.Size.X / 2 + 20, 20), healthBarSize, Globals.HEALTH_BAR_COLOR_MONSTER);
+            _shipBar = new HealthBar(new Vector2f(20, 20), healthBarSize, Globals.HEALTH_BAR_COLOR_SHIP);
         }
 
         /// <summary>
