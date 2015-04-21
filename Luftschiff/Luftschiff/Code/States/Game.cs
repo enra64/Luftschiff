@@ -35,7 +35,12 @@ namespace Luftschiff.Code.States {
         {
             //set references, initialize game lifecycle objects
             Globals.GameReference = this;
-            Globals.AreaReference = new Area(this, Globals.TurnHandler);
+            //area uses a global reference to the turnhandler, because it does not work otherwise
+            Globals.AreaReference = new Area(this);
+            
+            //copy a reference to the class
+            _currentArea = Globals.AreaReference;
+
             Globals.TurnHandler = new TurnHandler(_currentArea, this);
             
             //make the standard cursor invisible, since we do that ourselves
@@ -44,7 +49,7 @@ namespace Luftschiff.Code.States {
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
-            _currentArea = Globals.AreaReference;
+            
             /*
             _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
             _currentArea.AddRoom(new AirEngineRoom(new Vector2f(75, 350)));
