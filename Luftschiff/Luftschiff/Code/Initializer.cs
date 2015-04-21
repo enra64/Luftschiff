@@ -37,11 +37,6 @@ namespace Luftschiff {
 
         private static void InitializeMisc() {
             Globals.DialogFont = new Font("Assets/StandardFontSteamwreck.otf");
-
-            //all the more or less static classses
-            Globals.AreaReference = new Area();
-            Globals.TurnHandler = new TurnHandler(Globals.AreaReference);
-
             Cursor.Initialize();
         }
 
@@ -59,6 +54,11 @@ namespace Luftschiff {
             Globals.TileFloor = new Texture("Assets/Graphics/groundtile.png");
             Globals.TileSpecial = new Texture("Assets/Graphics/special_tile.png");
             Globals.TileWall = new Texture("Assets/Graphics/walltile.png");
+
+            //Cursor
+            Globals.CursorAim = new Texture("Assets/Graphics/Cursors/aimCursor.png");
+            Globals.CursorStandard = new Texture("Assets/Graphics/Cursors/standardCursor.png");
+            Globals.CursorCrewMove = new Texture("Assets/Graphics/Cursors/moveCursor.png");
 
             //audio
             Globals.CannonSound = new SoundBuffer("Assets/Audio/GunShot.wav");

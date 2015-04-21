@@ -1,52 +1,51 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
-namespace Luftschiff.Code {
-    static class Cursor
+namespace Luftschiff.Code
+{
+    internal static class Cursor
     {
-        public enum Mode{
-            standard, 
-            aim,
-            move
+        public enum Mode
+        {
+            Standard,
+            Aim,
+            Move
         }
-        private static Sprite _Sprite;
-        private static Texture _StandardTexture;
-        private static Texture _AimTexture;
-        private static Texture _MoveTexture;
+
+        private static Sprite _sprite;
+        private static Texture _standardTexture;
+        private static Texture _aimTexture;
+        private static Texture _moveTexture;
 
         public static void Update()
         {
             var mousePos = Mouse.GetPosition(Controller.Window);
-            _Sprite.Position = new Vector2f(mousePos.X, mousePos.Y);
+            _sprite.Position = new Vector2f(mousePos.X, mousePos.Y);
         }
 
         public static void Initialize()
         {
-            _StandardTexture = new Texture("Assets/Graphics/Cursors/standardCursor.png");
-            _AimTexture = new Texture("Assets/Graphics/Cursors/aimCursor.png");
-            _MoveTexture = new Texture("Assets/Graphics/Cursors/moveCursor.png");
+            _standardTexture = Globals.CursorStandard;
+            _aimTexture = Globals.CursorAim;
+            _moveTexture = Globals.CursorCrewMove;
 
-            _Sprite = new Sprite(_StandardTexture);
+            _sprite = new Sprite(_standardTexture);
         }
 
         public static void CursorMode(Mode cursorType)
         {
-            switch (cursorType) {
-                case Mode.standard:
-                    _Sprite.Texture = _StandardTexture;
+            switch (cursorType)
+            {
+                case Mode.Standard:
+                    _sprite.Texture = _standardTexture;
                     break;
-                case Mode.aim:
-                    _Sprite.Texture = _AimTexture;
+                case Mode.Aim:
+                    _sprite.Texture = _aimTexture;
                     break;
-                case Mode.move:
-                    _Sprite.Texture = _MoveTexture;
+                case Mode.Move:
+                    _sprite.Texture = _moveTexture;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("cursorType", cursorType, null);
@@ -55,7 +54,7 @@ namespace Luftschiff.Code {
 
         public static void Draw()
         {
-            Controller.Window.Draw(_Sprite);
+            Controller.Window.Draw(_sprite);
         }
     }
 }

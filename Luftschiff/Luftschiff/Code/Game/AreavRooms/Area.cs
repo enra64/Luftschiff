@@ -11,6 +11,9 @@ namespace Luftschiff.Code.Game.AreavRooms
     {
         public int Life { get; set; }
         private int _maxLife = 1000;
+        private States.Game _gameReference;
+        private TurnHandler _turnHandlerReference;
+
         public enum RoomTypes
         {
             AirCannon,
@@ -29,8 +32,12 @@ namespace Luftschiff.Code.Game.AreavRooms
         private List<Room> rooms_;
         private static List<CrewMember> crew_ ;
 
-        public Area()
+        public Area(States.Game game, TurnHandler tHandler)
         {
+            //save references for later use
+            _gameReference = game;
+            _turnHandlerReference = tHandler;
+
             rooms_ = new List<Room>();
             crew_ = new List<CrewMember>();
             Life = 1000;
@@ -73,14 +80,22 @@ namespace Luftschiff.Code.Game.AreavRooms
             rooms_.Add(a);
         }
 
+        /// <summary>
+        /// Adds a crewmember to a room and to the area, sets the crewmembers room correctly
+        /// </summary>
         public void AddCrewToRoom(Room r, CrewMember c) {
             r.setCrewInRoom(c);
             crew_.Add(c);
+            c.CurrentRoom = r;
         }
 
+        /// <summary>
+        /// Removes a crewmember from the room and from the area, sets the crewmembers room to null
+        /// </summary>
         public void RemoveCrewFromRoom(Room r, CrewMember c) {
             r.RemoveCrewMember(c);
             crew_.Remove(c);
+            c.CurrentRoom = null;
         }
 
         public override void update()
@@ -119,7 +134,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                         MouseHandler.SelectedRoom = clickedRoom;
                         //Console.WriteLine("selected room");
                         if(clickedRoom.IsAbleToTarget)
-                            Cursor.CursorMode(Cursor.Mode.aim);
+                            Cursor.CursorMode(Cursor.Mode.Aim);
                         MouseHandler.UnhandledClick = false;
                     }
                         
@@ -128,7 +143,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                     if (clickedCrew != null)
                     {
                         MouseHandler.SelectedCrew = clickedCrew;
-                        Cursor.CursorMode(Cursor.Mode.move);
+                        Cursor.CursorMode(Cursor.Mode.Move);
                         MouseHandler.UnhandledClick = false;
                     }
                     
@@ -136,7 +151,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //nothing was clicked, remove the selection
                     if (clickedRoom == null && clickedCrew == null)
                     {
-                        Cursor.CursorMode(Cursor.Mode.standard);
+                        Cursor.CursorMode(Cursor.Mode.Standard);
                         MouseHandler.SelectedCrew = null;
                         MouseHandler.SelectedRoom = null;
                         //ERRORSOURCE: consumes click events that hit nothing, area must be updated last
@@ -150,7 +165,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                     if (clickedRoom != null && MouseHandler.SelectedCrew != null)
                     {
                         Console.WriteLine("crewmember will move or not");
-                        MouseHandler.SelectedCrew.setTarget(clickedRoom);
+                        //directly call turnhandler, moving control from the crew here
+                        _turnHandlerReference.addCrewTarget(MouseHandler.SelectedCrew, clickedRoom);
                         MouseHandler.UnhandledClick = false;
                     }
                 }
@@ -171,6 +187,18 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             foreach (var room in rooms_)
                 room.priorityDraw();
+        }
+
+        /// <summary>
+        /// Called by the turnhandler, to switch a crewmembers room, since otherwise the crewmember
+        /// would need to get a reference to the area
+        /// </summary>
+        /// <param name="crew">Crew to be moved</param>
+        /// <param name="target">Room the crew should be moved to</param>
+        public void RepositionCrew(CrewMember crew, Room targetRoom)
+        {
+            RemoveCrewFromRoom(crew.CurrentRoom, crew);
+            AddCrewToRoom(targetRoom, crew);
         }
     }
 }

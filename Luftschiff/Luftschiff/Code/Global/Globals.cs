@@ -68,6 +68,10 @@ namespace Luftschiff.Code {
         public static Texture TileWall;
         public static Texture TileSpecial;
 
+        public static Texture CursorStandard;
+        public static Texture CursorCrewMove;
+        public static Texture CursorAim;
+
 
         public static TurnHandler TurnHandler;
         public static Area AreaReference;

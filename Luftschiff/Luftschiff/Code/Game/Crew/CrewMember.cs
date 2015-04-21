@@ -80,24 +80,9 @@ namespace Luftschiff.Code.Game.Crew {
             return _targetRoom;
         }
 
-        //just created this because it was easy, if this is not usable change the
-        //call in area in the mouse click handler
-        public void setTarget(Room clickedRoom)
-        {
-            Globals.TurnHandler.addCrewTarget(this, clickedRoom);
-        }
-
         public void setPosition(Vector2f newPosition)
         {
             useAnAnimatedSprite.Position = newPosition;
-        }
-
-        //move to that room NAOW
-        public void moveToRoom(Room targetRoom)
-        {
-            Globals.AreaReference.RemoveCrewFromRoom(CurrentRoom, this);
-            CurrentRoom = targetRoom;
-            Globals.AreaReference.AddCrewToRoom(targetRoom, this);
         }
     }
 }

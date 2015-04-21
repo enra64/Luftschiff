@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Luftschiff.Code.Dialogs;
+using Luftschiff.Code.Game;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Crew;
@@ -23,34 +24,40 @@ namespace Luftschiff.Code.States {
         public Monster CurrentMonster;
         private Button turnButton;
         private HealthBar _monsterBar, _shipBar;
+        private Area _currentArea;
 
-        //test
-        private Area test;
+        //_currentArea
         /// <summary>
         /// The gamestate constructor. Nothing must be done here, the superclass
         /// constructor is empty anyways
         /// </summary>
         public Game ()
         {
+            //set references, initialize game lifecycle objects
             Globals.GameReference = this;
+            Globals.AreaReference = new Area(this, Globals.TurnHandler);
+            Globals.TurnHandler = new TurnHandler(_currentArea, this);
+            
+            //make the standard cursor invisible, since we do that ourselves
             Controller.Window.SetMouseCursorVisible(false);
+
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
-            test = Globals.AreaReference;
+            _currentArea = Globals.AreaReference;
             /*
-            test.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
-            test.AddRoom(new AirEngineRoom(new Vector2f(75, 350)));
-            test.AddRoom(new AirHospitalWard(new Vector2f(75, 500)));
-            test.AddRoom(new AirLunchRoom(new Vector2f(225, 275)));
-            test.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
+            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
+            _currentArea.AddRoom(new AirEngineRoom(new Vector2f(75, 350)));
+            _currentArea.AddRoom(new AirHospitalWard(new Vector2f(75, 500)));
+            _currentArea.AddRoom(new AirLunchRoom(new Vector2f(225, 275)));
+            _currentArea.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
             */
-            test.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
-            test.AddRoom(new AirCannonRoom(new Vector2f(75, 350)));
-            test.AddRoom(new AirCannonRoom(new Vector2f(75, 500)));
-            test.AddRoom(new AirCannonRoom(new Vector2f(225, 275)));
-            test.AddRoom(new AirCannonRoom(new Vector2f(225, 450)));
-            test.AddCrewToRoom(test.getRooms().ElementAt(0), new CrewMember(test.getRooms().ElementAt(0)));
+            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
+            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 350)));
+            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 500)));
+            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(225, 275)));
+            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(225, 450)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
             Collider.AddMonster(CurrentMonster);
 
             turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
@@ -64,8 +71,8 @@ namespace Luftschiff.Code.States {
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
             CurrentMonster.draw(); 
-            //test area draw 
-            test.draw();
+            //_currentArea area draw 
+            _currentArea.draw();
             
             //draw the turn button
             turnButton.draw();
@@ -110,7 +117,7 @@ namespace Luftschiff.Code.States {
                 turnButton.ForceAttention = false;
             }
             //has to be updated last as it consumes all click events that hit nothing
-            test.update();
+            _currentArea.update();
         }
 
         /// <summary>
@@ -120,6 +127,7 @@ namespace Luftschiff.Code.States {
         public void ExecuteMonsterAttack()
         {
             //todo: write monster attacks
+            CurrentMonster.makeTurnDamage();
         }
     }
 }

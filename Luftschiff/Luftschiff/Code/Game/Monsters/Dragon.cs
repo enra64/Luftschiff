@@ -55,15 +55,16 @@ namespace Luftschiff.Code.Game.Monsters
                         MouseHandler.UnhandledClick = false;
                         Globals.TurnHandler.addRoomTarget(MouseHandler.SelectedRoom, this);
                         //change cursor back to normal
-                        Cursor.CursorMode(Cursor.Mode.standard);
+                        Cursor.CursorMode(Cursor.Mode.Standard);
                     }
             //play dragon sprite animation
-                Sprite.Update(Globals.FRAME_TIME);
-                Sprite.Play(_flying);
+            Sprite.Update(Globals.FRAME_TIME);
+            Sprite.Play(_flying);
         }
 
         public override void draw()
-        {   if (Life >= 0)
+        {
+            if (Life >= 0)
             {
                 base.draw();
             }

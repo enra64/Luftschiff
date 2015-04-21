@@ -18,12 +18,14 @@ namespace Luftschiff.Code.Game
     class TurnHandler
     {
         private Area _areaReference;
-        private List<CrewTarget> _crewTargets;
-        private List<WeaponTarget> _weaponTargets; 
+        private readonly States.Game _gameReference;
+        private readonly List<CrewTarget> _crewTargets;
+        private readonly List<WeaponTarget> _weaponTargets; 
 
-        public TurnHandler(Area areaReference)
+        public TurnHandler(Area areaReference, States.Game game)
         {
             _areaReference = areaReference;
+            _gameReference = game;
             _crewTargets = new List<CrewTarget>();
             _weaponTargets = new List<WeaponTarget>();
         }
@@ -144,8 +146,10 @@ namespace Luftschiff.Code.Game
 
             foreach (var c in _crewTargets)
             {
-                if(c.NeededActions == 0)
-                    c.Crew.moveToRoom(c.Target);
+                if (c.NeededActions == 0)
+                {
+                    _areaReference.RepositionCrew(c.Crew, c.Target);
+                }
                 if(c.NeededActions < 0)
                     throw new IndexOutOfRangeException("action not removed!");
                 //invalid for finished actions to be able to clean it up
@@ -168,7 +172,7 @@ namespace Luftschiff.Code.Game
             _weaponTargets.RemoveAll(s => s.NeededActions < 0);
 
             //start dragon attack
-            Globals.GameReference.ExecuteMonsterAttack();
+            _gameReference.ExecuteMonsterAttack();
         }
     }
 }
