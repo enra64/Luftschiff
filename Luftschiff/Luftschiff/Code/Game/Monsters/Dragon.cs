@@ -53,7 +53,7 @@ namespace Luftschiff.Code.Game.Monsters
                     {
                         //consume click event and inform turnhandler of new room target
                         MouseHandler.UnhandledClick = false;
-                        Globals.TurnHandler.addRoomTarget(MouseHandler.SelectedRoom, this);
+                        Globals.TurnHandler.AddWeaponTarget(MouseHandler.SelectedRoom, this);
                         //change cursor back to normal
                         Cursor.CursorMode(Cursor.Mode.Standard);
                     }

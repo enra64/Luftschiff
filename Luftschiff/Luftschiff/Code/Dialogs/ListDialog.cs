@@ -102,7 +102,7 @@ namespace Luftschiff.Code.Dialogs {
             Controller.Window.Draw(_messageText);
             Controller.Window.Draw(_titleText);
             foreach(Button b in _buttonList)
-                b.draw();
+                b.Draw();
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Luftschiff.Code.Dialogs {
             _userInteracted = false;
             foreach (Button b in _buttonList)
             {
-                if(b.update())
+                if(b.Update())
                 {
                     _userInteracted = true;
                     _answer = Convert.ToInt32(b.Tag);

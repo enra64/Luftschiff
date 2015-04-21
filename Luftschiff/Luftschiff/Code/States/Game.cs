@@ -15,34 +15,31 @@ using Luftschiff.Code.Global;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 
 namespace Luftschiff.Code.States {
     class Game : ProtoGameState
     {
         private Sprite _backgroundSprite;
-        public Monster CurrentMonster;
-        private Button turnButton;
+        public Monster CurrentMonster { get; set; }
+        private Button _turnButton;
         private HealthBar _monsterBar, _shipBar;
         private Area _currentArea;
 
         //_currentArea
         /// <summary>
-        /// The gamestate constructor. Nothing must be done here, the superclass
-        /// constructor is empty anyways
+        /// The gamestate constructor.
         /// </summary>
-        public Game ()
-        {
-            //set references, initialize game lifecycle objects
+        public Game (){
+            //set references, initialize game lifecycle objects (these do get nulled in kill(), so we even manage our memory...)
             Globals.GameReference = this;
-            //area uses a global reference to the turnhandler, because it does not work otherwise
-            Globals.AreaReference = new Area(this);
+            Globals.AreaReference = new Area();
+            Globals.TurnHandler = new TurnHandler();
             
-            //copy a reference to the class
+            //copy a reference to this class for convenience
             _currentArea = Globals.AreaReference;
 
-            Globals.TurnHandler = new TurnHandler(_currentArea, this);
-            
             //make the standard cursor invisible, since we do that ourselves
             Controller.Window.SetMouseCursorVisible(false);
 
@@ -50,22 +47,19 @@ namespace Luftschiff.Code.States {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
             CurrentMonster = new Dragon(Globals.DragonTexture);
             
-            /*
             _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
             _currentArea.AddRoom(new AirEngineRoom(new Vector2f(75, 350)));
             _currentArea.AddRoom(new AirHospitalWard(new Vector2f(75, 500)));
             _currentArea.AddRoom(new AirLunchRoom(new Vector2f(225, 275)));
             _currentArea.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
-            */
-            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
-            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 350)));
-            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 500)));
-            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(225, 275)));
-            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(225, 450)));
+            
             _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
             Collider.AddMonster(CurrentMonster);
 
-            turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
+            //init turnbutton with space for activation
+            _turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
+            _turnButton.ActivationKey = Keyboard.Key.Space;
+
             _monsterBar = new HealthBar(new Vector2f(Controller.Window.Size.X / 2 + 20, 20), new Vector2f(Controller.Window.Size.X / 2 - 40, 40));
             _shipBar = new HealthBar(new Vector2f(20, 20), new Vector2f(Controller.Window.Size.X / 2 - 40, 40));
         }
@@ -80,7 +74,7 @@ namespace Luftschiff.Code.States {
             _currentArea.draw();
             
             //draw the turn button
-            turnButton.draw();
+            _turnButton.Draw();
 
             //health bars
             _monsterBar.Draw();
@@ -93,6 +87,9 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public override void kill() {
             Controller.Window.SetMouseCursorVisible(true);
+            Globals.AreaReference = null;
+            Globals.TurnHandler = null;
+            Globals.GameReference = null;
         }
 
         /// <summary>
@@ -103,8 +100,8 @@ namespace Luftschiff.Code.States {
             CurrentMonster.update();
             
             //execute the turn when the user clicks the turn button
-            if (turnButton.update()){
-                Globals.TurnHandler.executeTurn();
+            if (_turnButton.Update()){
+                Globals.TurnHandler.ExecuteTurn();
             }
 
             _shipBar.Update(Globals.AreaReference.HealthPercent);
@@ -113,26 +110,16 @@ namespace Luftschiff.Code.States {
             //make the button another color to notify the user
             if (Globals.TurnHandler.HasStackedActions)
             {
-                turnButton.ForceAttention = true;
-                turnButton.ClickSound = true;
+                _turnButton.ForceAttention = true;
+                _turnButton.ClickSound = true;
             }
             else
             {
-                turnButton.ClickSound = false;
-                turnButton.ForceAttention = false;
+                _turnButton.ClickSound = false;
+                _turnButton.ForceAttention = false;
             }
             //has to be updated last as it consumes all click events that hit nothing
             _currentArea.update();
-        }
-
-        /// <summary>
-        /// gets called by the turnhandler via globals, and should execute the monsters damage on the areas
-        /// rooms
-        /// </summary>
-        public void ExecuteMonsterAttack()
-        {
-            //todo: write monster attacks
-            CurrentMonster.makeTurnDamage();
         }
     }
 }

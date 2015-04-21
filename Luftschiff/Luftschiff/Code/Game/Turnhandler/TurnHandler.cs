@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
 using Luftschiff.Code.Game.AreavRooms;
-using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Turnhandler;
-using SFML.System;
+using Luftschiff.Code.Global;
 
 namespace Luftschiff.Code.Game
 {
     /// <summary>
-    /// The class that queues the user scheduled actions
+    ///     The class that queues the user scheduled actions
     /// </summary>
-    class TurnHandler
+    internal class TurnHandler
     {
-        private Area _areaReference;
-        private readonly States.Game _gameReference;
+        //references to other important classes via the global for convenience
+        private readonly Area _areaReference = Globals.AreaReference;
+        private readonly States.Game _gameReference = Globals.GameReference;
+        //action lists
         private readonly List<CrewTarget> _crewTargets;
-        private readonly List<WeaponTarget> _weaponTargets; 
+        private readonly List<WeaponTarget> _weaponTargets;
 
-        public TurnHandler(Area areaReference, States.Game game)
+        public TurnHandler()
         {
-            _areaReference = areaReference;
-            _gameReference = game;
             _crewTargets = new List<CrewTarget>();
             _weaponTargets = new List<WeaponTarget>();
         }
 
         /// <summary>
-        /// check whether there are any actions to be executed
+        ///     check whether there are any actions to be executed
         /// </summary>
         public bool HasStackedActions
         {
@@ -39,40 +36,42 @@ namespace Luftschiff.Code.Game
         }
 
         /// <summary>
-        /// finds the hopefully shortest possible way to the chosen target room
+        ///     finds the hopefully shortest possible way to the chosen target room
         /// </summary>
-        /// <param name="crewMember"></param>
-        /// <param name="targetRoom"></param>
-        public void addCrewTarget(CrewMember crewMember, Room targetRoom)
+        /// <param name="crewMember">The crewmember to move</param>
+        /// <param name="targetRoom">The room to send the crewmember to</param>
+        //TODO: jan-ole: improve pathfinding algorithm for later problems
+        public void AddCrewTarget(CrewMember crewMember, Room targetRoom)
         {
             //ERRORSOURCE  weird crew movements 
             //intialize variables
-            Room work = crewMember.CurrentRoom;
-            List<Room> way = new List<Room>();
+            var work = crewMember.CurrentRoom;
+            var way = new List<Room>();
             Room merk;
             way.Add(work);
-            int whilebreaker = 0;
+            var whilebreaker = 0;
             float mindistance;
             //loop till target is found or whilebreaker says target is noct reachable
-            while (!way.Contains(targetRoom)&& whilebreaker < 10)
+            while (!way.Contains(targetRoom) && whilebreaker < 10)
             {
                 // pseudo min distance to get it work 
                 mindistance = 10000000;
                 merk = work;
                 // look after the attributes of all near rooms
-                for (int i = 0; i < work._nearRooms.Count; i++)
+                for (var i = 0; i < work._nearRooms.Count; i++)
                 {
                     // break loop with target on last place
                     if (work._nearRooms.ElementAt(i) == targetRoom || merk == targetRoom)
                     {
                         merk = targetRoom;
-                       // Console.WriteLine("found target");
+                        // Console.WriteLine("found target");
                     }
-                        // checks every not used room nearby if it is the closest to the target
-                    else if (work._nearRooms.ElementAt(i).iswalkable()&&!way.Contains(work._nearRooms.ElementAt(i)))
+                    // checks every not used room nearby if it is the closest to the target
+                    else if (work._nearRooms.ElementAt(i).iswalkable() && !way.Contains(work._nearRooms.ElementAt(i)))
                     {
-                        Room possiblenext = work._nearRooms.ElementAt(i);
-                        float distanceToTarget = (float)Global.Util.GetDistancebeweenVector2f(possiblenext.Position,targetRoom.Position);
+                        var possiblenext = work._nearRooms.ElementAt(i);
+                        var distanceToTarget =
+                            (float) Util.GetDistancebeweenVector2f(possiblenext.Position, targetRoom.Position);
                         //distance to target compare
                         if (distanceToTarget < mindistance)
                         {
@@ -80,65 +79,59 @@ namespace Luftschiff.Code.Game
                             merk = possiblenext;
                             //Console.WriteLine("Raum gemerkt");
                         }
-
                     }
                 }
-           
+
                 //break for the loop if there is no possible way to go 
                 if (merk == work)
                 {
                     whilebreaker = 10;
                     //Console.WriteLine("needed whilbreaker");
                 }
-                    // add best possiblitiy to reach target 
+                // add best possiblitiy to reach target 
                 else
                 {
                     way.Add(merk);
                     work = merk;
-                   // Console.WriteLine("schleife zum weg hinzugefugt");
-                } 
+                    // Console.WriteLine("schleife zum weg hinzugefugt");
+                }
                 whilebreaker++;
             }
             // sets the needed CrewTarget going through the list
             way.RemoveAt(0);
-            for (int k = way.Count - 1; k >= 0 && whilebreaker != 10; k--)
+            for (var k = way.Count - 1; k >= 0 && whilebreaker != 10; k--)
             {
                 if (k == way.Count - 1)
                 {
-                    Console.WriteLine(way.Count-k);
+                    Console.WriteLine(way.Count - k);
                     //Console.WriteLine("target");
-                    _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k),k, true));
+                    _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k), k, true));
                 }
                 else
                 {
                     Console.WriteLine(way.Count - k);
                     //Console.WriteLine("waypoint");
-                    _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k),k, false));
+                    _crewTargets.Add(new CrewTarget(crewMember, way.ElementAt(k), k, false));
                 }
             }
         }
-            //TODO: jan-ole: improve pathfinding algorithm for later problems
-
-        //TODO: funktion aussortieren, da nun addCrewTarget benutzt wird und das hier quasi keinen sinn mehr hat
-        public void addCrewPath(CrewMember crewMember, List<Room> path)
-        {
-            
-        }
 
         /// <summary>
-        /// Calls the inflictDamage in shootyPointy on monster on this rounds end
+        ///     Adds a target for the room, so the turnhandler initializes an attack in ending this turn
         /// </summary>
-        public void addRoomTarget(Room shootyPointy, Monster monster)
+        public void AddWeaponTarget(Room shootyPointy, Monster monster)
         {
             _weaponTargets.Add(new WeaponTarget(shootyPointy, monster, 0));
         }
 
         /// <summary>
-        /// execute all actions for this turn
+        ///     execute all actions for this turn, and call the monster attack
         /// </summary>
-        public void executeTurn(){
+        public void ExecuteTurn()
+        {
             //kk now execute all the actions
-            foreach (var c in _weaponTargets) {
+            foreach (var c in _weaponTargets)
+            {
                 if (c.NeededActions == 0)
                     c.FiringRoom.inflictDamage(c.Target, true);
                 c.NeededActions--;
@@ -150,7 +143,7 @@ namespace Luftschiff.Code.Game
                 {
                     _areaReference.RepositionCrew(c.Crew, c.Target);
                 }
-                if(c.NeededActions < 0)
+                if (c.NeededActions < 0)
                     throw new IndexOutOfRangeException("action not removed!");
                 //invalid for finished actions to be able to clean it up
                 if (c.NeededActions == 0)
@@ -172,7 +165,12 @@ namespace Luftschiff.Code.Game
             _weaponTargets.RemoveAll(s => s.NeededActions < 0);
 
             //start dragon attack
-            _gameReference.ExecuteMonsterAttack();
+            ExecuteMonsterAttack();
+        }
+
+        private void ExecuteMonsterAttack()
+        {
+            _gameReference.CurrentMonster.makeTurnDamage();
         }
     }
 }

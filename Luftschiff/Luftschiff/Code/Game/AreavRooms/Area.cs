@@ -11,7 +11,7 @@ namespace Luftschiff.Code.Game.AreavRooms
     {
         public int Life { get; set; }
         private int _maxLife = 1000;
-        private States.Game _gameReference;
+        private States.Game _gameReference = Globals.GameReference;
 
         public enum RoomTypes
         {
@@ -31,10 +31,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         private List<Room> rooms_;
         private static List<CrewMember> crew_ ;
 
-        public Area(States.Game game)
+        public Area()
         {
-            //save references for later use
-            _gameReference = game;
+            //create lists
             rooms_ = new List<Room>();
             crew_ = new List<CrewMember>();
             Life = 1000;
@@ -163,7 +162,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                     {
                         Console.WriteLine("crewmember will move or not");
                         //directly call turnhandler, moving control from the crew here
-                        Globals.TurnHandler.addCrewTarget(MouseHandler.SelectedCrew, clickedRoom);
+                        Globals.TurnHandler.AddCrewTarget(MouseHandler.SelectedCrew, clickedRoom);
                         MouseHandler.UnhandledClick = false;
                     }
                 }

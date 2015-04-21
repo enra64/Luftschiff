@@ -2,6 +2,7 @@
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace Luftschiff.Code.Dialogs
 {
@@ -12,6 +13,13 @@ namespace Luftschiff.Code.Dialogs
         private FloatRect _buttonRect;
         private Color _normalColor, _hoverColor, _attentionColor;
         public String Tag = null;
+        private bool _activationButtonConsumed = false;
+
+        //ERRORSOURCE: uses F15 as null key
+        /// <summary>
+        /// Key used to activate this button
+        /// </summary>
+        public Keyboard.Key ActivationKey { get; set; }
         
         /// <summary>
         /// set whether a click sound is played when the user clicks that button
@@ -25,17 +33,24 @@ namespace Luftschiff.Code.Dialogs
 
         private void commonConstructor(String text, Vector2f position, Vector2f size, String tag)
         {
-            _buttonText = new Text(text, Globals.DialogFont);
-            _buttonText.Position = position;
-            _buttonText.Color = Color.Black;
+            //init activation key as f15 because no one will use that
+            ActivationKey = Keyboard.Key.F15;
+
+            _buttonText = new Text(text, Globals.DialogFont)
+            {
+                Position = position,
+                Color = Color.Black
+            };
 
             _buttonRect = new FloatRect(position, size);
 
-            _buttonShape = new RectangleShape(size);
-            _buttonShape.FillColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
-            _buttonShape.Position = position;
-            _buttonShape.OutlineColor = Color.Black;
-            _buttonShape.OutlineThickness = 2f;
+            _buttonShape = new RectangleShape(size)
+            {
+                FillColor = Globals.DIALOG_BUTTON_COLOR_NORMAL,
+                Position = position,
+                OutlineColor = Color.Black,
+                OutlineThickness = 2f
+            };
 
             _normalColor = Globals.DIALOG_BUTTON_COLOR_NORMAL;
             _hoverColor = Globals.DIALOG_BUTTON_COLOR_HOVER;
@@ -64,19 +79,31 @@ namespace Luftschiff.Code.Dialogs
                 _hoverColor = hoverColor;
         }
 
-        public void draw()
+        public void Draw()
         {
             Controller.Window.Draw(_buttonShape);
             Controller.Window.Draw(_buttonText);
         }
 
-        
-
         /// <summary>
-        /// Returns whether the button was clicked
+        /// Returns whether the button was clicked or its key pressed
         /// </summary>
-        /// <returns>Whether the button was clicked</returns>
-        public Boolean update(){
+        /// <returns>Whether the button was activated</returns>
+        public Boolean Update()
+        {
+            //check whether a button has been set
+            if (ActivationKey != Keyboard.Key.F15)
+            {
+                //check whether the correct button is pressed and not yet consumed
+                if (Keyboard.IsKeyPressed(ActivationKey) && !_activationButtonConsumed)
+                {
+                    _activationButtonConsumed = true;
+                    return true;
+                }
+                //deconsume the buttonpress
+                else if(!Keyboard.IsKeyPressed(ActivationKey))
+                    _activationButtonConsumed = false;
+            }
             //get position
             Vector2f currentMousePosition = MouseHandler.CurrentPosition;
 

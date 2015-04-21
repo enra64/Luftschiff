@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace Luftschiff.Code.Dialogs {
     class TwoButtonDialog : Luftschiff.Code.States.Dialog
@@ -65,7 +66,10 @@ namespace Luftschiff.Code.Dialogs {
 
             var buttonSize = new Vector2f(Size.X / 2, Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
             _yesButton = new Button(yes, leftButtonPosition, buttonSize);
+            _yesButton.ActivationKey = Keyboard.Key.Num0;
+
             _noButton = new Button(no, rightButtonPosition, buttonSize);
+            _noButton.ActivationKey = Keyboard.Key.Num1;
         }
 
         /// <summary>
@@ -102,8 +106,8 @@ namespace Luftschiff.Code.Dialogs {
             Controller.Window.Draw(background);
             Controller.Window.Draw(_messageText);
             Controller.Window.Draw(_titleText);
-            _noButton.draw();
-            _yesButton.draw();
+            _noButton.Draw();
+            _yesButton.Draw();
         }
 
         /// <summary>
@@ -114,12 +118,12 @@ namespace Luftschiff.Code.Dialogs {
         public override void update()
         {
             _userInteracted = false;
-            if (_yesButton.update())
+            if (_yesButton.Update())
             {
                 _yesClicked = true;
                 _userInteracted = true;
             }
-            if (_noButton.update())
+            if (_noButton.Update())
             {
                 _yesClicked = false;
                 _userInteracted = true;
