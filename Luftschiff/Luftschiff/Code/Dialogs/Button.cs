@@ -101,7 +101,7 @@ namespace Luftschiff.Code.Dialogs
                     return true;
                 }
                 //deconsume the buttonpress
-                else if(!Keyboard.IsKeyPressed(ActivationKey))
+                if(!Keyboard.IsKeyPressed(ActivationKey))
                     _activationButtonConsumed = false;
             }
             //get position
