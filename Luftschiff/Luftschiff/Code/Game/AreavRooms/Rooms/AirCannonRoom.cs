@@ -57,7 +57,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void inflictDamage(Monster monster, bool hits)
         {
             //add sfx
-            _cannonball = new CannonBall(monster.Center, Center, monster);
+            _cannonball = new CannonBall(this, monster);
             Collider.AddProjectile(_cannonball);
             new Sound(Globals.CannonSound).Play();
         }

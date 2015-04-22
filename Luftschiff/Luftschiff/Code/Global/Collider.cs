@@ -18,16 +18,30 @@ namespace Luftschiff.Code.Global
 
         public static void Update()
         {
+            /*
             foreach (var m in _monsterList)
             {
                 foreach (var w in _projectileList)
                 {
                     if (w.Position.X - 5f >= m.Position.X)
                     {
-                        w.OnImpact();
+                        w.WhileImpacting();
                     }
                 }
-            }
+            }*/
+            foreach(var w in _projectileList)
+                if (w.Position.X >= w.TargetMonster.Position.X)
+                {
+                    //if first call after impact, induce damage to monster
+                    if(!w.HasMadeDamage)
+                        w.TargetMonster.ReceiveDamageByShip(0, true);
+                    //damage has now been done
+                    w.HasMadeDamage = true;
+                    //call the WhileImpacting to signal the projectile that the impact happened
+                    w.WhileImpacting();
+                    //impact has occured
+                    w.ImpactHappened = true;
+                }
         }
 
         public static void AddMonster(Monster monster)

@@ -1,4 +1,5 @@
-﻿using Luftschiff.Code.Game.Monsters;
+﻿using Luftschiff.Code.Game.AreavRooms;
+using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Graphics.Lib;
 using SFML.Audio;
@@ -7,27 +8,13 @@ using SFML.System;
 
 namespace Luftschiff.Code.Game.Weapons
 {
-    internal class CannonBall : Projectile
+    internal class CannonBall : KineticProjectile
     {
-        private readonly Vector2f _direction;
         private readonly AnimatedSprite _explodingSprite;
-        private readonly Monster _targetMonster;
-        private bool _impactHappened, _playBool = true;
+        private bool _playBool = true;
 
-        public CannonBall(Vector2f target, Vector2f startposition, Monster targetMonster)
+        public CannonBall(Room startRoom, Monster targetMonster) : base(targetMonster, startRoom, Globals.CannonBallTexture)
         {
-            //init sprite first
-            Sprite = new Sprite(Globals.CannonBallTexture);
-            //set object position
-            Position = startposition;
-
-            //calculate direction
-            _direction = (target - startposition)/70;
-
-            //save monster for later
-            _targetMonster = targetMonster;
-            HasMadeDamage = false;
-
             //Wall of Sprite :/
             _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.1f), false, false, Position);
             Explosion = new Animation(Globals.Cannon_Explosion);
@@ -48,47 +35,36 @@ namespace Luftschiff.Code.Game.Weapons
             Explosion.AddFrame(new IntRect(388, 192, 96, 97));
         }
 
-        /// <summary>
-        ///     Set to true on Impact, used to handle sprite "deletion" and damage
-        /// </summary>
-        private bool HasMadeDamage { get; set; }
-
         private Animation Explosion { set; get; }
 
         public override void Update()
         {
             //move while impact has not happened
-            if (!_impactHappened)
-                Position += _direction;
-
+            if (!ImpactHappened)
+                Position += Direction;
             //stop moving, but play the sprite
-            if (_impactHappened)
+            else
                 SpritePlay();
         }
+
+        public override bool ShouldKill { get; set; }
 
         public override void Draw()
         {
             //only draw when not interacting and if no damage has been made yet
-            if (!_impactHappened && !HasMadeDamage)
+            if (!ImpactHappened && !HasMadeDamage)
                 Controller.Window.Draw(Sprite);
             //draw the explosion sprite on impact
-            if (_impactHappened)
+            if (ImpactHappened)
                 Controller.Window.Draw(_explodingSprite);
         }
 
         /// <summary>
-        ///     execute on impact
+        ///     Gets executed while the projectile is over its targetMonster
         /// </summary>
-        public override void OnImpact()
+        public override void WhileImpacting()
         {
-            _impactHappened = true;
-            //make damage
-            if (!HasMadeDamage)
-            {
-                //execute damage to monster, have to decide that better in the future (turnhandler maybe)
-                _targetMonster.ReceiveDamageByShip(0, true);
-                HasMadeDamage = true;
-            }
+            
         }
 
         /// <summary>
@@ -104,7 +80,11 @@ namespace Luftschiff.Code.Game.Weapons
             if (_explodingSprite.TimesPlayed*2 <= Explosion.GetSize())
                 _explodingSprite.Play(Explosion);
             else
-                _impactHappened = false;
+            {
+                //i have no idea why this is needed, but it is.
+                ImpactHappened = false;
+                ShouldKill = true;
+            }
 
             //play impact sound
             if (_playBool)
