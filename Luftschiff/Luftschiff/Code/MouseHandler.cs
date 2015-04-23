@@ -18,8 +18,41 @@ namespace Luftschiff {
         public static float ScrollingDelta { get; private set; }
         public static Vector2f CurrentPosition { get; private set; }
         public static Vector2f LastClickPosition { get; private set; }
-        public static Room SelectedRoom { get; set; }
-        public static CrewMember SelectedCrew { get; set; }
+
+        private static Room _selectedRoom;
+        private static CrewMember _selectedCrew;
+
+        public static Room SelectedRoom
+        {
+            get
+            {
+                return _selectedRoom;
+            }
+            set
+            {
+                if (value == null)
+                    Cursor.CursorMode(Cursor.Mode.Standard);
+                else if (value.IsAbleToTarget)
+                        Cursor.CursorMode(Cursor.Mode.Aim);
+                _selectedRoom = value;
+            }
+        }
+
+        public static CrewMember SelectedCrew
+        {
+            get
+            {
+                return _selectedCrew;
+            }
+            set
+            {
+                if (value == null)
+                    Cursor.CursorMode(Cursor.Mode.Standard);
+                else
+                    Cursor.CursorMode(Cursor.Mode.Move);
+                _selectedCrew = value;
+            }
+        }
 
 
         internal static void Click(object sender, MouseButtonEventArgs e) {

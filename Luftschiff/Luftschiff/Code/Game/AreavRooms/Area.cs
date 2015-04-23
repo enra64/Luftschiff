@@ -149,8 +149,6 @@ namespace Luftschiff.Code.Game.AreavRooms
                     {
                         MouseHandler.SelectedRoom = clickedRoom;
                         //Console.WriteLine("selected room");
-                        if(clickedRoom.IsAbleToTarget)
-                            Cursor.CursorMode(Cursor.Mode.Aim);
                         MouseHandler.UnhandledClick = false;
                     }
                         
@@ -159,7 +157,6 @@ namespace Luftschiff.Code.Game.AreavRooms
                     if (clickedCrew != null)
                     {
                         MouseHandler.SelectedCrew = clickedCrew;
-                        Cursor.CursorMode(Cursor.Mode.Move);
                         MouseHandler.UnhandledClick = false;
                     }
                     
@@ -167,7 +164,6 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //nothing was clicked, remove the selection
                     if (clickedRoom == null && clickedCrew == null)
                     {
-                        Cursor.CursorMode(Cursor.Mode.Standard);
                         MouseHandler.SelectedCrew = null;
                         MouseHandler.SelectedRoom = null;
                         //ERRORSOURCE: consumes click events that hit nothing, area must be updated last
