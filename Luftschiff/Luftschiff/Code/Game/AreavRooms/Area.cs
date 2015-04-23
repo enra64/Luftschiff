@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Projectiles;
 using SFML.Graphics;
@@ -187,6 +188,16 @@ namespace Luftschiff.Code.Game.AreavRooms
             
             foreach(var r in rooms_)
                 r.Update();
+
+            //show a "you died" dialog for now
+            if (Life <= 0)
+            {
+                bool restart = new TwoButtonDialog("Nochmal starten?", "Du bist gestorben.").show();
+                if(restart)
+                    Controller.LoadState(Globals.EStates.game);
+                else
+                    Controller.Window.Close();
+            }
         }
         /// <summary>
         /// draws every room added to the area

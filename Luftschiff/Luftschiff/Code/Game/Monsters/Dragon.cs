@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Management.Instrumentation;
+using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Global;
@@ -82,6 +83,14 @@ namespace Luftschiff.Code.Game.Monsters
             Sprite.Play(_flying);
             if(_fireBall != null)
                 _fireBall.Update();
+
+            if (Life <= 0) {
+                bool restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Drachen besiegt!").show();
+                if (restart)
+                    Controller.LoadState(Globals.EStates.game);
+                else
+                    Controller.Window.Close();
+            }
         }
 
         public override void Draw()

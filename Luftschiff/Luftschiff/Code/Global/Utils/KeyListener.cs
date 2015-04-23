@@ -1,30 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using SFML.Window;
 
-namespace Luftschiff.Code.Global.Utils {
+namespace Luftschiff.Code.Global.Utils
+{
     /// <summary>
-    /// Convenience class to reduce code when listening to keyboard keys
+    ///     Convenience class to reduce code when listening to keyboard keys
     /// </summary>
-    class KeyListener
+    internal class KeyListener
     {
         /// <summary>
-        /// save the key to listen to
+        ///     save the key to listen to
         /// </summary>
         private readonly Keyboard.Key _key;
 
         /// <summary>
-        /// Has the pressdown been registered?
+        ///     Has the pressdown been registered?
         /// </summary>
         private bool _clickWasRegistered;
 
         /// <summary>
-        /// Constructor for creating a listener to the top row num keys, index meaning the number itself,
-        /// so 1 => 1 and 0 => 0
+        ///     Constructor for creating a listener to the top row num keys, index meaning the number itself,
+        ///     so 1 => 1 and 0 => 0
         /// </summary>
         /// <param name="numKeyIndex"></param>
         public KeyListener(int numKeyIndex)
@@ -33,7 +29,7 @@ namespace Luftschiff.Code.Global.Utils {
         }
 
         /// <summary>
-        /// True _once_ after the button has been pressed down, and is reset on key up
+        ///     True _once_ after the button has been pressed down, and is reset on key up
         /// </summary>
         public bool IsClicked
         {
@@ -58,7 +54,10 @@ namespace Luftschiff.Code.Global.Utils {
         /// <summary>
         ///     Whether (and only that)the key is currently pressed down
         /// </summary>
-        public bool IsPressed { get { return Keyboard.IsKeyPressed(_key); } }
+        public bool IsPressed
+        {
+            get { return Keyboard.IsKeyPressed(_key); }
+        }
 
         private Keyboard.Key translateIntToNumKey(int keyIndex)
         {
