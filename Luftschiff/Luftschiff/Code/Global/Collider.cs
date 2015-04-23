@@ -14,6 +14,10 @@ namespace Luftschiff.Code.Global
     static class Collider
     {
         private static List<Projectile> _projectileList = new List<Projectile>();
+
+        /// <summary>
+        /// The amount of projectiles tracked by the collider
+        /// </summary>
         public static int ProjectileCount { get { return _projectileList.Count; } }
 
         public static void Update()
