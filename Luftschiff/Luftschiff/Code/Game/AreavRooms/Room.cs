@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
+using Luftschiff.Code.Global.Utils;
 using SFML.Graphics;
 using SFML.System;
 
@@ -20,6 +21,11 @@ namespace Luftschiff.Code.Game.AreavRooms
         // List to save and get accses to rooms nearby
         //protected List<Room> _nearRooms = new List<Room>();
         public List<Room> _nearRooms { get; set; }
+
+        /// <summary>
+        /// A convenience listener for the room shortcut key
+        /// </summary>
+        private KeyListener _keyListener;
 
         public Vector2f Position { get; set; }
 
@@ -204,10 +210,15 @@ namespace Luftschiff.Code.Game.AreavRooms
             _nearRooms = new List<Room>();
         }
 
+        public void AddKeyboardShortcut(int numkey)
+        {
+            _keyListener = new KeyListener(numkey);
+        }
+
         /// <summary>
         /// Initilizes tilemap in dependence of int[,] tilekind
         /// </summary>
-        public void initializeTilemap(Area.RoomTypes roomType)
+        protected void initializeTilemap(Area.RoomTypes roomType)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -258,6 +269,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public virtual void Update()
         {
+            //when the shortcut key is pressed, activate this rrom
+            if (_keyListener.IsClicked)
+                MouseHandler.SelectedRoom = this;
         }
     }
 }

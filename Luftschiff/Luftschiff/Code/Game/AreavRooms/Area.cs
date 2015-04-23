@@ -12,6 +12,7 @@ namespace Luftschiff.Code.Game.AreavRooms
     {
         public int Life { get; set; }
         private int _maxLife = 1000;
+        private int _currentRoomButton = 0;
         private States.Game _gameReference = Globals.GameReference;
 
         public enum RoomTypes
@@ -58,7 +59,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         /// add new room in an area
         /// </summary>
-        public void AddRoom(Room a)
+        public void AddRoom(Room newRoom)
         {
             //look for near rooms and save them in list
             FloatRect work = new FloatRect();
@@ -69,13 +70,20 @@ namespace Luftschiff.Code.Game.AreavRooms
                 work.Width = work.Width + 125;
                 work.Left = work.Left - 75;
                 work.Top = work.Top - 75;
-                if (work.Intersects(a.getRect()))
+                if (work.Intersects(newRoom.getRect()))
                 {
-                    a.addNearRooms(rooms_.ElementAt(i));
-                    rooms_.ElementAt(i).addNearRooms(a);
+                    newRoom.addNearRooms(rooms_.ElementAt(i));
+                    rooms_.ElementAt(i).addNearRooms(newRoom);
                 }
             }
-            rooms_.Add(a);
+            //increase room button for room keyboard shortcut system
+            _currentRoomButton++;
+            
+            //give the room its listener
+            newRoom.AddKeyboardShortcut(_currentRoomButton);
+
+            //add room to list
+            rooms_.Add(newRoom);
         }
 
         /// <summary>

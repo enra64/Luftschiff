@@ -39,6 +39,10 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public override void Update()
         {
+            //needs to be called if we want a shortcut
+            base.Update();
+
+            //draw cannonball if applicable
             if (_cannonball != null)
                 _cannonball.Update();
         }
