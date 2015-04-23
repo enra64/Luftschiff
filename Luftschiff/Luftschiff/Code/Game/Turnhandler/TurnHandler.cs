@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
@@ -130,6 +131,10 @@ namespace Luftschiff.Code.Game
         /// </summary>
         public void ExecuteTurn()
         {
+            //deny turn when projectiles are still flying
+            if (Collider.ProjectileCount > 0)
+                return;
+
             //check all weapon targets, and shoot those with 0 waiting turns
             foreach (var c in _weaponActions){
                 if (c.WaitingTurns == 0)
@@ -164,13 +169,19 @@ namespace Luftschiff.Code.Game
             _crewActions.RemoveAll(s => s.WaitingTurns < 0);
             _weaponActions.RemoveAll(s => s.WaitingTurns < 0);
 
-            //start dragon attack
-            ExecuteMonsterAttack();
+
+            Task.Run(() => ExecuteMonsterAttack());
         }
 
+        /// <summary>
+        /// Asnyc wait for the user attack to hit, then call the dragon attack
+        /// </summary>
         private void ExecuteMonsterAttack()
         {
-            _gameReference.CurrentMonster.AttackShip();
+            //wait until the user projectiles arrived
+            while (Collider.ProjectileCount > 0) ;
+            //start dragon attack
+            _gameReference.CurrentMonster.AttackShip(_areaReference);
         }
     }
 }

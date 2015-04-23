@@ -4,18 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Game.Projectiles;
 using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
 {
-    abstract class Room : Entity
+    /// <summary>
+    /// Room does not inherit any giant classes, because they constantly interfere with its usage
+    /// </summary>
+    abstract class Room : ITarget
     {
         //List to use when Crew-class implemented 
         protected List<CrewMember> crewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
         //protected List<Room> _nearRooms = new List<Room>();
         public List<Room> _nearRooms { get; set; }
+
+        public Vector2f Position { get; set; }
 
         /// <summary>
         /// detect whether the room can fire, so the cursor changes appropriately
@@ -31,7 +37,6 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected Tile[,] _tilemap= new Tile[4,4];
         protected List<Sprite> _additionalRoomSprites = new List<Sprite>(); 
 
-        //save which kind the room is
 
         /// <summary>
         /// this is called when a crewmember arrives in this room, and has no further rooms to go to
@@ -46,6 +51,10 @@ namespace Luftschiff.Code.Game.AreavRooms
                 traveler.WorkRoom();
         }
 
+        /// <summary>
+        /// Damages the element. Subject to change dictated by implementation of damage system
+        /// </summary>
+        /// <param name="damage">Amount of damage</param>
         public void ReceiveDamage(int damage)
         {
             _roomLife = _roomLife - damage;
@@ -53,7 +62,19 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 _roomLife = _roomLife - 10;  //template int for fire damage 
             }
+            //add area damage
+            Globals.AreaReference.Life -= 100;
             //TODO special damage for Crewdamage
+        }
+
+        /// <summary>
+        /// Returns true if the objects rectangle contains the position
+        /// </summary>
+        /// <param name="projectilePosition">The position to check</param>
+        /// <returns></returns>
+        public bool HasBeenHit(Vector2f projectilePosition)
+        {
+            return IsClickInside(projectilePosition);
         }
 
         public void SetOnFire(int roundsRoomIsBurning)
@@ -101,12 +122,26 @@ namespace Luftschiff.Code.Game.AreavRooms
             return array;
         }
 
-        public override FloatRect getRect()
+        public FloatRect getRect()
         {
             FloatRect tileSize = _tilemap[0, 0].Rect;
             tileSize.Width *= 4;
             tileSize.Height *= 4;
             return tileSize;
+        }
+
+        public Vector2f Center
+        {
+            get
+            {
+                FloatRect rect = getRect();
+                return new Vector2f(rect.Left + rect.Width / 2, rect.Top + rect.Height / 2);
+            }
+        }
+
+        public bool IsClickInside(Vector2f position)
+        {
+            return getRect().Contains(position.X, position.Y);
         }
 
         /// <summary>
@@ -163,9 +198,10 @@ namespace Luftschiff.Code.Game.AreavRooms
             //TODO add door number to tileMap numbers , needed Roomconnection list
         }
 
-        public Room(Vector2f position)
+        protected Room(Vector2f position)
         {
             Position = position;
+            _nearRooms = new List<Room>();
         }
 
         /// <summary>
@@ -187,7 +223,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public virtual void priorityDraw(){}
 
-        public override void draw()
+        public void Draw()
         {
             for (int i = 0; i < 4; i++)
             {
@@ -203,7 +239,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             // draw der crew
             for (int k = 0; k < crewList.Count; k++)
             {
-                crewList.ElementAt(k).draw();
+                crewList.ElementAt(k).Draw();
             }
         }
 
@@ -215,6 +251,13 @@ namespace Luftschiff.Code.Game.AreavRooms
         public bool iswalkable()
         {
             return _walkAble;
+        }
+
+        /// <summary>
+        /// Update function; 
+        /// </summary>
+        public virtual void Update()
+        {
         }
     }
 }

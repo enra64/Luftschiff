@@ -13,7 +13,7 @@ namespace Luftschiff.Code.Game.Weapons
         private readonly AnimatedSprite _explodingSprite;
         private bool _playBool = true;
 
-        public CannonBall(Room startRoom, Monster targetMonster) : base(targetMonster, startRoom, Globals.CannonBallTexture)
+        public CannonBall(Room startRoom, Monster target) : base(target, startRoom, Globals.CannonBallTexture)
         {
             //Wall of Sprite :/
             _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.1f), false, false, Position);
@@ -60,7 +60,7 @@ namespace Luftschiff.Code.Game.Weapons
         }
 
         /// <summary>
-        ///     Gets executed while the projectile is over its targetMonster
+        ///     Gets executed while the projectile is over its target
         /// </summary>
         public override void WhileImpacting()
         {
@@ -83,6 +83,8 @@ namespace Luftschiff.Code.Game.Weapons
             {
                 //i have no idea why this is needed, but it is.
                 ImpactHappened = false;
+
+                //signal the collider that this bullet should be killed
                 ShouldKill = true;
             }
 

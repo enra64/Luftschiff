@@ -11,7 +11,6 @@ namespace Luftschiff.Code {
     /// to be accessible from everywhere.
     /// </summary>
     static class Globals {
-        //static variables
         /// <summary>
         /// Contains possible gamestates
         /// </summary>
@@ -83,10 +82,12 @@ namespace Luftschiff.Code {
         public static Texture CursorAim;
 
 
+        public static Texture CannonBallTexture;
+        public static Texture FireBallTexture;
+
         public static TurnHandler TurnHandler;
         public static Area AreaReference;
         public static Texture CrewTexture;
-        public static Texture CannonBallTexture;
         public static SoundBuffer CannonSound;
         public static Texture Cannon_Explosion;
         public static SoundBuffer ClickSound;

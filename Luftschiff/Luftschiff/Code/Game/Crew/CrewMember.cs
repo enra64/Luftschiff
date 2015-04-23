@@ -29,7 +29,7 @@ namespace Luftschiff.Code.Game.Crew {
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
         }
 
-        public override void draw()
+        public void Draw()
         {
             Controller.Window.Draw(useAnAnimatedSprite);
         }
@@ -67,7 +67,7 @@ namespace Luftschiff.Code.Game.Crew {
             return whatever;
         }
 
-        public override void update(){
+        public override void Update(){
         }
 
         public void setTarget(List<Room> targets ,Vector2f clickposition){

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Game.Weapons;
 using Luftschiff.Code.Global;
 using SFML.Audio;
@@ -16,7 +17,6 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             tilekind = loadStandardTilekinds(1);
             initializeTilemap(Area.RoomTypes.AirCannon);
-            _nearRooms = new List<Room>();
 
             //add additonal sprite: weapon
             var gunSprite = new Sprite(Globals.GunTexture);
@@ -37,7 +37,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             get { return true; }
         }
 
-        public override void update()
+        public override void Update()
         {
             if (_cannonball != null)
                 _cannonball.Update();

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Management.Instrumentation;
+using Luftschiff.Code.Game.AreavRooms;
+using Luftschiff.Code.Game.Projectiles;
+using Luftschiff.Code.Global;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
@@ -8,6 +12,7 @@ namespace Luftschiff.Code.Game.Monsters
     internal class Dragon : Monster
     {
         private readonly Animation _flying;
+        private FireBall _fireBall;
 
         public Dragon(Texture t, int life) : base(life)
         {
@@ -32,26 +37,34 @@ namespace Luftschiff.Code.Game.Monsters
         public Dragon() : this(Globals.DragonTexture, 1000){}
 
 
-
         /// <summary>
         ///     makes damage to a room when the turn ends
         /// </summary>
-        public override int AttackShip()
+        /// <param name="areaReference"></param>
+        public override int AttackShip(Area areaReference)
         {
-            Globals.AreaReference.Life -= 100;
-            return 100;
+            //create projectile to attack the ship
+            _fireBall = new FireBall(areaReference.GetRandomRoom(0), this, Globals.FireBallTexture);
+            Collider.AddProjectile(_fireBall);
+            return -1;
         }
 
-        public override void ReceiveDamageByShip(int type, bool hits)
+        public override void ReceiveDamage(int damageAmount)
         {
-            if (hits)
+            //hit boolean?
+            if (true)
                 Life -= 100;
             if (Life <= 0)
                 Console.WriteLine("dragon dead. much good.");
             Console.WriteLine("the dragon has been shot at. it does give 1/10 of a shit.");
         }
 
-        public override void update()
+        public override bool HasBeenHit(Vector2f projectilePosition)
+        {
+            return IsClickInside(projectilePosition);
+        }
+
+        public override void Update()
         {
             //if an unhandled click is available and a room is selected, check whether the dragon is right clicked
             if (MouseHandler.UnhandledClick && MouseHandler.SelectedRoom != null)
@@ -67,14 +80,18 @@ namespace Luftschiff.Code.Game.Monsters
             //play dragon sprite animation
             Sprite.Update(Globals.FRAME_TIME);
             Sprite.Play(_flying);
+            if(_fireBall != null)
+                _fireBall.Update();
         }
 
-        public override void draw()
+        public override void Draw()
         {
             if (Life > 0)
             {
-                base.draw();
+                Controller.Window.Draw(Sprite);
             }
+            if (_fireBall != null)
+                _fireBall.Draw();
         }
     }
 }

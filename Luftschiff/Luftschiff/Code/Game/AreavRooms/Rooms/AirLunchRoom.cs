@@ -17,11 +17,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             {
                 tilekind = loadStandardTilekinds(2);
                 initializeTilemap(Area.RoomTypes.AirLunch);
-                _nearRooms = new List<Room>();
             }
-        }
-        public override void update()
-        {
         }
     }
 }

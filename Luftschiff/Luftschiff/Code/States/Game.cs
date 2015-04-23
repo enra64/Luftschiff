@@ -55,7 +55,6 @@ namespace Luftschiff.Code.States {
             _currentArea.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
             
             _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
-            Collider.AddMonster(CurrentMonster);
 
             //init turnbutton with space for activation
             _turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
@@ -71,10 +70,13 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public override void draw() {
             Controller.Window.Draw(_backgroundSprite);
-            CurrentMonster.draw(); 
-            //_currentArea area draw 
-            _currentArea.draw();
             
+            //_currentArea area draw 
+            _currentArea.Draw();
+            
+            //monster draw
+            CurrentMonster.Draw(); 
+
             //draw the turn button
             _turnButton.Draw();
 
@@ -99,7 +101,7 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public override void update()
         {
-            CurrentMonster.update();
+            CurrentMonster.Update();
             
             //execute the turn when the user clicks the turn button
             if (_turnButton.Update()){
@@ -121,7 +123,7 @@ namespace Luftschiff.Code.States {
                 _turnButton.ForceAttention = false;
             }
             //has to be updated last as it consumes all click events that hit nothing
-            _currentArea.update();
+            _currentArea.Update();
         }
     }
 }

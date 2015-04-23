@@ -20,15 +20,15 @@ namespace Luftschiff.Code.Game.Projectiles
         /// <summary>
         ///     Monster the projectile is aimed at
         /// </summary>
-        public readonly Monster TargetMonster;
+        public readonly ITarget Target;
 
         /// <summary>
-        ///     Set the targetMonster monster and init ImpactHappened, HasMadeDamage to false
+        ///     Set the target monster and init ImpactHappened, HasMadeDamage to false
         /// </summary>
-        /// <param name="targetMonster">The targetMonster monster</param>
-        public Projectile(Monster targetMonster)
+        /// <param name="target">The target monster</param>
+        public Projectile(ITarget target)
         {
-            TargetMonster = targetMonster;
+            Target = target;
             ImpactHappened = false;
             HasMadeDamage = false;
         }

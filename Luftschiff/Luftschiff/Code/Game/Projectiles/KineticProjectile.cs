@@ -23,19 +23,19 @@ namespace Luftschiff.Code.Game.Projectiles
         /// <summary>
         /// The room the projectile started in
         /// </summary>
-        private Room StartRoom;
+        private ITarget StartRoom;
 
         /// <summary>
-        /// set the targetMonster monster, init impacthappened & shouldkill => false, calculate direction,
+        /// set the target monster, init impacthappened & shouldkill => false, calculate direction,
         /// add spritem set startposition
         /// </summary>
-        /// <param name="targetMonster">Projectile targetMonster</param>
+        /// <param name="target">Projectile target</param>
         /// <param name="startRoom">Projectile start</param>
         /// <param name="projectileTexture">The texture the Projectile should use</param>
-        public KineticProjectile(Monster targetMonster, Room startRoom, Texture projectileTexture) : base(targetMonster)
+        public KineticProjectile(ITarget target, ITarget startRoom, Texture projectileTexture) : base(target)
         {
             //calculate direction for straight space traversal
-            Direction = (targetMonster.Center - startRoom.Center) / 70;
+            Direction = (target.Center - startRoom.Center) / 70;
             
             //save room
             StartRoom = startRoom;

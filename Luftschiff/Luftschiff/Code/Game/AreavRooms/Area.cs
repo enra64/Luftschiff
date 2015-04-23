@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Luftschiff.Code.Game.Crew;
+using Luftschiff.Code.Game.Projectiles;
 using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
 {
-    class Area : Entity
+    class Area : Object
     {
         public int Life { get; set; }
         private int _maxLife = 1000;
@@ -53,6 +54,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             return rooms_;
         }
+
         /// <summary>
         /// add new room in an area
         /// </summary>
@@ -94,7 +96,17 @@ namespace Luftschiff.Code.Game.AreavRooms
             c.CurrentRoom = null;
         }
 
-        public override void update()
+        /// <summary>
+        /// Get a room to damage, used by the dragon to get one.
+        /// </summary>
+        /// <param name="position">Influence the choice</param>
+        /// <returns></returns>
+        public ITarget GetRandomRoom(int position)
+        {
+            return rooms_.ElementAt(position % rooms_.Count);
+        } 
+
+        public void Update()
         {
             #region Check Rooms and Crew for Clicks
             if (MouseHandler.UnhandledClick)
@@ -107,13 +119,13 @@ namespace Luftschiff.Code.Game.AreavRooms
                 
                 //check crew for click
                 foreach (CrewMember c in crew_)
-                    if (c.CheckClick(lastClickPosition))
+                    if (c.IsClickInside(lastClickPosition))
                         clickedCrew = c;
 
                 //check rooms for click
                 if (clickedCrew == null)
                     foreach (Room r in rooms_)
-                        if (r.CheckClick(lastClickPosition))
+                        if (r.IsClickInside(lastClickPosition))
                             clickedRoom = r;
 
 
@@ -169,17 +181,17 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             #endregion
             
-            foreach(Room r in rooms_)
-                r.update();
+            foreach(var r in rooms_)
+                r.Update();
         }
         /// <summary>
         /// draws every room added to the area
         /// </summary>
-        public override void draw()
+        public override void Draw()
         {
             for (int i = 0; i < rooms_.Count; i++)
             {
-                rooms_.ElementAt(i).draw();
+                rooms_.ElementAt(i).Draw();
             }
             foreach (var room in rooms_)
                 room.priorityDraw();

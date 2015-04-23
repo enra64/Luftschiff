@@ -14,11 +14,6 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public GroundTavern(Vector2f position) : base(position)
         {
-            _nearRooms = new List<Room>();
-        }
-
-        public override void update()
-        {
         }
     }
 }
