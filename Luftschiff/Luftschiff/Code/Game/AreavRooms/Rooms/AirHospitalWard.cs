@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using SFML.System;
+using SFML.Graphics;
 
 namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
@@ -15,6 +16,15 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             tilekind = loadStandardTilekinds(2);
             initializeTilemap(Area.RoomTypes.AirHospital);
+
+            var wardSprite = new Sprite(Globals.HospitalTexture);
+
+            //guess position by using the position of the tiles
+            wardSprite.Position = _tilemap[1, 1].Position;
+            wardSprite.Scale = new Vector2f(1.3f,1.3f);
+
+            //add to sprite list so it gets drawn automatically
+            _additionalRoomSprites.Add(wardSprite);
         }
         public override void Update()
         {

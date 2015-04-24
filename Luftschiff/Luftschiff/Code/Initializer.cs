@@ -51,6 +51,7 @@ namespace Luftschiff {
 
             Globals.EngineTexture = new Texture("Assets/Graphics/engine.png");
             Globals.GunTexture = new Texture("Assets/Graphics/CannonRoom/cannon2_hq.png");
+            Globals.HospitalTexture = new Texture("Assets/Graphics/hospitalwardspecial.png");
 
             Globals.FireBallTexture = new Texture("Assets/Graphics/fireball.png");
             Globals.CannonBallTexture = new Texture("Assets/Graphics/cannonball.png");

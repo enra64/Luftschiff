@@ -74,6 +74,7 @@ namespace Luftschiff.Code {
 
         public static Texture EngineTexture;
         public static Texture GunTexture;
+        public static Texture HospitalTexture;
 
         public static Texture TileFloor;
         public static Texture TileWall;
