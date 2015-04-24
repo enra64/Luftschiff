@@ -118,8 +118,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         public void Update()
         {
             #region Check Rooms and Crew for Clicks
-            if (MouseHandler.UnhandledClick)
-            {
+            if (MouseHandler.UnhandledClick){
                 Vector2f lastClickPosition = MouseHandler.LastClickPosition;
                 bool clickWasLeft = MouseHandler.Left;
                 //first, just detect what was clicked

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms.Rooms
@@ -15,6 +16,8 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             tilekind = loadStandardTilekinds(2);
             initializeTilemap(Area.RoomTypes.AirEngine);
+
+            var engineSprite = new Sprite(Globals.EngineTexture);
         }
     }
 }
