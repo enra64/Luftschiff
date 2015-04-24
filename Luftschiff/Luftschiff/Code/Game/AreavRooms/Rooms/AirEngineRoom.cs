@@ -17,7 +17,18 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             tilekind = loadStandardTilekinds(2);
             initializeTilemap(Area.RoomTypes.AirEngine);
 
-            var engineSprite = new Sprite(Globals.EngineTexture);
+            //add additonal sprite: weapon
+            var engineSprite = new Sprite(Globals.EngineTexture)
+            {
+                //guess position by using the position of the tiles
+                Position = _tilemap[1, 1].Position,
+                
+                //make it look okay
+                Scale = new Vector2f(1.65f, 1.45f)
+            };
+
+            //add to sprite list so it gets drawn automatically
+            _additionalRoomSprites.Add(engineSprite);
         }
     }
 }
