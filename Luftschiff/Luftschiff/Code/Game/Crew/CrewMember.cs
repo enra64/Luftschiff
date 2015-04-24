@@ -14,7 +14,7 @@ namespace Luftschiff.Code.Game.Crew {
 
         //possible abilities
         //TODO add or remove abilities
-        private int _health = 100;
+        public int _health{get;set;}
         private int _actionPoints = 1;
         private int _repairSpeed = 1;
         private int _slackFireSpeed = 1;
@@ -27,6 +27,7 @@ namespace Luftschiff.Code.Game.Crew {
         {
             CurrentRoom = firstRoom;
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
+            _health = 100;
         }
 
         public void Draw()
