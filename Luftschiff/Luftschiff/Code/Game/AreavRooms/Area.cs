@@ -62,6 +62,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public void AddRoom(Room newRoom)
         {
+            //ERRORSOURCE 
             //look for near rooms and save them in list
             FloatRect work = new FloatRect();
             for (int i = 0; i < rooms_.Count; i++)
@@ -184,7 +185,17 @@ namespace Luftschiff.Code.Game.AreavRooms
                 }
             }
             #endregion
-            
+
+            for (int i = 0; i < rooms_.Count; i++)
+            {
+                if (!rooms_.ElementAt(i).isAlive())
+                {
+                    rooms_.RemoveAt(i);
+                    i--;
+                }
+            }
+
+
             foreach(var r in rooms_)
                 r.Update();
 

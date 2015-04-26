@@ -63,7 +63,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <param name="damage">Amount of damage</param>
         public void ReceiveDamage(int damage)
         {
-            _roomLife = _roomLife - damage;
+            _roomLife = _roomLife - damage/5;
             if (_fireLife > 0)
             {
                 _roomLife = _roomLife - 10;  //template int for fire damage 
@@ -247,6 +247,13 @@ namespace Luftschiff.Code.Game.AreavRooms
             foreach(Sprite s in _additionalRoomSprites)
                 Controller.Window.Draw(s);
 
+            //draw Damage signs on room
+            //TODO insert damage pictures nearly as this rectangle
+            RectangleShape damage = new RectangleShape(new Vector2f(128,128));
+            damage.Position = Position;
+            damage.FillColor = new Color(20,0,0,(byte)(255-(_roomLife/100f)*255));         
+            Controller.Window.Draw(damage);
+
             // draw der crew
             for (int k = 0; k < crewList.Count; k++)
             {
@@ -262,6 +269,11 @@ namespace Luftschiff.Code.Game.AreavRooms
         public bool iswalkable()
         {
             return _walkAble;
+        }
+
+        public bool isAlive()
+        {
+            return _roomLife > 0;
         }
 
         /// <summary>
