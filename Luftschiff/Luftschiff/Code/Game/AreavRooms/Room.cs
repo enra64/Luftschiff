@@ -43,7 +43,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected int[,] tilekind = new int[4, 4];
         protected Tile[,] _tilemap= new Tile[4,4];
         protected List<Sprite> _additionalRoomSprites = new List<Sprite>();
-        
+
+        protected Text _shortcutIdentificationHelper;
+
         /// <summary>
         /// save the maximum possible life
         /// </summary>
@@ -220,9 +222,21 @@ namespace Luftschiff.Code.Game.AreavRooms
             _nearRooms = new List<Room>();
         }
 
+        /// <summary>
+        /// Adds a keyboard shortcut to the room, and an identification text for beginners
+        /// </summary>
+        /// <param name="numkey"></param>
         public void AddKeyboardShortcut(int numkey)
         {
             _keyListener = new KeyListener(numkey);
+            _shortcutIdentificationHelper = new Text
+            {
+                DisplayedString = numkey.ToString(),
+                Position = Position,
+                CharacterSize = 30,
+                Color = Color.Black,
+                Font = Globals.DialogFont
+            };
         }
 
         /// <summary>
@@ -269,6 +283,8 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 crewList.ElementAt(k).Draw();
             }
+
+            //draw ident text for beginners
         }
 
         public void addNearRooms(Room a)
