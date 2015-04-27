@@ -16,6 +16,11 @@ namespace Luftschiff.Code.Game.AreavRooms
     /// </summary>
     abstract class Room : ITarget
     {
+        /// <summary>
+        /// Shape to indicate selection
+        /// </summary>
+        private RectangleShape _indicatorShape;
+
         //List to use when Crew-class implemented 
         protected List<CrewMember> crewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
@@ -78,7 +83,8 @@ namespace Luftschiff.Code.Game.AreavRooms
             Globals.AreaReference.Life -= 90;
 
             Random a = new Random();
-            crewList.ElementAt(a.Next(crewList.Count))._health -= 10000;
+            if(crewList.Count > 0)
+                crewList.ElementAt(a.Next(crewList.Count))._health -= 10000;
             //TODO improve randomizer and stats for crewdamage
         }
 
@@ -218,6 +224,9 @@ namespace Luftschiff.Code.Game.AreavRooms
             Position = position;
             MaxLife = RoomLife;
             _nearRooms = new List<Room>();
+
+            //initialize the indicator shape
+            _indicatorShape = new RectangleShape();
         }
 
         public void AddKeyboardShortcut(int numkey)
@@ -237,6 +246,18 @@ namespace Luftschiff.Code.Game.AreavRooms
                     _tilemap[i, k] = new Tile(tilekind[i, k], new Vector2f(this.Position.X + 32 * i, Position.Y + 32 * k), roomType); //TODO let the vector fit to every file
                 }
             }
+
+            //get room size
+            var rect = getRect();
+
+            //because we only now have valid tile sizes, init the indicator rectangle now
+            _indicatorShape = new RectangleShape(new Vector2f(rect.Width, rect.Height))
+            {
+                Position = Position,
+                FillColor = Color.Transparent,
+                OutlineColor = Color.Transparent,
+                OutlineThickness = 2
+            };
         }
 
         /// <summary>
@@ -269,6 +290,18 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 crewList.ElementAt(k).Draw();
             }
+
+            //draw the indicatorrect
+            Controller.Window.Draw(_indicatorShape);
+        }
+
+        /// <summary>
+        ///     Show and hide the selectionindicator
+        /// </summary>
+        public void StartSelectionIndicator()
+        {
+            _indicatorShape.OutlineColor = Color.Green;
+            new System.Threading.Timer(obj => { _indicatorShape.OutlineColor = Color.Transparent; }, null, (long) 400, System.Threading.Timeout.Infinite);
         }
 
         public void addNearRooms(Room a)

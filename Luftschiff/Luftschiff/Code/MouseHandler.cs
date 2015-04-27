@@ -33,7 +33,10 @@ namespace Luftschiff {
                 if (value == null)
                     Cursor.CursorMode(Cursor.Mode.Standard);
                 else if (value.IsAbleToTarget)
-                        Cursor.CursorMode(Cursor.Mode.Aim);
+                {
+                    value.StartSelectionIndicator();
+                    Cursor.CursorMode(Cursor.Mode.Aim);
+                }
                 _selectedRoom = value;
             }
         }
@@ -49,7 +52,10 @@ namespace Luftschiff {
                 if (value == null)
                     Cursor.CursorMode(Cursor.Mode.Standard);
                 else
+                {
                     Cursor.CursorMode(Cursor.Mode.Move);
+                    value.StartSelectionIndicator();
+                }
                 _selectedCrew = value;
             }
         }
