@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Luftschiff.Code.Game.AreavRooms;
 using SFML.System;
 using System.Collections.Generic;
@@ -16,11 +17,10 @@ namespace Luftschiff.Code.Game.Crew {
         //TODO add or remove abilities
         public int _health{get;set;}
         private int _actionPoints = 1;
-        private int _repairSpeed = 1;
+        private int _repairSpeed = 4;
         private int _slackFireSpeed = 1;
         private int _weaponSkills = 1;
         private int _targetRoom = 0;
-        public bool HasJob = false;
 
 
         public CrewMember(Room firstRoom)
@@ -41,21 +41,36 @@ namespace Luftschiff.Code.Game.Crew {
         }
 
         /// <summary>
-        /// returns the amount of room heal by this crewmember
+        ///     Repairs the CurrentRoom by a certain amount
         /// </summary>
-        public int RepairRoom()
+        public void RepairRoom()
         {
+            //debug output
+            Console.WriteLine("repairing");
+            
             //should start repair animation
-            return 10 * _repairSpeed;
+            int repairAmount = 10*_repairSpeed;
+
+            //fix the roomlife ot the maximum posssible life
+            if (CurrentRoom.RoomLife + repairAmount > CurrentRoom.MaxLife)
+                CurrentRoom.RoomLife = CurrentRoom.MaxLife;
+            //maxlife not hit, add normal
+            else
+                CurrentRoom.RoomLife += 10 * _repairSpeed;
         }
 
         /// <summary>
-        /// returns the amount of fire kill by this crewmember
+        ///     Reduces the currentRoom FireLife by a certain amount
         /// </summary>
-        public int SlackFire()
+        public void SlackFire()
         {
+            Console.WriteLine("slacking fire");
             //start animation
-            return 10*_slackFireSpeed;
+            //detect impssible fire life values
+            if (CurrentRoom.FireLife - 10 * _slackFireSpeed < 0)
+                CurrentRoom.FireLife = 0;
+            else
+                CurrentRoom.FireLife -= 10 * _slackFireSpeed;
         }
 
         /// <summary>
@@ -63,6 +78,7 @@ namespace Luftschiff.Code.Game.Crew {
         /// </summary>
         public int WorkRoom()
         {
+            Console.WriteLine("working in room");
             //animation
             int whatever = 0;
             return whatever;

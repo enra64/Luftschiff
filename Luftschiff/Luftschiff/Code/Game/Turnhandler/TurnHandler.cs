@@ -158,12 +158,27 @@ namespace Luftschiff.Code.Game
                     {
                         //make the crew do the appropriate action at its target
                         c.Target.OnCrewArrive(c.Crew);
-                        c.Crew.HasJob = false;
                     }
                 }
                 //reduce wait turns for executed actions and actions to be executed
                 c.WaitingTurns--;
             }
+
+            //for each crew list check whether it has actions left
+            foreach (CrewMember c in Globals.AreaReference.CrewList)
+            {
+                //count the amount of actions the turnhandler has saved for a crewmember
+                int crewActionCount = _crewActions.Count(ca => ca.Crew == c);
+                //the crew has no actions (moves) left, so oncrewarrive can
+                //not have been executed yet, since the actions have not yet been
+                //deleted
+                if (crewActionCount == 0)
+                {
+                    //tell the room the crewmember is without a job, and that it should give him a job
+                    c.CurrentRoom.OnCrewArrive(c);
+                }
+            }
+
 
             //remove targets with invalid neededactions count to collect garbage
             _crewActions.RemoveAll(s => s.WaitingTurns < 0);
@@ -179,7 +194,7 @@ namespace Luftschiff.Code.Game
         private void ExecuteMonsterAttack()
         {
             //wait until the user projectiles arrived
-            while (Collider.ProjectileCount > 0) ;
+            while (Collider.ProjectileCount > 0);
             //start dragon attack
             _gameReference.CurrentMonster.AttackShip(_areaReference);
         }
