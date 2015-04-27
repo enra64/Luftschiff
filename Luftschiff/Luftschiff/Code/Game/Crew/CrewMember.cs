@@ -41,27 +41,36 @@ namespace Luftschiff.Code.Game.Crew {
         }
 
         /// <summary>
-        /// returns the amount of room heal by this crewmember
+        ///     Repairs the CurrentRoom by a certain amount
         /// </summary>
         public void RepairRoom()
         {
+            //debug output
             Console.WriteLine("repairing");
+            
             //should start repair animation
             int repairAmount = 10*_repairSpeed;
+
+            //fix the roomlife ot the maximum posssible life
             if (CurrentRoom.RoomLife + repairAmount > CurrentRoom.MaxLife)
                 CurrentRoom.RoomLife = CurrentRoom.MaxLife;
+            //maxlife not hit, add normal
             else
                 CurrentRoom.RoomLife += 10 * _repairSpeed;
         }
 
         /// <summary>
-        /// returns the amount of fire kill by this crewmember
+        ///     Reduces the currentRoom FireLife by a certain amount
         /// </summary>
         public void SlackFire()
         {
             Console.WriteLine("slacking fire");
             //start animation
-            CurrentRoom.FireLife -= 10*_slackFireSpeed;
+            //detect impssible fire life values
+            if (CurrentRoom.FireLife - 10 * _slackFireSpeed < 0)
+                CurrentRoom.FireLife = 0;
+            else
+                CurrentRoom.FireLife -= 10 * _slackFireSpeed;
         }
 
         /// <summary>
