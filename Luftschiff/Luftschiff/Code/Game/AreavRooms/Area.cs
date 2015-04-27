@@ -208,6 +208,16 @@ namespace Luftschiff.Code.Game.AreavRooms
                 else
                     Controller.Window.Close();
             }
+            //ERRORSOURCE Remove crew on death
+            for (int i = 0; i < CrewList.Count; i++)
+            {
+                if (CrewList.ElementAt(i)._health < 0)
+                {
+                    CrewList.RemoveAt(i);
+                    i--;
+                }
+            }
+
         }
         /// <summary>
         /// draws every room added to the area

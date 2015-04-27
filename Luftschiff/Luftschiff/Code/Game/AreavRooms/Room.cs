@@ -76,7 +76,10 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             //add area damage
             Globals.AreaReference.Life -= 90;
-            //TODO special damage for Crewdamage
+
+            Random a = new Random();
+            crewList.ElementAt(a.Next(crewList.Count))._health -= 10000;
+            //TODO improve randomizer and stats for crewdamage
         }
 
         /// <summary>
