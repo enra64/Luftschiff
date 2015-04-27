@@ -32,13 +32,13 @@ namespace Luftschiff.Code.Game.AreavRooms
         //list to fill with rooms;
         //rooms have the number of their position in list
         private List<Room> rooms_;
-        private static List<CrewMember> crew_ ;
+        public List<CrewMember> CrewList = new List<CrewMember>();
 
         public Area()
         {
             //create lists
             rooms_ = new List<Room>();
-            crew_ = new List<CrewMember>();
+            CrewList = new List<CrewMember>();
             Life = 1000;
         }
 
@@ -89,11 +89,11 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// Adds a crewmember to a room and to the area, sets the crewmembers room correctly
+        /// Adds a crewmember to a room and to the area, sets the crewmembers currentRoom correctly
         /// </summary>
         public void AddCrewToRoom(Room r, CrewMember c) {
             r.setCrewInRoom(c);
-            crew_.Add(c);
+            CrewList.Add(c);
             c.CurrentRoom = r;
         }
 
@@ -102,7 +102,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public void RemoveCrewFromRoom(Room r, CrewMember c) {
             r.RemoveCrewMember(c);
-            crew_.Remove(c);
+            CrewList.Remove(c);
             c.CurrentRoom = null;
         }
 
@@ -127,7 +127,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                 CrewMember clickedCrew = null;
                 
                 //check crew for click
-                foreach (CrewMember c in crew_)
+                foreach (CrewMember c in CrewList)
                     if (c.IsClickInside(lastClickPosition))
                         clickedCrew = c;
 
