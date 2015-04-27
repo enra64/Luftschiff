@@ -12,7 +12,7 @@ namespace Luftschiff.Code.Game.Projectiles
 {
     class FireBall : KineticProjectile
     {
-        //TODO Add a real class!
+   
         public FireBall(ITarget target, ITarget startRoom, Texture projectileTexture) : base(target, startRoom, projectileTexture)
         {
         }
