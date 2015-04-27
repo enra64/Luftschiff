@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Luftschiff.Code.Game.AreavRooms;
 using SFML.System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Luftschiff.Code.Game.Crew {
         //TODO add or remove abilities
         public int _health{get;set;}
         private int _actionPoints = 1;
-        private int _repairSpeed = 1;
+        private int _repairSpeed = 4;
         private int _slackFireSpeed = 1;
         private int _weaponSkills = 1;
         private int _targetRoom = 0;
@@ -42,19 +43,25 @@ namespace Luftschiff.Code.Game.Crew {
         /// <summary>
         /// returns the amount of room heal by this crewmember
         /// </summary>
-        public int RepairRoom()
+        public void RepairRoom()
         {
+            Console.WriteLine("repairing");
             //should start repair animation
-            return 10 * _repairSpeed;
+            int repairAmount = 10*_repairSpeed;
+            if (CurrentRoom.RoomLife + repairAmount > CurrentRoom.MaxLife)
+                CurrentRoom.RoomLife = CurrentRoom.MaxLife;
+            else
+                CurrentRoom.RoomLife += 10 * _repairSpeed;
         }
 
         /// <summary>
         /// returns the amount of fire kill by this crewmember
         /// </summary>
-        public int SlackFire()
+        public void SlackFire()
         {
+            Console.WriteLine("slacking fire");
             //start animation
-            return 10*_slackFireSpeed;
+            CurrentRoom.FireLife -= 10*_slackFireSpeed;
         }
 
         /// <summary>
@@ -62,6 +69,7 @@ namespace Luftschiff.Code.Game.Crew {
         /// </summary>
         public int WorkRoom()
         {
+            Console.WriteLine("working in room");
             //animation
             int whatever = 0;
             return whatever;

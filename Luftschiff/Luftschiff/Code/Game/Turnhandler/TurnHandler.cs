@@ -194,7 +194,7 @@ namespace Luftschiff.Code.Game
         private void ExecuteMonsterAttack()
         {
             //wait until the user projectiles arrived
-            while (Collider.ProjectileCount > 0) ;
+            while (Collider.ProjectileCount > 0);
             //start dragon attack
             _gameReference.CurrentMonster.AttackShip(_areaReference);
         }

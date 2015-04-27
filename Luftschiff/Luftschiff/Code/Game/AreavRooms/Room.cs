@@ -35,13 +35,19 @@ namespace Luftschiff.Code.Game.AreavRooms
         public virtual bool IsAbleToTarget { get { return false; } }
 
         //useful variables
-        protected int _fireLife = 0;
+        public int FireLife = 0;
         protected int _cooldown = 0;
-        protected int _roomLife = 100;
+        public int RoomLife = 100;
+        
         protected bool _walkAble = true;
         protected int[,] tilekind = new int[4, 4];
         protected Tile[,] _tilemap= new Tile[4,4];
-        protected List<Sprite> _additionalRoomSprites = new List<Sprite>(); 
+        protected List<Sprite> _additionalRoomSprites = new List<Sprite>();
+        
+        /// <summary>
+        /// save the maximum possible life
+        /// </summary>
+        public int MaxLife;
 
 
         /// <summary>
@@ -49,9 +55,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public virtual void OnCrewArrive(CrewMember traveler)
         {
-            if(_fireLife > 0)
+            if(FireLife > 0)
                 traveler.SlackFire();
-            else if (_roomLife < 100)
+            else if (RoomLife < 100)
                 traveler.RepairRoom();
             else
                 traveler.WorkRoom();
@@ -63,13 +69,13 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <param name="damage">Amount of damage</param>
         public void ReceiveDamage(int damage)
         {
-            _roomLife = _roomLife - damage/5;
-            if (_fireLife > 0)
+            RoomLife = RoomLife - damage/5;
+            if (FireLife > 0)
             {
-                _roomLife = _roomLife - 10;  //template int for fire damage 
+                RoomLife = RoomLife - 10;  //template int for fire damage 
             }
             //add area damage
-            Globals.AreaReference.Life -= 100;
+            Globals.AreaReference.Life -= 90;
             //TODO special damage for Crewdamage
         }
 
@@ -85,7 +91,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         public void SetOnFire(int roundsRoomIsBurning)
         {
-            this._fireLife = roundsRoomIsBurning;
+            this.FireLife = roundsRoomIsBurning;
         }
 
         /// <summary>
@@ -207,6 +213,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected Room(Vector2f position)
         {
             Position = position;
+            MaxLife = RoomLife;
             _nearRooms = new List<Room>();
         }
 
@@ -251,7 +258,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             //TODO insert damage pictures nearly as this rectangle
             RectangleShape damage = new RectangleShape(new Vector2f(128,128));
             damage.Position = Position;
-            damage.FillColor = new Color(20,0,0,(byte)(255-(_roomLife/100f)*255));         
+            damage.FillColor = new Color(20,0,0,(byte)(255-(RoomLife/100f)*255));         
             Controller.Window.Draw(damage);
 
             // draw der crew
@@ -273,7 +280,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         public bool isAlive()
         {
-            return _roomLife > 0;
+            return RoomLife > 0;
         }
 
         /// <summary>
