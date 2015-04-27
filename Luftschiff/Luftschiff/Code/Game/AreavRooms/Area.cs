@@ -108,11 +108,14 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         /// Get a room to damage, used by the dragon to get one.
         /// </summary>
-        /// <param name="position">Influence the choice</param>
-        /// <returns></returns>
+        /// <param name="position">-1 for random, valid values for specific</param>
         public ITarget GetRandomRoom(int position)
         {
-            return rooms_.ElementAt(position % rooms_.Count);
+            //return random room
+            if (position < 0)
+                return rooms_.ElementAt(new Random().Next(rooms_.Count));
+            //return room at position else
+            return rooms_.ElementAt(position%rooms_.Count);
         } 
 
         public void Update()

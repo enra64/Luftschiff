@@ -45,7 +45,7 @@ namespace Luftschiff.Code.Game.Monsters
         public override int AttackShip(Area areaReference)
         {
             //create projectile to attack the ship
-            _fireBall = new FireBall(areaReference.GetRandomRoom(0), this, Globals.FireBallTexture);
+            _fireBall = new FireBall(areaReference.GetRandomRoom(-1), this, Globals.FireBallTexture);
             Collider.AddProjectile(_fireBall);
             return -1;
         }
@@ -54,7 +54,7 @@ namespace Luftschiff.Code.Game.Monsters
         {
             //hit boolean?
             if (true)
-                Life -= 100;
+                Life -= 120;
             if (Life <= 0)
                 Console.WriteLine("dragon dead. much good.");
             Console.WriteLine("the dragon has been shot at. it does give 1/10 of a shit.");
