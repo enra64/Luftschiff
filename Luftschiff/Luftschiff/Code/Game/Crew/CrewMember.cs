@@ -4,12 +4,14 @@ using Luftschiff.Code.Game.AreavRooms;
 using SFML.System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using SFML.Graphics;
 
 namespace Luftschiff.Code.Game.Crew {
     class CrewMember : Entity
     {
+        private RectangleShape _indicatorShape;
         private Sprite useAnAnimatedSprite;
         public Room CurrentRoom{ get; set; }
 
@@ -28,11 +30,29 @@ namespace Luftschiff.Code.Game.Crew {
             CurrentRoom = firstRoom;
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
             _health = 100;
+
+            //init indicator rectangle
+            Vector2f size = new Vector2f(useAnAnimatedSprite.Scale.X*useAnAnimatedSprite.Texture.Size.X,
+                useAnAnimatedSprite.Scale.Y*useAnAnimatedSprite.Texture.Size.Y);
+            _indicatorShape = new RectangleShape(size)
+            {
+                Position = useAnAnimatedSprite.Position,
+                FillColor = Color.Transparent,
+                OutlineColor = Color.Transparent,
+                OutlineThickness = 2
+            };
+        }
+
+        public void StartSelectionIndicator()
+        {
+            _indicatorShape.OutlineColor = Color.Green;
+            new System.Threading.Timer(obj => { _indicatorShape.OutlineColor = Color.Transparent; }, null, (long) 400, System.Threading.Timeout.Infinite);
         }
 
         public void Draw()
         {
             Controller.Window.Draw(useAnAnimatedSprite);
+            Controller.Window.Draw(_indicatorShape);
         }
 
         public override FloatRect getRect()
@@ -100,6 +120,7 @@ namespace Luftschiff.Code.Game.Crew {
         public void setPosition(Vector2f newPosition)
         {
             useAnAnimatedSprite.Position = newPosition;
+            _indicatorShape.Position = newPosition;
         }
     }
 }
