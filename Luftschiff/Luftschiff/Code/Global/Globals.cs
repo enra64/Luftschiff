@@ -89,13 +89,15 @@ namespace Luftschiff.Code {
         public static Texture FireBallTexture;
 
         public static TurnHandler TurnHandler;
-        public static Area AreaReference;
         public static Texture CrewTexture;
-        public static SoundBuffer CannonSound;
         public static Texture Cannon_Explosion;
-        public static SoundBuffer ClickSound;
-        public static SoundBuffer Boom;
+
         public static States.Game GameReference;
-        
+        public static Area AreaReference;
+
+        public static SoundBuffer ClickSound;
+        public static SoundBuffer CannonSound;
+        public static SoundBuffer BoomSound;
+        public static SoundBuffer FireSound;
     }
 }

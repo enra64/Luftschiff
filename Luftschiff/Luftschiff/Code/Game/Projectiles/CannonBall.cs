@@ -91,7 +91,7 @@ namespace Luftschiff.Code.Game.Weapons
             //play impact sound
             if (_playBool)
             {
-                new Sound(Globals.Boom).Play();
+                new Sound(Globals.BoomSound).Play();
                 _playBool = false;
             }
         }

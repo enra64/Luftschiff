@@ -5,6 +5,7 @@ using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Global;
 using Luftschiff.Graphics.Lib;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
@@ -47,6 +48,7 @@ namespace Luftschiff.Code.Game.Monsters
             //create projectile to attack the ship
             _fireBall = new FireBall(areaReference.GetRandomRoom(-1), this, Globals.FireBallTexture);
             Collider.AddProjectile(_fireBall);
+            new Sound(Globals.FireSound).Play();
             return -1;
         }
 
