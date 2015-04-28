@@ -16,6 +16,7 @@ namespace Luftschiff.Code.Game.Projectiles
         public FireBall(ITarget target, ITarget startRoom, Texture projectileTexture) : base(target, startRoom, projectileTexture)
         {
             //Wall of Sprite :/
+            /*
             ImpactAnimationSprite = new AnimatedSprite(Time.FromSeconds(0.1f), false, false, Position);
             ImpactAnimation = new Animation(Globals.Cannon_Explosion);
             ImpactAnimation.AddFrame(new IntRect(0, 0, 96, 97));
@@ -32,7 +33,7 @@ namespace Luftschiff.Code.Game.Projectiles
             ImpactAnimation.AddFrame(new IntRect(97, 192, 96, 97));
             ImpactAnimation.AddFrame(new IntRect(194, 192, 96, 97));
             ImpactAnimation.AddFrame(new IntRect(291, 192, 96, 97));
-            ImpactAnimation.AddFrame(new IntRect(388, 192, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(388, 192, 96, 97));*/
         }
 
         public override void Update()

@@ -7,6 +7,7 @@ using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Global.Utils;
 using Luftschiff.Graphics.Lib;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 //god dammit i do not want to use a var if i dont need to
@@ -28,18 +29,20 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         ///     Animated Sprite for fire
         /// </summary>
-        private AnimatedSprite _fireSprite;
+        private readonly AnimatedSprite _fireSprite;
 
         /// <summary>
         ///     Animation for the fire
         /// </summary>
-        private Animation _fireAnimation;
+        private readonly Animation _fireAnimation;
 
         //List to use when Crew-class implemented 
         protected readonly List<CrewMember> crewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
         //protected List<Room> _nearRooms = new List<Room>();
         public List<Room> _nearRooms { get; private set; }
+
+        private Sound _cracklingFireSound;
 
         /// <summary>
         /// A convenience listener for the room shortcut key
@@ -107,13 +110,13 @@ namespace Luftschiff.Code.Game.AreavRooms
             RoomLife = RoomLife - damage/5;
             if (FireLife > 0)
             {
-                RoomLife = RoomLife - 10;  //template int for fire damage 
+                RoomLife -= 30;  //template int for fire damage 
             }
 
             //add area damage
             Globals.AreaReference.Life -= 90;
 
-            FireLife += 2;
+            SetOnFire(3);
 
             //TODO improve randomizer and stats for crewdamage
             Random a = new Random();
@@ -263,6 +266,9 @@ namespace Luftschiff.Code.Game.AreavRooms
             MaxLife = RoomLife;
             _nearRooms = new List<Room>();
 
+            //sound the room makes when on fire
+            _cracklingFireSound = new Sound(Globals.FireCrackleSound);
+
             //initialize the indicator shape
             _indicatorShape = new RectangleShape();
 
@@ -373,7 +379,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             _indicatorShape.OutlineColor = Color.Green;
             //hide warning because this is as designed
             // ReSharper disable once ObjectCreationAsStatement
-            new System.Threading.Timer(obj => { _indicatorShape.OutlineColor = Color.Transparent; }, null, (long) 400, System.Threading.Timeout.Infinite);
+            new System.Threading.Timer(obj => { _indicatorShape.OutlineColor = Color.Transparent; }, null, (long) 200, System.Threading.Timeout.Infinite);
         }
 
         private void ShowShortcutIdentification()
@@ -381,7 +387,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             ShortcutIdentificationHelper.Color = Color.Black;
             //hide warning because this is as designed
             // ReSharper disable once ObjectCreationAsStatement
-            new System.Threading.Timer(obj => { ShortcutIdentificationHelper.Color = Color.Transparent; }, null, (long) 2000, System.Threading.Timeout.Infinite);
+            new System.Threading.Timer(obj => { ShortcutIdentificationHelper.Color = Color.Transparent; }, null, (long) 1600, System.Threading.Timeout.Infinite);
         }
 
         public void addNearRooms(Room a)
@@ -407,6 +413,16 @@ namespace Luftschiff.Code.Game.AreavRooms
             //when the shortcut key is pressed, activate this rrom
             if (_keyListener.IsClicked)
                 MouseHandler.SelectedRoom = this;
+
+            //handle room burn
+            if (FireLife > 0)
+            {
+                //only make fire sound when the room is on fire and not yet playing a sound
+                if(_cracklingFireSound.Status == SoundStatus.Stopped || 
+                    _cracklingFireSound.Status == SoundStatus.Paused)
+                    _cracklingFireSound.Play();
+
+            }
         }
     }
 }

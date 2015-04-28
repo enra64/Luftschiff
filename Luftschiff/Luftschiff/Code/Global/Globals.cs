@@ -110,5 +110,6 @@ namespace Luftschiff.Code {
         public static SoundBuffer CannonSound;
         public static SoundBuffer BoomSound;
         public static SoundBuffer FireSound;
+        public static SoundBuffer FireCrackleSound;
     }
 }

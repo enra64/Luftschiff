@@ -87,10 +87,8 @@ namespace Luftschiff.Code.Game.Crew {
             Console.WriteLine("slacking fire");
             //start animation
             //detect impssible fire life values
-            if (CurrentRoom.FireLife - 10 * _slackFireSpeed < 0)
-                CurrentRoom.FireLife = 0;
-            else
-                CurrentRoom.FireLife -= 10 * _slackFireSpeed;
+            if (CurrentRoom.FireLife > 0)
+                CurrentRoom.FireLife -= 1*_slackFireSpeed;
         }
 
         /// <summary>

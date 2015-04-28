@@ -76,6 +76,7 @@ namespace Luftschiff {
             Globals.ClickSound = new SoundBuffer("Assets/Audio/buttonclick.flac");
             Globals.BoomSound = new SoundBuffer("Assets/Audio/cannon_boom.wav");
             Globals.FireSound = new SoundBuffer("Assets/Audio/fire_sound.wav");
+            Globals.FireCrackleSound = new SoundBuffer("Assets/Audio/firecrackle.wav");
         }
     }
 }
