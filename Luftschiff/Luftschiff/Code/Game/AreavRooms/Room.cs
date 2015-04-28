@@ -116,7 +116,9 @@ namespace Luftschiff.Code.Game.AreavRooms
             //add area damage
             Globals.AreaReference.Life -= 90;
 
-            SetOnFire(3);
+            //randomise ignition chance to make game more playable
+            if(RandomHelper.RandomTrue(33))
+                SetOnFire(3);
 
             //TODO improve randomizer and stats for crewdamage
             Random a = new Random();
