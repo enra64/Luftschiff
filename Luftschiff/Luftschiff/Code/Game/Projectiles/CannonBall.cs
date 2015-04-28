@@ -10,8 +10,6 @@ namespace Luftschiff.Code.Game.Projectiles
 {
     internal class CannonBall : KineticProjectile
     {
-        
-
         public CannonBall(ITarget startRoom, ITarget target) : base(target, startRoom, Globals.CannonBallTexture)
         {
             //Wall of Sprite :/
@@ -47,13 +45,6 @@ namespace Luftschiff.Code.Game.Projectiles
         public override void WhileOverTarget()
         {
         }
-
-        public override void OnImpact()
-        {
-            base.OnImpact();
-        }
-
-        public override bool ShouldKill { get; set; }
 
         public override void Draw()
         {

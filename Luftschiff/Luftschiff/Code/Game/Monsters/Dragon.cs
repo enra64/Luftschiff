@@ -45,8 +45,7 @@ namespace Luftschiff.Code.Game.Monsters
         public override int AttackShip(Area areaReference)
         {
             //create projectile to attack the ship
-            FireBall _fireBall = new FireBall(areaReference.GetRandomRoom(-1), this, Globals.FireBallTexture);
-            Globals.ColliderReference.AddProjectile(_fireBall);
+            Globals.ColliderReference.AddProjectile(new FireBall(areaReference.GetRandomRoom(-1), this, Globals.FireBallTexture));
             new Sound(Globals.FireSound).Play();
             return -1;
         }
@@ -61,6 +60,7 @@ namespace Luftschiff.Code.Game.Monsters
             Console.WriteLine("the dragon has been shot at. it does give 1/10 of a shit.");
         }
 
+        //needed for ITarget compliance
         public override bool HasBeenHit(Vector2f projectilePosition)
         {
             return IsClickInside(projectilePosition);

@@ -33,10 +33,7 @@ namespace Luftschiff.Code.Game.Projectiles
         /// </summary>
         protected Vector2f Direction;
 
-        /// <summary>
-        /// The room the projectile started in
-        /// </summary>
-        private ITarget StartRoom;
+        public override bool ShouldKill { get; set; }
 
         public override void OnImpact() {
             new Sound(Globals.BoomSound).Play();
@@ -54,9 +51,6 @@ namespace Luftschiff.Code.Game.Projectiles
             //calculate direction for straight space traversal
             Direction = (target.Center - startRoom.Center) / 70;
             
-            //save room
-            StartRoom = startRoom;
-
             //init sprite
             Sprite = new Sprite(projectileTexture);
 

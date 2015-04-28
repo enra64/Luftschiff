@@ -35,19 +35,17 @@ namespace Luftschiff.Code.Game.Projectiles
             ImpactAnimation.AddFrame(new IntRect(388, 192, 96, 97));
         }
 
-        public override bool ShouldKill { get; set; }
-
         public override void Update()
         {
             //move while impact has not happened
             if (!ImpactHappened)
                 Position += Direction;
-            else
-                SpritePlay();
         }
 
         public override void WhileOverTarget()
         {
+            //SpritePlay();
+            ShouldKill = true;
         }
 
         public override void OnImpact()
@@ -55,11 +53,11 @@ namespace Luftschiff.Code.Game.Projectiles
         }
 
         public override void Draw() {
-            //only draw when not interacting and if no damage has been made yet
-            if (!ImpactHappened)
-                Controller.Window.Draw(Sprite);
-            if(ImpactHappened)
+            //only draw when the impact has happened
+            if (ImpactHappened)
                 Controller.Window.Draw(ImpactAnimationSprite);
+            else
+                Controller.Window.Draw(Sprite);
         }
     }
 }
