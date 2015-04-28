@@ -67,12 +67,12 @@ namespace Luftschiff.Code.Game.AreavRooms
             FloatRect work = new FloatRect();
             for (int i = 0; i < rooms_.Count; i++)
             {
-                work = rooms_.ElementAt(i).getRect();
+                work = rooms_.ElementAt(i).GlobalRect;
                 work.Height = work.Height + 125; // pixel differenz
                 work.Width = work.Width + 125;
                 work.Left = work.Left - 75;
                 work.Top = work.Top - 75;
-                if (work.Intersects(newRoom.getRect()))
+                if (work.Intersects(newRoom.GlobalRect))
                 {
                     newRoom.addNearRooms(rooms_.ElementAt(i));
                     rooms_.ElementAt(i).addNearRooms(newRoom);
@@ -92,7 +92,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// Adds a crewmember to a room and to the area, sets the crewmembers currentRoom correctly
         /// </summary>
         public void AddCrewToRoom(Room r, CrewMember c) {
-            r.setCrewInRoom(c);
+            r.SetCrewInRoom(c);
             CrewList.Add(c);
             c.CurrentRoom = r;
         }
@@ -191,7 +191,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
             for (int i = 0; i < rooms_.Count; i++)
             {
-                if (!rooms_.ElementAt(i).isAlive())
+                if (!rooms_.ElementAt(i).IsAlive)
                 {
                     rooms_.RemoveAt(i);
                     i--;
@@ -232,7 +232,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                 rooms_.ElementAt(i).Draw();
             }
             foreach (var room in rooms_)
-                room.priorityDraw();
+                room.PriorityDraw();
         }
 
         /// <summary>

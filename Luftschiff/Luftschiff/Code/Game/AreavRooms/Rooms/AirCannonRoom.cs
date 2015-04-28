@@ -48,7 +48,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         }
 
         //this gets called after the usual draw so that cannonballs etc can be drawn on top of other rooms
-        public override void priorityDraw()
+        public override void PriorityDraw()
         {
             if (_cannonball != null)
                 _cannonball.Draw();

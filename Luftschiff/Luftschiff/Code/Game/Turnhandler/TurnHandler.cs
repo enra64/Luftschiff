@@ -68,7 +68,7 @@ namespace Luftschiff.Code.Game
                         // Console.WriteLine("found target");
                     }
                     // checks every not used room nearby if it is the closest to the target
-                    else if (work._nearRooms.ElementAt(i).iswalkable() && !way.Contains(work._nearRooms.ElementAt(i)))
+                    else if (work._nearRooms.ElementAt(i).IsWalkable && !way.Contains(work._nearRooms.ElementAt(i)))
                     {
                         var possiblenext = work._nearRooms.ElementAt(i);
                         var distanceToTarget =

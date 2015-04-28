@@ -145,32 +145,35 @@ namespace Luftschiff.Code.Game.AreavRooms
             return array;
         }
 
-        public FloatRect getRect()
+        public FloatRect GlobalRect
         {
-            FloatRect tileSize = _tilemap[0, 0].Rect;
-            tileSize.Width *= 4;
-            tileSize.Height *= 4;
-            return tileSize;
+            get
+            {
+                var tileSize = _tilemap[0, 0].Rect;
+                tileSize.Width *= 4;
+                tileSize.Height *= 4;
+                return tileSize;    
+            }
         }
 
         public Vector2f Center
         {
             get
             {
-                FloatRect rect = getRect();
+                FloatRect rect = GlobalRect;
                 return new Vector2f(rect.Left + rect.Width / 2, rect.Top + rect.Height / 2);
             }
         }
 
         public bool IsClickInside(Vector2f position)
         {
-            return getRect().Contains(position.X, position.Y);
+            return GlobalRect.Contains(position.X, position.Y);
         }
 
         /// <summary>
         /// sets crew in room. gives bool back true -> succes , false -> there are too many crewmembers in that room;
         /// </summary>
-        public bool setCrewInRoom(CrewMember a)
+        public bool SetCrewInRoom(CrewMember a)
         {
             if (crewList.Count < 4)
             {
@@ -178,16 +181,16 @@ namespace Luftschiff.Code.Game.AreavRooms
                 switch (crewList.Count)
                 {
                     case 1:
-                        a.setPosition(this.Position);
+                        a.setPosition(Position);
                         break;
                     case 2:
-                        a.setPosition(this.Position + new Vector2f(64, 0));
+                        a.setPosition(Position + new Vector2f(64, 0));
                         break;
                     case 3:
-                        a.setPosition(this.Position + new Vector2f(0, 64));
+                        a.setPosition(Position + new Vector2f(0, 64));
                         break;
                     case 4:
-                        a.setPosition(this.Position + new Vector2f(64, 64));
+                        a.setPosition(Position + new Vector2f(64, 64));
                         break;
                 }
                 return true;
@@ -216,7 +219,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             return null;
         }
 
-        public void addDoorsToTileArray(int[,] array, Vector2f position)
+        public void AddDoorsToTileArray(int[,] array, Vector2f position)
         {
             //TODO add door number to tileMap numbers , needed Roomconnection list
         }
@@ -255,16 +258,14 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         protected void initializeTilemap(Area.RoomTypes roomType)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
+            for (var i = 0; i < 4; i++){
+                for (var k = 0; k < 4; k++){
                     _tilemap[i, k] = new Tile(tilekind[i, k], new Vector2f(this.Position.X + 32 * i, Position.Y + 32 * k), roomType); //TODO let the vector fit to every file
                 }
             }
 
             //get room size
-            var rect = getRect();
+            var rect = GlobalRect;
 
             //because we only now have valid tile sizes, init the indicator rectangle now
             _indicatorShape = new RectangleShape(new Vector2f(rect.Width, rect.Height))
@@ -279,7 +280,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         /// use this to get drawed after other rooms eg cannonballs
         /// </summary>
-        public virtual void priorityDraw(){}
+        public virtual void PriorityDraw(){}
 
         public void Draw()
         {
@@ -302,8 +303,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             Controller.Window.Draw(damage);
 
             // draw der crew
-            for (int k = 0; k < crewList.Count; k++)
-            {
+            for (int k = 0; k < crewList.Count; k++){
                 crewList.ElementAt(k).Draw();
             }
 
@@ -320,12 +320,16 @@ namespace Luftschiff.Code.Game.AreavRooms
         public void StartSelectionIndicator()
         {
             _indicatorShape.OutlineColor = Color.Green;
+            //hide warning because this is as designed
+            // ReSharper disable once ObjectCreationAsStatement
             new System.Threading.Timer(obj => { _indicatorShape.OutlineColor = Color.Transparent; }, null, (long) 400, System.Threading.Timeout.Infinite);
         }
 
-        protected void ShowShortcutIdentification()
+        private void ShowShortcutIdentification()
         {
             ShortcutIdentificationHelper.Color = Color.Black;
+            //hide warning because this is as designed
+            // ReSharper disable once ObjectCreationAsStatement
             new System.Threading.Timer(obj => { ShortcutIdentificationHelper.Color = Color.Transparent; }, null, (long) 2800, System.Threading.Timeout.Infinite);
         }
 
@@ -334,14 +338,14 @@ namespace Luftschiff.Code.Game.AreavRooms
             _nearRooms.Add(a);
         }
 
-        public bool iswalkable()
-        {
-            return _walkAble;
-        }
+        public bool IsWalkable{get{return _walkAble;}}
 
-        public bool isAlive()
+        public bool IsAlive
         {
-            return RoomLife > 0;
+            get
+            {
+                return RoomLife > 0;    
+            }
         }
 
         /// <summary>
