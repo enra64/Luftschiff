@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.AreavRooms;
@@ -138,7 +139,7 @@ namespace Luftschiff.Code.Game
             //check all weapon targets, and shoot those with 0 waiting turns
             foreach (var c in _weaponActions){
                 if (c.WaitingTurns == 0)
-                    c.FiringRoom.inflictDamage(c.Target, true);
+                    c.FiringRoom.InflictDamage(c.Target, true);
                 //reduce waiting turns of all so that everything will be fired eventually,
                 //and negative waiting turns can be nulled
                 c.WaitingTurns--;
@@ -178,6 +179,14 @@ namespace Luftschiff.Code.Game
                     c.CurrentRoom.OnCrewArrive(c);
                 }
             }
+
+            //reduce firelife in rooms
+            foreach(var r in _areaReference.getRooms())
+                if (r.FireLife > 0)
+                    r.FireLife -= 1;
+                //check for negative firelifes, because bugs n stuff
+                else if (r.FireLife < 0)
+                    r.FireLife = 0;
 
 
             //remove targets with invalid neededactions count to collect garbage

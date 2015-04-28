@@ -6,36 +6,33 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Luftschiff.Code.Game.Weapons
+namespace Luftschiff.Code.Game.Projectiles
 {
     internal class CannonBall : KineticProjectile
     {
-        private readonly AnimatedSprite _explodingSprite;
-        private bool _playBool = true;
+        
 
-        public CannonBall(Room startRoom, Monster target) : base(target, startRoom, Globals.CannonBallTexture)
+        public CannonBall(ITarget startRoom, ITarget target) : base(target, startRoom, Globals.CannonBallTexture)
         {
             //Wall of Sprite :/
-            _explodingSprite = new AnimatedSprite(Time.FromSeconds(0.1f), false, false, Position);
-            Explosion = new Animation(Globals.Cannon_Explosion);
-            Explosion.AddFrame(new IntRect(0, 0, 96, 97));
-            Explosion.AddFrame(new IntRect(97, 0, 96, 97));
-            Explosion.AddFrame(new IntRect(194, 0, 96, 97));
-            Explosion.AddFrame(new IntRect(291, 0, 96, 97));
-            Explosion.AddFrame(new IntRect(388, 0, 96, 97));
-            Explosion.AddFrame(new IntRect(0, 96, 96, 97));
-            Explosion.AddFrame(new IntRect(97, 96, 96, 97));
-            Explosion.AddFrame(new IntRect(194, 96, 96, 97));
-            Explosion.AddFrame(new IntRect(291, 96, 96, 97));
-            Explosion.AddFrame(new IntRect(388, 96, 96, 97));
-            Explosion.AddFrame(new IntRect(0, 192, 96, 97));
-            Explosion.AddFrame(new IntRect(97, 192, 96, 97));
-            Explosion.AddFrame(new IntRect(194, 192, 96, 97));
-            Explosion.AddFrame(new IntRect(291, 192, 96, 97));
-            Explosion.AddFrame(new IntRect(388, 192, 96, 97));
+            ImpactAnimationSprite = new AnimatedSprite(Time.FromSeconds(0.1f), false, false, Position);
+            ImpactAnimation = new Animation(Globals.Cannon_Explosion);
+            ImpactAnimation.AddFrame(new IntRect(0, 0, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(97, 0, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(194, 0, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(291, 0, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(388, 0, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(0, 96, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(97, 96, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(194, 96, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(291, 96, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(388, 96, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(0, 192, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(97, 192, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(194, 192, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(291, 192, 96, 97));
+            ImpactAnimation.AddFrame(new IntRect(388, 192, 96, 97));
         }
-
-        private Animation Explosion { set; get; }
 
         public override void Update()
         {
@@ -47,6 +44,10 @@ namespace Luftschiff.Code.Game.Weapons
                 SpritePlay();
         }
 
+        public override void WhileImpacting()
+        {
+        }
+
         public override bool ShouldKill { get; set; }
 
         public override void Draw()
@@ -56,44 +57,8 @@ namespace Luftschiff.Code.Game.Weapons
                 Controller.Window.Draw(Sprite);
             //draw the explosion sprite on impact
             if (ImpactHappened)
-                Controller.Window.Draw(_explodingSprite);
+                Controller.Window.Draw(ImpactAnimationSprite);
         }
-
-        /// <summary>
-        ///     Gets executed while the projectile is over its target
-        /// </summary>
-        public override void WhileImpacting()
-        {
-            
-        }
-
-        /// <summary>
-        ///     Plays Sprite once on Impact
-        /// </summary>
-        private void SpritePlay()
-        {
-            //update position to cannonball impact position
-            _explodingSprite.Position = Position;
-
-            //do magic
-            _explodingSprite.Update(Globals.FRAME_TIME);
-            if (_explodingSprite.TimesPlayed*2 <= Explosion.GetSize())
-                _explodingSprite.Play(Explosion);
-            else
-            {
-                //i have no idea why this is needed, but it is.
-                ImpactHappened = false;
-
-                //signal the collider that this bullet should be killed
-                ShouldKill = true;
-            }
-
-            //play impact sound
-            if (_playBool)
-            {
-                new Sound(Globals.BoomSound).Play();
-                _playBool = false;
-            }
-        }
+        
     }
 }

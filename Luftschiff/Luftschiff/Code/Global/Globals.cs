@@ -72,29 +72,38 @@ namespace Luftschiff.Code {
         public static Texture BackgroundTexture;
         public static Texture DragonTexture;
 
+        //special room stuff sprites
         public static Texture EngineTexture;
         public static Texture GunTexture;
         public static Texture HospitalTexture;
 
+        //tile sprites
         public static Texture TileFloor;
         public static Texture TileWall;
         public static Texture TileSpecial;
 
+        //cursor sprites
         public static Texture CursorStandard;
         public static Texture CursorCrewMove;
         public static Texture CursorAim;
 
-
+        //projectile textures
         public static Texture CannonBallTexture;
         public static Texture FireBallTexture;
 
-        public static TurnHandler TurnHandler;
-        public static Texture CrewTexture;
+        //projectile impact fx
+        public static Texture RoomFireTexture;
         public static Texture Cannon_Explosion;
+        
+        //crew texture
+        public static Texture CrewTexture;
 
+        //global references
         public static States.Game GameReference;
+        public static TurnHandler TurnHandler;
         public static Area AreaReference;
 
+        //sound fx
         public static SoundBuffer ClickSound;
         public static SoundBuffer CannonSound;
         public static SoundBuffer BoomSound;

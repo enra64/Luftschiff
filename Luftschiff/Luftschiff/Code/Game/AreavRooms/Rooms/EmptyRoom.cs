@@ -14,7 +14,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public EmptyRoom(Vector2f position)
             : base(position)
         {
-            tilekind = loadStandardTilekinds(1);
+            IntegerTilemap = LoadStandardTilekinds(1);
             initializeTilemap(Area.RoomTypes.AirCannon);
         }
     }

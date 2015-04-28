@@ -10,7 +10,6 @@ using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
-using Luftschiff.Code.Game.Weapons;
 using Luftschiff.Code.Global;
 
 using Luftschiff.Graphics.Lib;

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
-using Luftschiff.Code.Game.Weapons;
 using Luftschiff.Code.Global;
 using SFML.Audio;
 using SFML.Graphics;
@@ -15,20 +14,20 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public AirCannonRoom(Vector2f position) : base(position)
         {
-            tilekind = loadStandardTilekinds(1);
+            IntegerTilemap = LoadStandardTilekinds(1);
             initializeTilemap(Area.RoomTypes.AirCannon);
 
             //add additonal sprite: weapon
             var gunSprite = new Sprite(Globals.GunTexture);
 
             //guess position by using the position of the tiles
-            gunSprite.Position = _tilemap[1, 1].Position;
+            gunSprite.Position = ObjectTilemap[1, 1].Position;
 
             //make it look okay
             gunSprite.Scale = new Vector2f(.6f, .6f);
 
             //add to sprite list so it gets drawn automatically
-            _additionalRoomSprites.Add(gunSprite);
+            AdditionalRoomSprites.Add(gunSprite);
         }
 
         //override this to signify that this room gets the aim cursor
@@ -58,7 +57,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         ///     Called to inflict damage upon the monster; gives the cannonball to the monster,
         ///     because that is the easiest way to include damage on hit
         /// </summary>
-        public override void inflictDamage(Monster monster, bool hits)
+        public override void InflictDamage(Monster monster, bool hits)
         {
             //add sfx
             _cannonball = new CannonBall(this, monster);

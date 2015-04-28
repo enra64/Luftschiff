@@ -6,8 +6,12 @@ using System.Runtime.InteropServices;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Global.Utils;
+using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
+//god dammit i do not want to use a var if i dont need to
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+// ReSharper disable SuggestVarOrType_SimpleTypes
 
 namespace Luftschiff.Code.Game.AreavRooms
 {
@@ -21,11 +25,21 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         private RectangleShape _indicatorShape;
 
+        /// <summary>
+        ///     Animated Sprite for fire
+        /// </summary>
+        private AnimatedSprite _fireSprite;
+
+        /// <summary>
+        ///     Animation for the fire
+        /// </summary>
+        private Animation _fireAnimation;
+
         //List to use when Crew-class implemented 
-        protected List<CrewMember> crewList = new List<CrewMember>();
+        protected readonly List<CrewMember> crewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
         //protected List<Room> _nearRooms = new List<Room>();
-        public List<Room> _nearRooms { get; set; }
+        public List<Room> _nearRooms { get; private set; }
 
         /// <summary>
         /// A convenience listener for the room shortcut key
@@ -40,21 +54,35 @@ namespace Luftschiff.Code.Game.AreavRooms
         public virtual bool IsAbleToTarget { get { return false; } }
 
         //useful variables
-        public int FireLife = 0;
+        /// <summary>
+        ///     The number of Rounds the room should burn without user interaction
+        /// </summary>
+        public int FireLife;
+
+        /// <summary>
+        ///     Cooldown of the room action
+        /// </summary>
         protected int _cooldown = 0;
+
+        /// <summary>
+        ///     Life of the Room, current default is 100
+        /// </summary>
         public int RoomLife = 100;
+
+        private bool _walkAble = true;
+        protected int[,] IntegerTilemap = new int[4, 4];
+        protected readonly Tile[,] ObjectTilemap= new Tile[4,4];
+        protected readonly List<Sprite> AdditionalRoomSprites = new List<Sprite>();
         
-        protected bool _walkAble = true;
-        protected int[,] tilekind = new int[4, 4];
-        protected Tile[,] _tilemap= new Tile[4,4];
-        protected List<Sprite> _additionalRoomSprites = new List<Sprite>();
-        
+        /// <summary>
+        ///     The key this room can be selected with.
+        /// </summary>
         protected Text ShortcutIdentificationHelper;
 
         /// <summary>
-        /// save the maximum possible life
+        ///     saves the life of the room when it gets instanced
         /// </summary>
-        public int MaxLife;
+        public readonly int MaxLife;
 
 
         /// <summary>
@@ -81,13 +109,16 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 RoomLife = RoomLife - 10;  //template int for fire damage 
             }
+
             //add area damage
             Globals.AreaReference.Life -= 90;
 
+            FireLife += 2;
+
+            //TODO improve randomizer and stats for crewdamage
             Random a = new Random();
             if(crewList.Count > 0)
-            crewList.ElementAt(a.Next(crewList.Count))._health -= 10000;
-            //TODO improve randomizer and stats for crewdamage
+                crewList.ElementAt(a.Next(crewList.Count))._health -= 10000;
         }
 
         /// <summary>
@@ -100,22 +131,27 @@ namespace Luftschiff.Code.Game.AreavRooms
             return IsClickInside(projectilePosition);
         }
 
+        /// <summary>
+        ///     Someone just wants to see this room burn.
+        ///     <para>I'm sorry for that</para>
+        /// </summary>
+        /// <param name="roundsRoomIsBurning">Fire duration in Rounds without Slacking</param>
         public void SetOnFire(int roundsRoomIsBurning)
         {
-            this.FireLife = roundsRoomIsBurning;
+            FireLife = roundsRoomIsBurning;
         }
 
         /// <summary>
         /// Called by the turnhandler to get the damage dealt by that room
         /// </summary>
-        public virtual void inflictDamage(Monster monster, bool hits) { }
+        public virtual void InflictDamage(Monster monster, bool hits) { }
 
         /// <summary>
-        /// the array is filled with a standart of numbers for the tilemap
+        /// the array is filled with a standard of numbers for the tilemap
         /// 0 -> empty map( everything 0)
         /// 1 -> border = 1 mid = 3 (roomspecific Item)
         /// </summary>
-        public int[,] loadStandardTilekinds(int kind)
+        protected int[,] LoadStandardTilekinds(int kind)
         {
             int[,] array;
             switch (kind)
@@ -123,22 +159,22 @@ namespace Luftschiff.Code.Game.AreavRooms
                     //0: floor, 1 empty, 2 wall, 3 special
                 default:
                 case(0):
-                    array = new int[4, 4] {{0,0,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0},
-                                          {0,0,0,0}};
+                    array = new [,] {{0,0,0,0},
+                                     {0,0,0,0},
+                                     {0,0,0,0},
+                                     {0,0,0,0}};
                     break;
                 case(1):
-                    array = new int[4, 4] {{2,2,2,2},
-                                          {2,3,3,2},
-                                          {2,3,3,2},
-                                          {2,2,2,2}};
+                    array = new [,] {{2,2,2,2},
+                                     {2,3,3,2},
+                                     {2,3,3,2},
+                                     {2,2,2,2}};
                     break;
                 case(2):  // i don't care that this case has no use atm
-                    array = new int[4, 4] {{1,1,1,1},
-                                          {1,3,3,1},
-                                          {1,3,3,1},
-                                          {1,1,1,1}};
+                    array = new[,] {{1,1,1,1},
+                                    {1,3,3,1},
+                                    {1,3,3,1},
+                                    {1,1,1,1}};
                     break;
 
             }
@@ -149,7 +185,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             get
             {
-                var tileSize = _tilemap[0, 0].Rect;
+                var tileSize = ObjectTilemap[0, 0].Rect;
                 tileSize.Width *= 4;
                 tileSize.Height *= 4;
                 return tileSize;    
@@ -195,11 +231,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                 }
                 return true;
             }
-            else
-            {
-                return false;
-            }
-
+            //return false if no space is left
+            return false;
         }
         
         /// <summary>
@@ -232,6 +265,16 @@ namespace Luftschiff.Code.Game.AreavRooms
 
             //initialize the indicator shape
             _indicatorShape = new RectangleShape();
+
+            //initialize the fire sprite
+            _fireSprite = new AnimatedSprite(Time.FromSeconds(0.1f), false, false, Position);
+            _fireSprite.Position = position;
+            _fireAnimation = new Animation(Globals.RoomFireTexture);
+            _fireAnimation.AddFrame(new IntRect(0, 0, 64, 64));
+            _fireAnimation.AddFrame(new IntRect(64, 0, 64, 64));
+            _fireAnimation.AddFrame(new IntRect(128, 0, 64, 64));
+            _fireAnimation.AddFrame(new IntRect(192, 0, 64, 64));
+            _fireAnimation.AddFrame(new IntRect(256, 0, 64, 64));
         }
 
         /// <summary>
@@ -244,7 +287,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             ShortcutIdentificationHelper = new Text
             {
                 DisplayedString = numkey.ToString(),
-                Position = _tilemap[1,0].Position,
+                Position = ObjectTilemap[1,0].Position,
                 CharacterSize = 90,
                 Color = Color.Transparent,
                 Font = Globals.DialogFont
@@ -254,13 +297,13 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// Initilizes tilemap in dependence of int[,] tilekind
+        ///     Initilizes tilemap in dependence of int[,] IntegerTilemap
         /// </summary>
         protected void initializeTilemap(Area.RoomTypes roomType)
         {
             for (var i = 0; i < 4; i++){
                 for (var k = 0; k < 4; k++){
-                    _tilemap[i, k] = new Tile(tilekind[i, k], new Vector2f(this.Position.X + 32 * i, Position.Y + 32 * k), roomType); //TODO let the vector fit to every file
+                    ObjectTilemap[i, k] = new Tile(IntegerTilemap[i, k], new Vector2f(this.Position.X + 32 * i, Position.Y + 32 * k), roomType); //TODO let the vector fit to every file
                 }
             }
 
@@ -288,11 +331,12 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    _tilemap[i, k].Draw();
+                    ObjectTilemap[i, k].Draw();
                 }
             }
+
             //draw additional sprites like large weapons etc
-            foreach(Sprite s in _additionalRoomSprites)
+            foreach(Sprite s in AdditionalRoomSprites)
                 Controller.Window.Draw(s);
 
             //draw Damage signs on room
@@ -307,10 +351,17 @@ namespace Luftschiff.Code.Game.AreavRooms
                 crewList.ElementAt(k).Draw();
             }
 
-            //draw the indicatorrect
+            //draw one fire first, since fire spreading should be difficult
+            if (FireLife > 0)
+            {
+                _fireSprite.Update(Globals.FRAME_TIME);
+                _fireSprite.Play(_fireAnimation);
+                Controller.Window.Draw(_fireSprite);
+            }
+            //draw the selection indicator rectangle
             Controller.Window.Draw(_indicatorShape);
 
-            //draw the shortcut text
+            //draw the shortcut help text
             Controller.Window.Draw(ShortcutIdentificationHelper);
         }
 
