@@ -133,7 +133,7 @@ namespace Luftschiff.Code.Game
         public void ExecuteTurn()
         {
             //deny turn when projectiles are still flying
-            if (Collider.ProjectileCount > 0)
+            if (Globals.ColliderReference.ProjectileCount > 0)
                 return;
 
             //check all weapon targets, and shoot those with 0 waiting turns
@@ -203,7 +203,7 @@ namespace Luftschiff.Code.Game
         private void ExecuteMonsterAttack()
         {
             //wait until the user projectiles arrived
-            while (Collider.ProjectileCount > 0);
+            while (Globals.ColliderReference.ProjectileCount > 0);
             //start dragon attack
             _gameReference.CurrentMonster.AttackShip(_areaReference);
         }

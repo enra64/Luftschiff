@@ -10,8 +10,6 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     internal class AirCannonRoom : Room
     {
-        private CannonBall _cannonball;
-
         public AirCannonRoom(Vector2f position) : base(position)
         {
             IntegerTilemap = LoadStandardTilekinds(1);
@@ -40,17 +38,11 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             //needs to be called if we want a shortcut
             base.Update();
-
-            //draw cannonball if applicable
-            if (_cannonball != null)
-                _cannonball.Update();
         }
 
         //this gets called after the usual draw so that cannonballs etc can be drawn on top of other rooms
         public override void PriorityDraw()
         {
-            if (_cannonball != null)
-                _cannonball.Draw();
         }
 
         /// <summary>
@@ -60,8 +52,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void InflictDamage(Monster monster, bool hits)
         {
             //add sfx
-            _cannonball = new CannonBall(this, monster);
-            Collider.AddProjectile(_cannonball);
+            Globals.ColliderReference.AddProjectile(new CannonBall(this, monster));
             new Sound(Globals.CannonSound).Play();
         }
     }

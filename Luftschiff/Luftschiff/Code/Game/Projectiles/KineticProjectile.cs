@@ -38,6 +38,10 @@ namespace Luftschiff.Code.Game.Projectiles
         /// </summary>
         private ITarget StartRoom;
 
+        public override void OnImpact() {
+            new Sound(Globals.BoomSound).Play();
+        }
+
         /// <summary>
         /// set the target monster, init impacthappened & shouldkill => false, calculate direction,
         /// add spritem set startposition
@@ -71,25 +75,17 @@ namespace Luftschiff.Code.Game.Projectiles
             //update position to cannonball impact position
             ImpactAnimationSprite.Position = Position;
 
-            //do magic
-
+            //update the frame time
             ImpactAnimationSprite.Update(Globals.FRAME_TIME);
-            if (ImpactAnimationSprite.TimesPlayed * 2 <= ImpactAnimation.GetSize())
-                ImpactAnimationSprite.Play(ImpactAnimation);
-            else
-            {
-                //i have no idea why this is needed, but it is.
-                ImpactHappened = false;
 
-                //signal the collider that this bullet should be killed
-                ShouldKill = true;
-            }
-
-            //play impact sound
-            if (!ImpactSpriteShown)
+            //do magic
+            if (!ShouldKill)
             {
-                new Sound(Globals.BoomSound).Play();
-                ImpactSpriteShown = true;
+                if (ImpactAnimationSprite.TimesPlayed * 2 < ImpactAnimation.GetSize())
+                    ImpactAnimationSprite.Play(ImpactAnimation);
+                else
+                    //signal the collider that this bullet should be killed
+                    ShouldKill = true;
             }
         }
     }

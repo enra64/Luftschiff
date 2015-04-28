@@ -7,18 +7,14 @@ namespace Luftschiff.Code.Game.Projectiles
     /// </summary>
     internal abstract class Projectile : Object
     {
-        /// <summary>
-        ///     Whether or not the projectile has already inflicted its damage upon the monster
-        /// </summary>
-        public bool HasMadeDamage;
 
         /// <summary>
-        ///     whether or not the WhileImpacting has already been called
+        ///     whether or not the OnImpact has already been called / the whileovertarget is being called
         /// </summary>
         public bool ImpactHappened;
 
         /// <summary>
-        ///     Monster the projectile is aimed at
+        ///     Target the projectile is aimed at
         /// </summary>
         public readonly ITarget Target;
 
@@ -30,7 +26,6 @@ namespace Luftschiff.Code.Game.Projectiles
         {
             Target = target;
             ImpactHappened = false;
-            HasMadeDamage = false;
         }
 
         /// <summary>
@@ -46,7 +41,7 @@ namespace Luftschiff.Code.Game.Projectiles
         /// <summary>
         ///     Executed as long as the projectile is over its target
         /// </summary>
-        public abstract void WhileImpacting();
+        public abstract void WhileOverTarget();
 
         /// <summary>
         ///     Called _once_ after the projectile hit

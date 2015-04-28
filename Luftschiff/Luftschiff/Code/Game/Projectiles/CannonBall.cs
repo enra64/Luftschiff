@@ -44,14 +44,13 @@ namespace Luftschiff.Code.Game.Projectiles
                 SpritePlay();
         }
 
-        public override void WhileImpacting()
+        public override void WhileOverTarget()
         {
         }
 
         public override void OnImpact()
         {
             base.OnImpact();
-
         }
 
         public override bool ShouldKill { get; set; }
@@ -59,7 +58,7 @@ namespace Luftschiff.Code.Game.Projectiles
         public override void Draw()
         {
             //only draw when not interacting and if no damage has been made yet
-            if (!ImpactHappened && !HasMadeDamage)
+            if (!ImpactHappened)
                 Controller.Window.Draw(Sprite);
             //draw the explosion sprite on impact
             if (ImpactHappened)

@@ -1,5 +1,6 @@
 ﻿using Luftschiff.Code.Game;
 using Luftschiff.Code.Game.AreavRooms;
+using Luftschiff.Code.Global;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -102,6 +103,7 @@ namespace Luftschiff.Code {
         public static States.Game GameReference;
         public static TurnHandler TurnHandler;
         public static Area AreaReference;
+        public static Collider ColliderReference;
 
         //sound fx
         public static SoundBuffer ClickSound;

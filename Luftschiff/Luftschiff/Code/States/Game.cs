@@ -36,6 +36,7 @@ namespace Luftschiff.Code.States {
             Globals.GameReference = this;
             Globals.AreaReference = new Area();
             Globals.TurnHandler = new TurnHandler();
+            Globals.ColliderReference = new Collider();
             
             //copy a reference to this class for convenience
             _currentArea = Globals.AreaReference;
@@ -82,6 +83,9 @@ namespace Luftschiff.Code.States {
             //health bars
             _monsterBar.Draw();
             _shipBar.Draw();
+
+            //draw the bullets
+            Globals.ColliderReference.Draw();
         }
 
         /// <summary>
@@ -121,6 +125,10 @@ namespace Luftschiff.Code.States {
                 _turnButton.ClickSound = false;
                 _turnButton.ForceAttention = false;
             }
+
+            //update the collider
+            Globals.ColliderReference.Update();
+
             //has to be updated last as it consumes all click events that hit nothing
             _currentArea.Update();
         }

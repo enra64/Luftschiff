@@ -14,7 +14,6 @@ namespace Luftschiff.Code.Game.Monsters
     internal class Dragon : Monster
     {
         private readonly Animation _flying;
-        private FireBall _fireBall;
 
         public Dragon(Texture t, int life) : base(life)
         {
@@ -46,8 +45,8 @@ namespace Luftschiff.Code.Game.Monsters
         public override int AttackShip(Area areaReference)
         {
             //create projectile to attack the ship
-            _fireBall = new FireBall(areaReference.GetRandomRoom(-1), this, Globals.FireBallTexture);
-            Collider.AddProjectile(_fireBall);
+            FireBall _fireBall = new FireBall(areaReference.GetRandomRoom(-1), this, Globals.FireBallTexture);
+            Globals.ColliderReference.AddProjectile(_fireBall);
             new Sound(Globals.FireSound).Play();
             return -1;
         }
@@ -83,8 +82,6 @@ namespace Luftschiff.Code.Game.Monsters
             //play dragon sprite animation
             Sprite.Update(Globals.FRAME_TIME);
             Sprite.Play(_flying);
-            if(_fireBall != null)
-                _fireBall.Update();
 
             if (Life <= 0) {
                 bool restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Drachen besiegt!").show();
@@ -101,8 +98,6 @@ namespace Luftschiff.Code.Game.Monsters
             {
                 Controller.Window.Draw(Sprite);
             }
-            if (_fireBall != null)
-                _fireBall.Draw();
         }
     }
 }

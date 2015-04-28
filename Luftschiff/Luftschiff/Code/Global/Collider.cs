@@ -3,28 +3,26 @@ using Luftschiff.Code.Game.Projectiles;
 
 namespace Luftschiff.Code.Global
 {
-    static class Collider
+    class Collider
     {
         private static List<Projectile> _projectileList = new List<Projectile>();
 
         /// <summary>
         /// The amount of projectiles tracked by the collider
         /// </summary>
-        public static int ProjectileCount { get { return _projectileList.Count; } }
+        public int ProjectileCount { get { return _projectileList.Count; } }
 
-        public static void Update()
+        public void Update()
         {
             foreach(var projectile in _projectileList)
                 //the projectiles target uses ITarget, and as such implements the hasbeenhit function
                 if (projectile.Target.HasBeenHit(projectile.Center))
                 {
                     //if first call after impact, induce damage to monster
-                    if(!projectile.HasMadeDamage)
+                    if(!projectile.ImpactHappened)
                         projectile.Target.ReceiveDamage(100);
-                    //damage has now been done
-                    projectile.HasMadeDamage = true;
-                    //call the WhileImpacting to signal the projectile that the impact happened
-                    projectile.WhileImpacting();
+                    //call the WhileOverTarget to signal the projectile that the impact happened
+                    projectile.WhileOverTarget();
                     //call OnImpact exactly once
                     if(!projectile.ImpactHappened)
                         projectile.OnImpact();
@@ -34,9 +32,21 @@ namespace Luftschiff.Code.Global
 
             //remove all projectiles that flag to be killed
             _projectileList.RemoveAll(p => p.ShouldKill);
+
+            //update all projectiles
+            foreach(var p in _projectileList)
+                p.Update();
         }
 
-        public static void AddProjectile(Projectile projectile)
+        public void Draw()
+        {
+            foreach (var projectile in _projectileList)
+            {
+                projectile.Draw();
+            }
+        }
+
+        public void AddProjectile(Projectile projectile)
         {
             _projectileList.Add(projectile);
         }
