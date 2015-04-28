@@ -25,6 +25,9 @@ namespace Luftschiff.Code.Global
                     projectile.HasMadeDamage = true;
                     //call the WhileImpacting to signal the projectile that the impact happened
                     projectile.WhileImpacting();
+                    //call OnImpact exactly once
+                    if(!projectile.ImpactHappened)
+                        projectile.OnImpact();
                     //impact has occured
                     projectile.ImpactHappened = true;
                 }

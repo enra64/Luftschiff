@@ -48,6 +48,12 @@ namespace Luftschiff.Code.Game.Projectiles
         {
         }
 
+        public override void OnImpact()
+        {
+            base.OnImpact();
+
+        }
+
         public override bool ShouldKill { get; set; }
 
         public override void Draw()

@@ -44,8 +44,13 @@ namespace Luftschiff.Code.Game.Projectiles
         public abstract void Update();
 
         /// <summary>
-        ///     Executed on impact of the Projectile
+        ///     Executed as long as the projectile is over its target
         /// </summary>
         public abstract void WhileImpacting();
+
+        /// <summary>
+        ///     Called _once_ after the projectile hit
+        /// </summary>
+        public abstract void OnImpact();
     }
 }

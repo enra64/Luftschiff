@@ -381,7 +381,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             ShortcutIdentificationHelper.Color = Color.Black;
             //hide warning because this is as designed
             // ReSharper disable once ObjectCreationAsStatement
-            new System.Threading.Timer(obj => { ShortcutIdentificationHelper.Color = Color.Transparent; }, null, (long) 2800, System.Threading.Timeout.Infinite);
+            new System.Threading.Timer(obj => { ShortcutIdentificationHelper.Color = Color.Transparent; }, null, (long) 2000, System.Threading.Timeout.Infinite);
         }
 
         public void addNearRooms(Room a)

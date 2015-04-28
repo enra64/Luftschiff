@@ -19,11 +19,6 @@ namespace Luftschiff.Code.Game.Projectiles
     abstract class KineticProjectile : Projectile
     {
         /// <summary>
-        ///     Whether the animated impact fx has already been played
-        /// </summary>
-        protected bool ImpactSpriteShown;
-
-        /// <summary>
         ///     Animation to play on impact
         /// </summary>
         protected Animation ImpactAnimation;
@@ -77,6 +72,7 @@ namespace Luftschiff.Code.Game.Projectiles
             ImpactAnimationSprite.Position = Position;
 
             //do magic
+
             ImpactAnimationSprite.Update(Globals.FRAME_TIME);
             if (ImpactAnimationSprite.TimesPlayed * 2 <= ImpactAnimation.GetSize())
                 ImpactAnimationSprite.Play(ImpactAnimation);
