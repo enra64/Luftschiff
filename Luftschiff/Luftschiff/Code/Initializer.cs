@@ -37,6 +37,7 @@ namespace Luftschiff {
 
         private static void InitializeMisc() {
             Globals.DialogFont = new Font("Assets/StandardFontSteamwreck.otf");
+            Globals.NotificationFont = new Font("Assets/ANTSYPAN.TTF");
             Cursor.Initialize();
         }
 

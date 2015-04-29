@@ -114,6 +114,7 @@ namespace Luftschiff.Code {
         public static TurnHandler TurnHandler;
         public static Area AreaReference;
         public static Collider ColliderReference;
+        public static Notifications NotificationReference;
 
         //sound fx
         public static SoundBuffer ClickSound;

@@ -87,8 +87,8 @@
     <Compile Include="Code\Game\Turnhandler\WeaponTarget.cs" />
     <Compile Include="Code\Game\Projectiles\CannonBall.cs" />
     <Compile Include="Code\Game\Projectiles\Projectile.cs" />
-    <Compile Include="Code\Global\Collider.cs" />
-    <Compile Include="Code\Global\FadingNotification.cs" />
+    <Compile Include="Code\Game\Collider.cs" />
+    <Compile Include="Code\Game\Notifications.cs" />
     <Compile Include="Code\Global\Globals.cs" />
     <Compile Include="Code\Global\ProtoGameState.cs" />
     <Compile Include="Code\Global\Util.cs" />
@@ -111,6 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Assets\ANTSYPAN.TTF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Assets\Audio\buttonclick.flac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

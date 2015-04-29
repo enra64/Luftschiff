@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Luftschiff.Code.Game.Projectiles;
 
-namespace Luftschiff.Code.Global
+namespace Luftschiff.Code.Game
 {
     class Collider
     {

@@ -2,12 +2,12 @@
 using SFML.Graphics;
 using SFML.System;
 
-namespace Luftschiff.Code.Global
+namespace Luftschiff.Code.Game
 {
     /// <summary>
     ///     Class wrapping notifications for easy use
     /// </summary>
-    internal class FadingNotification
+    internal class Notifications
     {
         /// <summary>
         ///     List of the current Notifications

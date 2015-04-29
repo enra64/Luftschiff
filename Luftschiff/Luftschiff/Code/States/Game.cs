@@ -32,11 +32,12 @@ namespace Luftschiff.Code.States {
         /// The gamestate constructor.
         /// </summary>
         public Game (){
-            //set references, initialize game lifecycle objects (these do get nulled in kill(), so we even manage our memory...)
+            //set references, initialize game lifecycle objects
             Globals.GameReference = this;
             Globals.AreaReference = new Area();
             Globals.TurnHandler = new TurnHandler();
             Globals.ColliderReference = new Collider();
+            Globals.NotificationReference = new Notifications();
             
             //copy a reference to this class for convenience
             _currentArea = Globals.AreaReference;
