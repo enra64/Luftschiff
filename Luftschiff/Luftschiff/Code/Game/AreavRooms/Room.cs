@@ -122,8 +122,14 @@ namespace Luftschiff.Code.Game.AreavRooms
 
             //TODO improve randomizer and stats for crewdamage
             Random a = new Random();
-            if(crewList.Count > 0)
-                crewList.ElementAt(a.Next(crewList.Count))._health -= 10000;
+            //kills a random dude, and removes him
+            if (crewList.Count > 0)
+            {
+                //whether to kill that dude
+                if (RandomHelper.RandomTrue(70))
+                    //okay tell the area to remove that dude, which should also kill it in this room
+                    Globals.AreaReference.RemoveCrewFromRoom(this, crewList.ElementAt(a.Next(crewList.Count)));
+            }
         }
 
         /// <summary>

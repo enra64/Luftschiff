@@ -103,6 +103,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         public void RemoveCrewFromRoom(Room r, CrewMember c) {
             r.RemoveCrewMember(c);
             CrewList.Remove(c);
+            Console.WriteLine("Crew killed");
             c.CurrentRoom = null;
         }
 

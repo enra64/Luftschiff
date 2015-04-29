@@ -127,36 +127,17 @@ namespace Luftschiff.Code.Game
             _weaponActions.Add(new WeaponTarget(shootyPointy, monster, 0));
         }
 
-        /// <summary>
-        ///     execute all actions for this turn, and call the monster attack
-        /// </summary>
-        public void ExecuteTurn()
+        private void ExecuteMoveCrewActions()
         {
-            //deny turn when projectiles are still flying
-            if (Globals.ColliderReference.ProjectileCount > 0)
-                return;
-
-            //check all weapon targets, and shoot those with 0 waiting turns
-            foreach (var c in _weaponActions){
-                if (c.WaitingTurns == 0)
-                    c.FiringRoom.InflictDamage(c.Target, true);
-                //reduce waiting turns of all so that everything will be fired eventually,
-                //and negative waiting turns can be nulled
-                c.WaitingTurns--;
-            }
-
             //check all crew targets
-            foreach (var c in _crewActions)
-            {
+            foreach (var c in _crewActions) {
                 //0 waiting turns on action -> execute action
                 if (c.WaitingTurns == 0)
                     _areaReference.RepositionCrew(c.Crew, c.Target);
                 //invalid for finished actions to be able to clean it up
-                if (c.WaitingTurns == 0)
-                {
+                if (c.WaitingTurns == 0) {
                     //if the crewmember has arrived at its target
-                    if (c.IsLastAction)
-                    {
+                    if (c.IsLastAction) {
                         //make the crew do the appropriate action at its target
                         c.Target.OnCrewArrive(c.Crew);
                     }
@@ -166,28 +147,55 @@ namespace Luftschiff.Code.Game
             }
 
             //for each crew list check whether it has actions left
-            foreach (CrewMember c in Globals.AreaReference.CrewList)
-            {
+            foreach (CrewMember c in Globals.AreaReference.CrewList) {
                 //count the amount of actions the turnhandler has saved for a crewmember
                 int crewActionCount = _crewActions.Count(ca => ca.Crew == c);
                 //the crew has no actions (moves) left, so oncrewarrive can
                 //not have been executed yet, since the actions have not yet been
                 //deleted
-                if (crewActionCount == 0)
-                {
+                if (crewActionCount == 0) {
                     //tell the room the crewmember is without a job, and that it should give him a job
                     c.CurrentRoom.OnCrewArrive(c);
                 }
             }
+        }
 
+        private void SlackFire()
+        {
             //reduce firelife in rooms
-            foreach(var r in _areaReference.getRooms())
+            foreach (var r in _areaReference.getRooms())
                 if (r.FireLife > 0)
                     r.FireLife -= 1;
                 //check for negative firelifes, because bugs n stuff
                 else if (r.FireLife < 0)
                     r.FireLife = 0;
+        }
 
+        private void ExecuteFiringOrders()
+        {
+            //check all weapon targets, and shoot those with 0 waiting turns
+            foreach (var c in _weaponActions) {
+                if (c.WaitingTurns == 0)
+                    c.FiringRoom.InflictDamage(c.Target, true);
+                //reduce waiting turns of all so that everything will be fired eventually,
+                //and negative waiting turns can be nulled
+                c.WaitingTurns--;
+            }
+        }
+
+        /// <summary>
+        ///     execute all actions for this turn, and call the monster attack
+        /// </summary>
+        public void ExecuteTurn()
+        {
+            //deny turn when projectiles are still flying
+            if (Globals.ColliderReference.ProjectileCount > 0)
+                return;
+
+            //call methods moved out of main body
+            ExecuteFiringOrders();
+            ExecuteMoveCrewActions();
+            SlackFire();
 
             //remove targets with invalid neededactions count to collect garbage
             _crewActions.RemoveAll(s => s.WaitingTurns < 0);

@@ -94,12 +94,10 @@ namespace Luftschiff.Code.Game.Crew {
         /// <summary>
         /// gets called when the crewmember should just work the room, as in use the cannon or whatever
         /// </summary>
-        public int WorkRoom()
+        public void WorkRoom()
         {
             Console.WriteLine("working in room");
             //animation
-            int whatever = 0;
-            return whatever;
         }
 
         public override void Update(){
