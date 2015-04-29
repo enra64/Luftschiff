@@ -54,7 +54,10 @@ namespace Luftschiff.Code.Game.Monsters
         {
             //hit boolean?
             if (true)
+            {
+                Globals.NotificationReference.AddNotification(Position, "HIT BAM SO EFFECT");
                 Life -= 120;
+            }
             if (Life <= 0)
                 Console.WriteLine("dragon dead. much good.");
             Console.WriteLine("the dragon has been shot at. it does give 1/10 of a shit.");

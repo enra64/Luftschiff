@@ -87,6 +87,9 @@ namespace Luftschiff.Code.States {
 
             //draw the bullets
             Globals.ColliderReference.Draw();
+
+            //draw any notification
+            Globals.NotificationReference.Draw();
         }
 
         /// <summary>
@@ -132,6 +135,9 @@ namespace Luftschiff.Code.States {
 
             //update the collider
             Globals.ColliderReference.Update();
+
+            //update notifications
+            Globals.NotificationReference.Update();
 
             //has to be updated last as it consumes all click events that hit nothing
             _currentArea.Update();

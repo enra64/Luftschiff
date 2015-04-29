@@ -64,7 +64,7 @@ namespace Luftschiff.Code.Game
             /// <summary>
             ///     How fast the Notification fades out. Between 0 and 1.
             /// </summary>
-            private readonly float _fadeOutFactor = .95f;
+            private readonly float _fadeOutFactor = .93f;
 
             /// <summary>
             ///     Text used to display the notification
@@ -77,16 +77,20 @@ namespace Luftschiff.Code.Game
             private byte _alphaValue = 255;
 
             /// <summary>
+            ///     The notification color
+            /// </summary>
+            private Color _color = Color.Yellow;
+
+            /// <summary>
             ///     Construct a new notification
             /// </summary>
             /// <param name="pos">Starting posiiton</param>
             /// <param name="text">String to display</param>
             public Notification(Vector2f pos, string text)
             {
-                _text = new Text(text, Globals.NotificationFont, 40)
+                _text = new Text(text, Globals.NotificationFont, 28)
                 {
-                    Color = Color.Yellow,
-                    Position = pos
+                    Position = pos,
                 };
             }
 
@@ -123,10 +127,13 @@ namespace Luftschiff.Code.Game
             public void Update()
             {
                 //move up
-                _text.Position -= new Vector2f(0, 10f);
+                _text.Position -= new Vector2f(0, 3f);
 
-                //save faded out color
-                _text.Color = new Color(255, 255, 255, _alphaValue);
+                //change start color alpha value
+                _color.A = _alphaValue;
+                
+                //save faded out color into Text
+                _text.Color = _color;
 
                 //slowly fade out
                 _alphaValue = (byte)(_alphaValue * _fadeOutFactor);
