@@ -251,16 +251,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public CrewMember RemoveCrewMember(CrewMember a)
         {
-            for (int i = 0; i < CrewList.Count; i++)
-            {
-                if (CrewList.ElementAt(i).Equals(a))
-                {
-                    CrewMember res = CrewList.ElementAt(i);
-                    CrewList.RemoveAt(i);
-                    return res;
-                }
-            }
-            return null;
+            //return a (since we get that anyway) if the element could be removed, and return null otherwise
+            return CrewList.Remove(a) ? a : null;
         }
 
         public void AddDoorsToTileArray(int[,] array, Vector2f position)

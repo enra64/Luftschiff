@@ -10,6 +10,8 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     internal class AirCannonRoom : Room
     {
+        private int _cannonLife = 70;
+
         public AirCannonRoom(Vector2f position) : base(position)
         {
             IntegerTilemap = LoadStandardTilekinds(1);
@@ -40,6 +42,12 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             base.Update();
         }
 
+        public override void ReceiveDamage(int damage)
+        {
+            base.ReceiveDamage(damage);
+            //only difference between this and a normal room is that we have a weapon that may get damaged and stop working
+            _cannonLife -= 20;
+        }
 
         /// <summary>
         ///     Called to inflict damage upon the monster; gives the cannonball to the monster,
