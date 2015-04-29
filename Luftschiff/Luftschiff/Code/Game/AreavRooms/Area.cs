@@ -100,8 +100,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         /// Removes a crewmember from the room and from the area, sets the crewmembers room to null
         /// </summary>
-        public void RemoveCrewFromRoom(Room r, CrewMember c) {
-            r.RemoveCrewMember(c);
+        public void RemoveCrewFromRoom(CrewMember c) {
+            c.CurrentRoom.RemoveCrewMember(c);
+            //only this crewlist.remove may exist to avoid bugs
             CrewList.Remove(c);
             Console.WriteLine("Crew killed");
             c.CurrentRoom = null;
@@ -217,7 +218,9 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 if (CrewList.ElementAt(i)._health < 0)
                 {
-                    CrewList.RemoveAt(i);
+                    //crew dead, remove via area method. direct removements are bad, because they
+                    //may fail to do everything necessary.
+                    RemoveCrewFromRoom(CrewList.ElementAt(i));
                     i--;
                 }
             }
@@ -244,7 +247,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <param name="targetRoom">Room the crew should be moved to</param>
         public void RepositionCrew(CrewMember crew, Room targetRoom)
         {
-            RemoveCrewFromRoom(crew.CurrentRoom, crew);
+            RemoveCrewFromRoom(crew);
             AddCrewToRoom(targetRoom, crew);
         }
     }

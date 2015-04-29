@@ -37,7 +37,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         private readonly Animation _fireAnimation;
 
         //List to use when Crew-class implemented 
-        protected readonly List<CrewMember> crewList = new List<CrewMember>();
+        public readonly List<CrewMember> CrewList = new List<CrewMember>();
         // List to save and get accses to rooms nearby
         //protected List<Room> _nearRooms = new List<Room>();
         public List<Room> _nearRooms { get; private set; }
@@ -123,12 +123,12 @@ namespace Luftschiff.Code.Game.AreavRooms
             //TODO improve randomizer and stats for crewdamage
             Random a = new Random();
             //kills a random dude, and removes him
-            if (crewList.Count > 0)
+            if (CrewList.Count > 0)
             {
                 //whether to kill that dude
-                if (RandomHelper.RandomTrue(70))
+                if (RandomHelper.RandomTrue(30))
                     //okay tell the area to remove that dude, which should also kill it in this room
-                    Globals.AreaReference.RemoveCrewFromRoom(this, crewList.ElementAt(a.Next(crewList.Count)));
+                    Globals.AreaReference.RemoveCrewFromRoom(CrewList.ElementAt(a.Next(CrewList.Count)));
             }
         }
 
@@ -222,10 +222,10 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public bool SetCrewInRoom(CrewMember a)
         {
-            if (crewList.Count < 4)
+            if (CrewList.Count < 4)
             {
-                crewList.Add(a);
-                switch (crewList.Count)
+                CrewList.Add(a);
+                switch (CrewList.Count)
                 {
                     case 1:
                         a.setPosition(Position);
@@ -251,12 +251,12 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public CrewMember RemoveCrewMember(CrewMember a)
         {
-            for (int i = 0; i < crewList.Count; i++)
+            for (int i = 0; i < CrewList.Count; i++)
             {
-                if (crewList.ElementAt(i).Equals(a))
+                if (CrewList.ElementAt(i).Equals(a))
                 {
-                    CrewMember res = crewList.ElementAt(i);
-                    crewList.RemoveAt(i);
+                    CrewMember res = CrewList.ElementAt(i);
+                    CrewList.RemoveAt(i);
                     return res;
                 }
             }
@@ -281,7 +281,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             _indicatorShape = new RectangleShape();
 
             //initialize the fire sprite
-            _fireSprite = new AnimatedSprite(Time.FromSeconds(0.1f), false, false, Position);
+            _fireSprite = new AnimatedSprite(Time.FromSeconds(0.3f), false, false, Position);
             _fireSprite.Position = position;
             _fireAnimation = new Animation(Globals.RoomFireTexture);
             _fireAnimation.AddFrame(new IntRect(0, 0, 64, 64));
@@ -361,8 +361,8 @@ namespace Luftschiff.Code.Game.AreavRooms
             Controller.Window.Draw(damage);
 
             // draw der crew
-            for (int k = 0; k < crewList.Count; k++){
-                crewList.ElementAt(k).Draw();
+            for (int k = 0; k < CrewList.Count; k++){
+                CrewList.ElementAt(k).Draw();
             }
 
             //draw one fire first, since fire spreading should be difficult
@@ -429,6 +429,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                 if(_cracklingFireSound.Status == SoundStatus.Stopped || 
                     _cracklingFireSound.Status == SoundStatus.Paused)
                     _cracklingFireSound.Play();
+
 
             }
         }
