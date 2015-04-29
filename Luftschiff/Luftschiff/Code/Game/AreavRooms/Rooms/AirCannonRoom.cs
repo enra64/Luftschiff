@@ -40,10 +40,6 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             base.Update();
         }
 
-        //this gets called after the usual draw so that cannonballs etc can be drawn on top of other rooms
-        public override void PriorityDraw()
-        {
-        }
 
         /// <summary>
         ///     Called to inflict damage upon the monster; gives the cannonball to the monster,
@@ -55,5 +51,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             Globals.ColliderReference.AddProjectile(new CannonBall(this, monster));
             new Sound(Globals.CannonSound).Play();
         }
+
+
     }
 }

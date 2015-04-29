@@ -235,8 +235,6 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 rooms_.ElementAt(i).Draw();
             }
-            foreach (var room in rooms_)
-                room.PriorityDraw();
         }
 
         /// <summary>

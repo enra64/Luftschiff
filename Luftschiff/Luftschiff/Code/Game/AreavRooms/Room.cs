@@ -105,7 +105,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// Damages the element. Subject to change dictated by implementation of damage system
         /// </summary>
         /// <param name="damage">Amount of damage</param>
-        public void ReceiveDamage(int damage)
+        public virtual void ReceiveDamage(int damage)
         {
             RoomLife = RoomLife - damage/5;
             if (FireLife > 0)
@@ -333,11 +333,6 @@ namespace Luftschiff.Code.Game.AreavRooms
                 OutlineThickness = 2
             };
         }
-
-        /// <summary>
-        /// use this to get drawed after other rooms eg cannonballs
-        /// </summary>
-        public virtual void PriorityDraw(){}
 
         public void Draw()
         {
