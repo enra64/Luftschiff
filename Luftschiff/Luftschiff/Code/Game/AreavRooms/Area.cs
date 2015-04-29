@@ -100,7 +100,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         /// Removes a crewmember from the room and from the area, sets the crewmembers room to null
         /// </summary>
-        public void RemoveCrewFromRoom(CrewMember c) {
+        public void RemoveCrewFromRoom(CrewMember c)
+        {
+            return;
             c.CurrentRoom.RemoveCrewMember(c);
             //only this crewlist.remove may exist to avoid bugs
             CrewList.Remove(c);

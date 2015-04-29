@@ -13,7 +13,8 @@ namespace Luftschiff.Code.Dialogs
         private FloatRect _buttonRect;
         private Color _normalColor, _hoverColor, _attentionColor;
         public String Tag = null;
-        private bool _activationButtonConsumed = false;
+        private bool _activationButtonConsumed;
+        public bool Enable = true;
 
         //ERRORSOURCE: uses F15 as null key
         /// <summary>
@@ -92,7 +93,7 @@ namespace Luftschiff.Code.Dialogs
         public Boolean Update()
         {
             //check whether a button has been set
-            if (ActivationKey != Keyboard.Key.F15)
+            if (ActivationKey != Keyboard.Key.F15 && Enable)
             {
                 //check whether the correct button is pressed and not yet consumed
                 if (Keyboard.IsKeyPressed(ActivationKey) && !_activationButtonConsumed)
@@ -110,12 +111,16 @@ namespace Luftschiff.Code.Dialogs
             //change the color on hover
             _buttonShape.FillColor = _buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y) 
                 ? _hoverColor : _normalColor;
+
             //force attention to the button on special occasions
             if (ForceAttention)
                 _buttonShape.FillColor = _attentionColor;
+
+            //make text gray when disabled
+            _buttonText.Color = Enable ? Color.Black : new Color(200, 200, 200);
             
-            //check if click is available and in the button area
-            if (!MouseHandler.UnhandledClick || !_buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y)) 
+            //check if click is available and in the button area and whether the button is enabled at all
+            if (!Enable || !MouseHandler.UnhandledClick || !_buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y)) 
                 return false;
 
             //play click sound

@@ -67,16 +67,7 @@ namespace Luftschiff.Code.Game.Crew {
         {
             //debug output
             Console.WriteLine("repairing");
-            
-            //should start repair animation
-            int repairAmount = 10*_repairSpeed;
-
-            //fix the roomlife ot the maximum posssible life
-            if (CurrentRoom.RoomLife + repairAmount > CurrentRoom.MaxLife)
-                CurrentRoom.RoomLife = CurrentRoom.MaxLife;
-            //maxlife not hit, add normal
-            else
-                CurrentRoom.RoomLife += 10 * _repairSpeed;
+            CurrentRoom.ReceiveRepair(10 * _repairSpeed, 8 * _repairSpeed);
         }
 
         /// <summary>

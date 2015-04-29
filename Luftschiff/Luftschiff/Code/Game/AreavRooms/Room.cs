@@ -95,11 +95,16 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             if(FireLife > 0)
                 traveler.SlackFire();
-            else if (RoomLife < 100)
+            else if (NeedsRepair)
                 traveler.RepairRoom();
             else
                 traveler.WorkRoom();
         }
+
+        /// <summary>
+        /// Used so that rooms with special stuff can override it
+        /// </summary>
+        public virtual bool NeedsRepair { get { return RoomLife < 100; } }
 
         /// <summary>
         /// Damages the element. Subject to change dictated by implementation of damage system
@@ -131,6 +136,21 @@ namespace Luftschiff.Code.Game.AreavRooms
                     Globals.AreaReference.RemoveCrewFromRoom(CrewList.ElementAt(a.Next(CrewList.Count)));
             }
         }
+
+        /// <summary>
+        ///     Repair the room by a certain amount. If not overridden, the special room item will not be repaired
+        /// </summary>
+        /// <param name="repairAmount">How much to add to RoomLife</param>
+        /// <param name="repairSpecial">Whether to repair specialties (e.g. cannon)</param>
+        public virtual void ReceiveRepair(int repairAmount, int repairSpecial)
+        {
+            if (RoomLife + repairAmount <= MaxLife)
+                RoomLife += repairAmount;
+            else
+                RoomLife = MaxLife;
+        }
+
+        
 
         /// <summary>
         /// Returns true if the objects rectangle contains the position
@@ -328,6 +348,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         public void Draw()
         {
+            //draw the tilemap
             for (int i = 0; i < 4; i++)
             {
                 for (int k = 0; k < 4; k++)

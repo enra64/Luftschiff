@@ -106,6 +106,9 @@ namespace Luftschiff.Code.States {
         {
             CurrentMonster.Update();
             
+            //disable the turn button when prjectiles are flying
+            _turnButton.Enable = Globals.ColliderReference.ProjectileCount == 0;
+
             //execute the turn when the user clicks the turn button
             if (_turnButton.Update()){
                 Globals.TurnHandler.ExecuteTurn();
