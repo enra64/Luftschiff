@@ -49,6 +49,11 @@ namespace Luftschiff.Code {
         public static Color DIALOG_BUTTON_COLOR_ATTENTIONSEEKER = Color.Red;
 
         /// <summary>
+        /// when the button is disabled
+        /// </summary>
+        public static Color DIALOG_BUTTON_COLOR_DISABLED = new Color(200, 200, 200);
+
+        /// <summary>
         ///     standard color for the ship healthbar
         /// </summary>
         public static Color HEALTH_BAR_COLOR_SHIP = Color.Green;

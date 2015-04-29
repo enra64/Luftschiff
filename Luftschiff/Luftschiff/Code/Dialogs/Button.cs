@@ -108,6 +108,14 @@ namespace Luftschiff.Code.Dialogs
             //get position
             Vector2f currentMousePosition = MouseHandler.CurrentPosition;
 
+            //make text gray when disabled
+            _buttonText.Color = Enable ? Color.Black : Globals.DIALOG_BUTTON_COLOR_DISABLED;
+            _buttonShape.OutlineColor = Enable ? Color.Black : Globals.DIALOG_BUTTON_COLOR_DISABLED;
+
+            //when disabled, dont even do hover and attention
+            if (!Enable)
+                return false;
+
             //change the color on hover
             _buttonShape.FillColor = _buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y) 
                 ? _hoverColor : _normalColor;
@@ -115,12 +123,10 @@ namespace Luftschiff.Code.Dialogs
             //force attention to the button on special occasions
             if (ForceAttention)
                 _buttonShape.FillColor = _attentionColor;
-
-            //make text gray when disabled
-            _buttonText.Color = Enable ? Color.Black : new Color(200, 200, 200);
+            
             
             //check if click is available and in the button area and whether the button is enabled at all
-            if (!Enable || !MouseHandler.UnhandledClick || !_buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y)) 
+            if (!MouseHandler.UnhandledClick || !_buttonRect.Contains(currentMousePosition.X, currentMousePosition.Y)) 
                 return false;
 
             //play click sound

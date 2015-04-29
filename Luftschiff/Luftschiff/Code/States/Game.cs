@@ -57,7 +57,7 @@ namespace Luftschiff.Code.States {
             _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
 
             //init turnbutton with space for activation
-            _turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2, Controller.Window.Size.Y - 40), new Vector2f(100, 40));
+            _turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2 - 60, Controller.Window.Size.Y - 40), new Vector2f(120, 40));
             _turnButton.ActivationKey = Keyboard.Key.Space;
 
             var healthBarSize = new Vector2f(Controller.Window.Size.X/2 - 40, 25);
