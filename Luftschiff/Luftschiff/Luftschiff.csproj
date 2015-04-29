@@ -88,6 +88,7 @@
     <Compile Include="Code\Game\Projectiles\CannonBall.cs" />
     <Compile Include="Code\Game\Projectiles\Projectile.cs" />
     <Compile Include="Code\Global\Collider.cs" />
+    <Compile Include="Code\Global\FadingNotification.cs" />
     <Compile Include="Code\Global\Globals.cs" />
     <Compile Include="Code\Global\ProtoGameState.cs" />
     <Compile Include="Code\Global\Util.cs" />

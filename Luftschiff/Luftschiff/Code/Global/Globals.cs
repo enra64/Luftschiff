@@ -29,6 +29,11 @@ namespace Luftschiff.Code {
         public static Font DialogFont;
 
         /// <summary>
+        /// Standard notification font
+        /// </summary>
+        public static Font NotificationFont;
+
+        /// <summary>
         /// The standard height for every dialog button
         /// </summary>
         public static int TWO_BUTTON_DIALOG_BUTTON_HEIGHT = 40;
