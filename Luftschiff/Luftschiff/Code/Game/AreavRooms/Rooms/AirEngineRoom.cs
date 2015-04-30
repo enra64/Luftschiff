@@ -24,7 +24,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                 Position = ObjectTilemap[1, 1].Position,
                 
                 //make it look okay
-                Scale = new Vector2f(1.65f, 1.45f)
+                Scale = new Vector2f(.5f, .5f)
             };
 
             //add to sprite list so it gets drawn automatically
