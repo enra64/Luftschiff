@@ -211,6 +211,7 @@ namespace Luftschiff.Code.Game
             ExecuteFiringOrders();
             ExecuteMoveCrewActions();
             SlackFire();
+            ExecuteRoomEndOfRound();
 
             //remove targets with invalid neededactions count to collect garbage
             _crewActions.RemoveAll(s => s.WaitingTurns < 0);
