@@ -23,12 +23,15 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
             //guess position by using the position of the tiles
             gunSprite.Position = ObjectTilemap[1, 1].Position;
-
+            gunSprite.Position = new Vector2f(gunSprite.Position.X , gunSprite.Position.Y +65);
             //make it look okay
-            gunSprite.Scale = new Vector2f(.6f, .6f);
+            gunSprite.Scale = new Vector2f(.3f, .3f);
 
+            gunSprite.Rotation = 270;
             //add to sprite list so it gets drawn automatically
             AdditionalRoomSprites.Add(gunSprite);
+
+
         }
 
         //override this to signify that this room gets the aim cursor
@@ -49,7 +52,8 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void Update()
         {
             //needs to be called if we want a shortcut
-            base.Update();
+                base.Update();    
+
 
             //tint the cannon sprite to show damage
             foreach (var s in AdditionalRoomSprites)
@@ -77,7 +81,8 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                 return;
             
             //damage the dragon
-            Globals.ColliderReference.AddProjectile(new CannonBall(this, monster));
+
+             Globals.ColliderReference.AddProjectile(new CannonBall(this, monster));   
             //sfx
             new Sound(Globals.CannonSound).Play();
         }

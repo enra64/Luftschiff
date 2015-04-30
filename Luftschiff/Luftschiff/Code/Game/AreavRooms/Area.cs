@@ -15,6 +15,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         private int _maxLife = 1000;
         private int _currentRoomButton = 0;
         private States.Game _gameReference = Globals.GameReference;
+        private Sprite _staticMaintexture;
 
         public enum RoomTypes
         {
@@ -40,6 +41,10 @@ namespace Luftschiff.Code.Game.AreavRooms
             rooms_ = new List<Room>();
             CrewList = new List<CrewMember>();
             Life = 1000;
+            _staticMaintexture = new Sprite(new Texture(Globals.ShipTexture));
+            _staticMaintexture.Position = new Vector2f(10, 550);
+            _staticMaintexture.Scale = new Vector2f(1.1f, 0.9f);
+            _staticMaintexture.Rotation = 270;
         }
 
         /// <summary>
@@ -65,14 +70,17 @@ namespace Luftschiff.Code.Game.AreavRooms
             //ERRORSOURCE 
             //look for near rooms and save them in list
             FloatRect work = new FloatRect();
+            FloatRect work2 = new FloatRect();
             for (int i = 0; i < rooms_.Count; i++)
             {
                 work = rooms_.ElementAt(i).GlobalRect;
                 work.Height = work.Height + 125; // pixel differenz
-                work.Width = work.Width + 125;
-                work.Left = work.Left - 75;
                 work.Top = work.Top - 75;
-                if (work.Intersects(newRoom.GlobalRect))
+                work2 = rooms_.ElementAt(i).GlobalRect;
+                work2.Width = work.Width + 125;
+                work2.Left = work.Left - 75;
+
+                if (work.Intersects(newRoom.GlobalRect) || work2.Intersects(newRoom.GlobalRect)) 
                 {
                     newRoom.addNearRooms(rooms_.ElementAt(i));
                     rooms_.ElementAt(i).addNearRooms(newRoom);
@@ -197,6 +205,12 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 if (!rooms_.ElementAt(i).IsAlive)
                 {
+                    //TODO change so when room is deleted it is deleted in every list
+                    for (int k = 0; k < rooms_.ElementAt(i)._nearRooms.Count; k++)
+                    {
+                        rooms_.ElementAt(i)._nearRooms.ElementAt(k)._nearRooms.Remove(rooms_.ElementAt(i));
+                    }
+                    // add until here
                     rooms_.RemoveAt(i);
                     i--;
                 }
@@ -233,6 +247,10 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public override void Draw()
         {
+            // draw ship over map in not beautiful 
+            //TODO improve this a bit
+
+            Controller.Window.Draw(_staticMaintexture);
             for (int i = 0; i < rooms_.Count; i++)
             {
                 rooms_.ElementAt(i).Draw();
