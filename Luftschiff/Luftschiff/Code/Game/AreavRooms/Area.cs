@@ -277,6 +277,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                 a._nearRooms.ElementAt(k)._nearRooms.Remove(a);
             }
             rooms_.Remove(a);
+            Globals.TurnHandler.InvalidateRoom(a);
             MouseHandler.SelectedRoom = null;
         }
     }
