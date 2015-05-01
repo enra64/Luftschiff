@@ -213,17 +213,10 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 if (!rooms_.ElementAt(i).IsAlive)
                 {
-                    //TODO change so when room is deleted it is deleted in every list
-                    for (int k = 0; k < rooms_.ElementAt(i)._nearRooms.Count; k++)
-                    {
-                        rooms_.ElementAt(i)._nearRooms.ElementAt(k)._nearRooms.Remove(rooms_.ElementAt(i));
-                    }
-                    // add until here
-                    rooms_.RemoveAt(i);
+                    this.RemoveRoom(rooms_.ElementAt(i));
                     i--;
                 }
             }
-
 
             foreach(var r in rooms_)
                 r.Update();
@@ -273,8 +266,18 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <param name="targetRoom">Room the crew should be moved to</param>
         public void RepositionCrew(CrewMember crew, Room targetRoom)
         {
-            RemoveCrewFromRoom(crew);
+            RemoveCrewFromRoom(crew);          
             AddCrewToRoom(targetRoom, crew);
+        }
+
+        public void RemoveRoom(Room a)
+        {
+            for (int k = 0; k < a._nearRooms.Count; k++)
+            {
+                a._nearRooms.ElementAt(k)._nearRooms.Remove(a);
+            }
+            rooms_.Remove(a);
+            MouseHandler.SelectedRoom = null;
         }
     }
 }
