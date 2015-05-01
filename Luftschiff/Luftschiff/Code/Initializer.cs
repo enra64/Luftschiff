@@ -56,7 +56,7 @@ namespace Luftschiff {
 
             //special room stuff
             Globals.EngineTexture = new Texture("Assets/Graphics/Elena/RoomSpecials/engine.png");
-            Globals.GunTexture = new Texture("Assets/Graphics/Elena/RoomSpecials/kanone.png");
+            Globals.GunTexture = new Texture("Assets/Graphics/Elena/RoomSpecials/kanonelined.png");
             Globals.HospitalTexture = new Texture("Assets/Graphics/Elena/RoomSpecials/medbay.png");
 
             //projectiles

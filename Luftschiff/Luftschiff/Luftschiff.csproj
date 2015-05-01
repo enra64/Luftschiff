@@ -143,6 +143,9 @@
     <Content Include="Assets\Graphics\Elena\RoomSpecials\kanone.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Graphics\Elena\RoomSpecials\kanonelined.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Graphics\Elena\RoomSpecials\medbay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
