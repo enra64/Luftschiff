@@ -68,8 +68,6 @@ namespace Luftschiff.Code.Game.Monsters
                 }
                 _roundCounter = 0;
             }
-
-
         }
 
         public override void ReceiveDamage(int damageAmount)
