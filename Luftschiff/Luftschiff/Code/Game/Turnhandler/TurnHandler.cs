@@ -164,13 +164,16 @@ namespace Luftschiff.Code.Game
         {
             foreach (var room in Globals.AreaReference.getRooms())
             {
-                //reduce room life because fire n stuff
-                room.RoomLife -= (int)(room.RoomLife * 0.1f);
-
-                //burn the crewmembers slightly
-                foreach (var crewMember in room.CrewList)
+                if (room.FireLife > 0)
                 {
-                    crewMember._health -= (int)(crewMember._health * .1f);
+                    //reduce room life because fire n stuff
+                    room.RoomLife -= (int)(room.RoomLife * 0.1f);
+
+                    //burn the crewmembers slightly
+                    foreach (var crewMember in room.CrewList)
+                    {
+                        crewMember._health -= (int)(crewMember._health * .1f);
+                    }   
                 }
             }
         }

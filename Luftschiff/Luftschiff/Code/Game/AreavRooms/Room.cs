@@ -60,7 +60,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         ///     The number of Rounds the room should burn without user interaction
         /// </summary>
-        public int FireLife;
+        public int FireLife { get; set; }
 
         /// <summary>
         ///     Cooldown of the room action
@@ -70,7 +70,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         ///     Life of the Room, current default is 100
         /// </summary>
-        public int RoomLife = 100;
+        public int RoomLife { get; set; }
 
         private bool _walkAble = true;
         protected int[,] IntegerTilemap = new int[4, 4];
@@ -304,6 +304,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             Position = position;
             MaxLife = RoomLife;
             _nearRooms = new List<Room>();
+            RoomLife = 100;
 
             //sound the room makes when on fire
             _cracklingFireSound = new Sound(Globals.FireCrackleSound);
