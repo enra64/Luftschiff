@@ -63,7 +63,7 @@ namespace Luftschiff.Code.Game.Monsters
             {
                 foreach (var room in areaReference.getRooms())
                 {
-                    int damage= (int)(room.MaxLife*0.8);
+                    int damage= (int)(room.MaxLife*0.4);
                     room.ReceiveDamage(damage);
                 }
                 _roundCounter = 0;

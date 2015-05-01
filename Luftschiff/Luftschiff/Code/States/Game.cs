@@ -47,10 +47,17 @@ namespace Luftschiff.Code.States {
 
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
-            //CurrentMonster = new Dragon();
-            CurrentMonster = new Skywhale();
-           
 
+            TwoButtonDialog enemy = new TwoButtonDialog("Drache","Himmelswal","Waehle deinen Gegner","Gegnerwahl");
+            enemy.show();
+            if (enemy.show())
+            {
+                CurrentMonster = new Dragon();
+            }
+            else
+            {
+                CurrentMonster = new Skywhale(); 
+            }
             _currentArea.AddRoom(new AirCannonRoom(new Vector2f(570, 325)));
             _currentArea.AddRoom(new AirEngineRoom(new Vector2f(310, 245)));
             _currentArea.AddRoom(new AirHospitalWard(new Vector2f(440, 245)));
