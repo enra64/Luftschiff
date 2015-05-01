@@ -47,8 +47,8 @@ namespace Luftschiff.Code.States {
 
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
-            //CurrentMonster = new Dragon();
-            CurrentMonster = new Skywhale();
+            CurrentMonster = new Dragon();
+            //CurrentMonster = new Skywhale();
            
 
             _currentArea.AddRoom(new AirCannonRoom(new Vector2f(570, 325)));

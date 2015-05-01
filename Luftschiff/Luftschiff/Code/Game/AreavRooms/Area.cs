@@ -120,6 +120,9 @@ namespace Luftschiff.Code.Game.AreavRooms
             //only this crewlist.remove may exist to avoid bugs
             CrewList.Remove(c);
             Console.WriteLine("Crew killed");
+            //remove reference in mousehandler
+            if(MouseHandler.SelectedCrew == c)
+                MouseHandler.SelectedCrew = null;
             c.CurrentRoom = null;
         }
 

@@ -66,11 +66,15 @@ namespace Luftschiff.Code.Game.Monsters
 
         private void clawAttack(Room attackedRoom)
         {
-            //affected crewmember in room
-            CrewMember affected = attackedRoom.CrewList[RandomHelper.RandomUpTo(attackedRoom.CrewList.Count)];
-            if (RandomHelper.RandomTrue(30))
-                //okay tell the area to remove that dude, which should also kill it in this room
-                Globals.AreaReference.RemoveCrewFromRoom(affected);
+            if (attackedRoom.CrewList.Count > 0)
+            {
+                //affected crewmember in room
+                CrewMember affected = attackedRoom.CrewList[RandomHelper.RandomUpTo(attackedRoom.CrewList.Count)];
+                if (RandomHelper.RandomTrue(30))
+                    //okay tell the area to remove that dude, which should also kill it in this room
+                    Globals.AreaReference.RemoveCrewFromRoom(affected);
+            }
+            attackedRoom.ReceiveDamage(80);
         }
 
         public override void ReceiveDamage(int damageAmount)
