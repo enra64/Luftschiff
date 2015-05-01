@@ -60,8 +60,8 @@ namespace Luftschiff.Code.Game.Monsters
             new Sound(Globals.FireSound).Play();
 
             //randomise room ignition chance to make game more playable
-            //if (RandomHelper.RandomTrue(33))
-            //    SetOnFire(3);
+            if (RandomHelper.RandomTrue(33))
+                attackedRoom.SetOnFire(3);
         }
 
         private void clawAttack(Room attackedRoom)

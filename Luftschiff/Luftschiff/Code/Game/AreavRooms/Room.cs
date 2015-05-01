@@ -165,8 +165,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        ///     Someone just wants to see this room burn.
-        ///     <para>I'm sorry for that</para>
+        ///     Some men just want to watch this room burn.
+        ///     <para>I'm sorry for that.</para>
         /// </summary>
         /// <param name="roundsRoomIsBurning">Fire duration in Rounds without Slacking</param>
         public void SetOnFire(int roundsRoomIsBurning)
