@@ -146,7 +146,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             if (RoomLife + repairAmount <= MaxLife)
             {
-                Globals.AreaReference.Life += repairAmount;
+                if(Globals.AreaReference.Life <=1000)
+                    Globals.AreaReference.Life += repairAmount;
+
                 RoomLife += repairAmount;
             }
 

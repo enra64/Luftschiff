@@ -78,6 +78,7 @@
     <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Game\Monsters\Dragon.cs" />
     <Compile Include="Code\Game\Monsters\Monster.cs" />
+    <Compile Include="Code\Game\Monsters\Skywhale.cs" />
     <Compile Include="Code\Game\Object.cs" />
     <Compile Include="Code\Game\Projectiles\FireBall.cs" />
     <Compile Include="Code\Game\Projectiles\ITarget.cs" />
@@ -200,7 +201,9 @@
     <Content Include="Assets\Graphics\Cursors\standardCursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Graphics\wal.png" />
+    <Content Include="Assets\Graphics\wal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Graphics\testbg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
