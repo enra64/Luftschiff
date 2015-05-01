@@ -11,6 +11,11 @@ namespace Luftschiff.Graphics.Lib
         private static RenderWindow _win;
         private static List<ShapeParticle> _particleKeeper;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="color"></param>
         public ParticleHandler(int number, Color color)
         {
             _particleKeeper = new List<ShapeParticle>(number);
@@ -23,16 +28,26 @@ namespace Luftschiff.Graphics.Lib
             _win = Controller.Window;
         }
 
+        /// <summary>
+        /// add a particle to the handler
+        /// </summary>
+        /// <param name="shapeParticle"></param>
         private static void Add(ShapeParticle shapeParticle)
         {
             _particleKeeper.Add(shapeParticle);
         }
 
+        /// <summary>
+        /// removes particles that passed their lifetime
+        /// </summary>
         private static void Remove()
         {
             _particleKeeper.RemoveAll(par => par.LifeTime <= par.LifeClock.ElapsedTime);
         }
 
+        /// <summary>
+        /// update loop
+        /// </summary>
         public void Update()
         {
             Console.WriteLine("Current Particles: "+ _particleKeeper.Count);
@@ -50,6 +65,9 @@ namespace Luftschiff.Graphics.Lib
             
         }
 
+        /// <summary>
+        /// draw loop
+        /// </summary>
         public void Draw()
         {
             foreach (var listedParticle in _particleKeeper)

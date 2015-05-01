@@ -5,6 +5,7 @@ namespace Luftschiff.Graphics.Lib.Particles
 {
     internal abstract class SpriteParticle : Drawable
     {
+        //Similar to shape particle just with sprites
         public abstract AnimatedSprite Sprite { get; set; }
         public abstract Color Color { get; set; }
         public abstract Clock LifeClock { get; set; }
