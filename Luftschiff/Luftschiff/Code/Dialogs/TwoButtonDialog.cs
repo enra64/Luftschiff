@@ -80,9 +80,12 @@ namespace Luftschiff.Code.Dialogs {
         {
             while (!_userInteracted)
             {
+                
+                Cursor.Update();
                 Controller.Window.DispatchEvents();
                 update();
                 draw();
+                Cursor.Draw();
                 Controller.Window.Display();
                 Controller.Window.Clear(Color.Black);
             }
