@@ -119,7 +119,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
 
             //add area damage
-            Globals.AreaReference.Life -= 90;
+            Globals.AreaReference.Life -= damage;
 
             //TODO improve randomizer and stats for crewdamage
 
