@@ -104,6 +104,7 @@
     <Compile Include="Controller.cs" />
     <Compile Include="Graphics.Lib\AnimatedSprite.cs" />
     <Compile Include="Graphics.Lib\Animation.cs" />
+    <Compile Include="Graphics.Lib\AParticles.cs" />
     <Compile Include="Graphics.Lib\SpriteParticle.cs" />
     <Compile Include="Graphics.Lib\ShapeParticle.cs" />
     <Compile Include="Graphics.Lib\ParticleHandler.cs" />

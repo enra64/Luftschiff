@@ -63,9 +63,13 @@ namespace Luftschiff.Graphics.Lib.Particles
 
         public override void Update()
         {
-            Shape.Position = new Vector2f(Shape.Position.X + 0.5f,Shape.Position.Y);    
         }
 
         public override Shape Shape { get; set; }
-    }
+
+        public override void Move(Vector2f moveVector2F)
+        {
+            Shape.Position = moveVector2F;
+        }
+}
 }

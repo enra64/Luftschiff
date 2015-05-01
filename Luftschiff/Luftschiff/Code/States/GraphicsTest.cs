@@ -35,7 +35,7 @@ namespace Luftschiff.Code.States
             _turnaround.AddFrame(new IntRect(0, 0, 100, 100));
 
             _movingSprite = new AnimatedSprite(Time.FromSeconds(0.5f), false, true, new Vector2f(0f,0f));    
-            _amazing = new ParticleHandler(0,Color.Transparent);
+            _amazing = new ParticleHandler(0,Color.Transparent, false);
         }
         /// <summary>
         /// Main draw call for our Game. 
@@ -75,15 +75,15 @@ namespace Luftschiff.Code.States
             {
                 if (particleList.show() == 0)
                 {
-                    _amazing = new ParticleHandler(500, new Color(Color.Blue));
+                    _amazing = new ParticleHandler(500, new Color(Color.Blue),true);
                 }
                 if (particleList.show() == 1)
                 {
-                    _amazing = new ParticleHandler(500, new Color(Color.Red));
+                    _amazing = new ParticleHandler(500, new Color(Color.Red),true);
                 }
                 if (particleList.show() == 2)
                 {
-                    _amazing = new ParticleHandler(500, new Color(Color.Green));
+                    _amazing = new ParticleHandler(500, new Color(Color.Green),true);
                 }
             }
         }
