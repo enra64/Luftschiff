@@ -14,6 +14,7 @@ namespace Luftschiff.Code.Game.Monsters
     class Skywhale : Monster
     {
         private int _hittingInthemiddle = 0;
+        private int _roundCounter = 0;
         private readonly Animation _whalediving;
         public Skywhale(Texture t, int life) : base(life)
         {
@@ -22,8 +23,9 @@ namespace Luftschiff.Code.Game.Monsters
             {
                 _whalediving.AddFrame(new IntRect(0,546 *i,951,546));
             }
-            var pos = new Vector2f(Controller.Window.Size.X / 1.8f, 50f);
+            var pos = new Vector2f(Controller.Window.Size.X / 1.7f, 100f);
             Sprite = new AnimatedSprite(Time.FromSeconds(0.12f),false,true,pos);
+            Sprite.Scale = new Vector2f(0.8f, 0.8f);
         }
         public Skywhale() : this(Globals.SkywhaleTexture, 1000){}
 
@@ -56,7 +58,19 @@ namespace Luftschiff.Code.Game.Monsters
 
         public override int AttackShip(Area areaReference)
         {
-            return 10000;
+            _roundCounter++;
+            if (_roundCounter >= 3)
+            {
+                foreach (var room in areaReference.getRooms())
+                {
+                    int damage= (int)(room.MaxLife*0.8);
+                    room.ReceiveDamage(damage);
+                }
+                _roundCounter = 0;
+            }
+
+
+            return -1;
         }
 
         public override void ReceiveDamage(int damageAmount)

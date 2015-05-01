@@ -52,6 +52,14 @@ namespace Luftschiff.Code.Game.Crew {
 
         public void Draw()
         {
+            // damage sign for crew health debug
+            Shape test = new CircleShape(10);
+            test.Position = useAnAnimatedSprite.Position;
+            test.FillColor = new Color(20, 0, 0, (byte)(255 - (_health / 100f) * 255));  
+            if(_health <= 0)
+                test.FillColor = Color.Red; 
+            Controller.Window.Draw(test);
+
             Controller.Window.Draw(useAnAnimatedSprite);
             Controller.Window.Draw(_indicatorShape);
         }
