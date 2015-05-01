@@ -16,13 +16,12 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public AirCannonRoom(Vector2f position) : base(position)
         {
             IntegerTilemap = LoadStandardTilekinds(1);
-            initializeTilemap(Area.RoomTypes.AirCannon);
 
             //add additonal sprite: weapon
             var gunSprite = new Sprite(Globals.GunTexture);
 
             //guess position by using the position of the tiles
-            gunSprite.Position = ObjectTilemap[1, 1].Position;
+            gunSprite.Position = new Vector2f(Position.X + 32, Position.Y + 32);
             gunSprite.Position = new Vector2f(gunSprite.Position.X , gunSprite.Position.Y +65);
             //make it look okay
             gunSprite.Scale = new Vector2f(.3f, .3f);
@@ -30,8 +29,6 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             gunSprite.Rotation = 270;
             //add to sprite list so it gets drawn automatically
             AdditionalRoomSprites.Add(gunSprite);
-
-
         }
 
         //override this to signify that this room gets the aim cursor
@@ -61,6 +58,11 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                 byte notRedValue = (byte)((float)((float)_cannonLife / (float)_maxCannonLife) * 255f);
                 s.Color = new Color(255, notRedValue, notRedValue);
             }
+        }
+
+        public override void FinalizeTiles() {
+            AddDoorsToTileArray();
+            initializeTilemap(Area.RoomTypes.AirCannon);
         }
 
         public override void ReceiveDamage(int damage)

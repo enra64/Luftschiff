@@ -26,6 +26,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         private RectangleShape _indicatorShape;
 
+        private List<Vector2f> _doorPositions = new List<Vector2f>(); 
+
         /// <summary>
         ///     Animated Sprite for fire
         /// </summary>
@@ -73,7 +75,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         public int RoomLife { get; set; }
 
         private bool _walkAble = true;
-        protected int[,] IntegerTilemap = new int[4, 4];
+        public int[,] IntegerTilemap = new int[4, 4];
         protected readonly Tile[,] ObjectTilemap= new Tile[4,4];
         protected readonly List<Sprite> AdditionalRoomSprites = new List<Sprite>();
         
@@ -152,8 +154,6 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         }
 
-        
-
         /// <summary>
         /// Returns true if the objects rectangle contains the position
         /// </summary>
@@ -211,6 +211,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                     break;
 
             }
+            //add doors
+            //array = AddDoorsToTileArray(array);
             return array;
         }
 
@@ -277,10 +279,57 @@ namespace Luftschiff.Code.Game.AreavRooms
             return CrewList.Remove(a) ? a : null;
         }
 
-        public void AddDoorsToTileArray(int[,] array, Vector2f position)
+        public void AddDoorsToTileArray()
         {
             //TODO add door number to tileMap numbers , needed Roomconnection list
+            //check each near room
+            foreach (Room r in _nearRooms)
+            {
+                //♥ win+space ftw though
+                //get distance between me and the nearroom
+                Vector2f distanceVector = new Vector2f(Center.X - r.Center.X, Center.Y - r.Center.Y);
+                //check whether we are horizontally or vertically offset
+                if (Math.Abs(distanceVector.X) > Math.Abs(distanceVector.Y))
+                    //right
+                    if (distanceVector.X > 0)
+                        //top
+                        if (distanceVector.Y > 0)
+                            IntegerTilemap[3, 1] = Tile.TILE_DOOR;
+                        //bottom
+                        else
+                            IntegerTilemap[3, 2] = Tile.TILE_DOOR;
+                    //left
+                    else
+                        //top
+                        if (distanceVector.Y > 0) 
+                            IntegerTilemap[0, 1] = Tile.TILE_DOOR;
+                        //bottom
+                        else 
+                            IntegerTilemap[0, 2] = Tile.TILE_DOOR;
+                else
+                    //bottom
+                    if (distanceVector.Y > 0)
+                        //right
+                        if (distanceVector.X > 0) 
+                            IntegerTilemap[2, 3] = Tile.TILE_DOOR;
+                        //left
+                        else 
+                            IntegerTilemap[1, 3] = Tile.TILE_DOOR;
+                    //top
+                    else
+                        //right
+                        if (distanceVector.X > 0) 
+                            IntegerTilemap[2, 0] = Tile.TILE_DOOR;
+                        //left
+                        else 
+                            IntegerTilemap[1, 0] = Tile.TILE_DOOR;
+            }
         }
+
+        /// <summary>
+        ///     Must call AddDoorsToTileArray and initializeTilemap.
+        /// </summary>
+        public abstract void FinalizeTiles();
 
         protected Room(Vector2f position)
         {
@@ -288,6 +337,8 @@ namespace Luftschiff.Code.Game.AreavRooms
             RoomLife = 100;
             MaxLife = RoomLife;
             _nearRooms = new List<Room>();
+
+            initializeTilemap(Area.RoomTypes.Empty);
 
             //sound the room makes when on fire
             _cracklingFireSound = new Sound(Globals.FireCrackleSound);

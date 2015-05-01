@@ -15,20 +15,25 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public AirEngineRoom(Vector2f position): base(position)
         {
             IntegerTilemap = LoadStandardTilekinds(2);
-            initializeTilemap(Area.RoomTypes.AirEngine);
 
             //add additonal sprite: weapon
             var engineSprite = new Sprite(Globals.EngineTexture)
             {
                 //guess position by using the position of the tiles
-                Position = ObjectTilemap[1, 1].Position,
-                
+                Position = new Vector2f(Position.X + 32, Position.Y + 32),
+
                 //make it look okay
                 Scale = new Vector2f(.5f, .5f)
             };
 
             //add to sprite list so it gets drawn automatically
             AdditionalRoomSprites.Add(engineSprite);
+        }
+
+        public override void FinalizeTiles()
+        {
+            AddDoorsToTileArray();
+            initializeTilemap(Area.RoomTypes.AirEngine);
         }
     }
 }

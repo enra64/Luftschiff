@@ -16,8 +16,12 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         {
             {
                 IntegerTilemap = LoadStandardTilekinds(2);
-                initializeTilemap(Area.RoomTypes.AirLunch);
             }
+        }
+
+        public override void FinalizeTiles() {
+            AddDoorsToTileArray();
+            initializeTilemap(Area.RoomTypes.AirLunch);
         }
     }
 }

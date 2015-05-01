@@ -93,6 +93,7 @@ namespace Luftschiff.Code {
         //tile sprites
         public static Texture TileFloor;
         public static Texture TileWall;
+        public static Texture TileDoor;
         public static Texture TileSpecial;
         public static Texture TileMetall;
         public static Texture TileElWall;

@@ -15,17 +15,24 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public AirHospitalWard(Vector2f position) : base(position)
         {
             IntegerTilemap = LoadStandardTilekinds(2);
-            initializeTilemap(Area.RoomTypes.AirHospital);
 
             var wardSprite = new Sprite(Globals.HospitalTexture);
 
             //guess position by using the position of the tiles
-            wardSprite.Position = ObjectTilemap[1, 1].Position;
+            wardSprite.Position = new Vector2f(Position.X + 32, Position.Y + 32);
             wardSprite.Scale = new Vector2f(.5f,.5f);
+
+
 
             //add to sprite list so it gets drawn automatically
             AdditionalRoomSprites.Add(wardSprite);
         }
+
+        public override void FinalizeTiles() {
+            AddDoorsToTileArray();
+            initializeTilemap(Area.RoomTypes.AirHospital);
+        }
+
         public override void Update()
         {
             // check if the room has to be repaired

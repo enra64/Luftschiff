@@ -15,7 +15,10 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             : base(position)
         {
             IntegerTilemap = LoadStandardTilekinds(1);
-            initializeTilemap(Area.RoomTypes.AirCannon);
+        }
+        public override void FinalizeTiles() {
+            AddDoorsToTileArray();
+            initializeTilemap(Area.RoomTypes.Empty);
         }
     }
 }

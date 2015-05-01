@@ -69,6 +69,7 @@ namespace Luftschiff {
             Globals.TileSpecial = new Texture("Assets/Graphics/special_tile.png");
             Globals.TileWall = new Texture("Assets/Graphics/walltile.png");
             Globals.TileMetall = new Texture("Assets/Graphics/Elena/Tiles/metalltile.png");
+            Globals.TileDoor = new Texture("Assets/Graphics/sign_browndoor.png");
             Globals.TileElWall = new Texture("Assets/Graphics/Elena/Tiles/mauer_black.png");
 
             //Cursor
