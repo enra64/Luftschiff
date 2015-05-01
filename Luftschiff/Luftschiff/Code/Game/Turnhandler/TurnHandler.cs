@@ -53,7 +53,7 @@ namespace Luftschiff.Code.Game
             way.Add(work);
             var whilebreaker = 0;
             float mindistance;
-            //loop till target is found or whilebreaker says target is noct reachable
+            //loop till target is found or whilebreaker says target is not reachable
             while (!way.Contains(targetRoom) && whilebreaker < 10)
             {
                 // pseudo min distance to get it work 

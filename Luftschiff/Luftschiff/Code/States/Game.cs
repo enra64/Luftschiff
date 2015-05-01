@@ -63,8 +63,13 @@ namespace Luftschiff.Code.States {
             _currentArea.AddRoom(new AirHospitalWard(new Vector2f(440, 245)));
             _currentArea.AddRoom(new AirLunchRoom(new Vector2f(440, 390)));
             _currentArea.AddRoom(new EmptyRoom(new Vector2f(310, 390)));
-            
+            //Test data for crewmembers
             _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0))); 
+
             _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(1),new CrewMember(_currentArea.getRooms().ElementAt(1)));
 
             //init turnbutton with space for activation

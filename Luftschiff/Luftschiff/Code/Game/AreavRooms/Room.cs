@@ -262,8 +262,11 @@ namespace Luftschiff.Code.Game.AreavRooms
                         a.setPosition(Position + new Vector2f(64, 64));
                         break;
                 }
+                if (CrewList.Count == 4)
+                    _walkAble = false;
                 return true;
             }
+                _walkAble = false;
             //return false if no space is left
             return false;
         }
@@ -274,6 +277,10 @@ namespace Luftschiff.Code.Game.AreavRooms
         public CrewMember RemoveCrewMember(CrewMember a)
         {
             //return a (since we get that anyway) if the element could be removed, and return null otherwise
+            if (CrewList.Count == 4)
+            {
+                _walkAble = true;
+            }
             return CrewList.Remove(a) ? a : null;
         }
 
