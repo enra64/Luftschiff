@@ -80,7 +80,7 @@ namespace Luftschiff.Code.Game.Monsters
         public override bool HasBeenHit(Vector2f projectilePosition)
         {
             //TODO debug that after some shots hitting is in front
-            if (getRect().Intersects(new FloatRect(projectilePosition, new Vector2f(1f, 1f))))
+            if (getRect().Contains(projectilePosition.X,projectilePosition.Y))
             {
                 _hittingInthemiddle++;
             }
