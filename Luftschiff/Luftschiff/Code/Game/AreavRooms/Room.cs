@@ -145,9 +145,15 @@ namespace Luftschiff.Code.Game.AreavRooms
         public virtual void ReceiveRepair(int repairAmount, int repairSpecial)
         {
             if (RoomLife + repairAmount <= MaxLife)
+            {
+                Globals.AreaReference.Life += repairAmount;
                 RoomLife += repairAmount;
+            }
+
             else
                 RoomLife = MaxLife;
+
+
         }
 
         
