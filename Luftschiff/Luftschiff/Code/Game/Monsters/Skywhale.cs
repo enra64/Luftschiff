@@ -56,7 +56,7 @@ namespace Luftschiff.Code.Game.Monsters
             }
         }
 
-        public override int AttackShip(Area areaReference)
+        public override void AttackShip(Area areaReference)
         {
             _roundCounter++;
             if (_roundCounter >= 3)
@@ -70,7 +70,6 @@ namespace Luftschiff.Code.Game.Monsters
             }
 
 
-            return -1;
         }
 
         public override void ReceiveDamage(int damageAmount)

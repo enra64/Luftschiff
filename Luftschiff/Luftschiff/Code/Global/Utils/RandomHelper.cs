@@ -24,5 +24,24 @@ namespace Luftschiff.Code.Global.Utils {
         {
             return Random.Next(100) < percentage;
         }
+
+        /// <summary>
+        /// 50 percent chance
+        /// </summary>
+        /// <returns>true or false</returns>
+        public static bool FiftyFifty()
+        {
+            return RandomTrue(50);
+        }
+
+        /// <summary>
+        ///     Return a random int between null and the parameter minus one
+        /// </summary>
+        /// <param name="exclusiveMaximum">The exclusive maximum</param>
+        /// <returns>Integer between 0 and exclusiveMaximum - 1</returns>
+        public static int RandomUpTo(int exclusiveMaximum)
+        {
+            return Random.Next(exclusiveMaximum);
+        }
     }
 }

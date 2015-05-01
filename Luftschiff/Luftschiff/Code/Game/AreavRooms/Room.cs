@@ -121,10 +121,6 @@ namespace Luftschiff.Code.Game.AreavRooms
             //add area damage
             Globals.AreaReference.Life -= 90;
 
-            //randomise ignition chance to make game more playable
-            if(RandomHelper.RandomTrue(33))
-                SetOnFire(3);
-
             //TODO improve randomizer and stats for crewdamage
 
             //giving the crew some damage
@@ -133,19 +129,6 @@ namespace Luftschiff.Code.Game.AreavRooms
                 member._health -= damage/10;
             }
             //TODO Add a function to look up if a crewmembe is dead
-
-            //TODO discuss if this is neccessery or against OOP
-            /*
-            //kills a random dude, and removes him
-            Random a = new Random();
-            if (CrewList.Count > 0)
-            {
-                //whether to kill that dude
-                if (RandomHelper.RandomTrue(30))
-                    //okay tell the area to remove that dude, which should also kill it in this room
-                    Globals.AreaReference.RemoveCrewFromRoom(CrewList.ElementAt(a.Next(CrewList.Count)));
-            }
-             */
         }
 
         /// <summary>

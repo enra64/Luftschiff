@@ -128,7 +128,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// Get a room to damage, used by the dragon to get one.
         /// </summary>
         /// <param name="position">-1 for random, valid values for specific</param>
-        public ITarget GetRandomRoom(int position)
+        public Room GetRandomRoom(int position)
         {
             //return random room
             if (position < 0)
