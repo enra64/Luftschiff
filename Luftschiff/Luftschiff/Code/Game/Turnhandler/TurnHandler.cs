@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.AreavRooms;
+using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Turnhandler;
 using Luftschiff.Code.Global;
+using SFML.System;
 
 namespace Luftschiff.Code.Game
 {
@@ -53,7 +55,7 @@ namespace Luftschiff.Code.Game
             way.Add(work);
             var whilebreaker = 0;
             float mindistance;
-            //loop till target is found or whilebreaker says target is noct reachable
+            //loop till target is found or whilebreaker says target is not reachable
             while (!way.Contains(targetRoom) && whilebreaker < 10)
             {
                 // pseudo min distance to get it work 
@@ -201,6 +203,17 @@ namespace Luftschiff.Code.Game
             }
         }
 
+        private void HealCrewmembers()
+        {
+            foreach (var room in _areaReference.getRooms())
+            {
+                if (room is AirHospitalWard)
+                {
+                    ((AirHospitalWard)room).Crewhealing();
+                }
+            }
+        }
+
         /// <summary>
         ///     execute all actions for this turn, and call the monster attack
         /// </summary>
@@ -215,6 +228,7 @@ namespace Luftschiff.Code.Game
             ExecuteMoveCrewActions();
             SlackFire();
             ExecuteRoomEndOfRound();
+            HealCrewmembers();
 
             //remove targets with invalid neededactions count to collect garbage
             _crewActions.RemoveAll(s => s.WaitingTurns < 0);

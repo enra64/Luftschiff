@@ -38,14 +38,23 @@ namespace Luftschiff.Graphics.Lib
             SetColor(new Color(255, 255, 255, 255));
         }
 
+        /// <summary>
+        /// time of 1 frame 
+        /// </summary>
         public Time FrameTime
         {
             set { _frameTime = value; }
             get { return _frameTime; }
         }
 
+        /// <summary>
+        /// bool who controls a loop
+        /// </summary>
         public bool Looped { get; set; }
 
+        /// <summary>
+        /// animation that defines the sprite
+        /// </summary>
         public Animation Animation
         {
             set
@@ -59,7 +68,11 @@ namespace Luftschiff.Graphics.Lib
             }
             get { return _animation; }
         }
-
+        /// <summary>
+        /// Draw magic
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="states"></param>
         void Drawable.Draw(RenderTarget target, RenderStates states)
         {
             if (_validAnimation && _textureLoaded)
@@ -80,16 +93,25 @@ namespace Luftschiff.Graphics.Lib
             Play();
         }
 
+        /// <summary>
+        /// unpauses a sprite
+        /// </summary>
         public void Play()
         {
             _isPaused = false;
         }
 
+        /// <summary>
+        /// pauses a sprite
+        /// </summary>
         public void Pause()
         {
             _isPaused = true;
         }
 
+        /// <summary>
+        /// stops a sprite, resets it too
+        /// </summary>
         public void Stop()
         {
             _isPaused = true;
@@ -97,6 +119,10 @@ namespace Luftschiff.Graphics.Lib
             SetFrame(_currentFrame, true);
         }
 
+        /// <summary>
+        /// sets sprite color
+        /// </summary>
+        /// <param name="color"></param>
         public void SetColor(Color color)
         {
             _vertices[0].Color = color;
@@ -124,6 +150,10 @@ namespace Luftschiff.Graphics.Lib
             return Transform.TransformRect(GetLocalBounds());
         }
 
+        /// <summary>
+        /// bool shows if sprite is playing
+        /// </summary>
+        /// <returns></returns>
         public bool IsPlaying()
         {
             return !_isPaused;

@@ -19,10 +19,8 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             var wardSprite = new Sprite(Globals.HospitalTexture);
 
             //guess position by using the position of the tiles
-            wardSprite.Position = new Vector2f(Position.X + 32, Position.Y + 32);
+            wardSprite.Position = ObjectTilemap[1, 1].Position;
             wardSprite.Scale = new Vector2f(.5f,.5f);
-
-
 
             //add to sprite list so it gets drawn automatically
             AdditionalRoomSprites.Add(wardSprite);
@@ -33,11 +31,9 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             initializeTilemap(Area.RoomTypes.AirHospital);
         }
 
-        public override void Update()
+        public void Crewhealing()
         {
-            // check if the room has to be repaired
-            //TODO add other necessary function is they are needed 
-            //if there are two or more persons in the hospital ward heal both by a maximum of 10 each round
+            
             if (CrewList.Count >= 2)
             {
                 //look at every crewmember in room 
@@ -46,7 +42,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                     // heal by a maximum of 10 health points
 
                     for (int k = 0; k < 10 && CrewList.ElementAt(i)._health < 100; k++)
-
+                        Console.WriteLine("healed");
                         CrewList.ElementAt(i)._health++;
                 }
             }
