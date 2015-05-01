@@ -81,10 +81,13 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                 return;
             
             //damage the dragon
+            if (CrewList.Count > 0)
+            {
+                Globals.ColliderReference.AddProjectile(new CannonBall(this, monster));
+                //sfx
+                new Sound(Globals.CannonSound).Play();
+            }
 
-             Globals.ColliderReference.AddProjectile(new CannonBall(this, monster));   
-            //sfx
-            new Sound(Globals.CannonSound).Play();
         }
 
 
