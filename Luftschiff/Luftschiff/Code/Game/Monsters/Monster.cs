@@ -38,7 +38,7 @@ namespace Luftschiff.Code.Game.Monsters {
         /// inflicted
         /// </summary>
         /// <param name="areaReference"></param>
-        public abstract int AttackShip(Area areaReference);
+        public abstract void AttackShip(Area areaReference);
 
         /// <summary>
         /// Implement the receive damage interface. The entity should get damage here.

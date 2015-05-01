@@ -21,7 +21,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
             //guess position by using the position of the tiles
             wardSprite.Position = ObjectTilemap[1, 1].Position;
-            wardSprite.Scale = new Vector2f(1.3f,1.3f);
+            wardSprite.Scale = new Vector2f(.5f,.5f);
 
             //add to sprite list so it gets drawn automatically
             AdditionalRoomSprites.Add(wardSprite);

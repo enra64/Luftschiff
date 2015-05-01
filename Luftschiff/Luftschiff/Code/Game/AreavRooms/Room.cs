@@ -60,7 +60,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         ///     The number of Rounds the room should burn without user interaction
         /// </summary>
-        public int FireLife;
+        public int FireLife { get; set; }
 
         /// <summary>
         ///     Cooldown of the room action
@@ -70,7 +70,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         ///     Life of the Room, current default is 100
         /// </summary>
-        public int RoomLife = 100;
+        public int RoomLife { get; set; }
 
         private bool _walkAble = true;
         protected int[,] IntegerTilemap = new int[4, 4];
@@ -121,20 +121,14 @@ namespace Luftschiff.Code.Game.AreavRooms
             //add area damage
             Globals.AreaReference.Life -= 90;
 
-            //randomise ignition chance to make game more playable
-            if(RandomHelper.RandomTrue(33))
-                SetOnFire(3);
-
             //TODO improve randomizer and stats for crewdamage
-            Random a = new Random();
-            //kills a random dude, and removes him
-            if (CrewList.Count > 0)
+
+            //giving the crew some damage
+            foreach (var member in CrewList)
             {
-                //whether to kill that dude
-                if (RandomHelper.RandomTrue(30))
-                    //okay tell the area to remove that dude, which should also kill it in this room
-                    Globals.AreaReference.RemoveCrewFromRoom(CrewList.ElementAt(a.Next(CrewList.Count)));
+                member._health -= damage/10;
             }
+            //TODO Add a function to look up if a crewmembe is dead
         }
 
         /// <summary>
@@ -145,9 +139,17 @@ namespace Luftschiff.Code.Game.AreavRooms
         public virtual void ReceiveRepair(int repairAmount, int repairSpecial)
         {
             if (RoomLife + repairAmount <= MaxLife)
+            {
+                if(Globals.AreaReference.Life <=1000)
+                    Globals.AreaReference.Life += repairAmount;
+
                 RoomLife += repairAmount;
+            }
+
             else
                 RoomLife = MaxLife;
+
+
         }
 
         
@@ -163,8 +165,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        ///     Someone just wants to see this room burn.
-        ///     <para>I'm sorry for that</para>
+        ///     Some men just want to watch this room burn.
+        ///     <para>I'm sorry for that.</para>
         /// </summary>
         /// <param name="roundsRoomIsBurning">Fire duration in Rounds without Slacking</param>
         public void SetOnFire(int roundsRoomIsBurning)
@@ -260,8 +262,11 @@ namespace Luftschiff.Code.Game.AreavRooms
                         a.setPosition(Position + new Vector2f(64, 64));
                         break;
                 }
+                if (CrewList.Count == 4)
+                    _walkAble = false;
                 return true;
             }
+                _walkAble = false;
             //return false if no space is left
             return false;
         }
@@ -272,6 +277,10 @@ namespace Luftschiff.Code.Game.AreavRooms
         public CrewMember RemoveCrewMember(CrewMember a)
         {
             //return a (since we get that anyway) if the element could be removed, and return null otherwise
+            if (CrewList.Count == 4)
+            {
+                _walkAble = true;
+            }
             return CrewList.Remove(a) ? a : null;
         }
 
@@ -283,6 +292,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected Room(Vector2f position)
         {
             Position = position;
+            RoomLife = 100;
             MaxLife = RoomLife;
             _nearRooms = new List<Room>();
 

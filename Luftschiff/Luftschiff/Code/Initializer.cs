@@ -46,17 +46,19 @@ namespace Luftschiff {
             //compat settings for jan-ole
             Globals.BackgroundTexture = Texture.MaximumSize > 1024 ? new Texture("Assets/Graphics/testbg_big.png") : new Texture("Assets/Graphics/testbg.png");
            
-            Globals.CrewTexture = new Texture("Assets/Graphics/crew.png");
+            Globals.CrewTexture = new Texture("Assets/Graphics/Elena/dude.png");
             Globals.DragonTexture = new Texture("Assets/Graphics/dragon2.png");
+            Globals.SkywhaleTexture = new Texture("Assets/Graphics/wal.png");
+            Globals.ShipTexture = new Texture("Assets/Graphics/Elena/Schiff.png");
             
             //projectile impact fx
             Globals.Cannon_Explosion = new Texture("Assets/Graphics/explosion-sprite.png");
             Globals.RoomFireTexture = new Texture("Assets/Graphics/roomfire.png");
 
             //special room stuff
-            Globals.EngineTexture = new Texture("Assets/Graphics/engine.png");
-            Globals.GunTexture = new Texture("Assets/Graphics/CannonRoom/cannon2_hq.png");
-            Globals.HospitalTexture = new Texture("Assets/Graphics/hospitalwardspecial.png");
+            Globals.EngineTexture = new Texture("Assets/Graphics/Elena/RoomSpecials/engine.png");
+            Globals.GunTexture = new Texture("Assets/Graphics/Elena/RoomSpecials/kanonelined.png");
+            Globals.HospitalTexture = new Texture("Assets/Graphics/Elena/RoomSpecials/medbay.png");
 
             //projectiles
             Globals.FireBallTexture = new Texture("Assets/Graphics/fireball.png");
@@ -66,6 +68,8 @@ namespace Luftschiff {
             Globals.TileFloor = new Texture("Assets/Graphics/groundtile.png");
             Globals.TileSpecial = new Texture("Assets/Graphics/special_tile.png");
             Globals.TileWall = new Texture("Assets/Graphics/walltile.png");
+            Globals.TileMetall = new Texture("Assets/Graphics/Elena/Tiles/metalltile.png");
+            Globals.TileElWall = new Texture("Assets/Graphics/Elena/Tiles/mauer_black.png");
 
             //Cursor
             Globals.CursorAim = new Texture("Assets/Graphics/Cursors/aimCursor.png");

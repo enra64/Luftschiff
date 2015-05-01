@@ -53,7 +53,7 @@ namespace Luftschiff.Code.Game
             way.Add(work);
             var whilebreaker = 0;
             float mindistance;
-            //loop till target is found or whilebreaker says target is noct reachable
+            //loop till target is found or whilebreaker says target is not reachable
             while (!way.Contains(targetRoom) && whilebreaker < 10)
             {
                 // pseudo min distance to get it work 
@@ -164,13 +164,16 @@ namespace Luftschiff.Code.Game
         {
             foreach (var room in Globals.AreaReference.getRooms())
             {
-                //reduce room life because fire n stuff
-                room.RoomLife -= (int)(room.RoomLife * 0.1f);
-
-                //burn the crewmembers slightly
-                foreach (var crewMember in room.CrewList)
+                if (room.FireLife > 0)
                 {
-                    crewMember._health -= (int)(crewMember._health * .1f);
+                    //reduce room life because fire n stuff
+                    room.RoomLife -= (int)(room.RoomLife * 0.1f);
+
+                    //burn the crewmembers slightly
+                    foreach (var crewMember in room.CrewList)
+                    {
+                        crewMember._health -= (int)(crewMember._health * .1f);
+                    }   
                 }
             }
         }
@@ -211,6 +214,7 @@ namespace Luftschiff.Code.Game
             ExecuteFiringOrders();
             ExecuteMoveCrewActions();
             SlackFire();
+            ExecuteRoomEndOfRound();
 
             //remove targets with invalid neededactions count to collect garbage
             _crewActions.RemoveAll(s => s.WaitingTurns < 0);
@@ -229,6 +233,30 @@ namespace Luftschiff.Code.Game
             while (Globals.ColliderReference.ProjectileCount > 0);
             //start dragon attack
             _gameReference.CurrentMonster.AttackShip(_areaReference);
+        }
+
+        /// <summary>
+        /// Removes all actions using this room
+        /// </summary>
+        /// <param name="room">The room to stop using</param>
+        public void InvalidateRoom(Room room)
+        {
+            if (_crewActions.Count <= 0)
+                return;
+            //check each crew
+            foreach (CrewMember c in Globals.AreaReference.CrewList)
+            {
+                //find an instance where this crewmember wants to use the room that will be deleted
+                CrewTarget invalidTarget =  _crewActions.Find(a => a.Target == room && a.Crew == c);
+                if (invalidTarget != null)
+                {
+                    //save the amount of waitingturns the invalid target had
+                    int invalidTargetWaitingTurns = invalidTarget.WaitingTurns;    
+                    //remove all targets with waitingturns >= invalidtarget waitingturns
+                    _crewActions.RemoveAll(a => a.Crew == c && a.WaitingTurns >= invalidTargetWaitingTurns);
+                }
+            }
+            
         }
     }
 }

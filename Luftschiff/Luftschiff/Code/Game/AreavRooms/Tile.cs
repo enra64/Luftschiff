@@ -15,7 +15,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                     break;
                 case (2): //walls
                     //TODO add graphics for walls
-                    Sprite = new Sprite(Globals.TileWall);
+                    Sprite = new Sprite(Globals.TileElWall);
+                    Sprite.Scale = new Vector2f(0.163f,0.163f);
                     break;
                 
                 case (3):
@@ -27,7 +28,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                             Sprite = new Sprite(Globals.TileFloor);
                             break;
                         default:
-                            Sprite = new Sprite(Globals.TileSpecial);
+                            Sprite = new Sprite(Globals.TileMetall);
+                            Sprite.Scale = new Vector2f(0.163f,0.163f);
                             break;
                     }
                     break;

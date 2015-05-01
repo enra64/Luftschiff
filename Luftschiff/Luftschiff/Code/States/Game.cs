@@ -47,15 +47,30 @@ namespace Luftschiff.Code.States {
 
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
-            CurrentMonster = new Dragon();
-            
-            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(75, 200)));
-            _currentArea.AddRoom(new AirEngineRoom(new Vector2f(75, 350)));
-            _currentArea.AddRoom(new AirHospitalWard(new Vector2f(75, 500)));
-            _currentArea.AddRoom(new AirLunchRoom(new Vector2f(225, 275)));
-            _currentArea.AddRoom(new EmptyRoom(new Vector2f(225, 450)));
-            
+
+            TwoButtonDialog enemy = new TwoButtonDialog("Drache","Himmelswal","Waehle deinen Gegner","Gegnerwahl");
+            enemy.show();
+            if (enemy.show())
+            {
+                CurrentMonster = new Dragon();
+            }
+            else
+            {
+                CurrentMonster = new Skywhale(); 
+            }
+            _currentArea.AddRoom(new AirCannonRoom(new Vector2f(570, 325)));
+            _currentArea.AddRoom(new AirEngineRoom(new Vector2f(310, 245)));
+            _currentArea.AddRoom(new AirHospitalWard(new Vector2f(440, 245)));
+            _currentArea.AddRoom(new AirLunchRoom(new Vector2f(440, 390)));
+            _currentArea.AddRoom(new EmptyRoom(new Vector2f(310, 390)));
+            //Test data for crewmembers
             _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)));
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0))); 
+
+            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(1),new CrewMember(_currentArea.getRooms().ElementAt(1)));
 
             //init turnbutton with space for activation
             _turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2 - 60, Controller.Window.Size.Y - 40), new Vector2f(120, 40));

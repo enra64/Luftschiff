@@ -2,8 +2,10 @@
 using System.Management.Instrumentation;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.AreavRooms;
+using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Global;
+using Luftschiff.Code.Global.Utils;
 using Luftschiff.Graphics.Lib;
 using SFML.Audio;
 using SFML.Graphics;
@@ -42,12 +44,37 @@ namespace Luftschiff.Code.Game.Monsters
         ///     makes damage to a room when the turn ends
         /// </summary>
         /// <param name="areaReference"></param>
-        public override int AttackShip(Area areaReference)
+        public override void AttackShip(Area areaReference)
         {
             //create projectile to attack the ship
-            Globals.ColliderReference.AddProjectile(new FireBall(areaReference.GetRandomRoom(-1), this, Globals.FireBallTexture));
+            Room attackedRoom = Globals.AreaReference.GetRandomRoom(-1);
+            if(RandomHelper.FiftyFifty())
+                fireAttack(attackedRoom);
+            else
+                clawAttack(attackedRoom);
+        }
+
+        private void fireAttack(Room attackedRoom)
+        {
+            Globals.ColliderReference.AddProjectile(new FireBall(attackedRoom, this, Globals.FireBallTexture));
             new Sound(Globals.FireSound).Play();
-            return -1;
+
+            //randomise room ignition chance to make game more playable
+            if (RandomHelper.RandomTrue(33))
+                attackedRoom.SetOnFire(3);
+        }
+
+        private void clawAttack(Room attackedRoom)
+        {
+            if (attackedRoom.CrewList.Count > 0)
+            {
+                //affected crewmember in room
+                CrewMember affected = attackedRoom.CrewList[RandomHelper.RandomUpTo(attackedRoom.CrewList.Count)];
+                if (RandomHelper.RandomTrue(30))
+                    //okay tell the area to remove that dude, which should also kill it in this room
+                    Globals.AreaReference.RemoveCrewFromRoom(affected);
+            }
+            attackedRoom.ReceiveDamage(80);
         }
 
         public override void ReceiveDamage(int damageAmount)

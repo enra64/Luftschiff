@@ -1,5 +1,6 @@
 ﻿using System;
 using Luftschiff.Code.Dialogs;
+using SFML.Audio;
 
 namespace Luftschiff.Code.States
 {
@@ -21,6 +22,18 @@ namespace Luftschiff.Code.States
             menu.show();
             if (menu.show())
             {
+                TwoButtonDialog mute = new TwoButtonDialog("Mute", "Sound","Spiele mit oder ohne ton","Menu");
+                mute.show();
+                if (mute.show())
+                {
+                    Globals.CannonSound = new SoundBuffer("Assets/Audio/stumm.wav");
+                    Globals.ClickSound = new SoundBuffer("Assets/Audio/stumm.wav");
+                    Globals.BoomSound = new SoundBuffer("Assets/Audio/stumm.wav");
+                    Globals.FireSound = new SoundBuffer("Assets/Audio/stumm.wav");
+                    Globals.FireCrackleSound = new SoundBuffer("Assets/Audio/stumm.wav");
+
+
+                }
                 Controller.LoadState(Globals.EStates.game);
             }
             if (!menu.show())

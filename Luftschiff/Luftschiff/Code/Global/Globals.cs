@@ -82,6 +82,8 @@ namespace Luftschiff.Code {
         /// </summary>
         public static Texture BackgroundTexture;
         public static Texture DragonTexture;
+        public static Texture SkywhaleTexture;
+        public static Texture ShipTexture;
 
         //special room stuff sprites
         public static Texture EngineTexture;
@@ -92,6 +94,8 @@ namespace Luftschiff.Code {
         public static Texture TileFloor;
         public static Texture TileWall;
         public static Texture TileSpecial;
+        public static Texture TileMetall;
+        public static Texture TileElWall;
 
         //cursor sprites
         public static Texture CursorStandard;
@@ -122,5 +126,6 @@ namespace Luftschiff.Code {
         public static SoundBuffer BoomSound;
         public static SoundBuffer FireSound;
         public static SoundBuffer FireCrackleSound;
+
     }
 }

@@ -15,6 +15,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         private int _maxLife = 1000;
         private int _currentRoomButton = 0;
         private States.Game _gameReference = Globals.GameReference;
+        private Sprite _staticMaintexture;
 
         public enum RoomTypes
         {
@@ -40,6 +41,16 @@ namespace Luftschiff.Code.Game.AreavRooms
             rooms_ = new List<Room>();
             CrewList = new List<CrewMember>();
             Life = 1000;
+            _staticMaintexture = new Sprite(new Texture(Globals.ShipTexture));
+            _staticMaintexture.Position = new Vector2f(10, 550);
+            _staticMaintexture.Scale = new Vector2f(1.1f, 0.9f);
+            _staticMaintexture.Rotation = 270;
+            /*
+             * Hochkant Version
+            _staticMaintexture = new Sprite(new Texture(Globals.ShipTexture));
+            _staticMaintexture.Position = new Vector2f(10, 10);
+            _staticMaintexture.Scale = new Vector2f(1.1f, 0.7f);
+             */
         }
 
         /// <summary>
@@ -65,14 +76,17 @@ namespace Luftschiff.Code.Game.AreavRooms
             //ERRORSOURCE 
             //look for near rooms and save them in list
             FloatRect work = new FloatRect();
+            FloatRect work2 = new FloatRect();
             for (int i = 0; i < rooms_.Count; i++)
             {
                 work = rooms_.ElementAt(i).GlobalRect;
                 work.Height = work.Height + 125; // pixel differenz
-                work.Width = work.Width + 125;
-                work.Left = work.Left - 75;
                 work.Top = work.Top - 75;
-                if (work.Intersects(newRoom.GlobalRect))
+                work2 = rooms_.ElementAt(i).GlobalRect;
+                work2.Width = work.Width + 125;
+                work2.Left = work.Left - 75;
+
+                if (work.Intersects(newRoom.GlobalRect) || work2.Intersects(newRoom.GlobalRect)) 
                 {
                     newRoom.addNearRooms(rooms_.ElementAt(i));
                     rooms_.ElementAt(i).addNearRooms(newRoom);
@@ -102,11 +116,13 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public void RemoveCrewFromRoom(CrewMember c)
         {
-            return;
             c.CurrentRoom.RemoveCrewMember(c);
             //only this crewlist.remove may exist to avoid bugs
             CrewList.Remove(c);
             Console.WriteLine("Crew killed");
+            //remove reference in mousehandler
+            if(MouseHandler.SelectedCrew == c)
+                MouseHandler.SelectedCrew = null;
             c.CurrentRoom = null;
         }
 
@@ -114,7 +130,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// Get a room to damage, used by the dragon to get one.
         /// </summary>
         /// <param name="position">-1 for random, valid values for specific</param>
-        public ITarget GetRandomRoom(int position)
+        public Room GetRandomRoom(int position)
         {
             //return random room
             if (position < 0)
@@ -197,11 +213,10 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 if (!rooms_.ElementAt(i).IsAlive)
                 {
-                    rooms_.RemoveAt(i);
+                    this.RemoveRoom(rooms_.ElementAt(i));
                     i--;
                 }
             }
-
 
             foreach(var r in rooms_)
                 r.Update();
@@ -233,6 +248,10 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public override void Draw()
         {
+            // draw ship over map in not beautiful 
+            //TODO improve this a bit
+
+            Controller.Window.Draw(_staticMaintexture);
             for (int i = 0; i < rooms_.Count; i++)
             {
                 rooms_.ElementAt(i).Draw();
@@ -247,8 +266,19 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <param name="targetRoom">Room the crew should be moved to</param>
         public void RepositionCrew(CrewMember crew, Room targetRoom)
         {
-            RemoveCrewFromRoom(crew);
+            RemoveCrewFromRoom(crew);          
             AddCrewToRoom(targetRoom, crew);
+        }
+
+        public void RemoveRoom(Room a)
+        {
+            for (int k = 0; k < a._nearRooms.Count; k++)
+            {
+                a._nearRooms.ElementAt(k)._nearRooms.Remove(a);
+            }
+            rooms_.Remove(a);
+            Globals.TurnHandler.InvalidateRoom(a);
+            MouseHandler.SelectedRoom = null;
         }
     }
 }
