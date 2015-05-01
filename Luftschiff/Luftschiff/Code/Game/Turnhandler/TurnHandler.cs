@@ -234,5 +234,29 @@ namespace Luftschiff.Code.Game
             //start dragon attack
             _gameReference.CurrentMonster.AttackShip(_areaReference);
         }
+
+        /// <summary>
+        /// Removes all actions using this room
+        /// </summary>
+        /// <param name="room">The room to stop using</param>
+        public void InvalidateRoom(Room room)
+        {
+            if (_crewActions.Count <= 0)
+                return;
+            //check each crew
+            foreach (CrewMember c in Globals.AreaReference.CrewList)
+            {
+                //find an instance where this crewmember wants to use the room that will be deleted
+                CrewTarget invalidTarget =  _crewActions.Find(a => a.Target == room && a.Crew == c);
+                if (invalidTarget != null)
+                {
+                    //save the amount of waitingturns the invalid target had
+                    int invalidTargetWaitingTurns = invalidTarget.WaitingTurns;    
+                    //remove all targets with waitingturns >= invalidtarget waitingturns
+                    _crewActions.RemoveAll(a => a.Crew == c && a.WaitingTurns >= invalidTargetWaitingTurns);
+                }
+            }
+            
+        }
     }
 }

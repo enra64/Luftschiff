@@ -30,7 +30,7 @@ namespace Luftschiff.Code.Game.Crew {
             CurrentRoom = firstRoom;
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
             useAnAnimatedSprite.Scale = new Vector2f(.2f, .2f);
-            _health = 100;
+            _health = 180;
 
             //init indicator rectangle
             Vector2f size = new Vector2f(useAnAnimatedSprite.Scale.X*useAnAnimatedSprite.Texture.Size.X,

@@ -65,7 +65,7 @@ namespace Luftschiff {
             Clicking = true;
             UnhandledClick = true;
             LastClickPosition = new Vector2f(e.X, e.Y);
-            Console.WriteLine(LastClickPosition);
+            //Console.WriteLine(LastClickPosition);
 
             if (e.Button == Mouse.Button.Left) {
                 Left = true;
