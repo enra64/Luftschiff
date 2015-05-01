@@ -45,6 +45,12 @@ namespace Luftschiff.Code.Game.AreavRooms
             _staticMaintexture.Position = new Vector2f(10, 550);
             _staticMaintexture.Scale = new Vector2f(1.1f, 0.9f);
             _staticMaintexture.Rotation = 270;
+            /*
+             * Hochkant Version
+            _staticMaintexture = new Sprite(new Texture(Globals.ShipTexture));
+            _staticMaintexture.Position = new Vector2f(10, 10);
+            _staticMaintexture.Scale = new Vector2f(1.1f, 0.7f);
+             */
         }
 
         /// <summary>
