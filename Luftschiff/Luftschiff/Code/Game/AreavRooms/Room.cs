@@ -285,9 +285,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         protected Room(Vector2f position)
         {
             Position = position;
+            RoomLife = 100;
             MaxLife = RoomLife;
             _nearRooms = new List<Room>();
-            RoomLife = 100;
 
             //sound the room makes when on fire
             _cracklingFireSound = new Sound(Globals.FireCrackleSound);

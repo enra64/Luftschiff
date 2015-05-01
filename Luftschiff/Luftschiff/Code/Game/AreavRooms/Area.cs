@@ -116,7 +116,6 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public void RemoveCrewFromRoom(CrewMember c)
         {
-            return;
             c.CurrentRoom.RemoveCrewMember(c);
             //only this crewlist.remove may exist to avoid bugs
             CrewList.Remove(c);
