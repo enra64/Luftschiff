@@ -103,16 +103,6 @@ namespace Luftschiff.Code.Game.Crew {
         public override void Update(){
         }
 
-        public void setTarget(List<Room> targets ,Vector2f clickposition){
-            //TODO add calculation to determine, which room is clicke
-            //targetRoom_= xyz;
-        }
-
-        public int getTarget()
-        {
-            return _targetRoom;
-        }
-
         public void setPosition(Vector2f newPosition)
         {
             useAnAnimatedSprite.Position = newPosition;

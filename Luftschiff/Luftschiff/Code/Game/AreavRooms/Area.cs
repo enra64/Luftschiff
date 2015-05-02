@@ -16,6 +16,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         private int _currentRoomButton = 0;
         private States.Game _gameReference = Globals.GameReference;
         private Sprite _staticMaintexture;
+        private int _currentMovingCrewCount = 0;
 
         public enum RoomTypes
         {
@@ -274,10 +275,20 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         /// <param name="crew">Crew to be moved</param>
         /// <param name="targetRoom">Room the crew should be moved to</param>
-        public void RepositionCrew(CrewMember crew, Room targetRoom)
-        {
-            RemoveCrewFromRoom(crew);          
+        public void RepositionCrew(CrewMember crew, Room targetRoom) {
+            RemoveCrewFromRoom(crew);
             AddCrewToRoom(targetRoom, crew);
+            //uuh somehow make them move slowly
+        }
+
+        /// <summary>
+        /// Called by the turnhandler, to switch a crewmembers room, since otherwise the crewmember
+        /// would need to get a reference to the area
+        /// </summary>
+        /// <param name="target">The Crewtarget the turnhandler wants executed, contains start and end room</param>
+        public void RepositionCrew(CrewTarget target) {
+            RemoveCrewFromRoom(target.Crew);
+            AddCrewToRoom(target.Target, target.Crew);
         }
 
         public void RemoveRoom(Room a)

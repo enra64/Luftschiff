@@ -109,13 +109,22 @@ namespace Luftschiff.Code.Game
                 {
                     Console.WriteLine(way.Count - k);
                     //Console.WriteLine("target");
-                    _crewActions.Add(new CrewTarget(crewMember, way.ElementAt(k), k, true));
+                    //origin is k - 1, if that is valid, and currentroom if otherwise
+                    _crewActions.Add(new CrewTarget(crewMember, k - 1 > 0 ? way.ElementAt(k - 1) : crewMember.CurrentRoom, way.ElementAt(k), k, true));
+                }
+                else if (k == 0)
+                {
+                    Console.WriteLine(way.Count - k);
+                    //Console.WriteLine("target");
+                    //origin is currentroom, because this is the first action
+                    _crewActions.Add(new CrewTarget(crewMember, crewMember.CurrentRoom, way.ElementAt(k), k, true));
                 }
                 else
                 {
                     Console.WriteLine(way.Count - k);
                     //Console.WriteLine("waypoint");
-                    _crewActions.Add(new CrewTarget(crewMember, way.ElementAt(k), k, false));
+                    //origin is the element before. should be valid, because we catch k == 0
+                    _crewActions.Add(new CrewTarget(crewMember, way.ElementAt(k - 1), way.ElementAt(k), k, false));
                 }
             }
         }
@@ -135,7 +144,7 @@ namespace Luftschiff.Code.Game
             foreach (var c in _crewActions) {
                 //0 waiting turns on action -> execute action
                 if (c.WaitingTurns == 0)
-                    _areaReference.RepositionCrew(c.Crew, c.Target);
+                    _areaReference.RepositionCrew(c);
                 //invalid for finished actions to be able to clean it up
                 if (c.WaitingTurns == 0) {
                     //if the crewmember has arrived at its target
