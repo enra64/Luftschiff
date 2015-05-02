@@ -14,7 +14,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public EmptyRoom(Vector2f position)
             : base(position)
         {
-            IntegerTilemap = LoadStandardTilekinds(1);
+            IntegerTilemap = LoadStandardTilekinds(3);
         }
         public override void FinalizeTiles() {
             AddDoorsToTileArray();

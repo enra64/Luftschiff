@@ -197,11 +197,18 @@ namespace Luftschiff.Code.Game.AreavRooms
                                      {0,0,0,0},
                                      {0,0,0,0}};
                     break;
-                case(1):
-                    array = new [,] {{2,2,2,2},
+                case (1):
+                    array = new[,] {{2,2,2,2},
                                      {2,3,3,2},
                                      {2,3,3,2},
                                      {2,2,2,2}};
+                    break;
+                    //special to identify empty room
+                case (3):
+                    array = new[,] {{3,2,2,2},
+                                     {2,3,2,2},
+                                     {2,2,3,2},
+                                     {2,2,2,3}};
                     break;
                 case(2):  // i don't care that this case has no use atm
                     array = new[,] {{1,1,1,1},
@@ -294,43 +301,23 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 //♥ win+space ftw though
                 //get distance between me and the nearroom
-                Vector2f distanceVector = new Vector2f(Center.X - r.Center.X, Center.Y - r.Center.Y);
+                Vector2f distanceVector = new Vector2f(r.Center.X - Center.X, r.Center.Y - Center.Y);
                 //check whether we are horizontally or vertically offset
+                //distancevector: neg Y -> r above me, neg X -> r to the right
+                //horizontally offset
                 if (Math.Abs(distanceVector.X) > Math.Abs(distanceVector.Y))
-                    //right
-                    if (distanceVector.X > 0)
-                        //top
-                        if (distanceVector.Y > 0)
-                            IntegerTilemap[3, 1] = Tile.TILE_DOOR;
-                        //bottom
-                        else
-                            IntegerTilemap[3, 2] = Tile.TILE_DOOR;
-                    //left
-                    else
-                        //top
-                        if (distanceVector.Y > 0) 
-                            IntegerTilemap[0, 1] = Tile.TILE_DOOR;
-                        //bottom
-                        else 
-                            IntegerTilemap[0, 2] = Tile.TILE_DOOR;
-                //vertically offset
+                {
+                    int x = distanceVector.X < 0 ? 0 : 3;
+                    int y = distanceVector.Y < 0 ? 1 : 2;
+                    IntegerTilemap[x, y] = Tile.TILE_DOOR;
+                }
+                //vert offset
                 else
-                    //bottom
-                    if (distanceVector.Y > 0)
-                        //right
-                        if (distanceVector.X > 0) 
-                            IntegerTilemap[2, 0] = Tile.TILE_DOOR;
-                        //left
-                        else 
-                            IntegerTilemap[1, 0] = Tile.TILE_DOOR;
-                    //top
-                    else
-                        //right
-                        if (distanceVector.X > 0) 
-                            IntegerTilemap[2, 3] = Tile.TILE_DOOR;
-                        //left
-                        else 
-                            IntegerTilemap[1, 3] = Tile.TILE_DOOR;
+                {
+                    int x = distanceVector.X < 0 ? 1 : 2;
+                    int y = distanceVector.Y < 0 ? 0 : 3;
+                    IntegerTilemap[x, y] = Tile.TILE_DOOR;
+                }
             }
         }
 
