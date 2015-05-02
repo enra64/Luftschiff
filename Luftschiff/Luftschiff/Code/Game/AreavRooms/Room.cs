@@ -289,7 +289,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         public void AddDoorsToTileArray()
         {
             //TODO add door number to tileMap numbers , needed Roomconnection list
-            //check each near room
+            //check each near room//cannon, engine room have no near rooms
             foreach (Room r in _nearRooms)
             {
                 //♥ win+space ftw though
@@ -313,23 +313,24 @@ namespace Luftschiff.Code.Game.AreavRooms
                         //bottom
                         else 
                             IntegerTilemap[0, 2] = Tile.TILE_DOOR;
+                //vertically offset
                 else
                     //bottom
                     if (distanceVector.Y > 0)
-                        //right
-                        if (distanceVector.X > 0) 
-                            IntegerTilemap[2, 3] = Tile.TILE_DOOR;
-                        //left
-                        else 
-                            IntegerTilemap[1, 3] = Tile.TILE_DOOR;
-                    //top
-                    else
                         //right
                         if (distanceVector.X > 0) 
                             IntegerTilemap[2, 0] = Tile.TILE_DOOR;
                         //left
                         else 
                             IntegerTilemap[1, 0] = Tile.TILE_DOOR;
+                    //top
+                    else
+                        //right
+                        if (distanceVector.X > 0) 
+                            IntegerTilemap[2, 3] = Tile.TILE_DOOR;
+                        //left
+                        else 
+                            IntegerTilemap[1, 3] = Tile.TILE_DOOR;
             }
         }
 
@@ -388,9 +389,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         protected void initializeTilemap(Area.RoomTypes roomType)
         {
-            for (var i = 0; i < 4; i++){
-                for (var k = 0; k < 4; k++){
-                    ObjectTilemap[i, k] = new Tile(IntegerTilemap[i, k], new Vector2f(this.Position.X + 32 * i, Position.Y + 32 * k), roomType); //TODO let the vector fit to every file
+            for (var x = 0; x < 4; x++){
+                for (var y = 0; y < 4; y++){
+                    ObjectTilemap[x, y] = new Tile(IntegerTilemap[x, y], new Vector2f(this.Position.X + 32 * x, Position.Y + 32 * y), roomType); //TODO let the vector fit to every file
                 }
             }
 

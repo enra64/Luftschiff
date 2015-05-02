@@ -49,7 +49,6 @@ namespace Luftschiff.Code.States {
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
 
             TwoButtonDialog enemy = new TwoButtonDialog("Drache","Himmelswal","Waehle deinen Gegner","Gegnerwahl");
-            enemy.show();
             if (enemy.show())
             {
                 CurrentMonster = new Dragon();
