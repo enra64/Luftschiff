@@ -94,15 +94,22 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             //increase room button for room keyboard shortcut system
             _currentRoomButton++;
-
-            //add the doors
-            newRoom.FinalizeTiles();
             
             //give the room its key listener
             newRoom.AddKeyboardShortcut(_currentRoomButton);
 
             //add room to list
             rooms_.Add(newRoom);
+        }
+
+        /// <summary>
+        ///     Call after adding all rooms
+        /// </summary>
+        public void FinalizeRooms()
+        {
+            //add the doors
+            foreach (var r in rooms_)
+                r.FinalizeTiles();
         }
 
         /// <summary>
