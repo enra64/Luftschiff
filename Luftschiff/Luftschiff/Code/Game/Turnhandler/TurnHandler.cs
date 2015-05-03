@@ -142,11 +142,10 @@ namespace Luftschiff.Code.Game
         {
             //check all crew targets
             foreach (var c in _crewActions) {
-                //0 waiting turns on action -> execute action
-                if (c.WaitingTurns == 0)
-                    _areaReference.RepositionCrew(c);
-                //invalid for finished actions to be able to clean it up
+                //invalidate finished actions to be able to clean them up
                 if (c.WaitingTurns == 0) {
+                    //0 waiting turns on action -> execute action
+                    _areaReference.RepositionCrew(c);
                     //if the crewmember has arrived at its target
                     if (c.IsLastAction) {
                         //make the crew do the appropriate action at its target
@@ -160,14 +159,11 @@ namespace Luftschiff.Code.Game
             //for each crew list check whether it has actions left
             foreach (CrewMember c in Globals.AreaReference.CrewList) {
                 //count the amount of actions the turnhandler has saved for a crewmember
-                int crewActionCount = _crewActions.Count(ca => ca.Crew == c);
-                //the crew has no actions (moves) left, so oncrewarrive can
-                //not have been executed yet, since the actions have not yet been
-                //deleted
-                if (crewActionCount == 0) {
+                var crewActionCount = _crewActions.Count(ca => ca.Crew == c);
+                //tell the crew to work if it does not have to move
+                if (crewActionCount == 0)
                     //tell the room the crewmember is without a job, and that it should give him a job
                     c.CurrentRoom.OnCrewArrive(c);
-                }
             }
         }
 
@@ -233,8 +229,8 @@ namespace Luftschiff.Code.Game
                 return;
 
             //call methods moved out of main body
-            ExecuteFiringOrders();
             ExecuteMoveCrewActions();
+            ExecuteFiringOrders();
             SlackFire();
             ExecuteRoomEndOfRound();
             HealCrewmembers();
@@ -253,7 +249,7 @@ namespace Luftschiff.Code.Game
         private void ExecuteMonsterAttack()
         {
             //wait until the user projectiles arrived
-            while (Globals.ColliderReference.ProjectileCount > 0);
+            while (Globals.ColliderReference.ProjectileCount > 0 || Globals.AreaReference.MovingCrew > 0);
             //start dragon attack
             _gameReference.CurrentMonster.AttackShip(_areaReference);
         }

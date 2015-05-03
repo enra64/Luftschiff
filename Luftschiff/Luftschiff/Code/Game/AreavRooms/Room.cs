@@ -144,14 +144,10 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 if(Globals.AreaReference.Life <=1000)
                     Globals.AreaReference.Life += repairAmount;
-
                 RoomLife += repairAmount;
             }
-
             else
                 RoomLife = MaxLife;
-
-
         }
 
         /// <summary>
@@ -249,35 +245,43 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// sets crew in room. gives bool back true -> succes , false -> there are too many crewmembers in that room;
+        ///     Set the crew into this room, updating its position instantly
         /// </summary>
-        public bool SetCrewInRoom(CrewMember a)
+        public int SetCrewInRoom(CrewMember a)
         {
-            if (CrewList.Count < 4)
-            {
+            return SetCrewInRoom(a, false);
+        }
+
+        /// <summary>
+        ///     Set the crew in this room. Only update the position instantly when DoNotSetPosition == false
+        /// </summary>
+        public int SetCrewInRoom(CrewMember a, Boolean doNotSetPosition) {
+            if (CrewList.Count < 4) {
                 CrewList.Add(a);
-                switch (CrewList.Count)
-                {
-                    case 1:
-                        a.setPosition(Position);
-                        break;
-                    case 2:
-                        a.setPosition(Position + new Vector2f(64, 0));
-                        break;
-                    case 3:
-                        a.setPosition(Position + new Vector2f(0, 64));
-                        break;
-                    case 4:
-                        a.setPosition(Position + new Vector2f(64, 64));
-                        break;
-                }
+                if(!doNotSetPosition)
+                    a.setPosition(Position + GetCrewPositionOffset());
                 if (CrewList.Count == 4)
                     _walkAble = false;
-                return true;
+                return CrewList.Count;
             }
-                _walkAble = false;
+            _walkAble = false;
             //return false if no space is left
-            return false;
+            return -1;
+        }
+
+        public Vector2f GetCrewPositionOffset()
+        {
+            Vector2f offset = new Vector2f(0, 0);
+            switch (CrewList.Count) {
+                case 2:
+                    return new Vector2f(64, 0);
+                case 3:
+                    return new Vector2f(0, 64);
+                case 4:
+                    return new Vector2f(64, 64);
+                default:
+                    return offset;
+            }
         }
         
         /// <summary>
@@ -318,6 +322,35 @@ namespace Luftschiff.Code.Game.AreavRooms
                     int y = distanceVector.Y < 0 ? 0 : 3;
                     IntegerTilemap[x, y] = Tile.TILE_DOOR;
                 }
+            }
+        }
+
+        /// <summary>
+        ///     Returns the position of the door in the requested position
+        /// </summary>
+        /// <param name="direction">0t 1r 2b 3l</param>
+        /// <returns></returns>
+        public Vector2f GetDoorPosition(int direction)
+        {
+            switch (direction)
+            {
+                default:
+                case 0:
+                    if (ObjectTilemap[1, 0].Type == Tile.TILE_DOOR)
+                        return ObjectTilemap[1, 0].Position;
+                    return ObjectTilemap[2, 0].Position;
+                case 1:
+                    if (ObjectTilemap[3, 1].Type == Tile.TILE_DOOR)
+                        return ObjectTilemap[3, 1].Position;
+                    return ObjectTilemap[3, 2].Position;
+                case 2:
+                    if (ObjectTilemap[1, 3].Type == Tile.TILE_DOOR)
+                        return ObjectTilemap[1, 3].Position;
+                    return ObjectTilemap[2, 3].Position;
+                case 3:
+                    if (ObjectTilemap[0, 2].Type == Tile.TILE_DOOR)
+                        return ObjectTilemap[0, 2].Position;
+                    return ObjectTilemap[0, 1].Position;
             }
         }
 
@@ -418,9 +451,9 @@ namespace Luftschiff.Code.Game.AreavRooms
             Controller.Window.Draw(damage);
 
             // draw der crew
-            for (int k = 0; k < CrewList.Count; k++){
-                CrewList.ElementAt(k).Draw();
-            }
+            //for (int k = 0; k < CrewList.Count; k++){
+            //    CrewList.ElementAt(k).Draw();
+            //}
 
             //draw one fire first, since fire spreading should be difficult
             if (FireLife > 0)

@@ -12,8 +12,11 @@ namespace Luftschiff.Code.Game.AreavRooms
         public const int TILE_SPECIAL = 3;
         public const int TILE_DOOR = 4;
 
+        public int Type { get; private set; }
+
         public Tile(int kind, Vector2f position, Area.RoomTypes room)
         {
+            Type = kind;
             switch (kind)
             {
                 case (TILE_FLOOR): //floor

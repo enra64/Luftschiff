@@ -5,7 +5,7 @@ namespace Luftschiff.Code.Game
 {
     class Collider
     {
-        private static List<Projectile> _projectileList = new List<Projectile>();
+        private List<Projectile> _projectileList = new List<Projectile>();
 
         /// <summary>
         /// The amount of projectiles tracked by the collider
@@ -16,7 +16,7 @@ namespace Luftschiff.Code.Game
         {
             foreach(var projectile in _projectileList)
                 //the projectiles target uses ITarget, and as such implements the hasbeenhit function
-                if (projectile.Target.HasBeenHit(projectile.Center))
+                if (projectile != null && projectile.Target.HasBeenHit(projectile.Center))
                 {
                     //if first call after impact, induce damage to monster
                     if(!projectile.ImpactHappened)
@@ -36,6 +36,9 @@ namespace Luftschiff.Code.Game
             //update all projectiles
             foreach(var p in _projectileList)
                 p.Update();
+
+            //remove null elements
+            _projectileList.RemoveAll(s => s == null);
         }
 
         public void Draw()

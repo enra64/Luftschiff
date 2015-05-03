@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
+using Luftschiff.Code.Global;
 using SFML.Graphics;
 
 namespace Luftschiff.Code.Game.Crew {
@@ -18,6 +19,17 @@ namespace Luftschiff.Code.Game.Crew {
         //possible abilities
         //TODO add or remove abilities
         public int _health{get;set;}
+
+        /// <summary>
+        ///     List containing waypoints for the crew to move through when walking from room a to b
+        /// </summary>
+        private List<Vector2f> _wayPointList = new List<Vector2f>(); 
+
+        /// <summary>
+        /// return whether the crew is still in the process of moving, so that the monster can wait until attacking
+        /// </summary>
+        public bool IsStillMoving { get { return _wayPointList.Count > 0; } }
+
         private int _actionPoints = 1;
         private int _repairSpeed = 4;
         private int _slackFireSpeed = 1;
@@ -29,7 +41,7 @@ namespace Luftschiff.Code.Game.Crew {
         {
             CurrentRoom = firstRoom;
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
-            useAnAnimatedSprite.Scale = new Vector2f(.2f, .2f);
+            useAnAnimatedSprite.Scale = new Vector2f(.15f, .15f);
             _health = 100;
 
             //init indicator rectangle
@@ -101,12 +113,61 @@ namespace Luftschiff.Code.Game.Crew {
         }
 
         public override void Update(){
+            //abort if no waypoints have been set
+            if (_wayPointList.Count <= 0) return;
+            //calculate delta between this and the waypoint
+            Vector2f targetDelta = _wayPointList[0] - useAnAnimatedSprite.Position;
+
+            //check whether the waypoint has already been arrived at
+            if (Math.Abs(targetDelta.X) < 4 && Math.Abs(targetDelta.Y) < 4)
+                //kk delete it from the list and bail
+                _wayPointList.RemoveAt(0);
+                
+            //normalise and multiply the vector for consistent movement speed
+            Vector2f movementVector = Util.NormaliseVector(targetDelta) * 2;
+
+            //add position to current position
+            useAnAnimatedSprite.Position += movementVector;
+            _indicatorShape.Position += movementVector;
         }
 
         public void setPosition(Vector2f newPosition)
         {
             useAnAnimatedSprite.Position = newPosition;
             _indicatorShape.Position = newPosition;
+        }
+
+        /// <summary>
+        ///     Creates a list of Vector waypoints for the update to move through
+        /// </summary>
+        /// <param name="moveAction"></param>
+        public void Walk(CrewTarget moveAction)
+        {
+            //add three wp: this rooms door, target room door, target room posiiton
+            //get whether the target room is t r b l from origin
+            //get distance between me and the nearroom
+            Vector2f distanceVector = new Vector2f(moveAction.Target.Center.X - moveAction.Origin.Center.X, 
+                moveAction.Target.Center.Y - moveAction.Origin.Center.Y);
+            //distancevector: neg Y -> r above me, neg X -> r to the right
+            int startDirection;
+            
+            Vector2f originDoor;
+
+            //hor offset
+            if (Math.Abs(distanceVector.X) > Math.Abs(distanceVector.Y))
+                startDirection = distanceVector.X < 0 ? 1 : 3;
+            //vert offset
+            else 
+                startDirection = distanceVector.Y < 0 ? 0 : 2;
+            
+            //start to origin door
+            _wayPointList.Add(moveAction.Origin.GetDoorPosition(startDirection));
+
+            //start door to target door, invert direction
+            _wayPointList.Add(moveAction.Target.GetDoorPosition((startDirection + 2) % 4));
+
+            //target door to endposition
+            _wayPointList.Add(moveAction.Target.Position + moveAction.Target.GetCrewPositionOffset());
         }
     }
 }

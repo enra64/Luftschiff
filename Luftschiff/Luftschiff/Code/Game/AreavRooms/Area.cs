@@ -16,7 +16,6 @@ namespace Luftschiff.Code.Game.AreavRooms
         private int _currentRoomButton = 0;
         private States.Game _gameReference = Globals.GameReference;
         private Sprite _staticMaintexture;
-        private int _currentMovingCrewCount = 0;
 
         public enum RoomTypes
         {
@@ -60,6 +59,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         public float HealthPercent {
             get { return ((float)Life / (float)_maxLife) * 100; }
         }
+
+        public int MovingCrew { get { return CrewList.Count(s => s.IsStillMoving); } }
 
         /// <summary>
         /// get list of all rooms inserte in the area
@@ -115,9 +116,21 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         /// <summary>
         /// Adds a crewmember to a room and to the area, sets the crewmembers currentRoom correctly
+        /// Activate DisableSetCrewInRoom to make the crew move slowly
         /// </summary>
-        public void AddCrewToRoom(Room r, CrewMember c) {
-            r.SetCrewInRoom(c);
+        public void AddCrewToRoom(Room r, CrewMember c, bool DisableSetCrewInRoom) {
+            //do the usual
+            if (!DisableSetCrewInRoom)
+                r.SetCrewInRoom(c);
+            //disable flag was set, so the crew will not instantly change position
+            else
+            {
+                //check whether enough space is available, abort otherwise
+                if (r.CrewList.Count < 4)
+                    r.CrewList.Add(c);
+                else
+                    return;
+            }
             CrewList.Add(c);
             c.CurrentRoom = r;
         }
@@ -127,8 +140,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// </summary>
         public void RemoveCrewFromRoom(CrewMember c)
         {
-            c.CurrentRoom.RemoveCrewMember(c);
             //only this crewlist.remove may exist to avoid bugs
+            c.CurrentRoom.RemoveCrewMember(c);
             CrewList.Remove(c);
             Console.WriteLine("Crew killed");
             //remove reference in mousehandler
@@ -220,17 +233,19 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             #endregion
 
-            for (int i = 0; i < rooms_.Count; i++)
-            {
-                if (!rooms_.ElementAt(i).IsAlive)
-                {
-                    this.RemoveRoom(rooms_.ElementAt(i));
+            //remove dead rooms
+            for (int i = 0; i < rooms_.Count; i++) {
+                if (!rooms_[i].IsAlive) {
+                    RemoveRoom(rooms_[i]);
                     i--;
                 }
             }
 
-            foreach(var r in rooms_)
+            foreach (var r in rooms_)
                 r.Update();
+
+            foreach (var c in CrewList)
+                c.Update();
 
             //show a "you died" dialog for now
             if (Life <= 0)
@@ -247,7 +262,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                 if (CrewList.ElementAt(i)._health < 0)
                 {
                     //crew dead, remove via area method. direct removements are bad, because they
-                    //may fail to do everything necessary.
+                    //fail to do everything necessary.
                     RemoveCrewFromRoom(CrewList.ElementAt(i));
                     i--;
                 }
@@ -267,28 +282,21 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 rooms_.ElementAt(i).Draw();
             }
+
+            for (int k = 0; k < CrewList.Count; k++){
+                CrewList.ElementAt(k).Draw();
+            }
         }
 
         /// <summary>
         /// Called by the turnhandler, to switch a crewmembers room, since otherwise the crewmember
         /// would need to get a reference to the area
         /// </summary>
-        /// <param name="crew">Crew to be moved</param>
-        /// <param name="targetRoom">Room the crew should be moved to</param>
-        public void RepositionCrew(CrewMember crew, Room targetRoom) {
-            RemoveCrewFromRoom(crew);
-            AddCrewToRoom(targetRoom, crew);
-            //uuh somehow make them move slowly
-        }
-
-        /// <summary>
-        /// Called by the turnhandler, to switch a crewmembers room, since otherwise the crewmember
-        /// would need to get a reference to the area
-        /// </summary>
-        /// <param name="target">The Crewtarget the turnhandler wants executed, contains start and end room</param>
-        public void RepositionCrew(CrewTarget target) {
-            RemoveCrewFromRoom(target.Crew);
-            AddCrewToRoom(target.Target, target.Crew);
+        /// <param name="moveAction">The Crewtarget the turnhandler wants executed, contains start and end room</param>
+        public void RepositionCrew(CrewTarget moveAction) {
+            RemoveCrewFromRoom(moveAction.Crew);
+            moveAction.Crew.Walk(moveAction);
+            AddCrewToRoom(moveAction.Target, moveAction.Crew, true);
         }
 
         public void RemoveRoom(Room a)
