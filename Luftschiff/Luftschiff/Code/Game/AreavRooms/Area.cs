@@ -33,7 +33,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         //list to fill with rooms;
         //rooms have the number of their position in list
         private List<Room> rooms_;
-        public List<CrewMember> CrewList = new List<CrewMember>();
+        public readonly List<CrewMember> CrewList = new List<CrewMember>();
 
         public Area()
         {
@@ -60,7 +60,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             get { return ((float)Life / (float)_maxLife) * 100; }
         }
 
-        public int MovingCrew { get { return CrewList.Count(s => s.IsStillMoving); } }
+        public int MovingCrew { get { return CrewList.Count(s => s != null && s.IsStillMoving); } }
 
         /// <summary>
         /// get list of all rooms inserte in the area

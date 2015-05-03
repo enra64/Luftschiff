@@ -23,7 +23,7 @@ namespace Luftschiff.Code.Game.Crew {
         /// <summary>
         ///     List containing waypoints for the crew to move through when walking from room a to b
         /// </summary>
-        private List<Vector2f> _wayPointList = new List<Vector2f>(); 
+        private readonly List<Vector2f> _wayPointList = new List<Vector2f>(); 
 
         /// <summary>
         /// return whether the crew is still in the process of moving, so that the monster can wait until attacking

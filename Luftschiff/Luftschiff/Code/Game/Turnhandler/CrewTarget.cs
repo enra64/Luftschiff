@@ -8,22 +8,22 @@ namespace Luftschiff.Code.Game
         /// <summary>
         ///     reference to the crew that will be moved
         /// </summary>
-        public CrewMember Crew;
+        public readonly CrewMember Crew;
 
         /// <summary>
         ///     Contains whether this is the last room the crewmember has to go to
         /// </summary>
-        public bool IsLastAction;
+        public readonly bool IsLastAction;
 
         /// <summary>
         ///     Save the room we come from to make calculating the door easier
         /// </summary>
-        public Room Origin;
+        public readonly Room Origin;
 
         /// <summary>
         ///     reference to the room that the crewmember will be moved to
         /// </summary>
-        public Room Target;
+        public readonly Room Target;
 
         /// <summary>
         ///     <para>the amount of base rounds the crew will take until this room,</para>
