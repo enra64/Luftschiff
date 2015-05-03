@@ -151,11 +151,13 @@ namespace Luftschiff.Code.Game.Crew {
             //distancevector: neg Y -> r above me, neg X -> r to the right
             int startDirection;
             
-            Vector2f originDoor;
+            //  0
+            //3   1
+            //  2
 
             //hor offset
             if (Math.Abs(distanceVector.X) > Math.Abs(distanceVector.Y))
-                startDirection = distanceVector.X < 0 ? 1 : 3;
+                startDirection = distanceVector.X > 0 ? 1 : 3;
             //vert offset
             else 
                 startDirection = distanceVector.Y < 0 ? 0 : 2;
