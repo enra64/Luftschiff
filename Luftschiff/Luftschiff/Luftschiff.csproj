@@ -119,6 +119,12 @@
     <None Include="Assets\StandardFontSteamwreck.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="DLLs\csfml-audio-2.dll.config" />
+    <None Include="DLLs\csfml-graphics-2.dll.config" />
+    <None Include="DLLs\csfml-system-2.dll.config" />
+    <None Include="DLLs\csfml-window-2.dll.config" />
+    <None Include="DLLs\libsndfile-1.dll.config" />
+    <None Include="DLLs\openal32.dll.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Audio\cannon_boom.wav">
@@ -238,26 +244,29 @@
   </Target>
   -->
   <ItemGroup>
-    <EmbeddedResource Include="csfml-audio-2.dll">
+    <EmbeddedResource Include="DLLs\csfml-audio-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="csfml-graphics-2.dll">
+    <EmbeddedResource Include="DLLs\csfml-graphics-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="csfml-network-2.dll">
+    <EmbeddedResource Include="DLLs\csfml-network-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="csfml-system-2.dll">
+    <EmbeddedResource Include="DLLs\csfml-system-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="csfml-window-2.dll">
+    <EmbeddedResource Include="DLLs\csfml-window-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="libsndfile-1.dll">
+    <EmbeddedResource Include="DLLs\libsndfile-1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="openal32.dll">
+    <EmbeddedResource Include="DLLs\openal32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DLLs\" />
   </ItemGroup>
 </Project>
