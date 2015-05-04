@@ -255,7 +255,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <summary>
         ///     Set the crew in this room. Only update the position instantly when DoNotSetPosition == false
         /// </summary>
-        public int SetCrewInRoom(CrewMember a, Boolean doNotSetPosition) {
+        public int SetCrewInRoom(CrewMember a, bool doNotSetPosition) {
             if (CrewList.Count < 4) {
                 CrewList.Add(a);
                 if(!doNotSetPosition)

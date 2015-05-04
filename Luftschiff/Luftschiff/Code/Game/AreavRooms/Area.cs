@@ -60,7 +60,18 @@ namespace Luftschiff.Code.Game.AreavRooms
             get { return ((float)Life / (float)_maxLife) * 100; }
         }
 
-        public int MovingCrew { get { return CrewList.Count(s => s != null && s.IsStillMoving); } }
+        public int MovingCrew
+        {
+            get
+            {
+                //yay short code /s
+                int moveCount = 0;
+                for (int i = CrewList.Count - 1; i >= 0; i--)
+                    if (i < CrewList.Count && CrewList[i].IsStillMoving)
+                        moveCount++;
+                return moveCount;
+            }
+        }
 
         /// <summary>
         /// get list of all rooms inserte in the area
@@ -118,19 +129,14 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// Adds a crewmember to a room and to the area, sets the crewmembers currentRoom correctly
         /// Activate DisableSetCrewInRoom to make the crew move slowly
         /// </summary>
-        public void AddCrewToRoom(Room r, CrewMember c, bool DisableSetCrewInRoom) {
-            //do the usual
-            if (!DisableSetCrewInRoom)
-                r.SetCrewInRoom(c);
+        public void AddCrewToRoom(Room r, CrewMember c, bool DisableSetCrewInRoom)
+        {
             //disable flag was set, so the crew will not instantly change position
+            if (DisableSetCrewInRoom)
+                r.SetCrewInRoom(c, true);
+            //the flag to disable this call was not set.
             else
-            {
-                //check whether enough space is available, abort otherwise
-                if (r.CrewList.Count < 4)
-                    r.CrewList.Add(c);
-                else
-                    return;
-            }
+                r.SetCrewInRoom(c);
             CrewList.Add(c);
             c.CurrentRoom = r;
         }
