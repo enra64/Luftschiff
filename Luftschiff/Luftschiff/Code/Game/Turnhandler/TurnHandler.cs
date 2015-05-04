@@ -110,14 +110,14 @@ namespace Luftschiff.Code.Game
                     Console.WriteLine(way.Count - k);
                     //Console.WriteLine("target");
                     //origin is k - 1, if that is valid, and currentroom if otherwise
-                    _crewActions.Add(new CrewTarget(crewMember, k - 1 > 0 ? way.ElementAt(k - 1) : crewMember.CurrentRoom, way.ElementAt(k), k, true));
+                    _crewActions.Add(new CrewTarget(crewMember, k > 0 ? way.ElementAt(k - 1) : crewMember.CurrentRoom, way.ElementAt(k), k, true));
                 }
                 else if (k == 0)
                 {
                     Console.WriteLine(way.Count - k);
                     //Console.WriteLine("target");
                     //origin is currentroom, because this is the first action
-                    _crewActions.Add(new CrewTarget(crewMember, crewMember.CurrentRoom, way.ElementAt(k), k, true));
+                    _crewActions.Add(new CrewTarget(crewMember, crewMember.CurrentRoom, way.ElementAt(k), k, false));
                 }
                 else
                 {
