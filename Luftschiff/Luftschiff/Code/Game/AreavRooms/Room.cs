@@ -269,6 +269,11 @@ namespace Luftschiff.Code.Game.AreavRooms
             return -1;
         }
 
+        /// <summary>
+        ///     Returns the offset an additional crewmember should have. Does _not_ care about full rooms,
+        ///     and returns a bad default value.
+        /// </summary>
+        /// <returns>New Crewmember offset.</returns>
         public Vector2f GetCrewPositionOffset()
         {
             Vector2f offset = new Vector2f(0, 0);

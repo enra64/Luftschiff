@@ -64,10 +64,12 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             get
             {
-                //yay short code /s
+                //because this gets called async by the turnhandler very often, we must ensure valid collection values
+                //and i's
                 int moveCount = 0;
                 for (int i = CrewList.Count - 1; i >= 0; i--)
-                    if (i < CrewList.Count && CrewList[i].IsStillMoving)
+                    //reduce i if invalid
+                    if (CrewList[i < CrewList.Count ? i : --i].IsStillMoving)
                         moveCount++;
                 return moveCount;
             }
@@ -149,7 +151,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             //only this crewlist.remove may exist to avoid bugs
             c.CurrentRoom.RemoveCrewMember(c);
             CrewList.Remove(c);
-            Console.WriteLine("Crew killed");
+            Console.WriteLine("Crew removed from room "+c.CurrentRoom.GetType());
             //remove reference in mousehandler
             if(MouseHandler.SelectedCrew == c)
                 MouseHandler.SelectedCrew = null;
@@ -301,8 +303,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         /// <param name="moveAction">The Crewtarget the turnhandler wants executed, contains start and end room</param>
         public void RepositionCrew(CrewTarget moveAction) {
             RemoveCrewFromRoom(moveAction.Crew);
-            moveAction.Crew.Walk(moveAction);
             AddCrewToRoom(moveAction.Target, moveAction.Crew, true);
+            moveAction.Crew.Walk(moveAction);
         }
 
         public void RemoveRoom(Room a)

@@ -87,7 +87,7 @@ namespace Luftschiff.Code.Game.Crew {
         public void RepairRoom()
         {
             //debug output
-            Console.WriteLine("repairing");
+            //Console.WriteLine("repairing");
             CurrentRoom.ReceiveRepair(10 * _repairSpeed, 8 * _repairSpeed);
         }
 
@@ -96,7 +96,7 @@ namespace Luftschiff.Code.Game.Crew {
         /// </summary>
         public void SlackFire()
         {
-            Console.WriteLine("slacking fire");
+            //Console.WriteLine("slacking fire");
             //start animation
             //detect impssible fire life values
             if (CurrentRoom.FireLife > 0)
@@ -108,7 +108,7 @@ namespace Luftschiff.Code.Game.Crew {
         /// </summary>
         public void WorkRoom()
         {
-            Console.WriteLine("working in room");
+            //Console.WriteLine("working in room");
             //animation
         }
 
