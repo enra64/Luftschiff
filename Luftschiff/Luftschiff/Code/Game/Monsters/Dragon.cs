@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Management.Instrumentation;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.Crew;
