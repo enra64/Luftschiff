@@ -23,7 +23,7 @@ namespace Luftschiff.Code.Game.Crew {
         /// <summary>
         ///     List containing waypoints for the crew to move through when walking from room a to b
         /// </summary>
-        private readonly List<Vector2f> _wayPointList = new List<Vector2f>(); 
+        private readonly List<Waypoint> _wayPointList = new List<Waypoint>(); 
 
         /// <summary>
         /// return whether the crew is still in the process of moving, so that the monster can wait until attacking
@@ -35,7 +35,6 @@ namespace Luftschiff.Code.Game.Crew {
         private int _slackFireSpeed = 1;
         private int _weaponSkills = 1;
         private int _targetRoom = 0;
-        private Vector2f _lastDirection = new Vector2f(1,0);
 
 
         public CrewMember(Room firstRoom)
@@ -44,7 +43,7 @@ namespace Luftschiff.Code.Game.Crew {
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
             useAnAnimatedSprite.Scale = new Vector2f(.15f, .15f);
             _health = 100;
-            useAnAnimatedSprite.Origin = new Vector2f(0.5f , 0.5f);
+            useAnAnimatedSprite.Origin = new Vector2f(128, 128);
             //init indicator rectangle
             Vector2f size = new Vector2f(useAnAnimatedSprite.Scale.X*useAnAnimatedSprite.Texture.Size.X,
                 useAnAnimatedSprite.Scale.Y*useAnAnimatedSprite.Texture.Size.Y);
@@ -115,10 +114,14 @@ namespace Luftschiff.Code.Game.Crew {
 
         public override void Update(){
             //abort if no waypoints have been set
-            if (_wayPointList.Count <= 0) return;
+            if (_wayPointList.Count <= 0)
+            {
+                useAnAnimatedSprite.Rotation = 0;
+                return;
+            }
             //calculate delta between this and the waypoint
-            Vector2f targetDelta = _wayPointList[0] - useAnAnimatedSprite.Position;
-
+            Vector2f targetDelta = _wayPointList[0].TargetVector - useAnAnimatedSprite.Position;
+            useAnAnimatedSprite.Rotation = _wayPointList[0].Rotation;
             //check whether the waypoint has already been arrived at
             if (Math.Abs(targetDelta.X) < 4 && Math.Abs(targetDelta.Y) < 4)
                 //kk delete it from the list and bail
@@ -127,12 +130,6 @@ namespace Luftschiff.Code.Game.Crew {
             //normalise and multiply the vector for consistent movement speed
             Vector2f movementVector = Util.NormaliseVector(targetDelta) * 2;
 
-            double grade = (targetDelta.X*_lastDirection.X + targetDelta.Y*_lastDirection.Y)/(float) (
-                Util.GetVector2fLength(targetDelta)*Util.GetVector2fLength(_lastDirection));
-            grade = Math.Acos(grade);
-            grade = (grade*180)/(2*Math.PI);
-            useAnAnimatedSprite.Rotation = (float)grade;
-            _lastDirection = targetDelta;
 
             //add position to current position
             useAnAnimatedSprite.Position += movementVector;
@@ -151,6 +148,7 @@ namespace Luftschiff.Code.Game.Crew {
         /// <param name="moveAction"></param>
         public void Walk(CrewTarget moveAction)
         {
+            _wayPointList.Clear();
             //add three wp: this rooms door, target room door, target room posiiton
             //get whether the target room is t r b l from origin
             //get distance between me and the nearroom
@@ -171,13 +169,37 @@ namespace Luftschiff.Code.Game.Crew {
                 startDirection = distanceVector.Y < 0 ? 0 : 2;
             
             //start to origin door
-            _wayPointList.Add(moveAction.Origin.GetDoorPosition(startDirection));
+            _wayPointList.Add(new Waypoint(moveAction.Origin.GetDoorPosition(startDirection), Position));
 
             //start door to target door, invert direction
-            _wayPointList.Add(moveAction.Target.GetDoorPosition((startDirection + 2) % 4));
+            _wayPointList.Add(new Waypoint(moveAction.Target.GetDoorPosition((startDirection + 2) % 4), _wayPointList[0].TargetVector));
 
             //target door to endposition
-            _wayPointList.Add(moveAction.Target.Position + moveAction.Target.GetCrewPositionOffset());
+            _wayPointList.Add(new Waypoint(moveAction.Target.Position + moveAction.Target.GetCrewPositionOffset(), _wayPointList[1].TargetVector));
+        }
+    }
+
+    class Waypoint
+    {
+        public Vector2f TargetVector { get; set; }
+        public Vector2f OriginVector { get; set; }
+        public float Rotation { get; set; }
+
+        public Waypoint(Vector2f targetVector, Vector2f originVector)
+        {
+            TargetVector = targetVector;
+            OriginVector = originVector;
+
+            Vector2f refe = new Vector2f(1, 0);
+            Vector2f diff = targetVector - originVector;
+
+            float grade =
+            (float)Math.Abs((refe.X*diff.X + refe.Y*diff.Y)/(float)(Util.GetVector2fLength(refe)*Util.GetVector2fLength(diff)));
+            grade = (float)Math.Acos(grade);
+            grade = (grade*360)/(2*(float) Math.PI);
+
+            Rotation = grade;
+
         }
     }
 }
