@@ -193,13 +193,22 @@ namespace Luftschiff.Code.Game.Crew {
             Vector2f refe = new Vector2f(1, 0);
             Vector2f diff = targetVector - originVector;
 
+            bool overstepp = false;
             float grade =
-            (float)Math.Abs((refe.X*diff.X + refe.Y*diff.Y)/(float)(Util.GetVector2fLength(refe)*Util.GetVector2fLength(diff)));
+            (float)(refe.X*diff.X + refe.Y*diff.Y)/(float)(Util.GetVector2fLength(refe)*Util.GetVector2fLength(diff));
+            if (grade < 0 ||(grade ==0 && diff.Y < 0))
+            {
+                overstepp = true;
+            }
             grade = (float)Math.Acos(grade);
             grade = (grade*360)/(2*(float) Math.PI);
 
-            Rotation = grade;
-
+            if (overstepp)
+                Rotation = -grade ;
+            else
+            {
+                Rotation = grade;  
+            }
         }
     }
 }
