@@ -84,6 +84,7 @@ namespace Luftschiff.Code {
         public static Texture DragonTexture;
         public static Texture SkywhaleTexture;
         public static Texture ShipTexture;
+        public static Texture WhaleHornTexture;
 
         //special room stuff sprites
         public static Texture EngineTexture;

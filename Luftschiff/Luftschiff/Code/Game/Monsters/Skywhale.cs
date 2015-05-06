@@ -15,7 +15,9 @@ namespace Luftschiff.Code.Game.Monsters
     {
         private int _hittingInthemiddle = 0;
         private int _roundCounter = 0;
+        private int _horncount = 0;
         private readonly Animation _whalediving;
+        public Sprite horn = new Sprite(Globals.WhaleHornTexture);
         public Skywhale(Texture t, int life) : base(life)
         {
             _whalediving = new Animation(t);
@@ -26,6 +28,10 @@ namespace Luftschiff.Code.Game.Monsters
             var pos = new Vector2f(Controller.Window.Size.X / 1.7f, 100f);
             Sprite = new AnimatedSprite(Time.FromSeconds(0.12f),false,true,pos);
             Sprite.Scale = new Vector2f(0.8f, 0.8f);
+
+            horn.Rotation = 315;
+            horn.Position = new Vector2f(50,200);
+            horn.Scale = new Vector2f(7,7);
         }
         public Skywhale() : this(Globals.SkywhaleTexture, 1000){}
 
@@ -42,7 +48,7 @@ namespace Luftschiff.Code.Game.Monsters
                         //change cursor back to normal
                         Cursor.CursorMode(Cursor.Mode.Standard);
                     }
-            //play dragon sprite animation
+            //play whale sprite animation
             Sprite.Update(Globals.FRAME_TIME);
             Sprite.Play(_whalediving);
 
@@ -54,19 +60,20 @@ namespace Luftschiff.Code.Game.Monsters
                 else
                     Controller.Window.Close();
             }
+          
         }
 
         public override void AttackShip(Area areaReference)
         {
             _roundCounter++;
-            if (_roundCounter >= 3)
+            if (_roundCounter % 3 == 0)
             {
                 foreach (var room in areaReference.getRooms())
                 {
                     int damage= (int)(room.MaxLife*0.4);
+                    _horncount = 40;
                     room.ReceiveDamage(damage);
                 }
-                _roundCounter = 0;
             }
         }
 
@@ -81,6 +88,16 @@ namespace Luftschiff.Code.Game.Monsters
             if (getRect().Contains(projectilePosition.X - 350,projectilePosition.Y))
                 return true;
             return false;
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            if (_horncount > 0)
+            {
+                Controller.Window.Draw(horn);
+                _horncount--;
+            }
         }
     }
 }
