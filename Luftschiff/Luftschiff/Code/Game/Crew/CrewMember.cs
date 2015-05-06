@@ -35,6 +35,7 @@ namespace Luftschiff.Code.Game.Crew {
         private int _slackFireSpeed = 1;
         private int _weaponSkills = 1;
         private int _targetRoom = 0;
+        private Vector2f _lastDirection = new Vector2f(1,0);
 
 
         public CrewMember(Room firstRoom)
@@ -43,7 +44,7 @@ namespace Luftschiff.Code.Game.Crew {
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
             useAnAnimatedSprite.Scale = new Vector2f(.15f, .15f);
             _health = 100;
-
+            useAnAnimatedSprite.Origin = new Vector2f(0.5f , 0.5f);
             //init indicator rectangle
             Vector2f size = new Vector2f(useAnAnimatedSprite.Scale.X*useAnAnimatedSprite.Texture.Size.X,
                 useAnAnimatedSprite.Scale.Y*useAnAnimatedSprite.Texture.Size.Y);
@@ -125,6 +126,13 @@ namespace Luftschiff.Code.Game.Crew {
                 
             //normalise and multiply the vector for consistent movement speed
             Vector2f movementVector = Util.NormaliseVector(targetDelta) * 2;
+
+            double grade = (targetDelta.X*_lastDirection.X + targetDelta.Y*_lastDirection.Y)/(float) (
+                Util.GetVector2fLength(targetDelta)*Util.GetVector2fLength(_lastDirection));
+            grade = Math.Acos(grade);
+            grade = (grade*180)/(2*Math.PI);
+            useAnAnimatedSprite.Rotation = (float)grade;
+            _lastDirection = targetDelta;
 
             //add position to current position
             useAnAnimatedSprite.Position += movementVector;
