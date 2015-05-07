@@ -55,6 +55,7 @@ namespace Luftschiff.Code.States {
             optionList.Add("Dragon");
             optionList.Add("Himmelswal");
             optionList.Add("Bat Swarm");
+            optionList.Add("Petunientopf");
             ListDialog enemy = new ListDialog(optionList ,"Waehle deinen Gegner","Gegnerwahl");
             if (enemy.show() == 0)
             {
@@ -74,6 +75,10 @@ namespace Luftschiff.Code.States {
                 CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f, 170f)));
                 CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f + 55f, 200f)));
                 CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f - 20f, 100f)));
+            }
+            else if (enemy.show() == 3)
+            {
+                CurrentMonsterList.Add(new Petunie());
             }
             _currentArea.AddRoom(new AirCannonRoom(new Vector2f(570, 325)));
             _currentArea.AddRoom(new AirEngineRoom(new Vector2f(310, 245)));

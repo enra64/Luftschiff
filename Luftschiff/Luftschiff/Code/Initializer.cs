@@ -52,6 +52,7 @@ namespace Luftschiff {
             Globals.ShipTexture = new Texture("Assets/Graphics/Elena/Schiff.png");
             Globals.WhaleHornTexture = new Texture("Assets/Graphics/horn.png");
             Globals.BatTexture = new Texture("Assets/Graphics/bat.png");
+            Globals.PetunienTexture = new Texture("Assets/Graphics/petunientop.png");
             
             //projectile impact fx
             Globals.Cannon_Explosion = new Texture("Assets/Graphics/explosion-sprite.png");

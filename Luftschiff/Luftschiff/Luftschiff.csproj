@@ -76,6 +76,7 @@
     <Compile Include="Code\Game\Monsters\Dragon.cs" />
     <Compile Include="Code\Game\Monsters\Bat.cs" />
     <Compile Include="Code\Game\Monsters\Monster.cs" />
+    <Compile Include="Code\Game\Monsters\Petunie.cs" />
     <Compile Include="Code\Game\Monsters\Skywhale.cs" />
     <Compile Include="Code\Game\Object.cs" />
     <Compile Include="Code\Game\Projectiles\FireBall.cs" />
@@ -168,6 +169,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\horn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Graphics\petunientop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\roomfire.png">
