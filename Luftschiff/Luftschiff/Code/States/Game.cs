@@ -22,7 +22,7 @@ namespace Luftschiff.Code.States {
     class Game : ProtoGameState
     {
         private Sprite _backgroundSprite;
-        public Monster CurrentMonster { get; set; }
+        public List<Monster> CurrentMonsterList { get; set; }
         private Button _turnButton;
         private HealthBar _monsterBar, _shipBar;
         private Area _currentArea;
@@ -39,6 +39,9 @@ namespace Luftschiff.Code.States {
             Globals.ColliderReference = new Collider();
             Globals.NotificationReference = new Notifications();
             
+            //initialize List
+            CurrentMonsterList = new List<Monster>();
+            
             //copy a reference to this class for convenience
             _currentArea = Globals.AreaReference;
 
@@ -48,14 +51,27 @@ namespace Luftschiff.Code.States {
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
 
-            TwoButtonDialog enemy = new TwoButtonDialog("Drache","Himmelswal","Waehle deinen Gegner","Gegnerwahl");
-            if (enemy.show())
+            List<String> optionList = new List<String>();
+            optionList.Add("Dragon");
+            optionList.Add("Himmelswal");
+            optionList.Add("Bat Swarm");
+            ListDialog enemy = new ListDialog(optionList ,"Waehle deinen Gegner","Gegnerwahl");
+            if (enemy.show() == 0)
             {
-                CurrentMonster = new Dragon();
+                CurrentMonsterList.Add(new Dragon()); 
             }
-            else
+            else if(enemy.show() == 1)
             {
-                CurrentMonster = new Skywhale(); 
+                CurrentMonsterList.Add(new Skywhale()); 
+            }
+            else if (enemy.show() == 2)
+            {
+                Console.WriteLine("Get Rekt!");
+                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f, 200f)));
+                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f, 250f)));
+                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f + 130f, 220f)));
+                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f + 55f, 200f)));
+                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f, 170f)));
             }
             _currentArea.AddRoom(new AirCannonRoom(new Vector2f(570, 325)));
             _currentArea.AddRoom(new AirEngineRoom(new Vector2f(310, 245)));
@@ -94,8 +110,11 @@ namespace Luftschiff.Code.States {
             _currentArea.Draw();
             
             //monster draw
-            CurrentMonster.Draw(); 
-
+            foreach (var CurrentMonster in CurrentMonsterList)
+            {
+                CurrentMonster.Draw(); 
+            }
+            
             //draw the turn button
             _turnButton.Draw();
 
@@ -126,8 +145,11 @@ namespace Luftschiff.Code.States {
         /// </summary>
         public override void update()
         {
-            CurrentMonster.Update();
-            
+            foreach (var CurrentMonster in CurrentMonsterList)
+            {
+                CurrentMonster.Update();
+            }
+                 
             //disable the turn button when prjectiles are flying
             _turnButton.Enable = Globals.ColliderReference.ProjectileCount == 0;
 
@@ -137,8 +159,10 @@ namespace Luftschiff.Code.States {
             }
 
             _shipBar.Update(Globals.AreaReference.HealthPercent);
-            _monsterBar.Update(CurrentMonster.HealthPercent);
-
+            foreach (var CurrentMonster in CurrentMonsterList)
+            {
+                _monsterBar.Update(CurrentMonster.HealthPercent);
+            }
             //make the button another color to notify the user
             if (Globals.TurnHandler.HasStackedActions)
             {

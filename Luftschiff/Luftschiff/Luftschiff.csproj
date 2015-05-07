@@ -74,6 +74,7 @@
     <Compile Include="Code\Game\Crew\CrewMember.cs" />
     <Compile Include="Code\Game\Entity.cs" />
     <Compile Include="Code\Game\Monsters\Dragon.cs" />
+    <Compile Include="Code\Game\Monsters\Bat.cs" />
     <Compile Include="Code\Game\Monsters\Monster.cs" />
     <Compile Include="Code\Game\Monsters\Skywhale.cs" />
     <Compile Include="Code\Game\Object.cs" />
@@ -119,12 +120,6 @@
     <None Include="Assets\StandardFontSteamwreck.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="csfml-audio-2.dll.config" />
-    <None Include="csfml-graphics-2.dll.config" />
-    <None Include="csfml-system-2.dll.config" />
-    <None Include="csfml-window-2.dll.config" />
-    <None Include="libsndfile-1.dll.config" />
-    <None Include="openal32.dll.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Audio\cannon_boom.wav">
@@ -140,6 +135,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Audio\stumm.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Graphics\bat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\Elena\dude.png">
@@ -237,9 +235,7 @@
     <Content Include="sfmlnet-system-2.dll" />
     <Content Include="sfmlnet-window-2.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DLLs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

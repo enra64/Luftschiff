@@ -251,7 +251,10 @@ namespace Luftschiff.Code.Game
             //wait until the user projectiles arrived
             while (Globals.ColliderReference.ProjectileCount > 0 || Globals.AreaReference.MovingCrew > 0);
             //start dragon attack
-            _gameReference.CurrentMonster.AttackShip(_areaReference);
+            foreach (var CurrentMonster in _gameReference.CurrentMonsterList)
+            {
+                CurrentMonster.AttackShip(_areaReference);
+            }
         }
 
         /// <summary>
