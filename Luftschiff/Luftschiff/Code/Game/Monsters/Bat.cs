@@ -25,6 +25,7 @@ namespace Luftschiff.Code.Game.Monsters
             var pos = _pos;
 
             Sprite = new AnimatedSprite(Time.FromSeconds(0.15f), true, true, pos);
+            Sprite.Scale = new Vector2f(2.5f,2.5f);
         }
         public override void AttackShip(AreavRooms.Area areaReference)
         {
@@ -45,7 +46,7 @@ namespace Luftschiff.Code.Game.Monsters
                     Globals.AreaReference.RemoveCrewFromRoom(affected);
                 }
             }
-            attackedRoom.ReceiveDamage(80);
+            attackedRoom.ReceiveDamage(20);
         }
         public override void ReceiveDamage(int damageAmount)
         {
