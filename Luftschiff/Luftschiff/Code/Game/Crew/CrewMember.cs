@@ -132,14 +132,17 @@ namespace Luftschiff.Code.Game.Crew {
             if (Math.Abs(targetDelta.X) < 4 && Math.Abs(targetDelta.Y) < 4)
                 //kk delete it from the list and bail
                 _wayPointList.RemoveAt(0);
-                
-            //normalise and multiply the vector for consistent movement speed
-            Vector2f movementVector = Util.NormaliseVector(targetDelta) * 2;
+            //if the delta is null, we need not add the movement vector
+            else
+            {
+                //normalise and multiply the vector for consistent movement speed
+                Vector2f movementVector = Util.NormaliseVector(targetDelta) * 2;
 
 
-            //add position to current position
-            useAnAnimatedSprite.Position += movementVector;
-            _indicatorShape.Position += movementVector;
+                //add position to current position
+                useAnAnimatedSprite.Position += movementVector;
+                _indicatorShape.Position += movementVector;
+            }
         }
 
         public void setPosition(Vector2f newPosition)
@@ -193,6 +196,7 @@ namespace Luftschiff.Code.Game.Crew {
 
         public Waypoint(Vector2f targetVector, Vector2f originVector)
         {
+            
             TargetVector = targetVector;
             OriginVector = originVector;
 
