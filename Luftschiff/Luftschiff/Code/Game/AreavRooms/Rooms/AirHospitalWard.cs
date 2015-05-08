@@ -52,7 +52,8 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                         CrewList.ElementAt(i).Health++;
                     }
 
-                    Console.WriteLine("healed from " + oldHealth + " to "+ CrewList[i].Health);
+                    if(oldHealth < 100)
+                        Console.WriteLine("healed from " + oldHealth + " to "+ CrewList[i].Health);
                 }
             }
             // mousehandler update still there 
