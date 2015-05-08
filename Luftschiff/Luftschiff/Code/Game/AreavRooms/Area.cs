@@ -142,7 +142,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             //only this crewlist.remove may exist to avoid bugs
             c.CurrentRoom.RemoveCrewMember(c);
             CrewList.Remove(c);
-            Console.WriteLine("Crew removed from room "+c.CurrentRoom.GetType());
+            //Console.WriteLine("Crew removed from room "+c.CurrentRoom.GetType());
             //remove reference in mousehandler
             if(MouseHandler.SelectedCrew == c)
                 MouseHandler.SelectedCrew = null;
@@ -258,7 +258,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             //ERRORSOURCE Remove crew on death
             for (int i = 0; i < CrewList.Count; i++)
             {
-                if (CrewList.ElementAt(i)._health < 0)
+                if (CrewList.ElementAt(i).Health < 0)
                 {
                     //crew dead, remove via area method. direct removements are bad, because they
                     //fail to do everything necessary.

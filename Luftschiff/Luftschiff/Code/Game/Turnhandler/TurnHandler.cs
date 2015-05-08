@@ -179,7 +179,7 @@ namespace Luftschiff.Code.Game
                     //burn the crewmembers slightly
                     foreach (var crewMember in room.CrewList)
                     {
-                        crewMember._health -= (int)(crewMember._health * .1f);
+                        crewMember.Health -= (int)(crewMember.Health * .1f);
                     }   
                 }
             }

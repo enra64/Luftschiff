@@ -128,7 +128,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             //giving the crew some damage
             foreach (var member in CrewList)
             {
-                member._health -= damage/10;
+                member.Health -= damage/10;
             }
             //TODO Add a function to look up if a crewmembe is dead
         }

@@ -19,7 +19,8 @@ namespace Luftschiff.Code.Game.Crew {
         private static Vector2f drawOffset = new Vector2f(16, 16);
         //possible abilities
         //TODO add or remove abilities
-        public int _health{get;set;}
+        public float Health {get;set;}
+        private float _maxHealth;
 
         /// <summary>
         ///     List containing waypoints for the crew to move through when walking from room a to b
@@ -43,7 +44,8 @@ namespace Luftschiff.Code.Game.Crew {
             CurrentRoom = firstRoom;
             useAnAnimatedSprite = new Sprite(Globals.CrewTexture);
             useAnAnimatedSprite.Scale = new Vector2f(.15f, .15f);
-            _health = 100;
+            Health = 100;
+            _maxHealth = Health;
             useAnAnimatedSprite.Origin = new Vector2f(128, 128);
             //init indicator rectangle
             Vector2f size = new Vector2f(useAnAnimatedSprite.Scale.X*useAnAnimatedSprite.Texture.Size.X,
@@ -68,9 +70,7 @@ namespace Luftschiff.Code.Game.Crew {
             // damage sign for crew health debug
             Shape test = new CircleShape(10);
             test.Position = useAnAnimatedSprite.Position;
-            test.FillColor = new Color(20, 0, 0, (byte)(255 - (_health / 100f) * 255));  
-            if(_health <= 0)
-                test.FillColor = Color.Red; 
+            test.FillColor = new Color((byte)(255 - (Health / _maxHealth) * 255), 0, 0, (byte)((Health / _maxHealth) * 255));  
             Controller.Window.Draw(test);
 
             useAnAnimatedSprite.Position += drawOffset;

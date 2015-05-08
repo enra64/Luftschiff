@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using SFML.System;
@@ -33,17 +34,25 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
         public void Crewhealing()
         {
-            
             if (CrewList.Count >= 2)
             {
                 //look at every crewmember in room 
                 for (int i = 0; i < CrewList.Count; i++)
                 {
-                    // heal by a maximum of 10 health points
+                    //show notification
+                    if (CrewList[i].Health < 100)
+                        Globals.NotificationReference.AddNotification(Position, "HEALY HEALY");
 
-                    for (int k = 0; k < 10 && CrewList.ElementAt(i)._health < 100; k++)
-                        Console.WriteLine("healed");
-                        CrewList.ElementAt(i)._health++;
+                    float oldHealth = CrewList[i].Health;
+
+                    // heal by a maximum of 10 health points
+                    for (int k = 0; k < 10 && CrewList.ElementAt(i).Health < 100; k++)
+                    {
+                        //Console.WriteLine("healed");
+                        CrewList.ElementAt(i).Health++;
+                    }
+
+                    Console.WriteLine("healed from " + oldHealth + " to "+ CrewList[i].Health);
                 }
             }
             // mousehandler update still there 
