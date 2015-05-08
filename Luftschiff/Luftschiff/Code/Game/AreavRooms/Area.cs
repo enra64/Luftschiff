@@ -32,13 +32,12 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         //list to fill with rooms;
         //rooms have the number of their position in list
-        private List<Room> rooms_;
+        public readonly List<Room> Rooms = new List<Room>();
         public readonly List<CrewMember> CrewList = new List<CrewMember>();
 
         public Area()
         {
             //create lists
-            rooms_ = new List<Room>();
             CrewList = new List<CrewMember>();
             Life = 1000;
             _staticMaintexture = new Sprite(new Texture(Globals.ShipTexture));
@@ -76,14 +75,6 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// get list of all rooms inserte in the area
-        /// </summary>
-        public List<Room> getRooms()
-        {
-            return rooms_;
-        }
-
-        /// <summary>
         /// add new room in an area
         /// </summary>
         public void AddRoom(Room newRoom)
@@ -92,19 +83,19 @@ namespace Luftschiff.Code.Game.AreavRooms
             //look for near rooms and save them in list
             FloatRect work = new FloatRect();
             FloatRect work2 = new FloatRect();
-            for (int i = 0; i < rooms_.Count; i++)
+            for (int i = 0; i < Rooms.Count; i++)
             {
-                work = rooms_.ElementAt(i).GlobalRect;
+                work = Rooms.ElementAt(i).GlobalRect;
                 work.Height = work.Height + 125; // pixel differenz
                 work.Top = work.Top - 75;
-                work2 = rooms_.ElementAt(i).GlobalRect;
+                work2 = Rooms.ElementAt(i).GlobalRect;
                 work2.Width = work.Width + 125;
                 work2.Left = work.Left - 75;
 
                 if (work.Intersects(newRoom.GlobalRect) || work2.Intersects(newRoom.GlobalRect)) 
                 {
-                    newRoom.addNearRooms(rooms_.ElementAt(i));
-                    rooms_.ElementAt(i).addNearRooms(newRoom);
+                    newRoom.addNearRooms(Rooms.ElementAt(i));
+                    Rooms.ElementAt(i).addNearRooms(newRoom);
                 }
             }
             //increase room button for room keyboard shortcut system
@@ -114,7 +105,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             newRoom.AddKeyboardShortcut(_currentRoomButton);
 
             //add room to list
-            rooms_.Add(newRoom);
+            Rooms.Add(newRoom);
         }
 
         /// <summary>
@@ -123,7 +114,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         public void FinalizeRooms()
         {
             //add the doors
-            foreach (var r in rooms_)
+            foreach (var r in Rooms)
                 r.FinalizeTiles();
         }
 
@@ -166,9 +157,9 @@ namespace Luftschiff.Code.Game.AreavRooms
         {
             //return random room
             if (position < 0)
-                return rooms_.ElementAt(new Random().Next(rooms_.Count));
+                return Rooms.ElementAt(new Random().Next(Rooms.Count));
             //return room at position else
-            return rooms_.ElementAt(position%rooms_.Count);
+            return Rooms.ElementAt(position%Rooms.Count);
         } 
 
         public void Update()
@@ -188,7 +179,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
                 //check rooms for click
                 if (clickedCrew == null)
-                    foreach (Room r in rooms_)
+                    foreach (Room r in Rooms)
                         if (r.IsClickInside(lastClickPosition))
                             clickedRoom = r;
 
@@ -242,14 +233,14 @@ namespace Luftschiff.Code.Game.AreavRooms
             #endregion
 
             //remove dead rooms
-            for (int i = 0; i < rooms_.Count; i++) {
-                if (!rooms_[i].IsAlive) {
-                    RemoveRoom(rooms_[i]);
+            for (int i = 0; i < Rooms.Count; i++) {
+                if (!Rooms[i].IsAlive) {
+                    RemoveRoom(Rooms[i]);
                     i--;
                 }
             }
 
-            foreach (var r in rooms_)
+            foreach (var r in Rooms)
                 r.Update();
 
             foreach (var c in CrewList)
@@ -286,9 +277,9 @@ namespace Luftschiff.Code.Game.AreavRooms
             //TODO improve this a bit
 
             Controller.Window.Draw(_staticMaintexture);
-            for (int i = 0; i < rooms_.Count; i++)
+            for (int i = 0; i < Rooms.Count; i++)
             {
-                rooms_.ElementAt(i).Draw();
+                Rooms.ElementAt(i).Draw();
             }
 
             for (int k = 0; k < CrewList.Count; k++){
@@ -313,7 +304,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 a._nearRooms.ElementAt(k)._nearRooms.Remove(a);
             }
-            rooms_.Remove(a);
+            Rooms.Remove(a);
             Globals.TurnHandler.InvalidateRoom(a);
             MouseHandler.SelectedRoom = null;
         }

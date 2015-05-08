@@ -90,13 +90,13 @@ namespace Luftschiff.Code.States {
             _currentArea.FinalizeRooms();
 
             //Test data for crewmembers
-            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)), false);
-            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)), false);
-            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)), false);
-            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)), false);
-            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(0), new CrewMember(_currentArea.getRooms().ElementAt(0)), false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
 
-            _currentArea.AddCrewToRoom(_currentArea.getRooms().ElementAt(1), new CrewMember(_currentArea.getRooms().ElementAt(1)), false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(1), new CrewMember(_currentArea.Rooms.ElementAt(1)), false);
 
             //init turnbutton with space for activation
             _turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2 - 60, Controller.Window.Size.Y - 40), new Vector2f(120, 40));

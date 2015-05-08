@@ -169,7 +169,7 @@ namespace Luftschiff.Code.Game
 
         private void ExecuteRoomEndOfRound()
         {
-            foreach (var room in Globals.AreaReference.getRooms())
+            foreach (var room in Globals.AreaReference.Rooms)
             {
                 if (room.FireLife > 0)
                 {
@@ -188,7 +188,7 @@ namespace Luftschiff.Code.Game
         private void SlackFire()
         {
             //reduce firelife in rooms
-            foreach (var r in _areaReference.getRooms())
+            foreach (var r in _areaReference.Rooms)
                 if (r.FireLife > 0)
                     r.FireLife -= 1;
                 //check for negative firelifes, because bugs n stuff
@@ -210,7 +210,7 @@ namespace Luftschiff.Code.Game
 
         private void HealCrewmembers()
         {
-            foreach (var room in _areaReference.getRooms())
+            foreach (var room in _areaReference.Rooms)
             {
                 if (room is AirHospitalWard)
                 {

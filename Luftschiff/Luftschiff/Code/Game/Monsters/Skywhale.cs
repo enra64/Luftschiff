@@ -68,7 +68,7 @@ namespace Luftschiff.Code.Game.Monsters
             _roundCounter++;
             if (_roundCounter % 3 == 0)
             {
-                foreach (var room in areaReference.getRooms())
+                foreach (var room in areaReference.Rooms)
                 {
                     int damage= (int)(room.MaxLife*0.4);
                     _horncount = 40;
