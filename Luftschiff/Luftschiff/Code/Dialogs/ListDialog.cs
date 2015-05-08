@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luftschiff.Code.Global;
 using SFML.Graphics;
 using SFML.System;
 
@@ -61,7 +62,10 @@ namespace Luftschiff.Code.Dialogs {
             int buttonPosition = 0;
             foreach(String s in answers)
             {
-                _buttonList.Add(new Button(s, firstButtonPosition, buttonSize, Convert.ToString(buttonPosition)));
+                Button newButton = new Button(s, firstButtonPosition, buttonSize, Convert.ToString(buttonPosition));
+                newButton.ActivationKey = Util.TranslateIntegerToNumKey((buttonPosition + 1)%10);
+                _buttonList.Add(newButton);
+                
                 firstButtonPosition.Y += buttonSize.Y;
                 buttonPosition++;
             }
