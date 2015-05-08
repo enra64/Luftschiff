@@ -138,7 +138,6 @@ namespace Luftschiff.Code.Game.Crew {
                 //normalise and multiply the vector for consistent movement speed
                 Vector2f movementVector = Util.NormaliseVector(targetDelta) * 2;
 
-
                 //add position to current position
                 useAnAnimatedSprite.Position += movementVector;
                 _indicatorShape.Position += movementVector;

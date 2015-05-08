@@ -94,7 +94,6 @@ namespace Luftschiff.Code.States {
             _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
             _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
             _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
-            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
 
             _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(1), new CrewMember(_currentArea.Rooms.ElementAt(1)), false);
 
