@@ -67,7 +67,8 @@ namespace Luftschiff.Code.Game.Monsters
 
         public override bool HasBeenHit(Vector2f projectilePosition)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return true;
         }
     }
 }

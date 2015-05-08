@@ -16,6 +16,7 @@ namespace Luftschiff.Code.Game.Crew {
         private Sprite useAnAnimatedSprite;
         public Room CurrentRoom{ get; set; }
 
+        private static Vector2f drawOffset = new Vector2f(16, 16);
         //possible abilities
         //TODO add or remove abilities
         public int _health{get;set;}
@@ -72,13 +73,18 @@ namespace Luftschiff.Code.Game.Crew {
                 test.FillColor = Color.Red; 
             Controller.Window.Draw(test);
 
+            useAnAnimatedSprite.Position += drawOffset;
             Controller.Window.Draw(useAnAnimatedSprite);
+            useAnAnimatedSprite.Position -= drawOffset;
             Controller.Window.Draw(_indicatorShape);
         }
 
         public override FloatRect getRect()
         {
-            return useAnAnimatedSprite.GetGlobalBounds();
+            FloatRect rect = useAnAnimatedSprite.GetGlobalBounds();
+            rect.Left += drawOffset.X;
+            rect.Top += drawOffset.Y;
+            return rect;
         }
 
         /// <summary>
