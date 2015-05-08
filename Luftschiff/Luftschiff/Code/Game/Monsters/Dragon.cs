@@ -69,12 +69,17 @@ namespace Luftschiff.Code.Game.Monsters
             {
                 //affected crewmember in room
                 CrewMember affected = attackedRoom.CrewList[RandomHelper.RandomUpTo(attackedRoom.CrewList.Count)];
+
                 if (RandomHelper.RandomTrue(30))
                 {
                     //okay tell the area to remove that dude, which should also kill it in this room
                     Console.Write("Attack: ");
                     Globals.AreaReference.RemoveCrewFromRoom(affected);
                 }
+            }
+            else
+            {
+                Globals.ColliderReference.AddProjectile(new DragonClaw(attackedRoom));
             }
             attackedRoom.ReceiveDamage(80);
         }

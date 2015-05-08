@@ -109,6 +109,7 @@ namespace Luftschiff.Code {
         //projectile textures
         public static Texture CannonBallTexture;
         public static Texture FireBallTexture;
+        public static Texture ClawTexture;
 
         //projectile impact fx
         public static Texture RoomFireTexture;
