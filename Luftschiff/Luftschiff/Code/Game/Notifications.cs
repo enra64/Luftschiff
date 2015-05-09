@@ -10,6 +10,11 @@ namespace Luftschiff.Code.Game
     internal class Notifications
     {
         /// <summary>
+        ///     Variable holding the singleton instance for the notifications
+        /// </summary>
+        private static Notifications _singletoNotifications;
+
+        /// <summary>
         ///     List of the current Notifications
         /// </summary>
         private readonly List<Notification> _list = new List<Notification>();
@@ -23,6 +28,18 @@ namespace Luftschiff.Code.Game
         public void AddNotification(Vector2f pos, string text)
         {
             _list.Add(new Notification(pos, text));
+        }
+
+        private Notifications() {}
+
+        public static Notifications Instance
+        {
+            get
+            {
+                if(_singletoNotifications == null)
+                    _singletoNotifications = new Notifications();
+                return _singletoNotifications;
+            }
         }
 
         /// <summary>
@@ -62,9 +79,9 @@ namespace Luftschiff.Code.Game
         private class Notification
         {
             /// <summary>
-            ///     How fast the Notification fades out. Between 0 and 1.
+            ///     How fast the Notification fades out. Between 0 and 1. Higher means slower.
             /// </summary>
-            private readonly float _fadeOutFactor = .93f;
+            private readonly float _fadeOutFactor = .97f;
 
             /// <summary>
             ///     Text used to display the notification
@@ -90,7 +107,7 @@ namespace Luftschiff.Code.Game
             {
                 _text = new Text(text, Globals.NotificationFont, 28)
                 {
-                    Position = pos,
+                    Position = pos
                 };
             }
 
@@ -127,16 +144,16 @@ namespace Luftschiff.Code.Game
             public void Update()
             {
                 //move up
-                _text.Position -= new Vector2f(0, 3f);
+                _text.Position -= new Vector2f(0, 1.8f);
 
                 //change start color alpha value
                 _color.A = _alphaValue;
-                
+
                 //save faded out color into Text
                 _text.Color = _color;
 
                 //slowly fade out
-                _alphaValue = (byte)(_alphaValue * _fadeOutFactor);
+                _alphaValue = (byte) (_alphaValue*_fadeOutFactor);
             }
         }
     }

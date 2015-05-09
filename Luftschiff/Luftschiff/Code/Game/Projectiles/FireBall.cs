@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.Monsters;
+using Luftschiff.Code.Global.Utils;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
@@ -13,8 +14,10 @@ namespace Luftschiff.Code.Game.Projectiles
 {
     class FireBall : KineticProjectile
     {
+        private Room _attackedRoom;
         public FireBall(ITarget target, ITarget startRoom, Texture projectileTexture) : base(target, startRoom, projectileTexture)
         {
+            _attackedRoom = (Room) target;
             //Wall of Sprite :/
             /*
             ImpactAnimationSprite = new AnimatedSprite(Time.FromSeconds(0.1f), false, false, Position);
@@ -51,6 +54,9 @@ namespace Luftschiff.Code.Game.Projectiles
 
         public override void OnImpact()
         {
+            //randomise room ignition chance to make game more playable
+            if (RandomHelper.RandomTrue(33))
+                _attackedRoom.SetOnFire(3);
         }
 
         public override void Draw() {

@@ -37,7 +37,6 @@ namespace Luftschiff.Code.States {
             Globals.AreaReference = new Area();
             Globals.TurnHandler = new TurnHandler();
             Globals.ColliderReference = new Collider();
-            Globals.NotificationReference = new Notifications();
             
             //initialize List
             CurrentMonsterList = new List<Monster>();
@@ -132,7 +131,7 @@ namespace Luftschiff.Code.States {
             Globals.ColliderReference.Draw();
 
             //draw any notification
-            Globals.NotificationReference.Draw();
+            Notifications.Instance.Draw();
         }
 
         /// <summary>
@@ -185,7 +184,7 @@ namespace Luftschiff.Code.States {
             Globals.ColliderReference.Update();
 
             //update notifications
-            Globals.NotificationReference.Update();
+            Notifications.Instance.Update();
 
             //has to be updated last as it consumes all click events that hit nothing
             _currentArea.Update();

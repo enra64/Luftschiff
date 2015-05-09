@@ -41,7 +41,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                 {
                     //show notification
                     if (CrewList[i].Health < 100)
-                        Globals.NotificationReference.AddNotification(Position, "HEALY HEALY");
+                        Notifications.Instance.AddNotification(Position, "HEALY HEALY");
 
                     float oldHealth = CrewList[i].Health;
 

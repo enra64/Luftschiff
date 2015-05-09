@@ -53,7 +53,7 @@ namespace Luftschiff.Code.Game.Monsters
             //hit boolean?
             if (true)
             {
-                Globals.NotificationReference.AddNotification(Position, "Sadness preveils!");
+                Notifications.Instance.AddNotification(Position, "Sadness preveils!");
                 Life -= 120;
             }
             if (Life <= 0)

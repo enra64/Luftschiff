@@ -48,22 +48,18 @@ namespace Luftschiff.Code.Game.Monsters
             //create projectile to attack the ship
             Room attackedRoom = Globals.AreaReference.GetRandomRoom(-1);
             if(RandomHelper.FiftyFifty())
-                fireAttack(attackedRoom);
+                FireAttack(attackedRoom);
             else
-                clawAttack(attackedRoom);
+                ClawAttack(attackedRoom);
         }
 
-        private void fireAttack(Room attackedRoom)
+        private void FireAttack(Room attackedRoom)
         {
             Globals.ColliderReference.AddProjectile(new FireBall(attackedRoom, this, Globals.FireBallTexture));
             new Sound(Globals.FireSound).Play();
-
-            //randomise room ignition chance to make game more playable
-            if (RandomHelper.RandomTrue(33))
-                attackedRoom.SetOnFire(3);
         }
 
-        private void clawAttack(Room attackedRoom)
+        private void ClawAttack(Room attackedRoom)
         {
             if (attackedRoom.CrewList.Count > 0)
             {
@@ -77,11 +73,14 @@ namespace Luftschiff.Code.Game.Monsters
                     Globals.AreaReference.RemoveCrewFromRoom(affected);
                 }
             }
-            else
-            {
-                Globals.ColliderReference.AddProjectile(new DragonClaw(attackedRoom));
-            }
-            attackedRoom.ReceiveDamage(80);
+            //move a claw over the room
+            Globals.ColliderReference.AddProjectile(new DragonClaw(attackedRoom));
+            
+            //show a notification
+            Notifications.Instance.AddNotification(attackedRoom.Position, "CLAW ATTACK");
+
+            //damage the room
+            attackedRoom.ReceiveDamage(70);
         }
 
         public override void ReceiveDamage(int damageAmount)
@@ -89,7 +88,7 @@ namespace Luftschiff.Code.Game.Monsters
             //hit boolean?
             if (true)
             {
-                Globals.NotificationReference.AddNotification(Position, "HIT BAM SO EFFECT");
+                Notifications.Instance.AddNotification(Position, "HIT BAM SO EFFECT");
                 Life -= 120;
             }
             if (Life <= 0)
