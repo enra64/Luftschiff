@@ -1,29 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Luftschiff.Code.Game.AreavRooms;
-using Luftschiff.Code.Game.Monsters;
-using Luftschiff.Graphics.Lib;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.Projectiles
 {
-    class DragonClaw : Projectile
+    internal class DragonClaw : Projectile
     {
+        /// <summary>
+        ///     Difference vector for scratching over the room
+        /// </summary>
         private readonly Vector2f _scratchDirection;
 
-        public DragonClaw(ITarget target): base(target)
+        /// <summary>
+        ///     Begin top left, scratch to bottom right constructor.
+        /// </summary>
+        /// <param name="target"></param>
+        public DragonClaw(ITarget target) : base(target)
         {
+            //init diff vector
             _scratchDirection = new Vector2f(5, 5);
-            Sprite = new Sprite(Globals.ClawTexture);
-            Sprite.Position = target.Center - new Vector2f(128, 128);
+            //load the claw sprite
+            Sprite = new Sprite(Globals.ClawTexture)
+            {
+                Position = target.Center - new Vector2f(128, 128)
+            };
         }
 
+        /// <summary>
+        ///     Finished?
+        /// </summary>
         public override bool ShouldKill { get; set; }
 
+        /// <summary>
+        ///     Move claw, kill when top left is over center
+        /// </summary>
         public override void Update()
         {
             //move over the room while attacking
@@ -32,16 +41,25 @@ namespace Luftschiff.Code.Game.Projectiles
                 ShouldKill = true;
         }
 
+        /// <summary>
+        ///     Nothing needs to be done while over target
+        /// </summary>
         public override void WhileOverTarget()
         {
         }
 
+        /// <summary>
+        ///     The claw has no special impact action
+        /// </summary>
         public override void OnImpact()
         {
         }
 
-        public override void Draw() {
-            //only draw when the impact has happened
+        /// <summary>
+        ///     Always draw the claw
+        /// </summary>
+        public override void Draw()
+        {
             Controller.Window.Draw(Sprite);
         }
     }
