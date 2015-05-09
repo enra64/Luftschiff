@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Policy;
 using SFML.Graphics;
 using SFML.System;
 
@@ -20,18 +21,13 @@ namespace Luftschiff.Code.Game
         private readonly List<Notification> _list = new List<Notification>();
 
         /// <summary>
-        ///     Add a notification with the given text and position
+        ///     Private constructor for singleton
         /// </summary>
-        /// <param name="pos">Position to start at</param>
-        /// <param name="text">String to dispaly</param>
-        // ReSharper disable once UnusedMember.Global
-        public void AddNotification(Vector2f pos, string text)
-        {
-            _list.Add(new Notification(pos, text));
-        }
-
         private Notifications() {}
 
+        /// <summary>
+        ///     Get an instance of this singleton
+        /// </summary>
         public static Notifications Instance
         {
             get
@@ -43,6 +39,16 @@ namespace Luftschiff.Code.Game
         }
 
         /// <summary>
+        ///     Add a notification with the given text and position
+        /// </summary>
+        /// <param name="pos">Position to start at</param>
+        /// <param name="text">String to dispaly</param>
+        public void AddNotification(Vector2f pos, string text) {
+            //use the fadespeed method with an invalid value to trigger disabling the fadespeed change
+            AddNotification(pos, text, -1);
+        }
+
+        /// <summary>
         ///     Add a notification with the given text and position specifying a fadeout speed
         /// </summary>
         /// <param name="pos">Position to start at</param>
@@ -51,7 +57,18 @@ namespace Luftschiff.Code.Game
         // ReSharper disable once UnusedMember.Global
         public void AddNotification(Vector2f pos, string text, float fadeSpeed)
         {
-            _list.Add(new Notification(pos, text, fadeSpeed));
+            //create new notification
+            var newNotification = new Notification(pos, text, fadeSpeed);
+            /*
+            //check for overlap
+            foreach (Notification n in _list)
+            {
+                if (newNotification.GlobalRect.Intersects(n.GlobalRect))
+                    //offset to avoid the other notification
+                    newNotification = new Notification(new Vector2f(pos.X, pos.Y + newNotification.GlobalRect.Height), text, fadeSpeed);
+            }
+            */
+            _list.Add(newNotification);
         }
 
         /// <summary>
@@ -94,6 +111,11 @@ namespace Luftschiff.Code.Game
             private byte _alphaValue = 255;
 
             /// <summary>
+            ///     Global rectangle of the text
+            /// </summary>
+            public FloatRect GlobalRect { get { return _text.GetGlobalBounds(); } }
+
+            /// <summary>
             ///     The notification color
             /// </summary>
             private Color _color = Color.Yellow;
@@ -119,7 +141,9 @@ namespace Luftschiff.Code.Game
             /// <param name="fadeFactor">How fast to fade out, 0->1</param>
             public Notification(Vector2f pos, string text, float fadeFactor) : this(pos, text)
             {
-                _fadeOutFactor = fadeFactor;
+                //avoid invalid values
+                if(fadeFactor > 0 && fadeFactor <= 1)
+                    _fadeOutFactor = fadeFactor;
             }
 
             /// <summary>

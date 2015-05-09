@@ -14,7 +14,7 @@ namespace Luftschiff.Code.Game.Projectiles
 {
     class FireBall : KineticProjectile
     {
-        private Room _attackedRoom;
+        private readonly Room _attackedRoom;
         public FireBall(ITarget target, ITarget startRoom, Texture projectileTexture) : base(target, startRoom, projectileTexture)
         {
             _attackedRoom = (Room) target;
@@ -56,7 +56,12 @@ namespace Luftschiff.Code.Game.Projectiles
         {
             //randomise room ignition chance to make game more playable
             if (RandomHelper.RandomTrue(33))
+            {
+                Notifications.Instance.AddNotification(_attackedRoom.Position, "IGNITED");
                 _attackedRoom.SetOnFire(3);
+            }
+            else
+                Notifications.Instance.AddNotification(_attackedRoom.Position, "NO IGNITION");
         }
 
         public override void Draw() {
