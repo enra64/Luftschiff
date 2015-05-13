@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Luftschiff.Code.Dialogs;
 using SFML.Audio;
 
@@ -6,6 +7,24 @@ namespace Luftschiff.Code.States
 {
     class Menu : Global.ProtoGameState
     {
+        private List<String> _menuList;
+        private List<String> _fightList;
+
+        public Menu()
+        {
+            _menuList = new List<string>();
+            _menuList.Add("Settings");
+            _menuList.Add("Graphicstest");
+            _menuList.Add("Fightmatch");
+            _menuList.Add("Open-World");
+            _fightList = new List<string>();
+            _fightList.Add("Batswarm");
+            _fightList.Add("Dragon");
+            _fightList.Add("Pottwal");
+            _fightList.Add("Petunientopf");
+            _fightList.Add("Harpie");
+        }
+
         public override void kill()
         {
             throw new NotImplementedException();
@@ -18,9 +37,9 @@ namespace Luftschiff.Code.States
         public override void update()
         {
             
-            TwoButtonDialog menu = new TwoButtonDialog("Game", "GraphicsTest", "Entscheide dich!", "Settings");
-            menu.show();
-            if (menu.show())
+            ListDialog mainMenu = new ListDialog(_menuList, "Waehle zwischen den verschiedenen Optionen!", "Mainmenu");
+            ListDialog fightMenu = new ListDialog(_fightList,"Wähle deinen Gegner!", "Kampfmenu");
+            if (mainMenu.show() == 0)
             {
                 TwoButtonDialog mute = new TwoButtonDialog("Mute", "Sound","Spiele mit oder ohne ton","Menu");
                 mute.show();
@@ -34,11 +53,15 @@ namespace Luftschiff.Code.States
 
 
                 }
-                Controller.LoadState(Globals.EStates.game);
+                Controller.LoadState(Globals.EStates.menu);
             }
-            if (!menu.show())
+            if (mainMenu.show() == 1)
             {
                 Controller.LoadState(Globals.EStates.graphicstest);
+            }
+            if (mainMenu.show() == 2)
+            {
+                
             }
         }
     }
