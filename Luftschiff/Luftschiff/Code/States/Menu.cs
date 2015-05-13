@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Luftschiff.Code.Dialogs;
+using Luftschiff.Code.Global;
 using SFML.Audio;
 
 namespace Luftschiff.Code.States
 {
-    class Menu : Global.ProtoGameState
+    internal class Menu : ProtoGameState
     {
-        private List<String> _menuList;
-        private List<String> _fightList;
+        private readonly List<string> _fightList;
+        private readonly List<string> _menuList;
 
         public Menu()
         {
@@ -36,12 +37,11 @@ namespace Luftschiff.Code.States
 
         public override void update()
         {
-            
-            ListDialog mainMenu = new ListDialog(_menuList, "Waehle zwischen den verschiedenen Optionen!", "Mainmenu");
-            ListDialog fightMenu = new ListDialog(_fightList,"Wähle deinen Gegner!", "Kampfmenu");
+            var mainMenu = new ListDialog(_menuList, "Waehle zwischen den verschiedenen Optionen!", "Mainmenu");
+            var fightMenu = new ListDialog(_fightList, "Wähle deinen Gegner!", "Kampfmenu");
             if (mainMenu.show() == 0)
             {
-                TwoButtonDialog mute = new TwoButtonDialog("Mute", "Sound","Spiele mit oder ohne ton","Menu");
+                var mute = new TwoButtonDialog("Mute", "Sound", "Sound Einstellungen", "Menu");
                 mute.show();
                 if (mute.show())
                 {
@@ -50,8 +50,6 @@ namespace Luftschiff.Code.States
                     Globals.BoomSound = new SoundBuffer("Assets/Audio/stumm.wav");
                     Globals.FireSound = new SoundBuffer("Assets/Audio/stumm.wav");
                     Globals.FireCrackleSound = new SoundBuffer("Assets/Audio/stumm.wav");
-
-
                 }
                 Controller.LoadState(Globals.EStates.menu);
             }
@@ -61,7 +59,14 @@ namespace Luftschiff.Code.States
             }
             if (mainMenu.show() == 2)
             {
-                
+                if (fightMenu.show() == 0)
+                    Controller.LoadState(Globals.EStates.batfight);
+                if (fightMenu.show() == 1)
+                    Controller.LoadState(Globals.EStates.dragonfight);
+                if (fightMenu.show() == 2)
+                    Controller.LoadState(Globals.EStates.whalefight);
+                if (fightMenu.show() == 3)
+                    Controller.LoadState(Globals.EStates.petuniefight);
             }
         }
     }

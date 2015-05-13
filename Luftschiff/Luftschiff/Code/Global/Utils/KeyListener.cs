@@ -1,5 +1,4 @@
-﻿using System;
-using SFML.Window;
+﻿using SFML.Window;
 
 namespace Luftschiff.Code.Global.Utils
 {
@@ -58,7 +57,5 @@ namespace Luftschiff.Code.Global.Utils
         {
             get { return Keyboard.IsKeyPressed(_key); }
         }
-
-        
     }
 }

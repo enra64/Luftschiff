@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
@@ -50,6 +46,8 @@ namespace Luftschiff.Graphics.Lib.Particles
         }
 
         public override Color Color { get; set; }
+        public override Vector2f Position { get; set; }
+        public override Shape Shape { get; set; }
 
         public override void Draw(RenderTarget target, RenderStates states)
         {
@@ -59,17 +57,13 @@ namespace Luftschiff.Graphics.Lib.Particles
             Shape.Draw(target, states);
         }
 
-        public override Vector2f Position { get; set; }
-
         public override void Update()
         {
         }
-
-        public override Shape Shape { get; set; }
 
         public override void Move(Vector2f moveVector2F)
         {
             Shape.Position = moveVector2F;
         }
-}
+    }
 }

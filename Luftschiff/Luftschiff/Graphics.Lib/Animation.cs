@@ -8,7 +8,7 @@ namespace Luftschiff.Graphics.Lib
         private readonly List<IntRect> _frames = new List<IntRect>();
 
         /// <summary>
-        /// constructor
+        ///     constructor
         /// </summary>
         /// <param name="texture"></param>
         public Animation(Texture texture)
@@ -17,12 +17,12 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// the texture which feeds the frames
+        ///     the texture which feeds the frames
         /// </summary>
         public Texture Texture { set; get; }
 
         /// <summary>
-        /// Adds a frame as intrect
+        ///     Adds a frame as intrect
         /// </summary>
         public void AddFrame(IntRect rect)
         {
@@ -30,7 +30,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// returnes the nth framerect
+        ///     returnes the nth framerect
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -40,7 +40,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// returns the current number of loaded frames
+        ///     returns the current number of loaded frames
         /// </summary>
         /// <returns></returns>
         public int GetSize()

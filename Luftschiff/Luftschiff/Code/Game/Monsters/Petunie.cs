@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Luftschiff.Code.Dialogs;
+﻿using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
@@ -11,20 +6,23 @@ using SFML.System;
 
 namespace Luftschiff.Code.Game.Monsters
 {
-    class Petunie : Monster
+    internal class Petunie : Monster
     {
         private readonly Animation _falling;
 
-        public Petunie() : this(Globals.PetunienTexture, 1000){}
-        public Petunie(Texture t,int life) : base(life)
+        public Petunie() : this(Globals.PetunienTexture, 1000)
+        {
+        }
+
+        public Petunie(Texture t, int life) : base(life)
         {
             _falling = new Animation(t);
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
-                _falling.AddFrame(new IntRect(0,389 *i, 219,389));
+                _falling.AddFrame(new IntRect(0, 389*i, 219, 389));
             }
 
-            var pos = new Vector2f(Controller.Window.Size.X / 1.3f, 100f);
+            var pos = new Vector2f(Controller.Window.Size.X/1.3f, 100f);
             Sprite = new AnimatedSprite(Time.FromSeconds(0.12f), false, true, pos);
             Sprite.Scale = new Vector2f(1f, 1f);
         }
@@ -48,7 +46,7 @@ namespace Luftschiff.Code.Game.Monsters
 
             if (Life <= 0)
             {
-                bool restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Himmelswal besiegt!").show();
+                var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Himmelswal besiegt!").show();
                 if (restart)
                     Controller.LoadState(Globals.EStates.game);
                 else

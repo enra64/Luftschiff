@@ -1,6 +1,4 @@
-﻿using System;
-using SFML.Graphics;
-using SFML.System;
+﻿using SFML.Graphics;
 
 namespace Luftschiff.Graphics.Lib
 {

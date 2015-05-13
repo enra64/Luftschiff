@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Luftschiff.Code.Game.Monsters;
+﻿using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Projectiles;
-using Luftschiff.Code.Global;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -10,8 +8,8 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
     internal class AirCannonRoom : Room
     {
+        private readonly int _maxCannonLife = 70;
         private int _cannonLife = 70;
-        private int _maxCannonLife = 70;
 
         public AirCannonRoom(Vector2f position) : base(position)
         {
@@ -22,7 +20,7 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
 
             //guess position by using the position of the tiles
             gunSprite.Position = new Vector2f(Position.X + 32, Position.Y + 32);
-            gunSprite.Position = new Vector2f(gunSprite.Position.X , gunSprite.Position.Y +65);
+            gunSprite.Position = new Vector2f(gunSprite.Position.X, gunSprite.Position.Y + 65);
             //make it look okay
             gunSprite.Scale = new Vector2f(.3f, .3f);
 
@@ -37,6 +35,11 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             get { return true; }
         }
 
+        public override bool NeedsRepair
+        {
+            get { return RoomLife < MaxLife || _cannonLife < _maxCannonLife; }
+        }
+
         public override void ReceiveRepair(int repairAmount, int repairSpecial)
         {
             base.ReceiveRepair(repairAmount, repairSpecial);
@@ -44,23 +47,22 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
             _cannonLife = _cannonLife + repairSpecial > _maxCannonLife ? _maxCannonLife : _cannonLife + repairSpecial;
         }
 
-        public override bool NeedsRepair { get { return RoomLife < MaxLife || _cannonLife < _maxCannonLife; } }
-
         public override void Update()
         {
             //needs to be called if we want a shortcut
-                base.Update();    
+            base.Update();
 
 
             //tint the cannon sprite to show damage
             foreach (var s in AdditionalRoomSprites)
             {
-                byte notRedValue = (byte)((float)((float)_cannonLife / (float)_maxCannonLife) * 255f);
+                var notRedValue = (byte) (_cannonLife/(float) _maxCannonLife*255f);
                 s.Color = new Color(255, notRedValue, notRedValue);
             }
         }
 
-        public override void FinalizeTiles() {
+        public override void FinalizeTiles()
+        {
             AddDoorsToTileArray();
             initializeTilemap(Area.RoomTypes.AirCannon);
         }
@@ -79,9 +81,9 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
         public override void InflictDamage(Monster monster, bool hits)
         {
             //if the cannon has enough life left, it shoots
-            if (_cannonLife <= 10) 
+            if (_cannonLife <= 10)
                 return;
-            
+
             //damage the dragon
             if (CrewList.Count > 0)
             {
@@ -89,9 +91,6 @@ namespace Luftschiff.Code.Game.AreavRooms.Rooms
                 //sfx
                 new Sound(Globals.CannonSound).Play();
             }
-
         }
-
-
     }
 }

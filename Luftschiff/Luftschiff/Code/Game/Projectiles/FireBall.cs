@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Luftschiff.Code.Game.AreavRooms;
-using Luftschiff.Code.Game.Monsters;
+﻿using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Global.Utils;
-using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
-using SFML.System;
 
 namespace Luftschiff.Code.Game.Projectiles
 {
-    class FireBall : KineticProjectile
+    internal class FireBall : KineticProjectile
     {
         private readonly Room _attackedRoom;
-        public FireBall(ITarget target, ITarget startRoom, Texture projectileTexture) : base(target, startRoom, projectileTexture)
+
+        public FireBall(ITarget target, ITarget startRoom, Texture projectileTexture)
+            : base(target, startRoom, projectileTexture)
         {
             _attackedRoom = (Room) target;
             //Wall of Sprite :/
@@ -64,7 +58,8 @@ namespace Luftschiff.Code.Game.Projectiles
                 Notifications.Instance.AddNotification(_attackedRoom.Position, "NO IGNITION");
         }
 
-        public override void Draw() {
+        public override void Draw()
+        {
             //only draw when the impact has happened
             if (ImpactHappened)
                 Controller.Window.Draw(ImpactAnimationSprite);

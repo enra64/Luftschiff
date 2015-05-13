@@ -1,7 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game;
@@ -9,17 +9,13 @@ using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Code.Game.AreavRooms.Rooms;
 using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
-using Luftschiff.Code.Game.Projectiles;
-using Luftschiff.Code.Global;
-
-using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
-
-namespace Luftschiff.Code.States {
-    class Game : ProtoGameState
+namespace Luftschiff.Code.Global
+{
+    public abstract class FightState : ProtoGameState
     {
         private Sprite _backgroundSprite;
         public List<Monster> CurrentMonsterList { get; set; }
@@ -31,16 +27,17 @@ namespace Luftschiff.Code.States {
         /// <summary>
         /// The gamestate constructor.
         /// </summary>
-        public Game (){
+        public FightState()
+        {
             //set references, initialize game lifecycle objects
             Globals.GameReference = this;
             Globals.AreaReference = new Area();
             Globals.TurnHandler = new TurnHandler();
             Globals.ColliderReference = new Collider();
-            
+
             //initialize List
             CurrentMonsterList = new List<Monster>();
-            
+
             //copy a reference to this class for convenience
             _currentArea = Globals.AreaReference;
 
@@ -50,35 +47,6 @@ namespace Luftschiff.Code.States {
             //Test data 
             _backgroundSprite = new Sprite(Globals.BackgroundTexture);
 
-            List<String> optionList = new List<String>();
-            optionList.Add("Dragon");
-            optionList.Add("Himmelswal");
-            optionList.Add("Bat Swarm");
-            optionList.Add("Petunientopf");
-            ListDialog enemy = new ListDialog(optionList ,"Waehle deinen Gegner","Gegnerwahl");
-            if (enemy.show() == 0)
-            {
-                CurrentMonsterList.Add(new Dragon()); 
-            }
-            else if(enemy.show() == 1)
-            {
-                CurrentMonsterList.Add(new Skywhale()); 
-            }
-            else if (enemy.show() == 2)
-            {
-                Console.WriteLine("Get Rekt! Bats are in the House!");
-                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f, 200f)));
-                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f, 250f)));
-                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f + 130f, 220f)));
-                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f + 55f, 200f)));
-                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f, 170f)));
-                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f + 55f, 200f)));
-                CurrentMonsterList.Add(new Bat(new Vector2f(Controller.Window.Size.X / 1.5f - 20f, 100f)));
-            }
-            else if (enemy.show() == 3)
-            {
-                CurrentMonsterList.Add(new Petunie());
-            }
             _currentArea.AddRoom(new AirCannonRoom(new Vector2f(570, 325)));
             _currentArea.AddRoom(new AirEngineRoom(new Vector2f(310, 245)));
             _currentArea.AddRoom(new AirHospitalWard(new Vector2f(440, 245)));
@@ -89,37 +57,45 @@ namespace Luftschiff.Code.States {
             _currentArea.FinalizeRooms();
 
             //Test data for crewmembers
-            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
-            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
-            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
-            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)), false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)),
+                false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)),
+                false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)),
+                false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(0), new CrewMember(_currentArea.Rooms.ElementAt(0)),
+                false);
 
-            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(1), new CrewMember(_currentArea.Rooms.ElementAt(1)), false);
+            _currentArea.AddCrewToRoom(_currentArea.Rooms.ElementAt(1), new CrewMember(_currentArea.Rooms.ElementAt(1)),
+                false);
 
             //init turnbutton with space for activation
-            _turnButton = new Button("Turn finished!", new Vector2f(Controller.Window.Size.X / 2 - 60, Controller.Window.Size.Y - 40), new Vector2f(120, 40));
+            _turnButton = new Button("Turn finished!",
+                new Vector2f(Controller.Window.Size.X/2 - 60, Controller.Window.Size.Y - 40), new Vector2f(120, 40));
             _turnButton.ActivationKey = Keyboard.Key.Space;
 
             var healthBarSize = new Vector2f(Controller.Window.Size.X/2 - 40, 25);
-            _monsterBar = new HealthBar(new Vector2f(Controller.Window.Size.X / 2 + 20, 20), healthBarSize, Globals.HEALTH_BAR_COLOR_MONSTER);
+            _monsterBar = new HealthBar(new Vector2f(Controller.Window.Size.X/2 + 20, 20), healthBarSize,
+                Globals.HEALTH_BAR_COLOR_MONSTER);
             _shipBar = new HealthBar(new Vector2f(20, 20), healthBarSize, Globals.HEALTH_BAR_COLOR_SHIP);
         }
 
         /// <summary>
         /// Main draw call for our Game. 
         /// </summary>
-        public override void draw() {
+        public override void draw()
+        {
             Controller.Window.Draw(_backgroundSprite);
-            
+
             //_currentArea area draw 
             _currentArea.Draw();
-            
+
             //monster draw
             foreach (var CurrentMonster in CurrentMonsterList)
             {
-                CurrentMonster.Draw(); 
+                CurrentMonster.Draw();
             }
-            
+
             //draw the turn button
             _turnButton.Draw();
 
@@ -138,7 +114,8 @@ namespace Luftschiff.Code.States {
         /// This method gets called when the Gamestate is about to be stopped
         /// to notify it of the event. Could be useful for saving the game
         /// </summary>
-        public override void kill() {
+        public override void kill()
+        {
             Controller.Window.SetMouseCursorVisible(true);
             Globals.AreaReference = null;
             Globals.TurnHandler = null;
@@ -154,12 +131,13 @@ namespace Luftschiff.Code.States {
             {
                 CurrentMonster.Update();
             }
-                 
+
             //disable the turn button when prjectiles are flying
             _turnButton.Enable = Globals.ColliderReference.ProjectileCount == 0;
 
             //execute the turn when the user clicks the turn button
-            if (_turnButton.Update()){
+            if (_turnButton.Update())
+            {
                 Globals.TurnHandler.ExecuteTurn();
             }
 

@@ -1,26 +1,16 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using SFML.Audio;
+﻿using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Dialogs
 {
-    class HealthBar{
-        private RectangleShape _barShape;
+    internal class HealthBar
+    {
+        private readonly RectangleShape _barShape;
         private readonly float _maxSize;
 
-        //Colors
-        public Color NormalColor { get; set; }
-        public Color AttentionColor { get; set; }
-
-        /// <summary>
-        /// use to change color on attention needed
-        /// </summary>
-        public bool ForceAttention { get; set; }
-
-        public HealthBar(Vector2f position, Vector2f size, Color standardColor) {
+        public HealthBar(Vector2f position, Vector2f size, Color standardColor)
+        {
             NormalColor = standardColor;
             AttentionColor = Globals.HEALTH_BAR_COLOR_ATTENTION;
 
@@ -31,7 +21,17 @@ namespace Luftschiff.Code.Dialogs
             _maxSize = size.X;
         }
 
-        public void Draw(){
+        //Colors
+        public Color NormalColor { get; set; }
+        public Color AttentionColor { get; set; }
+
+        /// <summary>
+        ///     use to change color on attention needed
+        /// </summary>
+        public bool ForceAttention { get; set; }
+
+        public void Draw()
+        {
             Controller.Window.Draw(_barShape);
         }
 
@@ -47,7 +47,7 @@ namespace Luftschiff.Code.Dialogs
             var oldSize = barSize.X;
 
             //change the size according to the remaining health
-            barSize.X = (healthPercent/100) * _maxSize;
+            barSize.X = (healthPercent/100)*_maxSize;
 
             //cap bar size at 0
             if (barSize.X < 0)
@@ -65,10 +65,11 @@ namespace Luftschiff.Code.Dialogs
         }
 
         /// <summary>
-        /// Waits timeoutInMilliseconds ms until setting ForceAttention to false
+        ///     Waits timeoutInMilliseconds ms until setting ForceAttention to false
         /// </summary>
         /// <param name="timeoutInMilliseconds">ms of delay</param>
-        private async void StopAttention(int timeoutInMilliseconds) {
+        private async void StopAttention(int timeoutInMilliseconds)
+        {
             await Task.Delay(timeoutInMilliseconds);
             ForceAttention = false;
         }

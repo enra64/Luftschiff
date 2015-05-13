@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Luftschiff.Code.Global.Utils {
+namespace Luftschiff.Code.Global.Utils
+{
     /// <summary>
-    /// Helper Class to generate random numbers
+    ///     Helper Class to generate random numbers
     /// </summary>
-    static class RandomHelper
+    internal static class RandomHelper
     {
         /// <summary>
-        /// static Random instance
+        ///     static Random instance
         /// </summary>
         private static readonly Random Random = new Random();
 
@@ -26,7 +23,7 @@ namespace Luftschiff.Code.Global.Utils {
         }
 
         /// <summary>
-        /// 50 percent chance
+        ///     50 percent chance
         /// </summary>
         /// <returns>true or false</returns>
         public static bool FiftyFifty()

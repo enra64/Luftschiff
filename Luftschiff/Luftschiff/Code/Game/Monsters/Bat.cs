@@ -1,21 +1,22 @@
 ﻿using System;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.AreavRooms;
-using Luftschiff.Code.Game.Crew;
-using Luftschiff.Code.Game.Projectiles;
 using Luftschiff.Code.Global.Utils;
 using Luftschiff.Graphics.Lib;
-using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.Monsters
 {
-    class Bat : Monster
+    internal class Bat : Monster
     {
         private readonly Animation _chewing;
-        public Bat(Vector2f pos) : this(Globals.BatTexture, 1000, pos){}
-        public Bat(Texture t, int life, Vector2f _pos): base(life)
+
+        public Bat(Vector2f pos) : this(Globals.BatTexture, 1000, pos)
+        {
+        }
+
+        public Bat(Texture t, int life, Vector2f _pos) : base(life)
         {
             _chewing = new Animation(t);
             _chewing.AddFrame(new IntRect(0, 0, 32, 32));
@@ -25,11 +26,12 @@ namespace Luftschiff.Code.Game.Monsters
             var pos = _pos;
 
             Sprite = new AnimatedSprite(Time.FromSeconds(0.15f), true, true, pos);
-            Sprite.Scale = new Vector2f(2.5f,2.5f);
+            Sprite.Scale = new Vector2f(2.5f, 2.5f);
         }
-        public override void AttackShip(AreavRooms.Area areaReference)
+
+        public override void AttackShip(Area areaReference)
         {
-            Room attackedRoom = Globals.AreaReference.GetRandomRoom(-1);
+            var attackedRoom = Globals.AreaReference.GetRandomRoom(-1);
             biteAttack(attackedRoom);
         }
 
@@ -38,7 +40,7 @@ namespace Luftschiff.Code.Game.Monsters
             if (attackedRoom.CrewList.Count > 0)
             {
                 //affected crewmember in room
-                CrewMember affected = attackedRoom.CrewList[RandomHelper.RandomUpTo(attackedRoom.CrewList.Count)];
+                var affected = attackedRoom.CrewList[RandomHelper.RandomUpTo(attackedRoom.CrewList.Count)];
                 if (RandomHelper.RandomTrue(30))
                 {
                     //okay tell the area to remove that dude, which should also kill it in this room
@@ -48,6 +50,7 @@ namespace Luftschiff.Code.Game.Monsters
             }
             attackedRoom.ReceiveDamage(20);
         }
+
         public override void ReceiveDamage(int damageAmount)
         {
             //hit boolean?
@@ -60,10 +63,12 @@ namespace Luftschiff.Code.Game.Monsters
                 Console.WriteLine("Bat is dead");
             Console.WriteLine("Batty the Bat");
         }
+
         public override bool HasBeenHit(Vector2f projectilePosition)
         {
             return IsClickInside(projectilePosition);
         }
+
         public override void Update()
         {
             //if an unhandled click is available and a room is selected, check whether the dragon is right clicked
@@ -83,7 +88,7 @@ namespace Luftschiff.Code.Game.Monsters
 
             if (Life <= 0)
             {
-                bool restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Drachen besiegt!").show();
+                var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Drachen besiegt!").show();
                 if (restart)
                     Controller.LoadState(Globals.EStates.game);
                 else

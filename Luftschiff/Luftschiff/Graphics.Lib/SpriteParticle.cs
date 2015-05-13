@@ -1,7 +1,4 @@
-﻿using SFML.Graphics;
-using SFML.System;
-
-namespace Luftschiff.Graphics.Lib.Particles
+﻿namespace Luftschiff.Graphics.Lib.Particles
 {
     internal abstract class SpriteParticle : AParticles
     {

@@ -1,8 +1,4 @@
-﻿using Luftschiff.Code.Game.AreavRooms;
-using Luftschiff.Code.Game.Monsters;
-using Luftschiff.Code.Game.Projectiles;
-using Luftschiff.Graphics.Lib;
-using SFML.Audio;
+﻿using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
 using SFML.System;
 
@@ -55,6 +51,5 @@ namespace Luftschiff.Code.Game.Projectiles
             if (ImpactHappened)
                 Controller.Window.Draw(ImpactAnimationSprite);
         }
-        
     }
 }

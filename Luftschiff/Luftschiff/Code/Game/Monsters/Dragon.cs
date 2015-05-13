@@ -1,9 +1,7 @@
 ﻿using System;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.AreavRooms;
-using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Projectiles;
-using Luftschiff.Code.Global;
 using Luftschiff.Code.Global.Utils;
 using Luftschiff.Graphics.Lib;
 using SFML.Audio;
@@ -34,10 +32,11 @@ namespace Luftschiff.Code.Game.Monsters
         }
 
         /// <summary>
-        /// Overloaded Constructor using global dragon texture and 1000 life
+        ///     Overloaded Constructor using global dragon texture and 1000 life
         /// </summary>
-        public Dragon() : this(Globals.DragonTexture, 1000){}
-
+        public Dragon() : this(Globals.DragonTexture, 1000)
+        {
+        }
 
         /// <summary>
         ///     makes damage to a room when the turn ends
@@ -46,8 +45,8 @@ namespace Luftschiff.Code.Game.Monsters
         public override void AttackShip(Area areaReference)
         {
             //create projectile to attack the ship
-            Room attackedRoom = Globals.AreaReference.GetRandomRoom(-1);
-            if(RandomHelper.FiftyFifty())
+            var attackedRoom = Globals.AreaReference.GetRandomRoom(-1);
+            if (RandomHelper.FiftyFifty())
                 FireAttack(attackedRoom);
             else
                 ClawAttack(attackedRoom);
@@ -64,7 +63,7 @@ namespace Luftschiff.Code.Game.Monsters
             if (attackedRoom.CrewList.Count > 0)
             {
                 //affected crewmember in room
-                CrewMember affected = attackedRoom.CrewList[RandomHelper.RandomUpTo(attackedRoom.CrewList.Count)];
+                var affected = attackedRoom.CrewList[RandomHelper.RandomUpTo(attackedRoom.CrewList.Count)];
 
                 if (RandomHelper.RandomTrue(30))
                 {
@@ -75,7 +74,7 @@ namespace Luftschiff.Code.Game.Monsters
             }
             //move a claw over the room
             Globals.ColliderReference.AddProjectile(new DragonClaw(attackedRoom));
-            
+
             //show a notification
             Notifications.Instance.AddNotification(attackedRoom.Position, "CLAW ATTACK");
 
@@ -119,8 +118,9 @@ namespace Luftschiff.Code.Game.Monsters
             Sprite.Update(Globals.FRAME_TIME);
             Sprite.Play(_flying);
 
-            if (Life <= 0) {
-                bool restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Drachen besiegt!").show();
+            if (Life <= 0)
+            {
+                var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Drachen besiegt!").show();
                 if (restart)
                     Controller.LoadState(Globals.EStates.game);
                 else

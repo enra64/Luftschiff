@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.Crew;
-using Luftschiff.Code.Game.Projectiles;
+using Luftschiff.Code.States.Fights;
 using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms
 {
-    class Area : Object
+    internal class Area : Object
     {
-        public int Life { get; set; }
-        private int _maxLife = 1000;
-        private int _currentRoomButton = 0;
-        private States.Game _gameReference = Globals.GameReference;
-        private Sprite _staticMaintexture;
-
         public enum RoomTypes
         {
             AirCannon,
@@ -30,10 +24,14 @@ namespace Luftschiff.Code.Game.AreavRooms
             GroundTavern
         }
 
+        private readonly int _maxLife = 1000;
+        private readonly Sprite _staticMaintexture;
+        public readonly List<CrewMember> CrewList = new List<CrewMember>();
         //list to fill with rooms;
         //rooms have the number of their position in list
         public readonly List<Room> Rooms = new List<Room>();
-        public readonly List<CrewMember> CrewList = new List<CrewMember>();
+        private int _currentRoomButton;
+        private FightState _gameReference = Globals.GameReference;
 
         public Area()
         {
@@ -52,11 +50,14 @@ namespace Luftschiff.Code.Game.AreavRooms
              */
         }
 
+        public int Life { get; set; }
+
         /// <summary>
-        /// return the left life of the ship, probably needs to be moved
+        ///     return the left life of the ship, probably needs to be moved
         /// </summary>
-        public float HealthPercent {
-            get { return ((float)Life / (float)_maxLife) * 100; }
+        public float HealthPercent
+        {
+            get { return (Life/(float) _maxLife)*100; }
         }
 
         public int MovingCrew
@@ -65,8 +66,8 @@ namespace Luftschiff.Code.Game.AreavRooms
             {
                 //because this gets called async by the turnhandler very often, we must ensure valid collection values
                 //and i's
-                int moveCount = 0;
-                for (int i = CrewList.Count - 1; i >= 0; i--)
+                var moveCount = 0;
+                for (var i = CrewList.Count - 1; i >= 0; i--)
                     //reduce i if invalid
                     if (CrewList[i < CrewList.Count ? i : --i].IsStillMoving)
                         moveCount++;
@@ -75,15 +76,15 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// add new room in an area
+        ///     add new room in an area
         /// </summary>
         public void AddRoom(Room newRoom)
         {
             //ERRORSOURCE 
             //look for near rooms and save them in list
-            FloatRect work = new FloatRect();
-            FloatRect work2 = new FloatRect();
-            for (int i = 0; i < Rooms.Count; i++)
+            var work = new FloatRect();
+            var work2 = new FloatRect();
+            for (var i = 0; i < Rooms.Count; i++)
             {
                 work = Rooms.ElementAt(i).GlobalRect;
                 work.Height = work.Height + 125; // pixel differenz
@@ -92,7 +93,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                 work2.Width = work.Width + 125;
                 work2.Left = work.Left - 75;
 
-                if (work.Intersects(newRoom.GlobalRect) || work2.Intersects(newRoom.GlobalRect)) 
+                if (work.Intersects(newRoom.GlobalRect) || work2.Intersects(newRoom.GlobalRect))
                 {
                     newRoom.addNearRooms(Rooms.ElementAt(i));
                     Rooms.ElementAt(i).addNearRooms(newRoom);
@@ -100,7 +101,7 @@ namespace Luftschiff.Code.Game.AreavRooms
             }
             //increase room button for room keyboard shortcut system
             _currentRoomButton++;
-            
+
             //give the room its key listener
             newRoom.AddKeyboardShortcut(_currentRoomButton);
 
@@ -119,8 +120,8 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// Adds a crewmember to a room and to the area, sets the crewmembers currentRoom correctly
-        /// Activate DisableSetCrewInRoom to make the crew move slowly
+        ///     Adds a crewmember to a room and to the area, sets the crewmembers currentRoom correctly
+        ///     Activate DisableSetCrewInRoom to make the crew move slowly
         /// </summary>
         public void AddCrewToRoom(Room r, CrewMember c, bool DisableSetCrewInRoom)
         {
@@ -135,7 +136,7 @@ namespace Luftschiff.Code.Game.AreavRooms
         }
 
         /// <summary>
-        /// Removes a crewmember from the room and from the area, sets the crewmembers room to null
+        ///     Removes a crewmember from the room and from the area, sets the crewmembers room to null
         /// </summary>
         public void RemoveCrewFromRoom(CrewMember c)
         {
@@ -144,13 +145,13 @@ namespace Luftschiff.Code.Game.AreavRooms
             CrewList.Remove(c);
             //Console.WriteLine("Crew removed from room "+c.CurrentRoom.GetType());
             //remove reference in mousehandler
-            if(MouseHandler.SelectedCrew == c)
+            if (MouseHandler.SelectedCrew == c)
                 MouseHandler.SelectedCrew = null;
             c.CurrentRoom = null;
         }
 
         /// <summary>
-        /// Get a room to damage, used by the dragon to get one.
+        ///     Get a room to damage, used by the dragon to get one.
         /// </summary>
         /// <param name="position">-1 for random, valid values for specific</param>
         public Room GetRandomRoom(int position)
@@ -160,29 +161,30 @@ namespace Luftschiff.Code.Game.AreavRooms
                 return Rooms.ElementAt(new Random().Next(Rooms.Count));
             //return room at position else
             return Rooms.ElementAt(position%Rooms.Count);
-        } 
+        }
 
         public void Update()
         {
             #region Check Rooms and Crew for Clicks
-            if (MouseHandler.UnhandledClick){
-                Vector2f lastClickPosition = MouseHandler.LastClickPosition;
-                bool clickWasLeft = MouseHandler.Left;
+
+            if (MouseHandler.UnhandledClick)
+            {
+                var lastClickPosition = MouseHandler.LastClickPosition;
+                var clickWasLeft = MouseHandler.Left;
                 //first, just detect what was clicked
                 Room clickedRoom = null;
                 CrewMember clickedCrew = null;
-                
+
                 //check crew for click
-                foreach (CrewMember c in CrewList)
+                foreach (var c in CrewList)
                     if (c.IsClickInside(lastClickPosition))
                         clickedCrew = c;
 
                 //check rooms for click
                 if (clickedCrew == null)
-                    foreach (Room r in Rooms)
+                    foreach (var r in Rooms)
                         if (r.IsClickInside(lastClickPosition))
                             clickedRoom = r;
-
 
 
                 //any clicked rooms or crewmember have been detected by now
@@ -198,7 +200,7 @@ namespace Luftschiff.Code.Game.AreavRooms
                         //Console.WriteLine("selected room");
                         MouseHandler.UnhandledClick = false;
                     }
-                        
+
 
                     //a crewmember was clicked -> mousehandler
                     if (clickedCrew != null)
@@ -206,8 +208,8 @@ namespace Luftschiff.Code.Game.AreavRooms
                         MouseHandler.SelectedCrew = clickedCrew;
                         MouseHandler.UnhandledClick = false;
                     }
-                    
-  
+
+
                     //nothing was clicked, remove the selection
                     if (clickedRoom == null && clickedCrew == null)
                     {
@@ -230,11 +232,14 @@ namespace Luftschiff.Code.Game.AreavRooms
                     }
                 }
             }
+
             #endregion
 
             //remove dead rooms
-            for (int i = 0; i < Rooms.Count; i++) {
-                if (!Rooms[i].IsAlive) {
+            for (var i = 0; i < Rooms.Count; i++)
+            {
+                if (!Rooms[i].IsAlive)
+                {
                     RemoveRoom(Rooms[i]);
                     i--;
                 }
@@ -249,14 +254,14 @@ namespace Luftschiff.Code.Game.AreavRooms
             //show a "you died" dialog for now
             if (Life <= 0)
             {
-                bool restart = new TwoButtonDialog("Nochmal starten?", "Du bist gestorben.").show();
-                if(restart)
+                var restart = new TwoButtonDialog("Nochmal starten?", "Du bist gestorben.").show();
+                if (restart)
                     Controller.LoadState(Globals.EStates.game);
                 else
                     Controller.Window.Close();
             }
             //ERRORSOURCE Remove crew on death
-            for (int i = 0; i < CrewList.Count; i++)
+            for (var i = 0; i < CrewList.Count; i++)
             {
                 if (CrewList.ElementAt(i).Health < 0)
                 {
@@ -266,10 +271,10 @@ namespace Luftschiff.Code.Game.AreavRooms
                     i--;
                 }
             }
-
         }
+
         /// <summary>
-        /// draws every room added to the area
+        ///     draws every room added to the area
         /// </summary>
         public override void Draw()
         {
@@ -277,22 +282,24 @@ namespace Luftschiff.Code.Game.AreavRooms
             //TODO improve this a bit
 
             Controller.Window.Draw(_staticMaintexture);
-            for (int i = 0; i < Rooms.Count; i++)
+            for (var i = 0; i < Rooms.Count; i++)
             {
                 Rooms.ElementAt(i).Draw();
             }
 
-            for (int k = 0; k < CrewList.Count; k++){
+            for (var k = 0; k < CrewList.Count; k++)
+            {
                 CrewList.ElementAt(k).Draw();
             }
         }
 
         /// <summary>
-        /// Called by the turnhandler, to switch a crewmembers room, since otherwise the crewmember
-        /// would need to get a reference to the area
+        ///     Called by the turnhandler, to switch a crewmembers room, since otherwise the crewmember
+        ///     would need to get a reference to the area
         /// </summary>
         /// <param name="moveAction">The Crewtarget the turnhandler wants executed, contains start and end room</param>
-        public void RepositionCrew(CrewTarget moveAction) {
+        public void RepositionCrew(CrewTarget moveAction)
+        {
             RemoveCrewFromRoom(moveAction.Crew);
             AddCrewToRoom(moveAction.Target, moveAction.Crew, true);
             moveAction.Crew.Walk(moveAction);
@@ -300,7 +307,7 @@ namespace Luftschiff.Code.Game.AreavRooms
 
         public void RemoveRoom(Room a)
         {
-            for (int k = 0; k < a._nearRooms.Count; k++)
+            for (var k = 0; k < a._nearRooms.Count; k++)
             {
                 a._nearRooms.ElementAt(k)._nearRooms.Remove(a);
             }

@@ -19,11 +19,11 @@ namespace Luftschiff.Graphics.Lib
         private bool _validAnimation;
 
         /// <summary>
-        /// New animatedsprite 
-        /// Time: how long should anmation play?
-        /// bool: paused animation?
-        /// bool looped animation?
-        /// position of animation
+        ///     New animatedsprite
+        ///     Time: how long should anmation play?
+        ///     bool: paused animation?
+        ///     bool looped animation?
+        ///     position of animation
         /// </summary>
         public AnimatedSprite(Time frameTime, bool paused, bool looped, Vector2f position)
         {
@@ -39,7 +39,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// time of 1 frame 
+        ///     time of 1 frame
         /// </summary>
         public Time FrameTime
         {
@@ -48,12 +48,12 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// bool who controls a loop
+        ///     bool who controls a loop
         /// </summary>
         public bool Looped { get; set; }
 
         /// <summary>
-        /// animation that defines the sprite
+        ///     animation that defines the sprite
         /// </summary>
         public Animation Animation
         {
@@ -68,8 +68,15 @@ namespace Luftschiff.Graphics.Lib
             }
             get { return _animation; }
         }
+
+        //ERRORSOURCE: code mathmatics
         /// <summary>
-        /// Draw magic
+        ///     magic int us code magic and you might get the timeplayed value back
+        /// </summary>
+        public int TimesPlayed { get; set; }
+
+        /// <summary>
+        ///     Draw magic
         /// </summary>
         /// <param name="target"></param>
         /// <param name="states"></param>
@@ -84,7 +91,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// Plays a specific animation and loads this animation
+        ///     Plays a specific animation and loads this animation
         /// </summary>
         public void Play(Animation animation)
         {
@@ -94,7 +101,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// unpauses a sprite
+        ///     unpauses a sprite
         /// </summary>
         public void Play()
         {
@@ -102,7 +109,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// pauses a sprite
+        ///     pauses a sprite
         /// </summary>
         public void Pause()
         {
@@ -110,7 +117,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// stops a sprite, resets it too
+        ///     stops a sprite, resets it too
         /// </summary>
         public void Stop()
         {
@@ -120,7 +127,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// sets sprite color
+        ///     sets sprite color
         /// </summary>
         /// <param name="color"></param>
         public void SetColor(Color color)
@@ -132,7 +139,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// Gives you the current frame size back
+        ///     Gives you the current frame size back
         /// </summary>
         public FloatRect GetLocalBounds()
         {
@@ -143,7 +150,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// Gives you the global size back
+        ///     Gives you the global size back
         /// </summary>
         public FloatRect GetGlobalBounds()
         {
@@ -151,7 +158,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// bool shows if sprite is playing
+        ///     bool shows if sprite is playing
         /// </summary>
         /// <returns></returns>
         public bool IsPlaying()
@@ -160,7 +167,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// Never use this please, plays a specific frame
+        ///     Never use this please, plays a specific frame
         /// </summary>
         public void SetFrame(int newFrame, bool resetTime)
         {
@@ -191,7 +198,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// needs global.frame_time updates sprite through code magic
+        ///     needs global.frame_time updates sprite through code magic
         /// </summary>
         /// <param name="delta"></param>
         public void Update(Time delta)
@@ -233,7 +240,7 @@ namespace Luftschiff.Graphics.Lib
         }
 
         /// <summary>
-        /// Moves sprite on vector
+        ///     Moves sprite on vector
         /// </summary>
         public void Move(Vector2f offset)
         {
@@ -242,20 +249,13 @@ namespace Luftschiff.Graphics.Lib
                 Position = new Vector2f(Position.X + offset.X, Position.Y + offset.Y);
             }
         }
-        
+
         /// <summary>
-        /// Mves sprite with offset coords
+        ///     Mves sprite with offset coords
         /// </summary>
         public void Move(float offsetX, float offsetY)
         {
             Position = new Vector2f(Position.X + offsetX, Position.Y + offsetY);
         }
-
-        //ERRORSOURCE: code mathmatics
-        /// <summary>
-        /// magic int us code magic and you might get the timeplayed value back
-        /// </summary>
-        public int TimesPlayed { get; set; }
-
     }
 }

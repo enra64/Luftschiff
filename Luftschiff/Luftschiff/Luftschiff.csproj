@@ -98,7 +98,11 @@
     <Compile Include="Code\Initializer.cs" />
     <Compile Include="Code\MouseHandler.cs" />
     <Compile Include="Code\Dialogs\Dialog.cs" />
-    <Compile Include="Code\States\Game.cs" />
+    <Compile Include="Code\States\Fights\BatFight.cs" />
+    <Compile Include="Code\States\Fights\DragonFight.cs" />
+    <Compile Include="Code\States\Fights\FightState.cs" />
+    <Compile Include="Code\States\Fights\PetunieFight.cs" />
+    <Compile Include="Code\States\Fights\WhaleFight.cs" />
     <Compile Include="Code\States\GraphicsTest.cs" />
     <Compile Include="Code\States\Menu.cs" />
     <Compile Include="Controller.cs" />

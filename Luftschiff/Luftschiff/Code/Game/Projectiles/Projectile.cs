@@ -1,22 +1,19 @@
-﻿using Luftschiff.Code.Game.Monsters;
-
-namespace Luftschiff.Code.Game.Projectiles
+﻿namespace Luftschiff.Code.Game.Projectiles
 {
     /// <summary>
     ///     Empty class for Collidermanagment
     /// </summary>
     internal abstract class Projectile : Object
     {
+        /// <summary>
+        ///     Target the projectile is aimed at
+        /// </summary>
+        public readonly ITarget Target;
 
         /// <summary>
         ///     whether or not the OnImpact has already been called / the whileovertarget is being called
         /// </summary>
         public bool ImpactHappened;
-
-        /// <summary>
-        ///     Target the projectile is aimed at
-        /// </summary>
-        public readonly ITarget Target;
 
         /// <summary>
         ///     Set the target monster and init ImpactHappened, HasMadeDamage to false

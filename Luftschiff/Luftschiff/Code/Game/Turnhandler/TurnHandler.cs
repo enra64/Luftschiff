@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Luftschiff.Code.Game.AreavRooms;
@@ -9,7 +8,7 @@ using Luftschiff.Code.Game.Crew;
 using Luftschiff.Code.Game.Monsters;
 using Luftschiff.Code.Game.Turnhandler;
 using Luftschiff.Code.Global;
-using SFML.System;
+using Luftschiff.Code.States.Fights;
 
 namespace Luftschiff.Code.Game
 {
@@ -22,9 +21,8 @@ namespace Luftschiff.Code.Game
         private readonly Area _areaReference = Globals.AreaReference;
         //action lists
         private readonly List<CrewTarget> _crewActions = new List<CrewTarget>();
-        private readonly States.Game _gameReference = Globals.GameReference;
+        private readonly FightState _gameReference = Globals.GameReference;
         private readonly List<WeaponTarget> _weaponActions = new List<WeaponTarget>();
-
         //currently no constructor, because we do not do anything there anyway
 
         /// <summary>
@@ -110,7 +108,8 @@ namespace Luftschiff.Code.Game
                     Console.WriteLine(way.Count - k);
                     //Console.WriteLine("target");
                     //origin is k - 1, if that is valid, and currentroom if otherwise
-                    _crewActions.Add(new CrewTarget(crewMember, k > 0 ? way.ElementAt(k - 1) : crewMember.CurrentRoom, way.ElementAt(k), k, true));
+                    _crewActions.Add(new CrewTarget(crewMember, k > 0 ? way.ElementAt(k - 1) : crewMember.CurrentRoom,
+                        way.ElementAt(k), k, true));
                 }
                 else if (k == 0)
                 {
@@ -141,13 +140,16 @@ namespace Luftschiff.Code.Game
         private void ExecuteMoveCrewActions()
         {
             //check all crew targets
-            foreach (var c in _crewActions) {
+            foreach (var c in _crewActions)
+            {
                 //invalidate finished actions to be able to clean them up
-                if (c.WaitingTurns == 0) {
+                if (c.WaitingTurns == 0)
+                {
                     //0 waiting turns on action -> execute action
                     _areaReference.RepositionCrew(c);
                     //if the crewmember has arrived at its target
-                    if (c.IsLastAction) {
+                    if (c.IsLastAction)
+                    {
                         //make the crew do the appropriate action at its target
                         c.Target.OnCrewArrive(c.Crew);
                     }
@@ -157,7 +159,8 @@ namespace Luftschiff.Code.Game
             }
 
             //for each crew list check whether it has actions left
-            foreach (CrewMember c in Globals.AreaReference.CrewList) {
+            foreach (var c in Globals.AreaReference.CrewList)
+            {
                 //count the amount of actions the turnhandler has saved for a crewmember
                 var crewActionCount = _crewActions.Count(ca => ca.Crew == c);
                 //tell the crew to work if it does not have to move
@@ -174,13 +177,13 @@ namespace Luftschiff.Code.Game
                 if (room.FireLife > 0)
                 {
                     //reduce room life because fire n stuff
-                    room.RoomLife -= (int)(room.RoomLife * 0.1f);
+                    room.RoomLife -= (int) (room.RoomLife*0.1f);
 
                     //burn the crewmembers slightly
                     foreach (var crewMember in room.CrewList)
                     {
-                        crewMember.Health -= (int)(crewMember.Health * .1f);
-                    }   
+                        crewMember.Health -= (int) (crewMember.Health*.1f);
+                    }
                 }
             }
         }
@@ -199,7 +202,8 @@ namespace Luftschiff.Code.Game
         private void ExecuteFiringOrders()
         {
             //check all weapon targets, and shoot those with 0 waiting turns
-            foreach (var c in _weaponActions) {
+            foreach (var c in _weaponActions)
+            {
                 if (c.WaitingTurns == 0)
                     c.FiringRoom.InflictDamage(c.Target, true);
                 //reduce waiting turns of all so that everything will be fired eventually,
@@ -214,7 +218,7 @@ namespace Luftschiff.Code.Game
             {
                 if (room is AirHospitalWard)
                 {
-                    ((AirHospitalWard)room).Crewhealing();
+                    ((AirHospitalWard) room).Crewhealing();
                 }
             }
         }
@@ -244,12 +248,12 @@ namespace Luftschiff.Code.Game
         }
 
         /// <summary>
-        /// Asnyc wait for the user attack to hit, then call the dragon attack
+        ///     Asnyc wait for the user attack to hit, then call the dragon attack
         /// </summary>
         private void ExecuteMonsterAttack()
         {
             //wait until the user projectiles arrived
-            while (Globals.ColliderReference.ProjectileCount > 0 || Globals.AreaReference.MovingCrew > 0);
+            while (Globals.ColliderReference.ProjectileCount > 0 || Globals.AreaReference.MovingCrew > 0) ;
             //start dragon attack
             foreach (var CurrentMonster in _gameReference.CurrentMonsterList)
             {
@@ -258,7 +262,7 @@ namespace Luftschiff.Code.Game
         }
 
         /// <summary>
-        /// Removes all actions using this room
+        ///     Removes all actions using this room
         /// </summary>
         /// <param name="room">The room to stop using</param>
         public void InvalidateRoom(Room room)
@@ -266,19 +270,18 @@ namespace Luftschiff.Code.Game
             if (_crewActions.Count <= 0)
                 return;
             //check each crew
-            foreach (CrewMember c in Globals.AreaReference.CrewList)
+            foreach (var c in Globals.AreaReference.CrewList)
             {
                 //find an instance where this crewmember wants to use the room that will be deleted
-                CrewTarget invalidTarget =  _crewActions.Find(a => a.Target == room && a.Crew == c);
+                var invalidTarget = _crewActions.Find(a => a.Target == room && a.Crew == c);
                 if (invalidTarget != null)
                 {
                     //save the amount of waitingturns the invalid target had
-                    int invalidTargetWaitingTurns = invalidTarget.WaitingTurns;    
+                    var invalidTargetWaitingTurns = invalidTarget.WaitingTurns;
                     //remove all targets with waitingturns >= invalidtarget waitingturns
                     _crewActions.RemoveAll(a => a.Crew == c && a.WaitingTurns >= invalidTargetWaitingTurns);
                 }
             }
-            
         }
     }
 }

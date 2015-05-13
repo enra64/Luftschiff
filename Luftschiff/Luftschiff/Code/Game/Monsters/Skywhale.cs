@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Luftschiff.Code.Dialogs;
+﻿using Luftschiff.Code.Dialogs;
 using Luftschiff.Code.Game.AreavRooms;
 using Luftschiff.Graphics.Lib;
 using SFML.Graphics;
@@ -11,29 +6,33 @@ using SFML.System;
 
 namespace Luftschiff.Code.Game.Monsters
 {
-    class Skywhale : Monster
+    internal class Skywhale : Monster
     {
-        private int _hittingInthemiddle = 0;
-        private int _roundCounter = 0;
-        private int _horncount = 0;
         private readonly Animation _whalediving;
+        private int _hittingInthemiddle = 0;
+        private int _horncount;
+        private int _roundCounter;
         public Sprite horn = new Sprite(Globals.WhaleHornTexture);
+
         public Skywhale(Texture t, int life) : base(life)
         {
             _whalediving = new Animation(t);
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
-                _whalediving.AddFrame(new IntRect(0,546 *i,951,546));
+                _whalediving.AddFrame(new IntRect(0, 546*i, 951, 546));
             }
-            var pos = new Vector2f(Controller.Window.Size.X / 1.7f, 100f);
-            Sprite = new AnimatedSprite(Time.FromSeconds(0.12f),false,true,pos);
+            var pos = new Vector2f(Controller.Window.Size.X/1.7f, 100f);
+            Sprite = new AnimatedSprite(Time.FromSeconds(0.12f), false, true, pos);
             Sprite.Scale = new Vector2f(0.8f, 0.8f);
 
             horn.Rotation = 315;
-            horn.Position = new Vector2f(50,200);
-            horn.Scale = new Vector2f(7,7);
+            horn.Position = new Vector2f(50, 200);
+            horn.Scale = new Vector2f(7, 7);
         }
-        public Skywhale() : this(Globals.SkywhaleTexture, 1000){}
+
+        public Skywhale() : this(Globals.SkywhaleTexture, 1000)
+        {
+        }
 
         public override void Update()
         {
@@ -54,23 +53,22 @@ namespace Luftschiff.Code.Game.Monsters
 
             if (Life <= 0)
             {
-                bool restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Himmelswal besiegt!").show();
+                var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Himmelswal besiegt!").show();
                 if (restart)
                     Controller.LoadState(Globals.EStates.game);
                 else
                     Controller.Window.Close();
             }
-          
         }
 
         public override void AttackShip(Area areaReference)
         {
             _roundCounter++;
-            if (_roundCounter % 3 == 0)
+            if (_roundCounter%3 == 0)
             {
                 foreach (var room in areaReference.Rooms)
                 {
-                    int damage= (int)(room.MaxLife*0.4);
+                    var damage = (int) (room.MaxLife*0.4);
                     _horncount = 40;
                     room.ReceiveDamage(damage);
                 }
@@ -85,7 +83,7 @@ namespace Luftschiff.Code.Game.Monsters
         public override bool HasBeenHit(Vector2f projectilePosition)
         {
             //TODO debug that after some shots hitting is in front
-            if (getRect().Contains(projectilePosition.X - 350,projectilePosition.Y))
+            if (getRect().Contains(projectilePosition.X - 350, projectilePosition.Y))
                 return true;
             return false;
         }

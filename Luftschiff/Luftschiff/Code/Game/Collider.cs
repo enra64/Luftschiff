@@ -3,28 +3,31 @@ using Luftschiff.Code.Game.Projectiles;
 
 namespace Luftschiff.Code.Game
 {
-    class Collider
+    internal class Collider
     {
-        private List<Projectile> _projectileList = new List<Projectile>();
+        private readonly List<Projectile> _projectileList = new List<Projectile>();
 
         /// <summary>
-        /// The amount of projectiles tracked by the collider
+        ///     The amount of projectiles tracked by the collider
         /// </summary>
-        public int ProjectileCount { get { return _projectileList.Count; } }
+        public int ProjectileCount
+        {
+            get { return _projectileList.Count; }
+        }
 
         public void Update()
         {
-            foreach(var projectile in _projectileList)
+            foreach (var projectile in _projectileList)
                 //the projectiles target uses ITarget, and as such implements the hasbeenhit function
                 if (projectile != null && projectile.Target.HasBeenHit(projectile.Center))
                 {
                     //if first call after impact, induce damage to monster
-                    if(!projectile.ImpactHappened)
+                    if (!projectile.ImpactHappened)
                         projectile.Target.ReceiveDamage(100);
                     //call the WhileOverTarget to signal the projectile that the impact happened
                     projectile.WhileOverTarget();
                     //call OnImpact exactly once
-                    if(!projectile.ImpactHappened)
+                    if (!projectile.ImpactHappened)
                         projectile.OnImpact();
                     //impact has occured
                     projectile.ImpactHappened = true;
@@ -34,7 +37,7 @@ namespace Luftschiff.Code.Game
             _projectileList.RemoveAll(p => p.ShouldKill);
 
             //update all projectiles
-            foreach(var p in _projectileList)
+            foreach (var p in _projectileList)
                 p.Update();
 
             //remove null elements
@@ -53,6 +56,5 @@ namespace Luftschiff.Code.Game
         {
             _projectileList.Add(projectile);
         }
-
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Luftschiff.Code.Game.AreavRooms;
-using Luftschiff.Code.Game.Monsters;
-using Luftschiff.Graphics.Lib;
+﻿using Luftschiff.Graphics.Lib;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -13,11 +6,16 @@ using SFML.System;
 namespace Luftschiff.Code.Game.Projectiles
 {
     /// <summary>
-    /// Projectiles that fly along a straight path, like the cannonball, from room to monster, with a static sprite
-    /// and an impact fx animated sprite
+    ///     Projectiles that fly along a straight path, like the cannonball, from room to monster, with a static sprite
+    ///     and an impact fx animated sprite
     /// </summary>
-    abstract class KineticProjectile : Projectile
+    internal abstract class KineticProjectile : Projectile
     {
+        /// <summary>
+        ///     The direction this projectile travels in
+        /// </summary>
+        protected Vector2f Direction;
+
         /// <summary>
         ///     Animation to play on impact
         /// </summary>
@@ -29,19 +27,8 @@ namespace Luftschiff.Code.Game.Projectiles
         protected AnimatedSprite ImpactAnimationSprite;
 
         /// <summary>
-        /// The direction this projectile travels in
-        /// </summary>
-        protected Vector2f Direction;
-
-        public override bool ShouldKill { get; set; }
-
-        public override void OnImpact() {
-            new Sound(Globals.BoomSound).Play();
-        }
-
-        /// <summary>
-        /// set the target monster, init impacthappened & shouldkill => false, calculate direction,
-        /// add spritem set startposition
+        ///     set the target monster, init impacthappened & shouldkill => false, calculate direction,
+        ///     add spritem set startposition
         /// </summary>
         /// <param name="target">Projectile target</param>
         /// <param name="startRoom">Projectile start</param>
@@ -49,8 +36,8 @@ namespace Luftschiff.Code.Game.Projectiles
         public KineticProjectile(ITarget target, ITarget startRoom, Texture projectileTexture) : base(target)
         {
             //calculate direction for straight space traversal
-            Direction = (target.Center - startRoom.Center) / 70;
-            
+            Direction = (target.Center - startRoom.Center)/70;
+
             //init sprite
             Sprite = new Sprite(projectileTexture);
 
@@ -59,6 +46,13 @@ namespace Luftschiff.Code.Game.Projectiles
 
             //definite init that the projectile should not be immediately killed...
             ShouldKill = false;
+        }
+
+        public override bool ShouldKill { get; set; }
+
+        public override void OnImpact()
+        {
+            new Sound(Globals.BoomSound).Play();
         }
 
         /// <summary>
@@ -75,10 +69,10 @@ namespace Luftschiff.Code.Game.Projectiles
             //do magic
             if (!ShouldKill)
             {
-                if (ImpactAnimationSprite.TimesPlayed * 2 < ImpactAnimation.GetSize())
+                if (ImpactAnimationSprite.TimesPlayed*2 < ImpactAnimation.GetSize())
                     ImpactAnimationSprite.Play(ImpactAnimation);
                 else
-                    //signal the collider that this bullet should be killed
+                //signal the collider that this bullet should be killed
                     ShouldKill = true;
             }
         }

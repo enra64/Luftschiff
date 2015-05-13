@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Luftschiff.Code.Game.Crew;
-using Luftschiff.Code.Game.Monsters;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 
 namespace Luftschiff.Code.Game.AreavRooms.Rooms
 {
-    class AirEngineRoom : Room
+    internal class AirEngineRoom : Room
     {
-        public AirEngineRoom(Vector2f position): base(position)
+        public AirEngineRoom(Vector2f position) : base(position)
         {
             IntegerTilemap = LoadStandardTilekinds(2);
 

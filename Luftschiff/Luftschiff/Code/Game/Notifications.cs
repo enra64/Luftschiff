@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Policy;
 using SFML.Graphics;
 using SFML.System;
 
@@ -23,7 +22,9 @@ namespace Luftschiff.Code.Game
         /// <summary>
         ///     Private constructor for singleton
         /// </summary>
-        private Notifications() {}
+        private Notifications()
+        {
+        }
 
         /// <summary>
         ///     Get an instance of this singleton
@@ -32,7 +33,7 @@ namespace Luftschiff.Code.Game
         {
             get
             {
-                if(_singletoNotifications == null)
+                if (_singletoNotifications == null)
                     _singletoNotifications = new Notifications();
                 return _singletoNotifications;
             }
@@ -43,7 +44,8 @@ namespace Luftschiff.Code.Game
         /// </summary>
         /// <param name="pos">Position to start at</param>
         /// <param name="text">String to dispaly</param>
-        public void AddNotification(Vector2f pos, string text) {
+        public void AddNotification(Vector2f pos, string text)
+        {
             //use the fadespeed method with an invalid value to trigger disabling the fadespeed change
             AddNotification(pos, text, -1);
         }
@@ -111,11 +113,6 @@ namespace Luftschiff.Code.Game
             private byte _alphaValue = 255;
 
             /// <summary>
-            ///     Global rectangle of the text
-            /// </summary>
-            public FloatRect GlobalRect { get { return _text.GetGlobalBounds(); } }
-
-            /// <summary>
             ///     The notification color
             /// </summary>
             private Color _color = Color.Yellow;
@@ -142,8 +139,16 @@ namespace Luftschiff.Code.Game
             public Notification(Vector2f pos, string text, float fadeFactor) : this(pos, text)
             {
                 //avoid invalid values
-                if(fadeFactor > 0 && fadeFactor <= 1)
+                if (fadeFactor > 0 && fadeFactor <= 1)
                     _fadeOutFactor = fadeFactor;
+            }
+
+            /// <summary>
+            ///     Global rectangle of the text
+            /// </summary>
+            public FloatRect GlobalRect
+            {
+                get { return _text.GetGlobalBounds(); }
             }
 
             /// <summary>

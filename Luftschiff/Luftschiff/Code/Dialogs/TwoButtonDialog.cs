@@ -1,49 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Luftschiff.Code.States;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
-namespace Luftschiff.Code.Dialogs {
-    class TwoButtonDialog : Luftschiff.Code.States.Dialog
+namespace Luftschiff.Code.Dialogs
+{
+    internal class TwoButtonDialog : Dialog
     {
         private Text _messageText, _titleText;
         private Button _yesButton, _noButton;
-
         private bool _yesClicked, _userInteracted;
 
         /// <summary>
-        /// Constructor that lets you configure all dialog strings
+        ///     Constructor that lets you configure all dialog strings
         /// </summary>
-        public TwoButtonDialog(String yes, String no, String message, String title)
-            : base() {
+        public TwoButtonDialog(string yes, string no, string message, string title)
+        {
             CommonConstructor(yes, no, message, title);
         }
 
         /// <summary>
-        /// Minimal Dialog Constructor, using "Ja" and "Nein" for the buttons.
+        ///     Minimal Dialog Constructor, using "Ja" and "Nein" for the buttons.
         /// </summary>
-        public TwoButtonDialog(String message, String title)
-            : base() {
+        public TwoButtonDialog(string message, string title)
+        {
             CommonConstructor("Ja", "Nein", message, title);
         }
 
         /// <summary>
-        /// maximum amount of config possible with this one
+        ///     maximum amount of config possible with this one
         /// </summary>
-        public TwoButtonDialog(Vector2f size, Vector2f pos, String yes, String no, String message, String title)
+        public TwoButtonDialog(Vector2f size, Vector2f pos, string yes, string no, string message, string title)
             : base(size, pos)
         {
             CommonConstructor(yes, no, message, title);
         }
 
         /// <summary>
-        /// create a standard yesnodialog
+        ///     create a standard yesnodialog
         /// </summary>
-        private void CommonConstructor(String yes, String no, String message, String title)
+        private void CommonConstructor(string yes, string no, string message, string title)
         {
             //init texts using a object initializer which resharper suggested for some reason
             _titleText = new Text(title, Globals.DialogFont)
@@ -61,10 +58,12 @@ namespace Luftschiff.Code.Dialogs {
             //TODO: intelligent word wrapping algorithm...
 
             //init buttons
-            var leftButtonPosition = new Vector2f(Position.X,               Position.Y + Size.Y - Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
-            var rightButtonPosition = new Vector2f(Position.X + Size.X / 2, Position.Y + Size.Y - Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
+            var leftButtonPosition = new Vector2f(Position.X,
+                Position.Y + Size.Y - Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
+            var rightButtonPosition = new Vector2f(Position.X + Size.X/2,
+                Position.Y + Size.Y - Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
 
-            var buttonSize = new Vector2f(Size.X / 2, Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
+            var buttonSize = new Vector2f(Size.X/2, Globals.TWO_BUTTON_DIALOG_BUTTON_HEIGHT);
             _yesButton = new Button(yes, leftButtonPosition, buttonSize);
             _yesButton.ActivationKey = Keyboard.Key.Num1;
 
@@ -73,14 +72,14 @@ namespace Luftschiff.Code.Dialogs {
         }
 
         /// <summary>
-        /// <para>When you call this, the dialog will be shown. </para>It blocks everything else,
-        /// and returns true if the user clicked on the 'yes' button and false otherwise.
+        ///     <para>When you call this, the dialog will be shown. </para>
+        ///     It blocks everything else,
+        ///     and returns true if the user clicked on the 'yes' button and false otherwise.
         /// </summary>
         public bool show()
         {
             while (!_userInteracted)
             {
-                
                 Cursor.Update();
                 Controller.Window.DispatchEvents();
                 update();
@@ -93,7 +92,7 @@ namespace Luftschiff.Code.Dialogs {
         }
 
         /// <summary>
-        /// could be useful in the future. do not call this
+        ///     could be useful in the future. do not call this
         /// </summary>
         public override void kill()
         {
@@ -102,7 +101,7 @@ namespace Luftschiff.Code.Dialogs {
         }
 
         /// <summary>
-        /// You do not need to call this in anything but the dialog class
+        ///     You do not need to call this in anything but the dialog class
         /// </summary>
         public override void draw()
         {
@@ -114,9 +113,9 @@ namespace Luftschiff.Code.Dialogs {
         }
 
         /// <summary>
-        /// this updates on the button state. 
-        /// if a button has been clicked, the dialog will be closed and an appropriate value (true/false) will
-        /// be returned
+        ///     this updates on the button state.
+        ///     if a button has been clicked, the dialog will be closed and an appropriate value (true/false) will
+        ///     be returned
         /// </summary>
         public override void update()
         {
