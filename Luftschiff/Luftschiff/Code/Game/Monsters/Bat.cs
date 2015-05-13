@@ -88,9 +88,9 @@ namespace Luftschiff.Code.Game.Monsters
 
             if (Life <= 0)
             {
-                var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Drachen besiegt!").show();
+                var restart = new TwoButtonDialog("Nochmal starten?", "Du hast die Bats besiegt!").show();
                 if (restart)
-                    Controller.LoadState(Globals.EStates.game);
+                    Controller.LoadState(Globals.EStates.batfight);
                 else
                     Controller.Window.Close();
             }

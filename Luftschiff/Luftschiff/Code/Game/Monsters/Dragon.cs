@@ -122,7 +122,7 @@ namespace Luftschiff.Code.Game.Monsters
             {
                 var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Drachen besiegt!").show();
                 if (restart)
-                    Controller.LoadState(Globals.EStates.game);
+                    Controller.LoadState(Globals.EStates.dragonfight);
                 else
                     Controller.Window.Close();
             }

@@ -254,9 +254,9 @@ namespace Luftschiff.Code.Game.AreavRooms
             //show a "you died" dialog for now
             if (Life <= 0)
             {
-                var restart = new TwoButtonDialog("Nochmal starten?", "Du bist gestorben.").show();
+                var restart = new TwoButtonDialog("Menü","Zurück zum Desktop","Menü oder Beenden?","Du bist Gestorben!").show();
                 if (restart)
-                    Controller.LoadState(Globals.EStates.game);
+                    Controller.LoadState(Globals.EStates.menu);
                 else
                     Controller.Window.Close();
             }

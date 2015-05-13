@@ -19,7 +19,6 @@ namespace Luftschiff.Code
         public enum EStates
         {
             menu,
-            game,
             graphicstest,
             batfight,
             dragonfight,

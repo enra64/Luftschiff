@@ -55,7 +55,7 @@ namespace Luftschiff.Code.Game.Monsters
             {
                 var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Himmelswal besiegt!").show();
                 if (restart)
-                    Controller.LoadState(Globals.EStates.game);
+                    Controller.LoadState(Globals.EStates.whalefight);
                 else
                     Controller.Window.Close();
             }

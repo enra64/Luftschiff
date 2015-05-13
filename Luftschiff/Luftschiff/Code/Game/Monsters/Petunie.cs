@@ -46,9 +46,9 @@ namespace Luftschiff.Code.Game.Monsters
 
             if (Life <= 0)
             {
-                var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Himmelswal besiegt!").show();
+                var restart = new TwoButtonDialog("Nochmal starten?", "Du hast den Petunie besiegt!").show();
                 if (restart)
-                    Controller.LoadState(Globals.EStates.game);
+                    Controller.LoadState(Globals.EStates.petuniefight);
                 else
                     Controller.Window.Close();
             }
