@@ -68,6 +68,8 @@ namespace Luftschiff.Code.States
                 if (fightMenu.show() == 3)
                     Controller.LoadState(Globals.EStates.petuniefight);
             }
+            if(mainMenu.show() == 3)
+                Controller.LoadState(Globals.EStates.openworld);
         }
     }
 }

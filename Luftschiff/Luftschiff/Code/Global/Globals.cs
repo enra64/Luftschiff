@@ -20,6 +20,7 @@ namespace Luftschiff.Code
         {
             menu,
             graphicstest,
+            openworld,
             batfight,
             dragonfight,
             petuniefight,

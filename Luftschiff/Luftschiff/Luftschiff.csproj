@@ -105,6 +105,7 @@
     <Compile Include="Code\States\Fights\WhaleFight.cs" />
     <Compile Include="Code\States\GraphicsTest.cs" />
     <Compile Include="Code\States\Menu.cs" />
+    <Compile Include="Code\States\OpenWorld.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Graphics.Lib\AnimatedSprite.cs" />
     <Compile Include="Graphics.Lib\Animation.cs" />

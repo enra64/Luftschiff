@@ -49,6 +49,9 @@ namespace Luftschiff
                 case Globals.EStates.menu:
                     main = new Menu();
                     break;
+                case Globals.EStates.openworld:
+                    main = new OpenWorld();
+                    break;
                 case Globals.EStates.batfight:
                     main = new BatFight();
                     break;
